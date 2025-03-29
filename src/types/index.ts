@@ -46,6 +46,35 @@ export interface Subscription {
   amount: number;
 }
 
+export interface EventsResponse {
+  events: Event[];
+  has_more: boolean;
+  iter_first_key: string;
+  iter_last_key: string;
+}
+
+export interface Event {
+  id: string;
+  event_name: string;
+  external_customer_id: string;
+  customer_id?: string;
+  properties?: Record<string, any>;
+  source?: string;
+  timestamp: string;
+}
+
+export interface UsageResult {
+  value: number;
+  window_size?: string;
+}
+
+export interface UsageReport {
+  event_name: string;
+  type: string;
+  value: number;
+  results: UsageResult[];
+}
+
 export interface MCPConfig {
   name: string;
   version: string;

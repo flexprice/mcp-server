@@ -2,11 +2,9 @@ import { Customer, Subscription } from "../types";
 import apiClient from "../utils/apiClient";
 
 export class CustomerService {
-  async getCustomerByEmail(email: string): Promise<Customer | null> {
+  async getAllCustomers(): Promise<Customer[]> {
     try {
-      const response = await apiClient.get(
-        `/api/v1/customers/by-email/${email}`
-      );
+      const response = await apiClient.get(`/api/v1/customers`);
       return response.data;
     } catch (error) {
       throw error;
@@ -16,7 +14,7 @@ export class CustomerService {
   async getCustomerSubscriptions(customerId: string): Promise<Subscription[]> {
     try {
       const response = await apiClient.get(
-        `/api/v1/customers/${customerId}/subscriptions`
+        `/api/v1/subscriptions?customerId=${customerId}`
       );
       return response.data;
     } catch (error) {
@@ -27,7 +25,7 @@ export class CustomerService {
   async getActiveSubscriptions(customerId: string): Promise<Subscription[]> {
     try {
       const response = await apiClient.get(
-        `/api/v1/customers/${customerId}/subscriptions/active`
+        `/api/v1/subscriptions?customerId=${customerId}&subscription_status=active`
       );
       return response.data;
     } catch (error) {
@@ -38,28 +36,6 @@ export class CustomerService {
   async getCustomerById(customerId: string): Promise<Customer | null> {
     try {
       const response = await apiClient.get(`/api/v1/customers/${customerId}`);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async getCustomerPaymentMethods(customerId: string): Promise<any[]> {
-    try {
-      const response = await apiClient.get(
-        `/api/v1/customers/${customerId}/payment-methods`
-      );
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async getCustomerBillingHistory(customerId: string): Promise<any[]> {
-    try {
-      const response = await apiClient.get(
-        `/api/v1/customers/${customerId}/billing-history`
-      );
       return response.data;
     } catch (error) {
       throw error;

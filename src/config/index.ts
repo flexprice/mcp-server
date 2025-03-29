@@ -15,10 +15,5 @@ export const config = {
   mcp: {
     name: "flexprice-mcp-server",
     version: "1.0.0",
-    capabilities: {
-      tools: {},
-      resources: {},
-      prompts: {},
-    },
   },
 };
