@@ -39,11 +39,90 @@ export interface Subscription {
   id: string;
   customerId: string;
   planId: string;
-  status: "active" | "cancelled" | "expired";
+  status: "active" | "cancelled" | "expired" | "paused";
   startDate: Date;
   endDate?: Date;
-  billingCycle: "monthly" | "yearly";
+  billingCycle: "monthly" | "yearly" | "weekly" | "quarterly" | "half-yearly";
   amount: number;
+}
+
+// New interfaces based on FlexPrice API documentation
+export interface Plan {
+  id: string;
+  name: string;
+  lookup_key: string;
+  description?: string;
+  charges?: PlanCharge[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface PlanCharge {
+  id: string;
+  currency: string;
+  interval: "weekly" | "monthly" | "quarterly" | "half-yearly" | "yearly";
+  price: number;
+  billing_type: "advance" | "arrears";
+  trial_period_days?: number;
+}
+
+export interface Price {
+  id: string;
+  name: string;
+  lookup_key: string;
+  description?: string;
+  currency: string;
+  unit_amount: number;
+  billing_scheme: "per_unit" | "tiered";
+  tiers?: PriceTier[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface PriceTier {
+  flat_amount?: number;
+  unit_amount?: number;
+  up_to: number | "inf";
+}
+
+export interface Wallet {
+  id: string;
+  customer_id: string;
+  balance: number;
+  currency: string;
+  status: "active" | "closed";
+  auto_top_up?: {
+    threshold: number;
+    amount: number;
+    enabled: boolean;
+  };
+  created_at: string;
+  updated_at: string;
+}
+
+export interface WalletTransaction {
+  id: string;
+  wallet_id: string;
+  amount: number;
+  type: "credit" | "debit";
+  balance_after: number;
+  description?: string;
+  created_at: string;
+}
+
+export interface Payment {
+  id: string;
+  customer_id: string;
+  amount: number;
+  currency: string;
+  status: "pending" | "processed" | "failed";
+  payment_method?: {
+    type: string;
+    details: Record<string, any>;
+  };
+  invoice_id?: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface EventsResponse {

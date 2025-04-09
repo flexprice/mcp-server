@@ -4,6 +4,7 @@ import apiClient from "../utils/apiClient";
 export class EventService {
   /**
    * Get events for a specific customer
+   * Endpoint: GET /events
    */
   async getEventsByCustomer(
     externalCustomerId: string,
@@ -13,7 +14,7 @@ export class EventService {
     endTime?: string
   ): Promise<EventsResponse> {
     try {
-      let requestUrl = `/v1/events?external_customer_id=${externalCustomerId}`;
+      let requestUrl = `/events?external_customer_id=${externalCustomerId}`;
       if (iterFirstKey) {
         requestUrl += `&iter_first_key=${iterFirstKey}`;
       }
@@ -36,6 +37,7 @@ export class EventService {
 
   /**
    * Get usage statistics for events
+   * Endpoint: POST /events/usage
    */
   async getUsage(params: {
     aggregation_type: string;
@@ -49,7 +51,7 @@ export class EventService {
     filters?: Record<string, string[]>;
   }): Promise<UsageReport> {
     try {
-      const response = await apiClient.post("/api/v1/events/usage", params);
+      const response = await apiClient.post("/events/usage", params);
       return response.data;
     } catch (error) {
       throw error;
@@ -58,6 +60,7 @@ export class EventService {
 
   /**
    * Get usage statistics by meter
+   * Endpoint: POST /events/usage/meter
    */
   async getUsageByMeter(params: {
     meter_id: string;
@@ -69,10 +72,7 @@ export class EventService {
     filters?: Record<string, string[]>;
   }): Promise<UsageReport> {
     try {
-      const response = await apiClient.post(
-        "/api/v1/events/usage/meter",
-        params
-      );
+      const response = await apiClient.post("/events/usage/meter", params);
       return response.data;
     } catch (error) {
       throw error;
@@ -81,6 +81,7 @@ export class EventService {
 
   /**
    * Ingest a new event
+   * Endpoint: POST /events
    */
   async ingestEvent(event: {
     event_name: string;
@@ -92,7 +93,7 @@ export class EventService {
     timestamp?: string;
   }): Promise<void> {
     try {
-      await apiClient.post("/api/v1/events", event);
+      await apiClient.post("/events", event);
     } catch (error) {
       throw error;
     }
@@ -100,6 +101,7 @@ export class EventService {
 
   /**
    * Ingest multiple events in bulk
+   * Endpoint: POST /events/bulk
    */
   async bulkIngestEvents(
     events: Array<{
@@ -113,9 +115,11 @@ export class EventService {
     }>
   ): Promise<void> {
     try {
-      await apiClient.post("/api/v1/events/bulk", { events });
+      await apiClient.post("/events/bulk", { events });
     } catch (error) {
       throw error;
     }
   }
 }
+
+export default new EventService();
