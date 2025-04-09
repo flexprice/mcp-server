@@ -55,6 +55,38 @@ npm run build
 }
 ```
 
+## Testing
+
+The project uses Jest for unit testing. The tests are organized to mirror the source code structure:
+
+```
+src/
+├── __tests__/            # All test files
+│   ├── services/         # Tests for service classes
+│   ├── mcp/              # Tests for MCP components
+│   │   ├── handlers/     # Tests for MCP handlers
+│   │   └── tools/        # Tests for MCP tools
+│   └── utils/            # Tests for utility functions
+```
+
+To run the tests:
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode (for development)
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+
+# Run tests in CI mode
+npm run test:ci
+```
+
+For more detailed information about the testing approach and best practices, see the [Testing Guide](TESTING.md).
+
 ## License
 
 This project is licensed under the [Apache License 2.0](LICENSE).
