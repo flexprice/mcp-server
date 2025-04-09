@@ -100,5 +100,5 @@ server.connect(transport).catch((error) => {
 // Log server startup
 server.sendLoggingMessage({
   level: "info",
-  data: "Server started successfully with enhanced FlexPrice API integrations",
+  data: "Flexprice MCP server started successfully",
 });
