@@ -6,21 +6,24 @@ A Model Context Protocol (MCP) server that enables AI agents to access FlexPrice
 
 - Node.js (v20 or higher)
 - npm or yarn
-- TypeScript
 - FlexPrice API key (obtained from your FlexPrice account)
+- **For generating the server:** [Speakeasy CLI](https://www.speakeasy.com/) (see [Generating the MCP server](#generating-the-mcp-server))
 
 ## Quick start
 
-1. **Clone and build**
+1. **Clone, generate (if needed), and run**
    ```bash
    git clone <repository-url>
    cd mcp-server
    npm install
+   # Generate the MCP server (requires Speakeasy CLI; see below)
+   npm run generate:install
    npm run build
+   npm start
    ```
 2. **Configure your MCP client** (Cursor or Claude Desktop) with:
    - **Command:** `node`
-   - **Args:** absolute path to `build/index.js` (e.g. `$(pwd)/build/index.js` from repo root)
+   - **Args:** absolute path to `bin/mcp-server.js` and `start` (e.g. `$(pwd)/bin/mcp-server.js` from repo root, with args `["start"]`)
    - **Env:** `API_KEY_APIKEYAUTH` = your FlexPrice API key, `BASE_URL` = `https://api.cloud.flexprice.io` (or your API base)
 3. Restart the client and use the FlexPrice tools from your AI assistant.
 
@@ -70,7 +73,7 @@ For development you can use `npm run dev` (same as `npm start`; add your own fil
 
 ### Option 2: Docker Setup
 
-The Docker image builds and runs the MCP server (`build/index.js`).
+The Docker image builds and runs the MCP server (`bin/mcp-server.js start`).
 
 1. Clone the repository:
 
@@ -97,11 +100,11 @@ You need to tell your MCP host which **command** to run and which **env vars** t
 
 ### Where to find the config file
 
-| Host | Config location |
-|------|-----------------|
-| **Cursor** | In-app: **Cursor → Settings → MCP** (or **Cmd + Shift + P** → "Cursor Settings" → MCP). You edit the MCP servers list in the UI or in the JSON it writes. |
-| **Claude Desktop (macOS)** | `~/Library/Application Support/Claude/claude_desktop_config.json` |
-| **Claude Desktop (Windows)** | `%APPDATA%\Claude\claude_desktop_config.json` |
+| Host                         | Config location                                                                                                                                           |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Cursor**                   | In-app: **Cursor → Settings → MCP** (or **Cmd + Shift + P** → "Cursor Settings" → MCP). You edit the MCP servers list in the UI or in the JSON it writes. |
+| **Claude Desktop (macOS)**   | `~/Library/Application Support/Claude/claude_desktop_config.json`                                                                                         |
+| **Claude Desktop (Windows)** | `%APPDATA%\Claude\claude_desktop_config.json`                                                                                                             |
 
 To open the Claude config from a terminal (macOS):
 
@@ -112,11 +115,11 @@ cursor "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
 
 ### What to put in the config
 
-1. **Path to the server script** — Use the **absolute path** to `build/index.js` inside your cloned repo. From the repo root: `node -e "const path=require('path'); console.log(path.resolve('build/index.js'))"` or on macOS/Linux: `$(pwd)/build/index.js` after `cd`-ing into the repo.
+1. **Path to the server script** — Use the **absolute path** to `bin/mcp-server.js` inside your cloned repo, with args `["start"]`. From the repo root: `$(pwd)/bin/mcp-server.js` on macOS/Linux after `cd`-ing into the repo.
 
 2. **Environment variables** — `API_KEY_APIKEYAUTH` (your FlexPrice API key) and `BASE_URL` (e.g. `https://api.cloud.flexprice.io`). Both are required.
 
-Replace the path in the examples below with your repo's absolute path to `build/index.js`.
+Replace the path in the examples below with your repo's absolute path to `bin/mcp-server.js`.
 
 ### Example: Node (stdio)
 
@@ -125,7 +128,7 @@ Replace the path in the examples below with your repo's absolute path to `build/
   "mcpServers": {
     "flexprice": {
       "command": "node",
-      "args": ["/path/to/mcp-server/build/index.js"],
+      "args": ["/path/to/mcp-server/bin/mcp-server.js", "start"],
       "env": {
         "API_KEY_APIKEYAUTH": "your_api_key_here",
         "BASE_URL": "https://api.cloud.flexprice.io"
@@ -142,16 +145,7 @@ Replace the path in the examples below with your repo's absolute path to `build/
   "mcpServers": {
     "flexprice": {
       "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "API_KEY_APIKEYAUTH",
-        "-e",
-        "BASE_URL",
-        "flexprice-mcp"
-      ],
+      "args": ["run", "-i", "--rm", "-e", "API_KEY_APIKEYAUTH", "-e", "BASE_URL", "flexprice-mcp"],
       "env": {
         "API_KEY_APIKEYAUTH": "your_api_key_here",
         "BASE_URL": "https://api.cloud.flexprice.io"
@@ -203,7 +197,7 @@ The server exposes the FlexPrice API as MCP tools. Tool names and parameters mat
 3. **Permission Issues**:
 
    ```bash
-   chmod +x build/index.js
+   chmod +x bin/mcp-server.js
    ```
 
 ### Docker Issues
@@ -227,16 +221,205 @@ npm run test:ci
 
 See [TESTING.md](TESTING.md) for the testing guide and [CONTRIBUTING.md](CONTRIBUTING.md) for contribution workflow.
 
+## Generating the MCP server
+
+The server is generated with **Speakeasy** from `swagger/swagger-3-0.json`. Generate when setting up the repo or after changing the OpenAPI spec.
+
+**1. Install the Speakeasy CLI** (one-time)
+
+- **macOS (Homebrew):** `brew install speakeasy-api/tap/speakeasy`
+- **macOS/Linux (script):** `curl -fsSL https://go.speakeasy.com/cli-install.sh | sh`
+
+**2. Generate the server**
+
+From the repo root:
+
+```bash
+# Generate only (output at repo root; may overwrite package.json)
+npm run generate
+
+# Generate, restore repo scripts in package.json, and install dependencies (recommended)
+npm run generate:install
+```
+
+Or run Speakeasy directly:
+
+```bash
+speakeasy run --target flexprice-mcp -y
+```
+
+Then restore package.json scripts and install deps:
+
+```bash
+node scripts/merge-package-after-generate.cjs
+npm install
+```
+
+**3. Build and run**
+
+```bash
+npm run build
+npm start
+```
+
+Generated output is at the repo root (`src/`, `bin/mcp-server.js`, etc.). You can edit these files; re-run `npm run generate` or `npm run generate:install` after changing `swagger/swagger-3-0.json` or `.speakeasy/overlays.yaml`. The files `src/mcp-server/build.mts` and `src/mcp-server/cli/start/command.ts`, `impl.ts` are listed in `.genignore` so Speakeasy does not overwrite them (build uses Node/esbuild; CLI uses env vars `BASE_URL` and `API_KEY_APIKEYAUTH` for Cursor MCP). The merge script restores `package.json` scripts and deps after generation.
+
 ## Development
 
-The MCP server is generated from `swagger/swagger-3-0.json`. To update the API surface:
-
-1. Edit `swagger/swagger-3-0.json` (or replace with a new export from your API docs).
-2. Regenerate: `npm run generate` or `npm run generate:install` (merge package.json + install deps).
-3. Build and run: `npm run build` then `npm start`.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for scripts and env details, and [TESTING.md](TESTING.md) for tests.
+To change the API surface: edit `swagger/swagger-3-0.json` (or `.speakeasy/overlays.yaml` for retries), then run `npm run generate:install`, `npm run build`, and `npm start`. See [CONTRIBUTING.md](CONTRIBUTING.md) for scripts and [TESTING.md](TESTING.md) for tests.
 
 ## License
 
 This project is licensed under the [Apache License 2.0](LICENSE).
+
+<!-- Start Summary [summary] -->
+## Summary
+
+FlexPrice API: FlexPrice API Service
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+<!-- $toc-max-depth=2 -->
+* [FlexPrice MCP Server](#flexprice-mcp-server)
+  * [Prerequisites](#prerequisites)
+  * [Quick start](#quick-start)
+* [Generate only (output at repo root; may overwrite package.json)](#generate-only-output-at-repo-root-may-overwrite-packagejson)
+* [Generate, restore repo scripts in package.json, and install dependencies (recommended)](#generate-restore-repo-scripts-in-packagejson-and-install-dependencies-recommended)
+
+<!-- End Table of Contents [toc] -->
+
+<!-- Start Installation [installation] -->
+## Installation
+
+> [!TIP]
+> To finish publishing your MCP Server to npm and others you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
+<details>
+<summary>Claude Desktop</summary>
+
+Install the MCP server as a Desktop Extension using the pre-built [`mcp-server.mcpb`](./mcp-server.mcpb) file:
+
+Simply drag and drop the [`mcp-server.mcpb`](./mcp-server.mcpb) file onto Claude Desktop to install the extension.
+
+The MCP bundle package includes the MCP server and all necessary configuration. Once installed, the server will be available without additional setup.
+
+> [!NOTE]
+> MCP bundles provide a streamlined way to package and distribute MCP servers. Learn more about [Desktop Extensions](https://www.anthropic.com/engineering/desktop-extensions).
+
+</details>
+
+<details>
+<summary>Cursor</summary>
+
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](cursor://anysphere.cursor-deeplink/mcp/install?name=FlexPrice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJtY3AiLCJzdGFydCIsIi0tc2VydmVyLXVybCIsIiIsIi0tYXBpLWtleS1hdXRoIiwiIl19)
+
+Or manually:
+
+1. Open Cursor Settings
+2. Select Tools and Integrations
+3. Select New MCP Server
+4. If the configuration file is empty paste the following JSON into the MCP Server Configuration:
+
+```json
+{
+  "command": "npx",
+  "args": [
+    "mcp",
+    "start",
+    "--server-url",
+    "",
+    "--api-key-auth",
+    ""
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Claude Code CLI</summary>
+
+```bash
+claude mcp add FlexPrice -- npx -y mcp start --server-url  --api-key-auth 
+```
+
+</details>
+<details>
+<summary>Gemini</summary>
+
+```bash
+gemini mcp add FlexPrice -- npx -y mcp start --server-url  --api-key-auth 
+```
+
+</details>
+<details>
+<summary>Windsurf</summary>
+
+Refer to [Official Windsurf documentation](https://docs.windsurf.com/windsurf/cascade/mcp#adding-a-new-mcp-plugin) for latest information
+
+1. Open Windsurf Settings
+2. Select Cascade on left side menu
+3. Click on `Manage MCPs`. (To Manage MCPs you should be signed in with a Windsurf Account)
+4. Click on `View raw config` to open up the mcp configuration file.
+5. If the configuration file is empty paste the full json
+
+```bash
+{
+  "command": "npx",
+  "args": [
+    "mcp",
+    "start",
+    "--server-url",
+    "",
+    "--api-key-auth",
+    ""
+  ]
+}
+```
+</details>
+<details>
+<summary>VS Code</summary>
+
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-VS_Code?style=flat-square&label=Install%20FlexPrice%20MCP&color=0098FF)](vscode://ms-vscode.vscode-mcp/install?name=FlexPrice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJtY3AiLCJzdGFydCIsIi0tc2VydmVyLXVybCIsIiIsIi0tYXBpLWtleS1hdXRoIiwiIl19)
+
+Or manually:
+
+Refer to [Official VS Code documentation](https://code.visualstudio.com/api/extension-guides/ai/mcp) for latest information
+
+1. Open [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette)
+1. Search and open `MCP: Open User Configuration`. This should open mcp.json file
+2. If the configuration file is empty paste the full json
+
+```bash
+{
+  "command": "npx",
+  "args": [
+    "mcp",
+    "start",
+    "--server-url",
+    "",
+    "--api-key-auth",
+    ""
+  ]
+}
+```
+
+</details>
+<details>
+<summary> Stdio installation via npm </summary>
+To start the MCP server, run:
+
+```bash
+npx mcp start --server-url  --api-key-auth 
+```
+
+For a full list of server arguments, run:
+
+```
+npx mcp --help
+```
+
+</details>
+<!-- End Installation [installation] -->
+
+<!-- Placeholder for Future Speakeasy SDK Sections -->

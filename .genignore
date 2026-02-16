@@ -1,0 +1,3 @@
+# Manually maintained: --server-url and --api-key-auth optional, with env fallback (BASE_URL, API_KEY_APIKEYAUTH) for Cursor MCP.
+/src/mcp-server/cli/start/command.ts
+/src/mcp-server/cli/start/impl.ts
