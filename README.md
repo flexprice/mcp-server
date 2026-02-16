@@ -24,7 +24,7 @@ A Model Context Protocol (MCP) server that enables AI agents to access FlexPrice
 2. **Configure your MCP client** (Cursor or Claude Desktop) with:
    - **Command:** `node`
    - **Args:** absolute path to `bin/mcp-server.js` and `start` (e.g. `$(pwd)/bin/mcp-server.js` from repo root, with args `["start"]`)
-   - **Env:** `API_KEY_APIKEYAUTH` = your FlexPrice API key, `BASE_URL` = `https://api.cloud.flexprice.io` (or your API base)
+   - **Env:** `API_KEY_APIKEYAUTH` = your FlexPrice API key, `BASE_URL` = your API base **including** `/v1` (e.g. `https://api.cloud.flexprice.io/v1`)
 3. Restart the client and use the FlexPrice tools from your AI assistant.
 
 For a full MCP config example and troubleshooting, see [MCP client configuration](#mcp-client-configuration-cursor-and-claude-desktop) and [Troubleshooting](#troubleshooting).
@@ -51,11 +51,11 @@ npm install
 3. Create a `.env` file in the project root (copy from `.env.example`) and set **both**:
 
 ```
-BASE_URL=https://api.cloud.flexprice.io
+BASE_URL=https://api.cloud.flexprice.io/v1
 API_KEY_APIKEYAUTH=your_api_key_here
 ```
 
-**Important:** `BASE_URL` is required. If it is missing, the server will log "proxying API at /v1" but tool calls will fail with **invalid url**, because the server needs the full API host (e.g. `https://api.cloud.flexprice.io`) to make requests.
+**Important:** `BASE_URL` is required and must include the `/v1` path (e.g. `https://api.cloud.flexprice.io/v1`), with no trailing slash after `v1`, so that requests resolve correctly. If it is missing or omits `/v1`, tool calls can fail with **invalid url** or **404**.
 
 4. Build the project:
 
@@ -91,7 +91,7 @@ docker build -t flexprice-mcp .
 3. Run the Docker container with your API credentials:
 
 ```bash
-docker run -i -e API_KEY_APIKEYAUTH=your_api_key_here -e BASE_URL=https://api.cloud.flexprice.io flexprice-mcp
+docker run -i -e API_KEY_APIKEYAUTH=your_api_key_here -e BASE_URL=https://api.cloud.flexprice.io/v1 flexprice-mcp
 ```
 
 ## MCP client configuration (Cursor and Claude Desktop)
@@ -117,7 +117,7 @@ cursor "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
 
 1. **Path to the server script** — Use the **absolute path** to `bin/mcp-server.js` inside your cloned repo, with args `["start"]`. From the repo root: `$(pwd)/bin/mcp-server.js` on macOS/Linux after `cd`-ing into the repo.
 
-2. **Environment variables** — `API_KEY_APIKEYAUTH` (your FlexPrice API key) and `BASE_URL` (e.g. `https://api.cloud.flexprice.io`). Both are required.
+2. **Environment variables** — `API_KEY_APIKEYAUTH` (your FlexPrice API key) and `BASE_URL`, which must include `/v1` (e.g. `https://api.cloud.flexprice.io/v1`). Both are required. When configuring via env only (e.g. Cursor MCP `env`), set `BASE_URL` to the API base **including** `/v1`, e.g. `https://api-dev.cloud.flexprice.io/v1` for the dev API.
 
 Replace the path in the examples below with your repo's absolute path to `bin/mcp-server.js`.
 
@@ -131,7 +131,7 @@ Replace the path in the examples below with your repo's absolute path to `bin/mc
       "args": ["/path/to/mcp-server/bin/mcp-server.js", "start"],
       "env": {
         "API_KEY_APIKEYAUTH": "your_api_key_here",
-        "BASE_URL": "https://api.cloud.flexprice.io"
+        "BASE_URL": "https://api.cloud.flexprice.io/v1"
       }
     }
   }
@@ -148,7 +148,7 @@ Replace the path in the examples below with your repo's absolute path to `bin/mc
       "args": ["run", "-i", "--rm", "-e", "API_KEY_APIKEYAUTH", "-e", "BASE_URL", "flexprice-mcp"],
       "env": {
         "API_KEY_APIKEYAUTH": "your_api_key_here",
-        "BASE_URL": "https://api.cloud.flexprice.io"
+        "BASE_URL": "https://api.cloud.flexprice.io/v1"
       }
     }
   }
@@ -165,11 +165,12 @@ The server exposes the FlexPrice API as MCP tools. Tool names and parameters mat
 
 ### "Invalid URL" or request errors when calling tools
 
-- **Cause:** The server builds request URLs from `process.env.BASE_URL` + the path (e.g. `/v1/customers`). If `BASE_URL` is not set, the URL is just `/v1/...`, which is invalid for axios in Node.
+- **Cause:** The server builds request URLs from `process.env.BASE_URL` + the path (e.g. `/customers`). If `BASE_URL` is not set, the URL is invalid. If `BASE_URL` omits `/v1`, you may get **404** because the API expects the base to include `/v1`.
 - **Fix:**
-  1. When running locally: create a `.env` in the project root with `BASE_URL=https://api.cloud.flexprice.io` (or your FlexPrice API base). No trailing slash. Then run `npm run start` again.
-  2. When using Cursor or Claude: in the MCP server config, add `"BASE_URL": "https://api.cloud.flexprice.io"` to the `env` object for the `flexprice` server.
-  3. Quick test from the repo root: `BASE_URL=https://api.cloud.flexprice.io API_KEY_APIKEYAUTH=your_key npm run start`.
+  1. When running locally: create a `.env` in the project root with `BASE_URL=https://api.cloud.flexprice.io/v1` (or `https://api-dev.cloud.flexprice.io/v1` for dev). No trailing slash after `v1`. Then run `npm run start` again.
+  2. When using Cursor or Claude: in the MCP server config, add `"BASE_URL": "https://api.cloud.flexprice.io/v1"` to the `env` object for the `flexprice` server.
+  3. Quick test from the repo root: `BASE_URL=https://api.cloud.flexprice.io/v1 API_KEY_APIKEYAUTH=your_key npm run start`.
+  4. If you get **404** on tool calls, ensure `BASE_URL` includes `/v1`.
 
 ### API Connection Issues
 
