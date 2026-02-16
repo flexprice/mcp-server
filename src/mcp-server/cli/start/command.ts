@@ -53,9 +53,9 @@ export const startCommand = buildCommand({
       },
       "server-url": {
         kind: "parsed",
-        brief: "Overrides the default server URL used by the SDK",
-        optional: false,
-        parse: (value) => new URL(value).toString(),
+        brief: "Overrides the default server URL used by the SDK (default: BASE_URL env)",
+        optional: true,
+        parse: (value) => (value ? new URL(value).toString() : ""),
       },
       "server-index": {
         kind: "parsed",
