@@ -1,6 +1,23 @@
 # FlexPrice MCP Server
 
-A Model Context Protocol (MCP) server that enables AI agents to access FlexPrice invoice and customer data efficiently.
+A Model Context Protocol (MCP) server that enables AI agents to access FlexPrice API (customers, plans, prices, subscriptions, invoices, payments, events, etc.) via tools.
+
+## Quick start
+
+1. **Clone and build**
+   ```bash
+   git clone <repository-url>
+   cd mcp-server
+   npm install
+   npm run build
+   ```
+2. **Configure your MCP client** (Cursor or Claude Desktop) with:
+   - **Command:** `node`
+   - **Args:** absolute path to `build/index.js` (e.g. `$(pwd)/build/index.js` from repo root)
+   - **Env:** `API_KEY_APIKEYAUTH` = your FlexPrice API key, `BASE_URL` = `https://api.cloud.flexprice.io` (or your API base)
+3. Restart the client and use the FlexPrice tools from your AI assistant.
+
+For a full MCP config example and troubleshooting, see [MCP client configuration](#mcp-client-configuration-cursor-and-claude-desktop) and [Troubleshooting](#troubleshooting).
 
 ## Tools
 
@@ -206,7 +223,7 @@ A Model Context Protocol (MCP) server that enables AI agents to access FlexPrice
 
 ## Generated MCP server (for agents)
 
-The MCP server is generated at the **repo root** via `npm run generate` (generator writes `src/` for source and `build/` for the runnable server) so agents (Cursor, Claude, etc.) use the same spec as the source of truth. The previous in-repo implementation is in **`runtime/`** for reference or for running with `npm run dev:runtime`. After updating `swagger/swagger-3-0.json`, regenerate and run the generated server.
+The MCP server is generated at the **repo root** via `npm run generate` (generator writes `src/` for source and `build/` for the runnable server) so agents (Cursor, Claude, etc.) use the same OpenAPI spec as the source of truth. After updating `swagger/swagger-3-0.json`, regenerate and run the generated server.
 
 1. **Generate the server** (requires Node.js and npx):
    ```bash
@@ -217,13 +234,33 @@ The MCP server is generated at the **repo root** via `npm run generate` (generat
    npm run generate:install
    ```
 
-2. **Set environment variables** for the generated server: FlexPrice API key and base URL. Configure these in your MCP client (Cursor or Claude Desktop) or in a `.env` file in the project root (see `.env.example` after generation). Typical names: `API_KEY` and `BASE_URL`, or `FLEXPRICE_API_KEY` and `FLEXPRICE_BASE_URL`.
+2. **Set environment variables** for the generated server: FlexPrice API key and base URL. Configure these in your MCP client (Cursor or Claude Desktop) or in a `.env` file in the project root (see `.env.example`). Use **`API_KEY_APIKEYAUTH`** for the API key and **`BASE_URL`** for the API base URL (e.g. `https://api.cloud.flexprice.io`).
 
 3. **Point the MCP client at the generated server**:
    - **stdio:** Use the path to the generated server’s entry (e.g. `node /path/to/flexprice-mcp-server/build/index.js` or `npm start` from the repo root). In Cursor/Claude, set `command` to `node` and `args` to that path (or `npm` with `args: ["start"]` and `cwd` to the repo root).
    - **HTTP:** If you use a transport that serves HTTP, use the URL/port the generated server listens on.
 
-The generated server lives at the repo root. To run it locally after generating: `npm start` (or `npm run run:generated`). To run the previous in-repo implementation instead, use `npm run dev:runtime` (see Setup below).
+The generated server lives at the repo root. To run it locally after generating: `npm start` (or `npm run run:generated`).
+
+### Development workflow (updating the API surface)
+
+When the FlexPrice API or OpenAPI spec changes:
+
+1. Update **`swagger/swagger-3-0.json`** (or replace with a new export from your API docs).
+2. Regenerate the server:
+   ```bash
+   npm run generate
+   ```
+   To also merge package.json and reinstall deps:
+   ```bash
+   npm run generate:install
+   ```
+3. Build and run:
+   ```bash
+   npm run build
+   npm start
+   ```
+4. If you added env vars in your MCP client config (e.g. Cursor), no change needed. For local `.env`, ensure `BASE_URL` and `API_KEY_APIKEYAUTH` are set (see `.env.example`).
 
 ## Prerequisites
 
@@ -234,7 +271,7 @@ The generated server lives at the repo root. To run it locally after generating:
 
 ## Setup
 
-You can run the MCP server in two ways: **Option 1–2** run the generated server at repo root (after `npm run generate` / `npm run generate:install`) or use Docker. For the previous in-repo implementation in `runtime/`, use `npm run dev:runtime`. See [Generated MCP server](#generated-mcp-server-for-agents) for generation details.
+You can run the MCP server in two ways: **Option 1** runs the generated server locally (after `npm run generate` or `npm run generate:install`); **Option 2** uses Docker. See [Generated MCP server](#generated-mcp-server-for-agents) for generation details.
 
 ### Option 1: Local Setup
 
@@ -272,21 +309,11 @@ npm run build
 npm start
 ```
 
-To run the generated server (same as `npm start`):
-
-```bash
-npm run dev
-```
-
-To run the previous in-repo implementation (in `runtime/`) instead:
-
-```bash
-npm run dev:runtime
-```
+For development with auto-rebuild you can use `npm run dev` (same as `npm start`; add your own file watcher if desired).
 
 ### Option 2: Docker Setup
 
-The Docker image builds and runs the **generated** MCP server (`build/index.js`) and does not include the `runtime/` implementation.
+The Docker image builds and runs the **generated** MCP server (`build/index.js`).
 
 1. Clone the repository:
 
@@ -411,6 +438,8 @@ After cloning, building (`npm run build`), and resolving the path to `build/inde
 
 #### Docker
 
+Use the same env var names as the server expects (`API_KEY_APIKEYAUTH`, `BASE_URL`):
+
 ```json
 {
   "mcpServers": {
@@ -421,13 +450,13 @@ After cloning, building (`npm run build`), and resolving the path to `build/inde
         "-i",
         "--rm",
         "-e",
-        "API_KEY",
+        "API_KEY_APIKEYAUTH",
         "-e",
         "BASE_URL",
         "flexprice-mcp"
       ],
       "env": {
-        "API_KEY": "your_api_key_here",
+        "API_KEY_APIKEYAUTH": "your_api_key_here",
         "BASE_URL": "https://api.cloud.flexprice.io"
       }
     }
@@ -503,17 +532,7 @@ If you encounter issues with the FlexPrice MCP server, try these troubleshooting
 
 ## Testing
 
-The project uses Jest for unit testing. The tests are organized to mirror the runtime implementation (in `runtime/`):
-
-```
-runtime/
-├── __tests__/            # All test files
-│   ├── services/         # Tests for service classes
-│   ├── mcp/              # Tests for MCP components
-│   │   ├── handlers/     # Tests for MCP handlers
-│   │   └── tools/        # Tests for MCP tools
-│   └── utils/            # Tests for utility functions
-```
+The project uses Jest for unit testing. Test files live under `src/__tests__/` or alongside source with `*.test.ts` / `*.spec.ts`. Add tests for any custom logic you add; the generated `src/index.ts` is driven by the OpenAPI spec.
 
 To run the tests:
 
@@ -531,7 +550,7 @@ npm run test:coverage
 npm run test:ci
 ```
 
-For more detailed information about the testing approach and best practices, see the [Testing Guide](TESTING.md).
+For more detailed information about the testing approach and best practices, see the [Testing Guide](TESTING.md). For contribution workflow (regenerating from OpenAPI, scripts, env), see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 

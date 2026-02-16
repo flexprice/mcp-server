@@ -1,31 +1,26 @@
 # FlexPrice MCP Server Testing Guide
 
-This guide explains the testing approach for the FlexPrice MCP server, including how to run tests and create new ones.
+This guide explains how to run and add tests for the FlexPrice MCP server.
 
 ## Testing Architecture
 
-The project uses Jest as the testing framework with TypeScript support via ts-jest. The testing approach follows these principles:
+The project uses **Jest** with **ts-jest** for TypeScript. The main server is generated from the OpenAPI spec (`src/index.ts`). You can add tests for any custom logic or for helpers you introduce.
 
-1. **Unit Testing**: Each component is tested in isolation with dependencies mocked
-2. **Integration Testing**: Key integration points are tested to ensure components work together
-3. **Mock-based Testing**: External dependencies (API calls) are mocked to enable fast, reliable tests
+- **Unit tests**: Mock external dependencies (e.g. axios) and test behavior in isolation.
+- **Naming**: Use `*.test.ts` or `*.spec.ts` and place files under `src/__tests__/` or next to the module under test.
 
 ## Directory Structure
 
-Tests are organized to mirror the source code structure:
+Current layout:
 
 ```
 src/
-├── __tests__/            # All test files
-│   ├── services/         # Tests for service classes
-│   ├── mcp/              # Tests for MCP components
-│   │   ├── handlers/     # Tests for MCP handlers
-│   │   └── tools/        # Tests for MCP tools
-│   └── utils/            # Tests for utility functions
-├── services/             # Service implementations
-├── mcp/                  # MCP components
-└── utils/                # Utility functions
+├── index.ts              # Generated MCP server (from OpenAPI)
+└── __tests__/            # Optional: add test files here
+    └── *.test.ts
 ```
+
+Jest is configured in `jest.config.js` (preset ts-jest, ESM). The app is the generated server at repo root (`src/index.ts` → `build/index.js`).
 
 ## Running Tests
 
@@ -47,70 +42,40 @@ npm run test:ci
 
 ## Creating New Tests
 
-### Test File Naming
+### Test file naming and location
 
-- Test files should be named with `.test.ts` or `.spec.ts` suffix
-- Place test files in the `__tests__` directory that mirrors the structure of the code being tested
+- Use the `.test.ts` or `.spec.ts` suffix.
+- Place tests in `src/__tests__/` or alongside the file under test (e.g. `src/__tests__/index.test.ts` for logic extracted from the generated server).
 
-### Example: Testing a Service
+### Example: testing a helper with mocked axios
+
+If you add a helper that calls the API, mock the HTTP client and assert on inputs and outputs:
 
 ```typescript
-// src/__tests__/services/myService.test.ts
-import myService from "../../services/myService";
-import apiClient from "../../utils/apiClient";
+// src/__tests__/myHelper.test.ts
+import { myHelper } from "../myHelper";
 
-// Mock dependencies
-jest.mock("../../utils/apiClient");
-const mockedApiClient = apiClient as jest.Mocked<typeof apiClient>;
+jest.mock("axios");
+const axios = require("axios");
 
-describe("My Service", () => {
+describe("myHelper", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  test("should fetch data correctly", async () => {
-    // Arrange
+  test("calls API with correct URL and returns data", async () => {
     const mockData = { id: "123", name: "Test" };
-    mockedApiClient.get.mockResolvedValueOnce({ data: mockData });
+    axios.get.mockResolvedValueOnce({ data: mockData });
 
-    // Act
-    const result = await myService.getData("123");
+    const result = await myHelper("123");
 
-    // Assert
-    expect(mockedApiClient.get).toHaveBeenCalledWith("/endpoint/123");
+    expect(axios.get).toHaveBeenCalledWith(expect.stringContaining("/v1/"));
     expect(result).toEqual(mockData);
-  });
-
-  test("should handle errors", async () => {
-    // Arrange
-    mockedApiClient.get.mockRejectedValueOnce(new Error("API Error"));
-
-    // Act & Assert
-    await expect(myService.getData("123")).rejects.toThrow("API Error");
   });
 });
 ```
 
-### Testing Utilities
-
-The project includes testing utilities in `src/__tests__/testUtils.ts` to make creating tests easier:
-
-```typescript
-import {
-  createMockCustomer,
-  mockApiResponse,
-  mockApiError,
-} from "../testUtils";
-
-// Create mock data
-const customer = createMockCustomer({ name: "Custom Name" });
-
-// Mock a successful API response
-mockedApiClient.get.mockImplementation(() => mockApiResponse(customer));
-
-// Mock an API error
-mockedApiClient.get.mockImplementation(() => mockApiError(404, "Not Found"));
-```
+For the **generated** `src/index.ts`, the behavior is defined by the OpenAPI spec; regeneration overwrites that file. Prefer testing any custom logic in separate modules and mocking the generated entry if needed.
 
 ## Best Practices
 
@@ -121,15 +86,6 @@ mockedApiClient.get.mockImplementation(() => mockApiError(404, "Not Found"));
 5. **Arrange-Act-Assert**: Structure tests with clear setup, execution, and verification phases
 6. **Test Edge Cases**: Include tests for edge cases and boundary conditions
 
-## Coverage Requirements
+## Coverage
 
-The project has the following coverage thresholds:
-
-- Statements: 24%
-- Branches: 18%
-- Functions: 4%
-- Lines: 24%
-
-As test coverage improves over time, these thresholds should be gradually increased.
-
-You can view detailed coverage information in the `coverage` directory after running tests with coverage.
+Run `npm run test:coverage` to generate a coverage report in the `coverage/` directory. You can add coverage thresholds in `jest.config.js` (e.g. `coverageThreshold`) as tests grow.

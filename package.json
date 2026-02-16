@@ -17,7 +17,6 @@
     "generate": "npx openapi-mcp-generator --input swagger/swagger-3-0.json --output . --server-name flexprice-mcp --force",
     "generate:install": "npm run generate && node scripts/merge-package-after-generate.cjs && npm install",
     "run:generated": "npm start",
-    "dev:runtime": "ts-node runtime/server.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",

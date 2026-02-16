@@ -1,7 +1,7 @@
 /**
  * After openapi-mcp-generator runs with --output ., it overwrites package.json.
- * This script merges back our repo scripts and devDependencies so generate,
- * dev:runtime, and tests keep working.
+ * This script merges back our repo scripts and devDependencies so generate
+ * and tests keep working.
  */
 const fs = require("fs");
 const path = require("path");
@@ -16,7 +16,6 @@ const extraScripts = {
   "generate:install":
     "npm run generate && node scripts/merge-package-after-generate.cjs && npm install",
   "run:generated": "npm start",
-  "dev:runtime": "ts-node runtime/server.ts",
   test: "jest",
   "test:watch": "jest --watch",
   "test:coverage": "jest --coverage",
