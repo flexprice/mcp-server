@@ -10,7 +10,10 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci --coverage"
+    "test:ci": "jest --ci --coverage",
+    "generate": "npx openapi-mcp-generator --input swagger/swagger-3-0.json --output generated-mcp-server --server-name flexprice-mcp --force",
+    "generate:install": "npm run generate && cd generated-mcp-server && npm install",
+    "run:generated": "cd generated-mcp-server && npm start"
   },
   "keywords": [
     "mcp",

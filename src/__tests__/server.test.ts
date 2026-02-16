@@ -11,24 +11,24 @@ jest.mock("@modelcontextprotocol/sdk/server/index.js", () => ({
   })),
 }));
 
-// Mock the MCP components
+// Mock the MCP components: server uses getToolsAndHandler()
 jest.mock("../mcp", () => ({
-  tools: ["mockTool1", "mockTool2"],
-  handleToolCall: jest.fn(),
+  getToolsAndHandler: jest.fn().mockResolvedValue({
+    tools: [{ name: "mockTool1" }, { name: "mockTool2" }],
+    handleToolCall: jest.fn(),
+  }),
   prompts: ["mockPrompt1", "mockPrompt2"],
   handlePrompt: jest.fn(),
   resources: ["mockResource1", "mockResource2"],
   readResource: jest.fn(),
 }));
 
-// Basic test to verify server imports work
 describe("Server", () => {
   test("should have server module dependencies defined", () => {
     expect(Server).toBeDefined();
     expect(config).toBeDefined();
     expect(config.mcp).toBeDefined();
     expect(mcpComponents).toBeDefined();
-    expect(mcpComponents.tools).toBeDefined();
-    expect(mcpComponents.handleToolCall).toBeDefined();
+    expect(mcpComponents.getToolsAndHandler).toBeDefined();
   });
 });

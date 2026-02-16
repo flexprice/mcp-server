@@ -204,6 +204,27 @@ A Model Context Protocol (MCP) server that enables AI agents to access FlexPrice
   - Get events by customer
   - Get usage statistics for events
 
+## Generated MCP server (for agents)
+
+You can generate a standalone MCP server from the OpenAPI spec so agents (Cursor, Claude, etc.) use the same spec as the source of truth. After updating `swagger/swagger-3-0.json`, regenerate and run the generated server.
+
+1. **Generate the server** (requires Node.js and npx):
+   ```bash
+   npm run generate
+   ```
+   Optionally install dependencies so it is ready to run:
+   ```bash
+   npm run generate:install
+   ```
+
+2. **Set environment variables** for the generated server: FlexPrice API key and base URL. Configure these in your MCP client (Cursor or Claude Desktop) or in a `.env` file inside `generated-mcp-server/` (see that directory’s `.env.example` after generation). Typical names: `API_KEY` and `BASE_URL`, or `FLEXPRICE_API_KEY` and `FLEXPRICE_BASE_URL`.
+
+3. **Point the MCP client at the generated server**:
+   - **stdio:** Use the path to the generated server’s entry (e.g. `node /path/to/flexprice-mcp-server/generated-mcp-server/dist/server.js` or `npm start` from `generated-mcp-server/`). In Cursor/Claude, set `command` to `node` and `args` to that path (or `npm` with `args: ["start"]` and `cwd` to the generated directory).
+   - **HTTP:** If you use a transport that serves HTTP, use the URL/port the generated server listens on.
+
+The generated output is in `generated-mcp-server/` (gitignored). To run it locally after generating: `npm run run:generated`. For local development you can instead run the in-repo server with `npm start` in the repo root (see Setup below).
+
 ## Prerequisites
 
 - Node.js (v14 or higher)
@@ -212,6 +233,8 @@ A Model Context Protocol (MCP) server that enables AI agents to access FlexPrice
 - FlexPrice API key (obtained from your FlexPrice account)
 
 ## Setup
+
+You can run the MCP server in two ways: **Option 1–2** use the in-repo server (build and run from this repo). For a spec-generated server for agents, use the [Generated MCP server](#generated-mcp-server-for-agents) section above.
 
 ### Option 1: Local Setup
 

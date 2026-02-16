@@ -1,120 +1,138 @@
-import { handleToolCall } from "../../../mcp/handlers/toolHandlers";
-import invoiceService from "../../../services/invoiceService";
-import customerService from "../../../services/customerService";
-import planService from "../../../services/planService";
-import priceService from "../../../services/priceService";
-import subscriptionService from "../../../services/subscriptionService";
-import walletService from "../../../services/walletService";
-import paymentService from "../../../services/paymentService";
-import eventService from "../../../services/eventService";
+import { buildToolsFromSpec } from "../../../openapi/toolsFromSpec";
+import { handleOpenAPIProxyToolCall } from "../../../mcp/handlers/openapiProxyHandler";
+import apiClient from "../../../utils/apiClient";
 
-// Mock all services
-jest.mock("../../../services/invoiceService");
-jest.mock("../../../services/customerService");
-jest.mock("../../../services/planService");
-jest.mock("../../../services/priceService");
-jest.mock("../../../services/subscriptionService");
-jest.mock("../../../services/walletService");
-jest.mock("../../../services/paymentService");
-jest.mock("../../../services/eventService");
+jest.mock("../../../utils/apiClient", () => ({
+  __esModule: true,
+  default: { request: jest.fn() },
+}));
 
-describe("Tool Handlers", () => {
+const mockRequest = apiClient.request as jest.Mock;
+
+describe("buildToolsFromSpec", () => {
+  test("builds one tool from minimal spec with operationId and server path", () => {
+    const spec = {
+      openapi: "3.0.1",
+      paths: {
+        "/customers/{id}": {
+          get: {
+            operationId: "getCustomer",
+            summary: "Get a customer by ID",
+            parameters: [
+              { name: "id", in: "path" as const, required: true, schema: { type: "string" } },
+            ],
+          },
+        },
+      },
+      servers: [{ url: "/v1" }],
+    };
+    const { tools, operationsByToolName } = buildToolsFromSpec(spec as any);
+    expect(tools).toHaveLength(1);
+    expect(tools[0].name).toBe("getCustomer");
+    expect(tools[0].description).toBe("Get a customer by ID");
+    expect(tools[0].inputSchema.properties).toHaveProperty("id");
+    expect(tools[0].inputSchema.required).toContain("id");
+    const op = operationsByToolName.get("getCustomer");
+    expect(op).toBeDefined();
+    expect(op!.pathTemplate).toBe("/v1/customers/{id}");
+    expect(op!.method).toBe("get");
+  });
+});
+
+describe("OpenAPI proxy tool handler", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe("handleToolCall", () => {
-    test("should handle getInvoiceById tool", async () => {
-      const mockInvoice = { id: "inv_1", amount: 100 };
-      (invoiceService.getInvoiceById as jest.Mock).mockResolvedValueOnce(
-        mockInvoice
-      );
-
-      const result = await handleToolCall("getInvoiceById", {
-        invoiceId: "inv_1",
-      });
-
-      expect(invoiceService.getInvoiceById).toHaveBeenCalledWith("inv_1");
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: JSON.stringify(mockInvoice),
-          },
+  const minimalOperations = new Map([
+    [
+      "get_customers_id",
+      {
+        pathTemplate: "/v1/customers/{id}",
+        method: "get" as const,
+        parameters: [
+          { name: "id", in: "path" as const, required: true },
         ],
-      });
-    });
-
-    test("should handle getCustomerById tool", async () => {
-      const mockCustomer = { id: "cust_1", name: "Test Customer" };
-      (customerService.getCustomerById as jest.Mock).mockResolvedValueOnce(
-        mockCustomer
-      );
-
-      const result = await handleToolCall("getCustomerById", {
-        customerId: "cust_1",
-      });
-
-      expect(customerService.getCustomerById).toHaveBeenCalledWith("cust_1");
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: JSON.stringify(mockCustomer),
-          },
+        requestBody: undefined,
+      },
+    ],
+    [
+      "get_customers",
+      {
+        pathTemplate: "/v1/customers",
+        method: "get" as const,
+        parameters: [
+          { name: "limit", in: "query" as const },
+          { name: "offset", in: "query" as const },
         ],
-      });
+        requestBody: undefined,
+      },
+    ],
+  ]);
+
+  test("substitutes path params and returns response data", async () => {
+    const mockData = { id: "cust_1", name: "Test Customer" };
+    mockRequest.mockResolvedValueOnce({ data: mockData });
+
+    const result = await handleOpenAPIProxyToolCall(
+      "get_customers_id",
+      { id: "cust_1" },
+      minimalOperations
+    );
+
+    expect(mockRequest).toHaveBeenCalledWith({
+      method: "get",
+      url: "/v1/customers/cust_1",
+      params: undefined,
+      data: undefined,
     });
-
-    test("should handle getPlanById tool", async () => {
-      const mockPlan = { id: "plan_1", name: "Test Plan" };
-      (planService.getPlanById as jest.Mock).mockResolvedValueOnce(mockPlan);
-
-      const result = await handleToolCall("getPlanById", { planId: "plan_1" });
-
-      expect(planService.getPlanById).toHaveBeenCalledWith("plan_1");
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: JSON.stringify(mockPlan),
-          },
-        ],
-      });
+    expect(result).toEqual({
+      content: [{ type: "text", text: JSON.stringify(mockData) }],
     });
+  });
 
-    test("should handle error case", async () => {
-      const errorMessage = "Test error";
-      (invoiceService.getInvoiceById as jest.Mock).mockRejectedValueOnce(
-        new Error(errorMessage)
-      );
+  test("passes query params for GET", async () => {
+    mockRequest.mockResolvedValueOnce({ data: [] });
 
-      const result = await handleToolCall("getInvoiceById", {
-        invoiceId: "inv_1",
-      });
+    await handleOpenAPIProxyToolCall(
+      "get_customers",
+      { limit: 10, offset: 0 },
+      minimalOperations
+    );
 
-      expect(invoiceService.getInvoiceById).toHaveBeenCalledWith("inv_1");
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: JSON.stringify({ error: errorMessage }),
-          },
-        ],
-      });
+    expect(mockRequest).toHaveBeenCalledWith({
+      method: "get",
+      url: "/v1/customers",
+      params: { limit: 10, offset: 0 },
+      data: undefined,
     });
+  });
 
-    test("should handle unknown tool case", async () => {
-      const result = await handleToolCall("unknownTool", {});
+  test("returns error content for unknown tool", async () => {
+    const result = await handleOpenAPIProxyToolCall(
+      "unknown_tool",
+      {},
+      minimalOperations
+    );
 
-      expect(result).toEqual({
-        content: [
-          {
-            type: "text",
-            text: JSON.stringify({ error: "Unknown tool: unknownTool" }),
-          },
-        ],
-      });
+    expect(mockRequest).not.toHaveBeenCalled();
+    expect(result.content[0].type).toBe("text");
+    expect(JSON.parse(result.content[0].text)).toEqual({
+      error: "Unknown tool: unknown_tool",
     });
+  });
+
+  test("returns error content when apiClient throws", async () => {
+    mockRequest.mockRejectedValueOnce(new Error("Network error"));
+
+    const result = await handleOpenAPIProxyToolCall(
+      "get_customers_id",
+      { id: "x" },
+      minimalOperations
+    );
+
+    expect(result.content[0].type).toBe("text");
+    const parsed = JSON.parse(result.content[0].text);
+    expect(parsed.error).toBe("Network error");
   });
 });

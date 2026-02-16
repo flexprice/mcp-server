@@ -51,4 +51,6 @@ coverage/
 
 # Optional cache directory for npm
 npm-debug.log*
-# Start Generation Here
+
+# Generated MCP server (openapi-mcp-generator output); run npm run generate to recreate
+generated-mcp-server/

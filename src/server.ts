@@ -11,94 +11,70 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 
 import {
-  tools,
-  handleToolCall,
+  getToolsAndHandler,
   prompts,
   handlePrompt,
   resources,
   readResource,
 } from "./mcp";
 
-/**
- * Initialize the MCP server with configuration
- */
-const server = new Server(
-  {
-    name: config.mcp.name,
-    version: config.mcp.version,
-  },
-  {
-    capabilities: {
-      tools: {},
-      logging: {},
-      resources: {},
-      prompts: {},
+async function main() {
+  const { tools, handleToolCall } = await getToolsAndHandler();
+
+  const server = new Server(
+    {
+      name: config.mcp.name,
+      version: config.mcp.version,
     },
-  }
-);
+    {
+      capabilities: {
+        tools: {},
+        logging: {},
+        resources: {},
+        prompts: {},
+      },
+    }
+  );
 
-/**
- * Handle the list tools request and return all available tools
- */
-server.setRequestHandler(ListToolsRequestSchema, async () => {
-  return { tools };
-});
+  server.setRequestHandler(ListToolsRequestSchema, async () => {
+    return { tools };
+  });
 
-/**
- * Handle tool calls by delegating to the appropriate handler
- */
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  const { name, arguments: args } = request.params;
-  if (!args) {
-    throw new Error(`No arguments provided for tool: ${name}`);
-  }
+  server.setRequestHandler(CallToolRequestSchema, async (request) => {
+    const { name, arguments: args } = request.params;
+    return await handleToolCall(name, args ?? {});
+  });
 
-  return await handleToolCall(name, args);
-});
+  server.setRequestHandler(ListResourcesRequestSchema, async () => {
+    return { resources };
+  });
 
-/**
- * Handle the list resources request and return all available resources
- */
-server.setRequestHandler(ListResourcesRequestSchema, async () => {
-  return { resources };
-});
+  server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
+    const uri = request.params.uri;
+    return await readResource(uri);
+  });
 
-/**
- * Handle the read resource request by fetching and returning the resource data
- */
-server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
-  const uri = request.params.uri;
-  return await readResource(uri);
-});
+  server.setRequestHandler(ListPromptsRequestSchema, async () => {
+    return { prompts };
+  });
 
-/**
- * Handle the list prompts request and return all available prompts
- */
-server.setRequestHandler(ListPromptsRequestSchema, async () => {
-  return { prompts };
-});
+  server.setRequestHandler(GetPromptRequestSchema, async (request) => {
+    const { name } = request.params;
+    if (!name) {
+      throw new Error(`No id provided for prompt`);
+    }
+    return await handlePrompt(name, request.params.arguments);
+  });
 
-/**
- * Handle the get prompt request by delegating to the appropriate handler
- */
-server.setRequestHandler(GetPromptRequestSchema, async (request) => {
-  const { name } = request.params;
-  if (!name) {
-    throw new Error(`No id provided for prompt`);
-  }
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
 
-  return await handlePrompt(name, request.params.arguments);
-});
+  server.sendLoggingMessage({
+    level: "info",
+    data: "Flexprice MCP server started successfully",
+  });
+}
 
-// Set up the server transport and start the server
-const transport = new StdioServerTransport();
-
-server.connect(transport).catch((error) => {
+main().catch((error) => {
   process.exit(1);
-});
-
-// Log server startup
-server.sendLoggingMessage({
-  level: "info",
-  data: "Flexprice MCP server started successfully",
 });
