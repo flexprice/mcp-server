@@ -1,5 +1,5 @@
 /**
- * After openapi-mcp-generator runs with --output ., it overwrites package.json.
+ * After Speakeasy (or other generator) runs, it may overwrite package.json.
  * This script merges back our repo scripts and devDependencies so generate
  * and tests keep working.
  */
@@ -10,12 +10,12 @@ const root = path.resolve(__dirname, "..");
 const pkgPath = path.join(root, "package.json");
 const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
 
+// Only add generate/test scripts; do not override build/mcpb:build (Speakeasy's Bun build stays).
 const extraScripts = {
-  generate:
-    "npx openapi-mcp-generator --input swagger/swagger-3-0.json --output . --server-name flexprice-mcp --force",
+  generate: "speakeasy run --target flexprice-mcp -y",
   "generate:install":
-    "npm run generate && node scripts/merge-package-after-generate.cjs && npm install",
-  "run:generated": "npm start",
+    "bun run generate && node scripts/merge-package-after-generate.cjs && bun install",
+  "run:generated": "bun start",
   test: "jest",
   "test:watch": "jest --watch",
   "test:coverage": "jest --coverage",

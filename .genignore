@@ -1,0 +1,5 @@
+# Manually maintained: --server-url and --api-key-auth optional, with env fallback (BASE_URL, API_KEY_APIKEYAUTH) for Cursor MCP.
+# After regen, run: node scripts/apply-cursor-mcp-overrides.cjs (or use generate:install which runs it).
+/src/mcp-server/cli/start/command.ts
+/src/mcp-server/cli/start/impl.ts
+/src/mcp-server/flags.ts

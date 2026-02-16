@@ -31,12 +31,12 @@ COPY --from=builder /app/package*.json ./
 # Install only production dependencies
 RUN npm ci --production
 
-# Copy built application from builder stage (generated MCP server, not runtime/)
-COPY --from=builder /app/build ./build
+# Copy built application from builder stage (Speakeasy-generated MCP server)
+COPY --from=builder /app/bin ./bin
 
 # Copy necessary files for runtime
 COPY --from=builder /app/LICENSE ./LICENSE
 COPY --from=builder /app/README.md ./README.md
 
 # Run the generated MCP server
-CMD ["node", "build/index.js"] 
+CMD ["node", "bin/mcp-server.js", "start"] 

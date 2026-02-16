@@ -1,0 +1,15 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    flexprice-api:
+        inputs:
+            - location: ./swagger/swagger-3-0.json
+        overlays:
+            - location: ./.speakeasy/overlays.yaml
+        registry:
+            location: registry.speakeasyapi.dev/flexprice/prod/flexprice-api
+targets:
+    flexprice-mcp:
+        target: mcp-typescript
+        source: flexprice-api
+        output: .

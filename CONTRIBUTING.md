@@ -19,9 +19,16 @@ Thanks for your interest in contributing. This document gives a short workflow a
 
 ## Changing the API surface (tools)
 
-The server is **generated** from `swagger/swagger-3-0.json`. To add or change tools:
+The server is **generated** with Speakeasy from `swagger/swagger-3-0.json`. Generated output is multi-file at the repo root (`src/`, `bin/`, etc.) and can be refined.
 
-1. Update **`swagger/swagger-3-0.json`** (or replace with a new OpenAPI export from FlexPrice).
+**Prerequisites:** Install the Speakeasy CLI (only needed when regenerating):
+
+- **macOS (Homebrew):** `brew install speakeasy-api/tap/speakeasy`
+- **macOS/Linux (script):** `curl -fsSL https://go.speakeasy.com/cli-install.sh | sh`
+
+To add or change tools:
+
+1. Update **`swagger/swagger-3-0.json`** (or replace with a new OpenAPI export from FlexPrice). Optionally edit **`.speakeasy/overlays.yaml`** for retries or other OpenAPI overlays.
 2. Regenerate:
    ```bash
    npm run generate
@@ -36,13 +43,13 @@ The server is **generated** from `swagger/swagger-3-0.json`. To add or change to
    npm test
    ```
 
-The generator overwrites `src/index.ts`. Do not hand-edit that file for API changes; any custom logic should live in separate modules and be imported if the generator supports it, or be added in a post-generate step.
+The generator writes output at the repo root (see `output` in `.speakeasy/workflow.yaml`). You can refine the generated `src/` and server code; regeneration will overwrite those files. To run the server: `node bin/mcp-server.js start` (set `BASE_URL` and `API_KEY_APIKEYAUTH` in env).
 
 ## Scripts
 
 | Script | Purpose |
 |--------|--------|
-| `npm run generate` | Generate MCP server from OpenAPI spec into repo root |
+| `npm run generate` | Generate MCP server from OpenAPI spec (Speakeasy; output at repo root) |
 | `npm run generate:install` | Generate + merge package.json + `npm install` |
 | `npm run build` | Compile TypeScript to `build/` |
 | `npm start` | Run the server (`node build/index.js`) |

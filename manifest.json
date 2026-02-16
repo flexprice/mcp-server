@@ -1,0 +1,883 @@
+{
+  "author": {
+    "name": "Speakeasy"
+  },
+  "description": "MCP server for FlexPrice API (customers, plans, prices, subscriptions, invoices, payments, events, etc.)",
+  "displayName": "FlexPrice API Tools",
+  "display_name": "Mcp",
+  "keywords": [
+    "mcp",
+    "flexprice",
+    "api",
+    "service"
+  ],
+  "long_description": "FlexPrice API: FlexPrice API Service",
+  "manifest_version": "0.3",
+  "name": "mcp",
+  "prompts": [],
+  "server": {
+    "type": "node",
+    "entry_point": "./bin/mcp-server.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/bin/mcp-server.js",
+        "start",
+        "--server-url",
+        "${user_config.server_url}",
+        "--api-key-auth",
+        "${user_config.api_key_auth}"
+      ]
+    }
+  },
+  "user_config": {
+    "server_url": {
+      "type": "string",
+      "title": "Server URL",
+      "description": "The URL of the server to connect to",
+      "required": true
+    },
+    "api_key_auth": {
+      "type": "string",
+      "title": "ApiKeyAuth",
+      "description": "The ApiKeyAuth to use for the request",
+      "required": true,
+      "sensitive": true
+    }
+  },
+  "version": "1.0",
+  "tools": [
+    {
+      "name": "addons-get-addons",
+      "description": "List addons\n\nGet addons with optional filtering"
+    },
+    {
+      "name": "addons-post-addons",
+      "description": "Create addon\n\nCreate a new addon"
+    },
+    {
+      "name": "addons-get-addons-lookup-lookup-key",
+      "description": "Get addon by lookup key\n\nGet an addon by lookup key"
+    },
+    {
+      "name": "addons-post-addons-search",
+      "description": "List addons by filter\n\nList addons by filter"
+    },
+    {
+      "name": "addons-get-addons-id",
+      "description": "Get addon\n\nGet an addon by ID"
+    },
+    {
+      "name": "addons-put-addons-id",
+      "description": "Update addon\n\nUpdate an existing addon"
+    },
+    {
+      "name": "addons-delete-addons-id",
+      "description": "Delete addon\n\nDelete an addon"
+    },
+    {
+      "name": "entitlements-get-addons-id-entitlements",
+      "description": "Get addon entitlements\n\nGet all entitlements for an addon"
+    },
+    {
+      "name": "entitlements-get-entitlements",
+      "description": "Get entitlements\n\nGet entitlements with the specified filter"
+    },
+    {
+      "name": "entitlements-post-entitlements",
+      "description": "Create a new entitlement\n\nCreate a new entitlement with the specified configuration"
+    },
+    {
+      "name": "entitlements-post-entitlements-bulk",
+      "description": "Create multiple entitlements in bulk\n\nCreate multiple entitlements with the specified configurations"
+    },
+    {
+      "name": "entitlements-post-entitlements-search",
+      "description": "List entitlements by filter\n\nList entitlements by filter"
+    },
+    {
+      "name": "entitlements-get-entitlements-id",
+      "description": "Get an entitlement by ID\n\nGet an entitlement by ID"
+    },
+    {
+      "name": "entitlements-put-entitlements-id",
+      "description": "Update an entitlement\n\nUpdate an entitlement with the specified configuration"
+    },
+    {
+      "name": "entitlements-delete-entitlements-id",
+      "description": "Delete an entitlement\n\nDelete an entitlement"
+    },
+    {
+      "name": "entitlements-get-plans-id-entitlements",
+      "description": "Get plan entitlements\n\nGet all entitlements for a plan"
+    },
+    {
+      "name": "alert-logs-post-alert-search",
+      "description": "List alert logs by filter\n\nList alert logs by filter with optional expand for customer, wallet, and feature"
+    },
+    {
+      "name": "auth-post-auth-login",
+      "description": "Login\n\nLogin a user"
+    },
+    {
+      "name": "auth-post-auth-signup",
+      "description": "Sign up\n\nSign up a new user"
+    },
+    {
+      "name": "connections-get-connections",
+      "description": "Get connections\n\nGet a list of connections"
+    },
+    {
+      "name": "connections-post-connections-search",
+      "description": "List connections by filter\n\nList connections by filter"
+    },
+    {
+      "name": "connections-get-connections-id",
+      "description": "Get a connection\n\nGet a connection by ID"
+    },
+    {
+      "name": "connections-put-connections-id",
+      "description": "Update a connection\n\nUpdate a connection by ID"
+    },
+    {
+      "name": "connections-delete-connections-id",
+      "description": "Delete a connection\n\nDelete a connection by ID"
+    },
+    {
+      "name": "costs-post-costs",
+      "description": "Create a new costsheet\n\nCreate a new costsheet with the specified name"
+    },
+    {
+      "name": "costs-get-costs-active",
+      "description": "Get active costsheet for tenant\n\nGet the active costsheet for the current tenant"
+    },
+    {
+      "name": "costs-post-costs-analytics",
+      "description": "Get combined revenue and cost analytics\n\nRetrieve combined analytics with ROI, margin, and detailed breakdowns. If start_time and end_time are not provided, defaults to last 7 days."
+    },
+    {
+      "name": "costs-post-costs-analytics-v2",
+      "description": "Get combined revenue and cost analytics\n\nRetrieve combined analytics with ROI, margin, and detailed breakdowns. If start_time and end_time are not provided, defaults to last 7 days."
+    },
+    {
+      "name": "costs-post-costs-search",
+      "description": "List costsheets by filter\n\nList costsheet records by filter with POST body"
+    },
+    {
+      "name": "costs-get-costs-id",
+      "description": "Get a costsheet by ID\n\nGet a costsheet by ID with optional price expansion"
+    },
+    {
+      "name": "costs-put-costs-id",
+      "description": "Update a costsheet\n\nUpdate a costsheet with the specified configuration"
+    },
+    {
+      "name": "costs-delete-costs-id",
+      "description": "Delete a costsheet\n\nSoft delete a costsheet by setting its status to deleted"
+    },
+    {
+      "name": "coupons-get-coupons",
+      "description": "List coupons with filtering\n\nLists coupons with filtering"
+    },
+    {
+      "name": "coupons-post-coupons",
+      "description": "Create a new coupon\n\nCreates a new coupon"
+    },
+    {
+      "name": "coupons-get-coupons-id",
+      "description": "Get a coupon by ID\n\nRetrieves a coupon by ID"
+    },
+    {
+      "name": "coupons-put-coupons-id",
+      "description": "Update a coupon\n\nUpdates an existing coupon"
+    },
+    {
+      "name": "coupons-delete-coupons-id",
+      "description": "Delete a coupon\n\nDeletes a coupon"
+    },
+    {
+      "name": "credit-grants-get-creditgrants",
+      "description": "Get credit grants\n\nGet credit grants with the specified filter"
+    },
+    {
+      "name": "credit-grants-post-creditgrants",
+      "description": "Create a new credit grant\n\nCreate a new credit grant with the specified configuration"
+    },
+    {
+      "name": "credit-grants-get-creditgrants-id",
+      "description": "Get a credit grant by ID\n\nGet a credit grant by ID"
+    },
+    {
+      "name": "credit-grants-put-creditgrants-id",
+      "description": "Update a credit grant\n\nUpdate a credit grant with the specified configuration"
+    },
+    {
+      "name": "credit-grants-delete-creditgrants-id",
+      "description": "Delete a credit grant\n\nDelete a credit grant"
+    },
+    {
+      "name": "credit-grants-get-plans-id-creditgrants",
+      "description": "Get plan credit grants\n\nGet all credit grants for a plan"
+    },
+    {
+      "name": "credit-notes-get-creditnotes",
+      "description": "List credit notes with filtering\n\nLists credit notes with filtering"
+    },
+    {
+      "name": "credit-notes-post-creditnotes",
+      "description": "Create a new credit note\n\nCreates a new credit note"
+    },
+    {
+      "name": "credit-notes-get-creditnotes-id",
+      "description": "Get a credit note by ID\n\nRetrieves a credit note by ID"
+    },
+    {
+      "name": "credit-notes-post-creditnotes-id-finalize",
+      "description": "Process a draft credit note\n\nProcesses a draft credit note"
+    },
+    {
+      "name": "credit-notes-post-creditnotes-id-void",
+      "description": "Void a credit note\n\nVoids a credit note"
+    },
+    {
+      "name": "customers-get-customers",
+      "description": "Get customers\n\nGet customers"
+    },
+    {
+      "name": "customers-put-customers",
+      "description": "Update a customer\n\nUpdate a customer by id or external_customer_id"
+    },
+    {
+      "name": "customers-post-customers",
+      "description": "Create a customer\n\nCreate a customer"
+    },
+    {
+      "name": "customers-get-customers-external-external-id",
+      "description": "Get a customer by external id\n\nGet a customer by external id"
+    },
+    {
+      "name": "customers-post-customers-search",
+      "description": "List customers by filter\n\nList customers by filter"
+    },
+    {
+      "name": "customers-get-customers-usage",
+      "description": "Get customer usage summary\n\nGet customer usage summary by customer_id or customer_lookup_key (external_customer_id)"
+    },
+    {
+      "name": "customers-get-customers-id",
+      "description": "Get a customer\n\nGet a customer"
+    },
+    {
+      "name": "customers-delete-customers-id",
+      "description": "Delete a customer\n\nDelete a customer"
+    },
+    {
+      "name": "customers-get-customers-id-entitlements",
+      "description": "Get customer entitlements\n\nGet customer entitlements"
+    },
+    {
+      "name": "customers-get-customers-id-grants-upcoming",
+      "description": "Get upcoming credit grant applications\n\nGet upcoming credit grant applications for a customer"
+    },
+    {
+      "name": "wallets-get-customers-wallets",
+      "description": "Get Customer Wallets\n\nGet all wallets for a customer by lookup key or id"
+    },
+    {
+      "name": "wallets-get-customers-id-wallets",
+      "description": "Get wallets by customer ID\n\nGet all wallets for a customer"
+    },
+    {
+      "name": "wallets-get-wallets",
+      "description": "List wallets\n\nList wallets with optional filtering"
+    },
+    {
+      "name": "wallets-post-wallets",
+      "description": "Create a new wallet\n\nCreate a new wallet for a customer"
+    },
+    {
+      "name": "wallets-post-wallets-search",
+      "description": "List wallets by filter\n\nList wallets by filter"
+    },
+    {
+      "name": "wallets-post-wallets-transactions-search",
+      "description": "List wallet transactions by filter\n\nList wallet transactions by filter"
+    },
+    {
+      "name": "wallets-get-wallets-id",
+      "description": "Get wallet by ID\n\nGet a wallet by its ID"
+    },
+    {
+      "name": "wallets-put-wallets-id",
+      "description": "Update a wallet\n\nUpdate a wallet's details including auto top-up configuration"
+    },
+    {
+      "name": "wallets-get-wallets-id-balance-real-time",
+      "description": "Get wallet balance\n\nGet real-time balance of a wallet"
+    },
+    {
+      "name": "wallets-post-wallets-id-terminate",
+      "description": "Terminate a wallet\n\nTerminates a wallet by closing it and debiting remaining balance"
+    },
+    {
+      "name": "wallets-post-wallets-id-top-up",
+      "description": "Top up wallet\n\nAdd credits to a wallet"
+    },
+    {
+      "name": "wallets-get-wallets-id-transactions",
+      "description": "Get wallet transactions\n\nGet transactions for a wallet with pagination"
+    },
+    {
+      "name": "invoices-get-customers-id-invoices-summary",
+      "description": "Get a customer invoice summary\n\nGet a customer invoice summary"
+    },
+    {
+      "name": "invoices-get-invoices",
+      "description": "List invoices\n\nList invoices with optional filtering"
+    },
+    {
+      "name": "invoices-post-invoices",
+      "description": "Create a new one off invoice\n\nCreate a new one off invoice with the provided details"
+    },
+    {
+      "name": "invoices-post-invoices-preview",
+      "description": "Get a preview invoice\n\nGet a preview invoice"
+    },
+    {
+      "name": "invoices-post-invoices-search",
+      "description": "List invoices by filter\n\nList invoices by filter"
+    },
+    {
+      "name": "invoices-get-invoices-id",
+      "description": "Get an invoice by ID\n\nGet detailed information about an invoice"
+    },
+    {
+      "name": "invoices-put-invoices-id",
+      "description": "Update an invoice\n\nUpdate invoice details like PDF URL and due date."
+    },
+    {
+      "name": "invoices-post-invoices-id-comms-trigger",
+      "description": "Trigger communication webhook for an invoice\n\nTriggers a communication webhook event containing all information about the invoice"
+    },
+    {
+      "name": "invoices-post-invoices-id-finalize",
+      "description": "Finalize an invoice\n\nFinalize a draft invoice"
+    },
+    {
+      "name": "invoices-put-invoices-id-payment",
+      "description": "Update invoice payment status\n\nUpdate the payment status of an invoice"
+    },
+    {
+      "name": "invoices-post-invoices-id-payment-attempt",
+      "description": "Attempt payment for an invoice\n\nAttempt to pay an invoice using customer's available wallets"
+    },
+    {
+      "name": "invoices-get-invoices-id-pdf",
+      "description": "Get PDF for an invoice\n\nRetrieve the PDF document for a specific invoice by its ID"
+    },
+    {
+      "name": "invoices-post-invoices-id-recalculate",
+      "description": "Recalculate invoice totals and line items\n\nRecalculate totals and line items for a draft invoice, useful when subscription line items or usage data has changed"
+    },
+    {
+      "name": "invoices-post-invoices-id-void",
+      "description": "Void an invoice\n\nVoid an invoice that hasn't been paid"
+    },
+    {
+      "name": "entity-integration-mappings-get-entity-88a",
+      "description": "List entity integration mappings\n\nRetrieve a list of entity integration mappings with optional filtering"
+    },
+    {
+      "name": "entity-integration-mappings-post-entity-bde",
+      "description": "Create entity integration mapping\n\nCreate a new entity integration mapping"
+    },
+    {
+      "name": "entity-integration-mappings-get-entity-348",
+      "description": "Get entity integration mapping\n\nRetrieve a specific entity integration mapping by ID"
+    },
+    {
+      "name": "entity-integration-mappings-delete-entity-2b7",
+      "description": "Delete entity integration mapping\n\nDelete an entity integration mapping"
+    },
+    {
+      "name": "environments-get-environments",
+      "description": "Get environments\n\nGet environments"
+    },
+    {
+      "name": "environments-post-environments",
+      "description": "Create an environment\n\nCreate an environment"
+    },
+    {
+      "name": "environments-get-environments-id",
+      "description": "Get an environment\n\nGet an environment"
+    },
+    {
+      "name": "environments-put-environments-id",
+      "description": "Update an environment\n\nUpdate an environment"
+    },
+    {
+      "name": "events-post-events",
+      "description": "Ingest event\n\nIngest a new event into the system"
+    },
+    {
+      "name": "events-post-events-analytics",
+      "description": "Get usage analytics\n\nRetrieve comprehensive usage analytics with filtering, grouping, and time-series data"
+    },
+    {
+      "name": "events-post-events-bulk",
+      "description": "Bulk Ingest events\n\nIngest bulk events into the system"
+    },
+    {
+      "name": "events-post-events-huggingface-inference",
+      "description": "Get hugging face inference data\n\nRetrieve hugging face inference data for events"
+    },
+    {
+      "name": "events-get-events-monitoring",
+      "description": "Get monitoring data\n\nRetrieve monitoring data for events including consumer lag and event metrics (last 24 hours by default)"
+    },
+    {
+      "name": "events-post-events-query",
+      "description": "List raw events\n\nRetrieve raw events with pagination and filtering"
+    },
+    {
+      "name": "events-post-events-usage",
+      "description": "Get usage statistics\n\nRetrieve aggregated usage statistics for events"
+    },
+    {
+      "name": "events-post-events-usage-meter",
+      "description": "Get usage by meter\n\nRetrieve aggregated usage statistics using meter configuration"
+    },
+    {
+      "name": "events-get-events-id",
+      "description": "Get event by ID\n\nRetrieve event details and processing status with debug information"
+    },
+    {
+      "name": "features-get-features",
+      "description": "List features\n\nList features with optional filtering"
+    },
+    {
+      "name": "features-post-features",
+      "description": "Create a new feature\n\nCreate a new feature"
+    },
+    {
+      "name": "features-post-features-search",
+      "description": "List features by filter\n\nList features by filter"
+    },
+    {
+      "name": "features-get-features-id",
+      "description": "Get a feature by ID\n\nGet a feature by ID"
+    },
+    {
+      "name": "features-put-features-id",
+      "description": "Update a feature\n\nUpdate a feature by ID"
+    },
+    {
+      "name": "features-delete-features-id",
+      "description": "Delete a feature\n\nDelete a feature by ID"
+    },
+    {
+      "name": "groups-post-groups",
+      "description": "Create a group\n\nCreate a new group for organizing entities (prices, plans, customers, etc.)"
+    },
+    {
+      "name": "groups-post-groups-search",
+      "description": "Get groups\n\nGet groups with optional filtering via query parameters"
+    },
+    {
+      "name": "groups-get-groups-id",
+      "description": "Get a group\n\nGet a group by ID"
+    },
+    {
+      "name": "groups-delete-groups-id",
+      "description": "Delete a group\n\nDelete a group and remove all entity associations"
+    },
+    {
+      "name": "payments-get-payments",
+      "description": "List payments\n\nList payments with the specified filter"
+    },
+    {
+      "name": "payments-post-payments",
+      "description": "Create a new payment\n\nCreate a new payment with the specified configuration"
+    },
+    {
+      "name": "payments-get-payments-id",
+      "description": "Get a payment by ID\n\nGet a payment by ID"
+    },
+    {
+      "name": "payments-put-payments-id",
+      "description": "Update a payment\n\nUpdate a payment with the specified configuration"
+    },
+    {
+      "name": "payments-delete-payments-id",
+      "description": "Delete a payment\n\nDelete a payment"
+    },
+    {
+      "name": "payments-post-payments-id-process",
+      "description": "Process a payment\n\nProcess a payment"
+    },
+    {
+      "name": "plans-get-plans",
+      "description": "Get plans\n\nGet plans with optional filtering"
+    },
+    {
+      "name": "plans-post-plans",
+      "description": "Create a new plan\n\nCreate a new plan with the specified configuration"
+    },
+    {
+      "name": "plans-post-plans-search",
+      "description": "List plans by filter\n\nList plans by filter"
+    },
+    {
+      "name": "plans-get-plans-id",
+      "description": "Get a plan\n\nGet a plan by ID"
+    },
+    {
+      "name": "plans-put-plans-id",
+      "description": "Update a plan\n\nUpdate a plan by ID"
+    },
+    {
+      "name": "plans-delete-plans-id",
+      "description": "Delete a plan\n\nDelete a plan by ID"
+    },
+    {
+      "name": "plans-post-plans-id-sync-subscriptions",
+      "description": "Synchronize plan prices\n\nSynchronize current plan prices with all existing active subscriptions"
+    },
+    {
+      "name": "customer-portal-get-portal-external-id",
+      "description": "Create a customer portal session\n\nGenerate a dashboard URL/token for a customer to access their billing information"
+    },
+    {
+      "name": "prices-get-prices",
+      "description": "Get prices\n\nGet prices with the specified filter"
+    },
+    {
+      "name": "prices-post-prices",
+      "description": "Create a new price\n\nCreate a new price with the specified configuration. Supports both regular and price unit configurations."
+    },
+    {
+      "name": "prices-post-prices-bulk",
+      "description": "Create multiple prices in bulk\n\nCreate multiple prices with the specified configurations. Supports both regular and price unit configurations."
+    },
+    {
+      "name": "prices-get-prices-lookup-lookup-key",
+      "description": "Get price by lookup key\n\nGet price by lookup key"
+    },
+    {
+      "name": "prices-get-prices-id",
+      "description": "Get a price by ID\n\nGet a price by ID with expanded meter and price unit information"
+    },
+    {
+      "name": "prices-put-prices-id",
+      "description": "Update a price\n\nUpdate a price with the specified configuration"
+    },
+    {
+      "name": "prices-delete-prices-id",
+      "description": "Delete a price\n\nDelete a price"
+    },
+    {
+      "name": "price-units-get-prices-units",
+      "description": "List price units\n\nGet a paginated list of price units with optional filtering"
+    },
+    {
+      "name": "price-units-post-prices-units",
+      "description": "Create a new price unit\n\nCreate a new price unit with the provided details"
+    },
+    {
+      "name": "price-units-get-prices-units-code-code",
+      "description": "Get a price unit by code\n\nGet a price unit by code"
+    },
+    {
+      "name": "price-units-post-prices-units-search",
+      "description": "List price units by filter\n\nList price units by filter"
+    },
+    {
+      "name": "price-units-get-prices-units-id",
+      "description": "Get a price unit by ID\n\nGet a price unit by ID"
+    },
+    {
+      "name": "price-units-put-prices-units-id",
+      "description": "Update a price unit\n\nUpdate an existing price unit with the provided details. Only name and metadata can be updated."
+    },
+    {
+      "name": "price-units-delete-prices-units-id",
+      "description": "Delete a price unit\n\nDelete an existing price unit."
+    },
+    {
+      "name": "rbac-get-rbac-roles",
+      "description": "List all RBAC roles\n\nReturns all available roles with their permissions, names, and descriptions"
+    },
+    {
+      "name": "rbac-get-rbac-roles-id",
+      "description": "Get a specific RBAC role\n\nReturns details of a specific role including permissions, name, and description"
+    },
+    {
+      "name": "secrets-get-secrets-api-keys",
+      "description": "List API keys\n\nGet a paginated list of API keys"
+    },
+    {
+      "name": "secrets-post-secrets-api-keys",
+      "description": "Create a new API key\n\nCreate a new API key. Provide 'service_account_id' in body to create API key for a service account, otherwise creates for authenticated user."
+    },
+    {
+      "name": "secrets-delete-secrets-api-keys-id",
+      "description": "Delete an API key\n\nDelete an API key by ID"
+    },
+    {
+      "name": "integrations-get-secrets-integrations-by-94f",
+      "description": "Get integration details\n\nGet details of a specific integration"
+    },
+    {
+      "name": "integrations-post-secrets-integrations-create-575",
+      "description": "Create or update an integration\n\nCreate or update integration credentials"
+    },
+    {
+      "name": "integrations-get-secrets-integrations-linked",
+      "description": "List linked integrations\n\nGet a list of unique providers which have a valid linked integration secret"
+    },
+    {
+      "name": "integrations-delete-secrets-integrations-id",
+      "description": "Delete an integration\n\nDelete integration credentials"
+    },
+    {
+      "name": "subscriptions-get-subscriptions",
+      "description": "List subscriptions\n\nGet subscriptions with optional filtering"
+    },
+    {
+      "name": "subscriptions-post-subscriptions",
+      "description": "Create subscription\n\nCreate a new subscription"
+    },
+    {
+      "name": "subscriptions-post-subscriptions-addon",
+      "description": "Add addon to subscription\n\nAdd an addon to a subscription"
+    },
+    {
+      "name": "subscriptions-delete-subscriptions-addon",
+      "description": "Remove addon from subscription\n\nRemove an addon from a subscription"
+    },
+    {
+      "name": "subscriptions-put-subscriptions-lineitems-id",
+      "description": "Update subscription line item\n\nUpdate a subscription line item by terminating the existing one and creating a new one"
+    },
+    {
+      "name": "subscriptions-delete-subscriptions-lineitems-id",
+      "description": "Delete subscription line item\n\nDelete a subscription line item by setting its end date"
+    },
+    {
+      "name": "subscriptions-post-subscriptions-search",
+      "description": "List subscriptions by filter\n\nList subscriptions by filter"
+    },
+    {
+      "name": "subscriptions-post-subscriptions-usage",
+      "description": "Get usage by subscription\n\nGet usage for a subscription"
+    },
+    {
+      "name": "subscriptions-get-subscriptions-id",
+      "description": "Get subscription\n\nGet a subscription by ID"
+    },
+    {
+      "name": "subscriptions-post-subscriptions-id-activate",
+      "description": "Activate draft subscription\n\nActivate a draft subscription with a new start date"
+    },
+    {
+      "name": "subscriptions-get-subscriptions-id-addons-75b",
+      "description": "Get active addon associations\n\nGet active addon associations for a subscription"
+    },
+    {
+      "name": "subscriptions-post-subscriptions-id-cancel",
+      "description": "Cancel subscription\n\nCancel a subscription with enhanced proration support"
+    },
+    {
+      "name": "subscriptions-post-subscriptions-id-change-execute",
+      "description": "Execute subscription plan change\n\nExecute a subscription plan change, including proration and invoice generation"
+    },
+    {
+      "name": "subscriptions-post-subscriptions-id-change-preview",
+      "description": "Preview subscription plan change\n\nPreview the impact of changing a subscription's plan, including proration calculations"
+    },
+    {
+      "name": "subscriptions-get-subscriptions-id-entitlements",
+      "description": "Get subscription entitlements\n\nGet all entitlements for a subscription"
+    },
+    {
+      "name": "subscriptions-get-subscriptions-id-grants-upcoming",
+      "description": "Get upcoming credit grant applications\n\nGet upcoming credit grant applications for a subscription"
+    },
+    {
+      "name": "subscriptions-post-subscriptions-id-pause",
+      "description": "Pause a subscription\n\nPause a subscription with the specified parameters"
+    },
+    {
+      "name": "subscriptions-get-subscriptions-id-pauses",
+      "description": "List all pauses for a subscription\n\nList all pauses for a subscription"
+    },
+    {
+      "name": "subscriptions-post-subscriptions-id-resume",
+      "description": "Resume a paused subscription\n\nResume a paused subscription with the specified parameters"
+    },
+    {
+      "name": "subscriptions-get-subscriptions-id-v2",
+      "description": "Get subscription V2\n\nGet a subscription by ID with optional expand parameters"
+    },
+    {
+      "name": "subscriptions-get-v1-subscription-schedules",
+      "description": "List all subscription schedules\n\nRetrieves subscription schedules with optional filtering"
+    },
+    {
+      "name": "subscriptions-get-v1-subscription-schedules-id",
+      "description": "Get subscription schedule\n\nRetrieves details of a specific subscription schedule"
+    },
+    {
+      "name": "subscriptions-post-v1-subscriptions-schedules-534",
+      "description": "Cancel subscription schedule\n\nCancels a pending subscription schedule. Supports two modes: 1) By schedule ID in path, or 2) By subscription ID + schedule type in request body"
+    },
+    {
+      "name": "subscriptions-get-v1-subscriptions-subscription-a4b",
+      "description": "List subscription schedules\n\nRetrieves all schedules for a specific subscription"
+    },
+    {
+      "name": "tasks-get-tasks",
+      "description": "List tasks\n\nList tasks with optional filtering"
+    },
+    {
+      "name": "tasks-post-tasks",
+      "description": "Create a new task\n\nCreate a new task for processing files asynchronously"
+    },
+    {
+      "name": "tasks-get-tasks-result",
+      "description": "Get task processing result\n\nGet the result of a task processing workflow"
+    },
+    {
+      "name": "tasks-get-tasks-id",
+      "description": "Get a task\n\nGet a task by ID"
+    },
+    {
+      "name": "tasks-get-tasks-id-download",
+      "description": "Download task export file\n\nGenerate a presigned URL for downloading an exported file (supports both Flexprice-managed and customer-owned S3)"
+    },
+    {
+      "name": "tasks-put-tasks-id-status",
+      "description": "Update task status\n\nUpdate a task's status"
+    },
+    {
+      "name": "scheduled-tasks-get-tasks-scheduled",
+      "description": "List scheduled tasks\n\nGet a list of scheduled tasks with optional filters"
+    },
+    {
+      "name": "scheduled-tasks-post-tasks-scheduled",
+      "description": "Create a scheduled task\n\nCreate a new scheduled task for data export"
+    },
+    {
+      "name": "scheduled-tasks-post-tasks-scheduled-schedule-e95",
+      "description": "Schedule update billing period\n\nSchedule an update billing period workflow"
+    },
+    {
+      "name": "scheduled-tasks-get-tasks-scheduled-id",
+      "description": "Get a scheduled task\n\nGet a scheduled task by ID"
+    },
+    {
+      "name": "scheduled-tasks-put-tasks-scheduled-id",
+      "description": "Update a scheduled task\n\nUpdate a scheduled task by ID - Only enabled field can be changed (pause/resume)"
+    },
+    {
+      "name": "scheduled-tasks-delete-tasks-scheduled-id",
+      "description": "Delete a scheduled task\n\nArchive a scheduled task by ID (soft delete) - Sets status to archived and deletes from Temporal"
+    },
+    {
+      "name": "scheduled-tasks-post-tasks-scheduled-id-run",
+      "description": "Trigger force run\n\nTrigger a force run export immediately for a scheduled task with optional custom time range"
+    },
+    {
+      "name": "tax-associations-get-taxes-associations",
+      "description": "List tax associations\n\nList tax associations"
+    },
+    {
+      "name": "tax-associations-post-taxes-associations",
+      "description": "Create Tax Association\n\nCreate a new tax association"
+    },
+    {
+      "name": "tax-associations-get-taxes-associations-id",
+      "description": "Get Tax Association\n\nGet a tax association by ID"
+    },
+    {
+      "name": "tax-associations-put-taxes-associations-id",
+      "description": "Update tax association\n\nUpdate a tax association by ID"
+    },
+    {
+      "name": "tax-associations-delete-taxes-associations-id",
+      "description": "Delete tax association\n\nDelete a tax association by ID"
+    },
+    {
+      "name": "tax-rates-get-taxes-rates",
+      "description": "Get tax rates\n\nGet tax rates"
+    },
+    {
+      "name": "tax-rates-post-taxes-rates",
+      "description": "Create a tax rate\n\nCreate a tax rate"
+    },
+    {
+      "name": "tax-rates-get-taxes-rates-id",
+      "description": "Get a tax rate\n\nGet a tax rate"
+    },
+    {
+      "name": "tax-rates-put-taxes-rates-id",
+      "description": "Update a tax rate\n\nUpdate a tax rate"
+    },
+    {
+      "name": "tax-rates-delete-taxes-rates-id",
+      "description": "Delete a tax rate\n\nDelete a tax rate"
+    },
+    {
+      "name": "tenants-get-tenant-billing",
+      "description": "Get billing usage for the current tenant\n\nGet the subscription and usage details for the current tenant"
+    },
+    {
+      "name": "tenants-post-tenants",
+      "description": "Create a new tenant\n\nCreate a new tenant"
+    },
+    {
+      "name": "tenants-put-tenants-update",
+      "description": "Update a tenant\n\nUpdate a tenant's details including name and billing information"
+    },
+    {
+      "name": "tenants-get-tenants-id",
+      "description": "Get tenant by ID\n\nGet tenant by ID"
+    },
+    {
+      "name": "users-post-users",
+      "description": "Create service account\n\nCreate a new service account with required roles. Only service accounts can be created via this endpoint."
+    },
+    {
+      "name": "users-get-users-me",
+      "description": "Get user info\n\nGet the current user's information"
+    },
+    {
+      "name": "users-post-users-search",
+      "description": "List users with filters\n\nSearch and filter users by type (user/service_account), roles, etc."
+    },
+    {
+      "name": "webhooks-post-webhooks-chargebee-tenant-id-ba7",
+      "description": "Handle Chargebee webhook events\n\nProcess incoming Chargebee webhook events for payment status updates"
+    },
+    {
+      "name": "webhooks-post-webhooks-hubspot-tenant-id-ecf",
+      "description": "Handle HubSpot webhook events\n\nProcess incoming HubSpot webhook events for deal closed won and customer creation"
+    },
+    {
+      "name": "webhooks-post-webhooks-nomod-tenant-id-540",
+      "description": "Handle Nomod webhook events\n\nProcess incoming Nomod webhook events for payment and invoice payments"
+    },
+    {
+      "name": "webhooks-post-webhooks-quickbooks-tenant-id-96c",
+      "description": "Handle QuickBooks webhook events\n\nProcess incoming QuickBooks webhook events for payment sync"
+    },
+    {
+      "name": "webhooks-post-webhooks-razorpay-tenant-id-4fa",
+      "description": "Handle Razorpay webhook events\n\nProcess incoming Razorpay webhook events for payment capture and failure"
+    },
+    {
+      "name": "webhooks-post-webhooks-stripe-tenant-id-599",
+      "description": "Handle Stripe webhook events\n\nProcess incoming Stripe webhook events for payment status updates and customer creation"
+    }
+  ]
+}

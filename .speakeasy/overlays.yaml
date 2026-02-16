@@ -1,0 +1,71 @@
+# OpenAPI Overlay 1.0.0 - FlexPrice API (retries and behavior)
+overlay: 1.0.0
+info:
+  title: FlexPrice API Overlays
+  version: 0.0.0
+actions:
+  - target: $.paths.*.get
+    update:
+      x-speakeasy-retries:
+        strategy: backoff
+        backoff:
+          initialInterval: 500
+          maxInterval: 60000
+          maxElapsedTime: 3600000
+          exponent: 1.5
+        statusCodes:
+          - 5XX
+          - 429
+        retryConnectionErrors: true
+  - target: $.paths.*.post
+    update:
+      x-speakeasy-retries:
+        strategy: backoff
+        backoff:
+          initialInterval: 500
+          maxInterval: 60000
+          maxElapsedTime: 3600000
+          exponent: 1.5
+        statusCodes:
+          - 5XX
+          - 429
+        retryConnectionErrors: true
+  - target: $.paths.*.put
+    update:
+      x-speakeasy-retries:
+        strategy: backoff
+        backoff:
+          initialInterval: 500
+          maxInterval: 60000
+          maxElapsedTime: 3600000
+          exponent: 1.5
+        statusCodes:
+          - 5XX
+          - 429
+        retryConnectionErrors: true
+  - target: $.paths.*.patch
+    update:
+      x-speakeasy-retries:
+        strategy: backoff
+        backoff:
+          initialInterval: 500
+          maxInterval: 60000
+          maxElapsedTime: 3600000
+          exponent: 1.5
+        statusCodes:
+          - 5XX
+          - 429
+        retryConnectionErrors: true
+  - target: $.paths.*.delete
+    update:
+      x-speakeasy-retries:
+        strategy: backoff
+        backoff:
+          initialInterval: 500
+          maxInterval: 60000
+          maxElapsedTime: 3600000
+          exponent: 1.5
+        statusCodes:
+          - 5XX
+          - 429
+        retryConnectionErrors: true
