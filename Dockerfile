@@ -7,11 +7,8 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
+# Install dependencies (keep devDependencies for npm run build / tsc)
 RUN --mount=type=cache,target=/root/.npm npm install
-
-RUN --mount=type=cache,target=/root/.npm-production npm ci --ignore-scripts --omit-dev
-
 
 # Copy source code
 COPY . .
@@ -34,13 +31,12 @@ COPY --from=builder /app/package*.json ./
 # Install only production dependencies
 RUN npm ci --production
 
-# Copy built application from builder stage
-COPY --from=builder /app/dist ./dist
+# Copy built application from builder stage (generated MCP server, not runtime/)
+COPY --from=builder /app/build ./build
 
 # Copy necessary files for runtime
 COPY --from=builder /app/LICENSE ./LICENSE
 COPY --from=builder /app/README.md ./README.md
 
-
-# Command to run the application
-CMD ["node", "dist/server.js"] 
+# Run the generated MCP server
+CMD ["node", "build/index.js"] 

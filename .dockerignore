@@ -4,8 +4,10 @@ npm-debug.log
 yarn-debug.log
 yarn-error.log
 
-# Build artifacts
+# Build artifacts (image builds its own; exclude legacy runtime)
 dist
+build
+runtime
 
 # Testing and coverage
 coverage
