@@ -1,6 +1,6 @@
 {
   "name": "@flexprice/mcp-server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Speakeasy",
   "type": "module",
   "sideEffects": false,
@@ -19,7 +19,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci --coverage"
+    "test:ci": "jest --ci --coverage",
+    "publish:public": "node scripts/publish-public.cjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.26.0",

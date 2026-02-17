@@ -31,6 +31,7 @@ const extraScripts = {
   "test:watch": "jest --watch",
   "test:coverage": "jest --coverage",
   "test:ci": "jest --ci --coverage",
+  "publish:public": "node scripts/publish-public.cjs",
 };
 
 const extraDevDependencies = {
