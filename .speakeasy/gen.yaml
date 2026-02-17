@@ -40,7 +40,9 @@ mcp-typescript:
   baseErrorName: FlexPriceError
   cloudflareEnabled: false
   compileCommand:
-    - true
+    - bash
+    - -c
+    - npm install --ignore-scripts && npm rebuild bun && npm run lint && node scripts/patch-server-dynamic.cjs && npm run build
   defaultErrorName: FlexPriceDefaultError
   formStringArrayEncodeMode: array
   gramEnabled: false

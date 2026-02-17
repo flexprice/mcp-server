@@ -17,8 +17,12 @@ const preserve = {
   publishConfig: { access: "public" },
 };
 
-// Only add generate/test scripts; do not override build/mcpb:build (Speakeasy's Bun build stays).
+// Restore build scripts with patch-server-dynamic so compile succeeds after generate.
 const extraScripts = {
+  build:
+    "bun i && node scripts/patch-server-dynamic.cjs && bun src/mcp-server/build.mts && tsc",
+  "mcpb:build":
+    "bun i && node scripts/patch-server-dynamic.cjs && bun src/mcp-server/build.mts --pack && tsc",
   generate: "speakeasy run --target flexprice-mcp -y",
   "generate:install":
     "bun run generate && node scripts/merge-package-after-generate.cjs && bun install",
