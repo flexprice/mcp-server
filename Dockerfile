@@ -38,11 +38,11 @@ COPY --from=builder /app/bin ./bin
 COPY --from=builder /app/LICENSE ./LICENSE
 COPY --from=builder /app/README.md ./README.md
 
-# Expose port for SSE transport (default 2718; platforms like Fly.io set PORT)
+# Expose port for SSE transport (default 2718; platforms may set PORT)
 ENV PORT=2718
 EXPOSE 2718
 
-# Run the MCP server in HTTP (SSE) mode for hosted deployment.
+# Run the MCP server in HTTP (SSE) mode when using SSE transport.
 # Set BASE_URL to your FlexPrice API base (e.g. https://api.cloud.flexprice.io/v1).
 # API key is provided per-connection via ApiKeyAuth header from the client.
 CMD ["sh", "-c", "node bin/mcp-server.js start --transport sse --port ${PORT:-2718}"] 

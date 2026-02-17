@@ -1,17 +1,17 @@
 # Cloudflare Worker proxy for FlexPrice MCP server
 
-This guide describes how to put a **Cloudflare Worker** in front of your existing FlexPrice MCP server. The Worker acts as a reverse proxy: it receives requests at `/sse` and `/message/:sessionId`, forwards them to your origin server (e.g. Fly.io or a server behind Cloudflare Tunnel), and streams the response back. No changes to the MCP server code are required.
+This guide describes how to put a **Cloudflare Worker** in front of your existing FlexPrice MCP server. The Worker acts as a reverse proxy: it receives requests at `/sse` and `/message/:sessionId`, forwards them to your origin server (e.g. a server behind Cloudflare Tunnel or any HTTPS origin), and streams the response back. No changes to the MCP server code are required.
 
 Use this if you want:
 
 - A custom domain or a `*.workers.dev` URL in front of your server
 - Cloudflare Access, rate limiting, or other Workers features in front of MCP
 
-You still run and maintain the MCP server (e.g. on Fly.io); the Worker adds an edge hop.
+You still run and maintain the MCP server (e.g. locally or on a VPS); the Worker adds an edge hop.
 
 ## Prerequisites
 
-- An MCP server already deployed and reachable at an HTTPS URL (e.g. `https://your-app.fly.dev` or `https://mcp.yourdomain.com`). This is your **origin**.
+- An MCP server already deployed and reachable at an HTTPS URL (e.g. `https://mcp.yourdomain.com` or `https://your-origin.example.com`). This is your **origin**.
 - Node.js and npm (for Wrangler).
 - A Cloudflare account.
 
@@ -30,7 +30,7 @@ Set the full origin URL (no trailing slash) so the Worker can forward requests:
 
 ```bash
 npx wrangler secret put MCP_ORIGIN
-# When prompted, enter e.g. https://your-app.fly.dev or https://mcp.yourdomain.com
+# When prompted, enter e.g. https://mcp.yourdomain.com or https://your-origin.example.com
 ```
 
 ## Step 3 — Replace the Worker script
@@ -101,7 +101,7 @@ https://flexprice-mcp-proxy.<your-subdomain>.workers.dev/sse
 
 ## Step 6 — Configure your MCP client
 
-Use the same remote config as in the [README](../README.md#add-to-your-mcp-client): set the URL to your Worker endpoint and the `ApiKeyAuth` header to your FlexPrice API key.
+Set the URL to your Worker endpoint and the `ApiKeyAuth` header to your FlexPrice API key (HTTP-style config; see README for config file locations).
 
 **Example (Cursor):**
 
