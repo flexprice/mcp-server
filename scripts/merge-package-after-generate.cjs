@@ -10,6 +10,13 @@ const root = path.resolve(__dirname, "..");
 const pkgPath = path.join(root, "package.json");
 const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
 
+// Preserve FlexPrice package identity (Speakeasy may write "mcp").
+const preserve = {
+  name: "@flexprice/mcp-server",
+  bin: { "flexprice-mcp": "bin/mcp-server.js" },
+  publishConfig: { access: "public" },
+};
+
 // Only add generate/test scripts; do not override build/mcpb:build (Speakeasy's Bun build stays).
 const extraScripts = {
   generate: "speakeasy run --target flexprice-mcp -y",
@@ -32,6 +39,7 @@ const extraDevDependencies = {
   "ts-node": "^10.9.2",
 };
 
+Object.assign(pkg, preserve);
 pkg.scripts = { ...pkg.scripts, ...extraScripts };
 pkg.devDependencies = { ...pkg.devDependencies, ...extraDevDependencies };
 

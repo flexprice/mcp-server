@@ -1,11 +1,14 @@
 {
-  "name": "mcp",
+  "name": "@flexprice/mcp-server",
   "version": "0.0.3",
   "author": "Speakeasy",
   "type": "module",
   "sideEffects": false,
   "bin": {
-    "mcp": "bin/mcp-server.js"
+    "flexprice-mcp": "bin/mcp-server.js"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "bun i && bun src/mcp-server/build.mts && tsc",

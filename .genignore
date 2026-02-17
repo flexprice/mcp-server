@@ -3,3 +3,4 @@
 /src/mcp-server/cli/start/command.ts
 /src/mcp-server/cli/start/impl.ts
 /src/mcp-server/flags.ts
+/src/landing-page.ts

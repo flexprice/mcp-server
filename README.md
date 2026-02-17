@@ -9,119 +9,209 @@ A Model Context Protocol (MCP) server that enables AI agents to access FlexPrice
 - FlexPrice API key (obtained from your FlexPrice account)
 - **For generating the server:** [Speakeasy CLI](https://www.speakeasy.com/) (see [Generating the MCP server](#generating-the-mcp-server))
 
-## Quick start
+## How you can use the FlexPrice MCP server
 
-1. **Clone, generate (if needed), and run**
-   ```bash
-   git clone <repository-url>
-   cd mcp-server
-   npm install
-   # Generate the MCP server (requires Speakeasy CLI; see below)
-   npm run generate:install
-   npm run build
-   npm start
-   ```
-2. **Configure your MCP client** (Cursor or Claude Desktop) with:
-   - **Command:** `node`
-   - **Args:** absolute path to `bin/mcp-server.js` and `start` (e.g. `$(pwd)/bin/mcp-server.js` from repo root, with args `["start"]`)
-   - **Env:** `API_KEY_APIKEYAUTH` = your FlexPrice API key, `BASE_URL` = your API base **including** `/v1` (e.g. `https://api.cloud.flexprice.io/v1`)
-3. Restart the client and use the FlexPrice tools from your AI assistant.
+You can use the FlexPrice MCP server in three ways: **hosted URL** (no install), **npm package** (one command), or **local repo** (clone and run). Pick one option below, then [add it to your MCP client](#add-to-your-mcp-client).
 
-For a full MCP config example and troubleshooting, see [MCP client configuration](#mcp-client-configuration-cursor-and-claude-desktop) and [Troubleshooting](#troubleshooting).
+---
 
-## Setup
+### Option 1: Use the hosted URL
 
-You can run the MCP server in two ways: **Option 1** runs the server locally; **Option 2** uses Docker.
+- **What:** FlexPrice hosts the server; you only add the URL and your API key in your MCP client. Nothing to install or run.
+- **Server URL:** `https://mcp.flexprice.io/sse`
+- **Required:** Set the **`ApiKeyAuth`** header to your FlexPrice API key.
+- **Next step:** [Add to your MCP client](#add-to-your-mcp-client) and use the **remote** config for your editor.
 
-### Option 1: Local Setup
+---
 
-1. Clone the repository:
+### Option 2: Use the npm package
 
-```bash
-git clone <repository-url>
-cd mcp-server
-```
+- **What:** Run the server with one command (`npx`); no clone or build.
+- **Run:**
+  ```bash
+  npx @flexprice/mcp-server start --server-url https://api.cloud.flexprice.io/v1 --api-key-auth YOUR_API_KEY
+  ```
+- **Next step:** [Add to your MCP client](#add-to-your-mcp-client) and use the **local (npx)** config for your editor.
 
-2. Install dependencies:
+---
 
-```bash
-npm install
-```
+### Option 3: Run from the local repo
 
-3. Create a `.env` file in the project root (copy from `.env.example`) and set **both**:
+- **What:** Clone the repo, install, build, and run. Use this if you want to change code or run without npm.
+- **Steps:**
+  1. Clone the repository: `git clone <repository-url> && cd mcp-server`
+  2. Install dependencies: `npm install`
+  3. Create a `.env` file (copy from `.env.example`) with `BASE_URL=https://api.cloud.flexprice.io/v1` and `API_KEY_APIKEYAUTH=your_api_key_here`. `BASE_URL` must include `/v1` (no trailing slash).
+  4. Build: `npm run build`
+  5. Start: `npm start`
+- **Optional — Docker (stdio):** Build and run with stdio instead of cloning into your client:
+  ```bash
+  docker build -t flexprice-mcp .
+  docker run -i -e API_KEY_APIKEYAUTH=your_api_key_here -e BASE_URL=https://api.cloud.flexprice.io/v1 flexprice-mcp node bin/mcp-server.js start
+  ```
+- **Next step:** [Add to your MCP client](#add-to-your-mcp-client) and use the **local (Node from repo)** or **Docker** config for your editor.
 
-```
-BASE_URL=https://api.cloud.flexprice.io/v1
-API_KEY_APIKEYAUTH=your_api_key_here
-```
+## Add to your MCP client
 
-**Important:** `BASE_URL` is required and must include the `/v1` path (e.g. `https://api.cloud.flexprice.io/v1`), with no trailing slash after `v1`, so that requests resolve correctly. If it is missing or omits `/v1`, tool calls can fail with **invalid url** or **404**.
+Add the FlexPrice MCP server in your editor. Use the **remote** config if you chose Option 1, or the **local** config if you chose Option 2 or 3. Replace `YOUR_API_KEY` with your FlexPrice API key in all examples.
 
-4. Build the project:
-
-```bash
-npm run build
-```
-
-5. Start the server:
-
-```bash
-npm start
-```
-
-For development you can use `npm run dev` (same as `npm start`; add your own file watcher if desired).
-
-### Option 2: Docker Setup
-
-The Docker image builds and runs the MCP server (`bin/mcp-server.js start`).
-
-1. Clone the repository:
-
-```bash
-git clone <repository-url>
-cd mcp-server
-```
-
-2. Build the Docker image:
-
-```bash
-docker build -t flexprice-mcp .
-```
-
-3. Run the Docker container with your API credentials:
-
-```bash
-docker run -i -e API_KEY_APIKEYAUTH=your_api_key_here -e BASE_URL=https://api.cloud.flexprice.io/v1 flexprice-mcp
-```
-
-## MCP client configuration (Cursor and Claude Desktop)
-
-You need to tell your MCP host which **command** to run and which **env vars** to pass.
-
-### Where to find the config file
+### Config file locations
 
 | Host                         | Config location                                                                                                                                           |
 | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Cursor**                   | In-app: **Cursor → Settings → MCP** (or **Cmd + Shift + P** → "Cursor Settings" → MCP). You edit the MCP servers list in the UI or in the JSON it writes. |
+| **Cursor**                   | **Cursor → Settings → MCP** (or **Cmd + Shift + P** → "Cursor Settings" → MCP). Edit the MCP servers list or the JSON file it uses.                        |
+| **VS Code**                  | Command Palette → **MCP: Open User Configuration** (opens `mcp.json`).                                                                                    |
 | **Claude Desktop (macOS)**   | `~/Library/Application Support/Claude/claude_desktop_config.json`                                                                                         |
 | **Claude Desktop (Windows)** | `%APPDATA%\Claude\claude_desktop_config.json`                                                                                                             |
 
-To open the Claude config from a terminal (macOS):
+---
 
-```bash
-echo "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
-cursor "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
+### Cursor
+
+1. Open **Cursor → Settings → Cursor Settings** and go to the **MCP** tab.
+2. Click **+ Add new global MCP server** (or open the MCP configuration file).
+3. Paste **one** of the following and save. Restart Cursor if the server does not appear.
+
+**Remote** (Option 1 — hosted URL)
+
+```json
+{
+  "mcpServers": {
+    "flexprice": {
+      "url": "https://mcp.flexprice.io/sse",
+      "headers": {
+        "ApiKeyAuth": "YOUR_API_KEY"
+      }
+    }
+  }
+}
 ```
 
-### What to put in the config
+**Local (npx)** (Option 2 or 3)
 
-1. **Path to the server script** — Use the **absolute path** to `bin/mcp-server.js` inside your cloned repo, with args `["start"]`. From the repo root: `$(pwd)/bin/mcp-server.js` on macOS/Linux after `cd`-ing into the repo.
+```json
+{
+  "mcpServers": {
+    "flexprice": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@flexprice/mcp-server",
+        "start",
+        "--server-url",
+        "https://api.cloud.flexprice.io/v1",
+        "--api-key-auth",
+        "YOUR_API_KEY"
+      ]
+    }
+  }
+}
+```
 
-2. **Environment variables** — `API_KEY_APIKEYAUTH` (your FlexPrice API key) and `BASE_URL`, which must include `/v1` (e.g. `https://api.cloud.flexprice.io/v1`). Both are required. When configuring via env only (e.g. Cursor MCP `env`), set `BASE_URL` to the API base **including** `/v1`, e.g. `https://api-dev.cloud.flexprice.io/v1` for the dev API.
+---
 
-Replace the path in the examples below with your repo's absolute path to `bin/mcp-server.js`.
+### VS Code
 
-### Example: Node (stdio)
+1. Open the Command Palette (**Ctrl+Shift+P** / **Cmd+Shift+P**) and run **MCP: Add Server** or **MCP: Open User Configuration**.
+2. For the **remote server:** choose HTTP, URL `https://mcp.flexprice.io/sse`, and add header `ApiKeyAuth` = your API key (if supported).
+3. For the **local server:** use the stdio config below.
+
+**Remote** (Option 1)
+
+```json
+{
+  "servers": {
+    "flexprice": {
+      "type": "http",
+      "url": "https://mcp.flexprice.io/sse",
+      "headers": {
+        "ApiKeyAuth": "YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+**Local (npx)** (Option 2 or 3)
+
+```json
+{
+  "servers": {
+    "flexprice": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@flexprice/mcp-server",
+        "start",
+        "--server-url",
+        "https://api.cloud.flexprice.io/v1",
+        "--api-key-auth",
+        "YOUR_API_KEY"
+      ]
+    }
+  }
+}
+```
+
+---
+
+### Claude Code
+
+- **Remote:** Run `claude mcp add --transport http FlexPrice https://mcp.flexprice.io/sse` then set the `ApiKeyAuth` header to your API key when prompted.
+- **Local:** Run `claude mcp add FlexPrice -- npx -y @flexprice/mcp-server start --server-url https://api.cloud.flexprice.io/v1 --api-key-auth YOUR_API_KEY`
+
+Then run `claude` and use `/mcp` to confirm the server is connected.
+
+---
+
+### Claude Desktop
+
+Add the **local (npx)** config below to your Claude Desktop config file (path above). Use **remote** (Option 1) if your client supports HTTP with headers, same as Cursor/VS Code.
+
+```json
+{
+  "mcpServers": {
+    "flexprice": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@flexprice/mcp-server",
+        "start",
+        "--server-url",
+        "https://api.cloud.flexprice.io/v1",
+        "--api-key-auth",
+        "YOUR_API_KEY"
+      ]
+    }
+  }
+}
+```
+
+Quit and reopen Claude Desktop.
+
+---
+
+### Other clients (HTTP)
+
+**Remote** (Option 1): URL `https://mcp.flexprice.io/sse` and header `ApiKeyAuth` = your API key (same shape as [Cursor](#cursor) remote config above):
+
+```json
+{
+  "mcpServers": {
+    "flexprice": {
+      "url": "https://mcp.flexprice.io/sse",
+      "headers": {
+        "ApiKeyAuth": "your_api_key_here"
+      }
+    }
+  }
+}
+```
+
+### Alternative configs
+
+**Local (Node from repo)** (Option 3 — run from cloned repo):
 
 ```json
 {
@@ -138,7 +228,7 @@ Replace the path in the examples below with your repo's absolute path to `bin/mc
 }
 ```
 
-### Example: Docker
+**Docker** (Option 3 — stdio):
 
 ```json
 {
@@ -156,6 +246,28 @@ Replace the path in the examples below with your repo's absolute path to `bin/mc
 ```
 
 After editing, save the file and **restart Cursor or quit and reopen Claude Desktop** so the MCP server is picked up.
+
+## Hosting your own URL
+
+For teams that want to host the server themselves and expose a **remote** MCP endpoint (e.g. `https://mcp.flexprice.io/sse`) so users can add FlexPrice MCP by URL:
+
+1. **Fly.io:** Use the included [fly.toml](fly.toml). Set the FlexPrice API base URL as a secret (the host does not need an API key; clients send theirs in headers).
+
+   ```bash
+   fly launch   # or fly apps create flexprice-mcp
+   fly secrets set BASE_URL=https://api.cloud.flexprice.io/v1
+   fly deploy
+   ```
+
+   After deploy, your SSE URL is `https://<your-app>.fly.dev/sse`. Optionally attach a custom domain (e.g. `mcp.flexprice.io`) in the Fly dashboard.
+
+2. **Railway / Render:** Create a new service from this repo, use the Dockerfile, set env `BASE_URL=https://api.cloud.flexprice.io/v1`, and set the service port to the value your platform expects (e.g. `PORT=2718` or the provided `PORT`). The public URL will be `<your-service-url>/sse`.
+
+3. **Cloudflare Tunnel:** Expose your running MCP server through Cloudflare with no code changes. Install [cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/) (e.g. `brew install cloudflared`), run your server (Docker or `npm start` on the port you use), then run `cloudflared tunnel --url http://localhost:2718`. Use the printed `*.trycloudflare.com` URL as your MCP endpoint: `https://<tunnel-host>/sse`. Configure your MCP client with this URL and the `ApiKeyAuth` header (same as [Option 1 — remote](#option-1-use-the-hosted-url)). For a full guide, see [Deploy with Cloudflare Tunnel](docs/cloudflare-tunnel.md).
+
+4. **Cloudflare Workers (proxy):** To put an edge proxy in front of your existing MCP server (e.g. for custom domain or Cloudflare Access), see [Cloudflare Worker proxy](docs/cloudflare-worker-proxy.md).
+
+5. **Document the URL** in your docs and client config examples (e.g. `https://mcp.flexprice.io/sse` with header `ApiKeyAuth`).
 
 ## Tools
 
@@ -200,6 +312,14 @@ The server exposes the FlexPrice API as MCP tools. Tool names and parameters mat
    ```bash
    chmod +x bin/mcp-server.js
    ```
+
+### Remote (hosted) connection issues
+
+1. **Connection refused / wrong URL:** Ensure the URL is exactly the SSE endpoint (e.g. `https://mcp.flexprice.io/sse`). Some clients expect the base URL; try with and without `/sse` per your client’s docs.
+
+2. **401 Unauthorized:** Ensure the `ApiKeyAuth` (or `x-api-key`) header is set to your FlexPrice API key. Re-authorize or re-add the server in your client if the key was rotated.
+
+3. **Invalid URL / 404 on tool calls:** For local stdio, set `BASE_URL` or `--server-url` to the API base including `/v1` (e.g. `https://api.cloud.flexprice.io/v1`). For remote, the host uses its own `BASE_URL`; if tools fail, the hosted deployment may need the correct env.
 
 ### Docker Issues
 
@@ -293,6 +413,8 @@ FlexPrice API: FlexPrice API Service
 <!-- Start Installation [installation] -->
 ## Installation
 
+Same configs as above, in collapsible form for Cursor, VS Code, Claude Code, etc.
+
 > [!TIP]
 > To finish publishing your MCP Server to npm and others you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
 <details>
@@ -312,45 +434,77 @@ The MCP bundle package includes the MCP server and all necessary configuration. 
 <details>
 <summary>Cursor</summary>
 
-[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](cursor://anysphere.cursor-deeplink/mcp/install?name=FlexPrice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJtY3AiLCJzdGFydCIsIi0tc2VydmVyLXVybCIsIiIsIi0tYXBpLWtleS1hdXRoIiwiIl19)
+**Remote (hosted):** Add an HTTP MCP server with URL and headers.
 
-Or manually:
-
-1. Open Cursor Settings
-2. Select Tools and Integrations
-3. Select New MCP Server
-4. If the configuration file is empty paste the following JSON into the MCP Server Configuration:
+1. Open Cursor Settings → Tools and Integrations → New MCP Server.
+2. Add server type **HTTP** (or URL) and paste:
 
 ```json
 {
-  "command": "npx",
-  "args": [
-    "mcp",
-    "start",
-    "--server-url",
-    "",
-    "--api-key-auth",
-    ""
-  ]
+  "flexprice": {
+    "url": "https://mcp.flexprice.io/sse",
+    "headers": {
+      "ApiKeyAuth": "YOUR_API_KEY"
+    }
+  }
 }
 ```
+
+**Local (stdio):** [One-click install (local)](cursor://anysphere.cursor-deeplink/mcp/install?name=FlexPrice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBmbGV4cHJpY2UvbWNwLXNlcnZlciIsInN0YXJ0IiwiLS1zZXJ2ZXItdXJsIiwiaHR0cHM6Ly9hcGkuY2xvdWQuZmxleHByaWNlLmlvL3YxIiwiLS1hcGkta2V5LWF1dGgiLCJZT1VSX0FQSV9LRVkiXX0=)
+
+Or manually add a stdio server:
+
+```json
+{
+  "flexprice": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@flexprice/mcp-server",
+      "start",
+      "--server-url",
+      "https://api.cloud.flexprice.io/v1",
+      "--api-key-auth",
+      "YOUR_API_KEY"
+    ]
+  }
+}
+```
+
+Replace `YOUR_API_KEY` with your FlexPrice API key.
 
 </details>
 
 <details>
 <summary>Claude Code CLI</summary>
 
+**Remote (hosted):**
+
 ```bash
-claude mcp add FlexPrice -- npx -y mcp start --server-url  --api-key-auth 
+claude mcp add --transport http FlexPrice https://mcp.flexprice.io/sse
 ```
+
+Then set the `ApiKeyAuth` header to your API key when prompted or in config.
+
+**Local (stdio):**
+
+```bash
+claude mcp add FlexPrice -- npx -y @flexprice/mcp-server start --server-url https://api.cloud.flexprice.io/v1 --api-key-auth YOUR_API_KEY
+```
+
+Replace `YOUR_API_KEY` with your FlexPrice API key.
 
 </details>
 <details>
 <summary>Gemini</summary>
 
+**Local (stdio):**
+
 ```bash
-gemini mcp add FlexPrice -- npx -y mcp start --server-url  --api-key-auth 
+gemini mcp add FlexPrice -- npx -y @flexprice/mcp-server start --server-url https://api.cloud.flexprice.io/v1 --api-key-auth YOUR_API_KEY
 ```
+
+Replace `YOUR_API_KEY` with your FlexPrice API key.
 
 </details>
 <details>
@@ -362,18 +516,19 @@ Refer to [Official Windsurf documentation](https://docs.windsurf.com/windsurf/ca
 2. Select Cascade on left side menu
 3. Click on `Manage MCPs`. (To Manage MCPs you should be signed in with a Windsurf Account)
 4. Click on `View raw config` to open up the mcp configuration file.
-5. If the configuration file is empty paste the full json
+5. If the configuration file is empty paste the full json (replace `YOUR_API_KEY`):
 
-```bash
+```json
 {
   "command": "npx",
   "args": [
-    "mcp",
+    "-y",
+    "@flexprice/mcp-server",
     "start",
     "--server-url",
-    "",
+    "https://api.cloud.flexprice.io/v1",
     "--api-key-auth",
-    ""
+    "YOUR_API_KEY"
   ]
 }
 ```
@@ -381,43 +536,43 @@ Refer to [Official Windsurf documentation](https://docs.windsurf.com/windsurf/ca
 <details>
 <summary>VS Code</summary>
 
-[![Install in VS Code](https://img.shields.io/badge/VS_Code-VS_Code?style=flat-square&label=Install%20FlexPrice%20MCP&color=0098FF)](vscode://ms-vscode.vscode-mcp/install?name=FlexPrice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJtY3AiLCJzdGFydCIsIi0tc2VydmVyLXVybCIsIiIsIi0tYXBpLWtleS1hdXRoIiwiIl19)
+**Remote (hosted):** MCP: Add Server → HTTP → URL `https://mcp.flexprice.io/sse`, then add header `ApiKeyAuth` = your API key.
 
-Or manually:
+**Local (stdio):** [Install in VS Code](vscode://ms-vscode.vscode-mcp/install?name=FlexPrice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBmbGV4cHJpY2UvbWNwLXNlcnZlciIsInN0YXJ0IiwiLS1zZXJ2ZXItdXJsIiwiaHR0cHM6Ly9hcGkuY2xvdWQuZmxleHByaWNlLmlvL3YxIiwiLS1hcGkta2V5LWF1dGgiLCJZT1VSX0FQSV9LRVkiXX0=)
 
-Refer to [Official VS Code documentation](https://code.visualstudio.com/api/extension-guides/ai/mcp) for latest information
+Or manually: Refer to [Official VS Code documentation](https://code.visualstudio.com/api/extension-guides/ai/mcp). Open `MCP: Open User Configuration` and add (replace `YOUR_API_KEY`):
 
-1. Open [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette)
-1. Search and open `MCP: Open User Configuration`. This should open mcp.json file
-2. If the configuration file is empty paste the full json
-
-```bash
+```json
 {
-  "command": "npx",
-  "args": [
-    "mcp",
-    "start",
-    "--server-url",
-    "",
-    "--api-key-auth",
-    ""
-  ]
+  "flexprice": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@flexprice/mcp-server",
+      "start",
+      "--server-url",
+      "https://api.cloud.flexprice.io/v1",
+      "--api-key-auth",
+      "YOUR_API_KEY"
+    ]
+  }
 }
 ```
 
 </details>
 <details>
-<summary> Stdio installation via npm </summary>
-To start the MCP server, run:
+<summary>Stdio installation via npm</summary>
+
+To start the MCP server locally, run:
 
 ```bash
-npx mcp start --server-url  --api-key-auth 
+npx @flexprice/mcp-server start --server-url https://api.cloud.flexprice.io/v1 --api-key-auth YOUR_API_KEY
 ```
 
 For a full list of server arguments, run:
 
-```
-npx mcp --help
+```bash
+npx @flexprice/mcp-server --help
 ```
 
 </details>
