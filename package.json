@@ -1,15 +1,15 @@
 {
-  "name": "mcp",
+  "name": "@flexprice/mcp-server",
   "version": "0.0.3",
   "author": "Speakeasy",
   "type": "module",
   "sideEffects": false,
   "bin": {
-    "mcp": "bin/mcp-server.js"
+    "flexprice-mcp": "bin/mcp-server.js"
   },
   "scripts": {
-    "build": "bun i && bun src/mcp-server/build.mts && tsc",
-    "mcpb:build": "bun i && bun src/mcp-server/build.mts --pack && tsc",
+    "build": "bun i && node scripts/patch-server-dynamic.cjs && bun src/mcp-server/build.mts && tsc",
+    "mcpb:build": "bun i && node scripts/patch-server-dynamic.cjs && bun src/mcp-server/build.mts --pack && tsc",
     "check": "npm run lint",
     "lint": "eslint --cache --max-warnings=0 src",
     "prepublishOnly": "npm run build",
@@ -19,7 +19,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci --coverage"
+    "test:ci": "jest --ci --coverage",
+    "publish:public": "node scripts/publish-public.cjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.26.0",
@@ -48,5 +49,8 @@
     "nock": "^13.5.4",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

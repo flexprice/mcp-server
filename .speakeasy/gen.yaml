@@ -30,7 +30,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 mcp-typescript:
-  version: 0.0.1
+  version: 0.0.2
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
@@ -40,7 +40,9 @@ mcp-typescript:
   baseErrorName: FlexPriceError
   cloudflareEnabled: false
   compileCommand:
-    - true
+    - bash
+    - -c
+    - npm install --ignore-scripts && npm rebuild bun && npm run lint && node scripts/patch-server-dynamic.cjs && npm run build
   defaultErrorName: FlexPriceDefaultError
   formStringArrayEncodeMode: array
   gramEnabled: false

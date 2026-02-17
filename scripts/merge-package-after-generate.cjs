@@ -10,8 +10,19 @@ const root = path.resolve(__dirname, "..");
 const pkgPath = path.join(root, "package.json");
 const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
 
-// Only add generate/test scripts; do not override build/mcpb:build (Speakeasy's Bun build stays).
+// Preserve FlexPrice package identity (Speakeasy may write "mcp").
+const preserve = {
+  name: "@flexprice/mcp-server",
+  bin: { "flexprice-mcp": "bin/mcp-server.js" },
+  publishConfig: { access: "public" },
+};
+
+// Restore build scripts with patch-server-dynamic so compile succeeds after generate.
 const extraScripts = {
+  build:
+    "bun i && node scripts/patch-server-dynamic.cjs && bun src/mcp-server/build.mts && tsc",
+  "mcpb:build":
+    "bun i && node scripts/patch-server-dynamic.cjs && bun src/mcp-server/build.mts --pack && tsc",
   generate: "speakeasy run --target flexprice-mcp -y",
   "generate:install":
     "bun run generate && node scripts/merge-package-after-generate.cjs && bun install",
@@ -20,6 +31,7 @@ const extraScripts = {
   "test:watch": "jest --watch",
   "test:coverage": "jest --coverage",
   "test:ci": "jest --ci --coverage",
+  "publish:public": "node scripts/publish-public.cjs",
 };
 
 const extraDevDependencies = {
@@ -32,6 +44,7 @@ const extraDevDependencies = {
   "ts-node": "^10.9.2",
 };
 
+Object.assign(pkg, preserve);
 pkg.scripts = { ...pkg.scripts, ...extraScripts };
 pkg.devDependencies = { ...pkg.devDependencies, ...extraDevDependencies };
 
