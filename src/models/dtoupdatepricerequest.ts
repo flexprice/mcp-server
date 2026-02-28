@@ -3,6 +3,8 @@
  */
 
 import * as z from "zod";
+import { BillingModel, BillingModel$zodSchema } from "./billingmodel.js";
+import { BillingTier, BillingTier$zodSchema } from "./billingtier.js";
 import {
   DtoCreatePriceTier,
   DtoCreatePriceTier$zodSchema,
@@ -11,18 +13,10 @@ import {
   PriceTransformQuantity,
   PriceTransformQuantity$zodSchema,
 } from "./pricetransformquantity.js";
-import {
-  TypesBillingModel,
-  TypesBillingModel$zodSchema,
-} from "./typesbillingmodel.js";
-import {
-  TypesBillingTier,
-  TypesBillingTier$zodSchema,
-} from "./typesbillingtier.js";
 
 export type DtoUpdatePriceRequest = {
   amount?: string | undefined;
-  billing_model?: TypesBillingModel | undefined;
+  billing_model?: BillingModel | undefined;
   description?: string | undefined;
   display_name?: string | undefined;
   effective_from?: string | undefined;
@@ -31,7 +25,7 @@ export type DtoUpdatePriceRequest = {
   metadata?: { [k: string]: string } | undefined;
   price_unit_amount?: string | undefined;
   price_unit_tiers?: Array<DtoCreatePriceTier> | undefined;
-  tier_mode?: TypesBillingTier | undefined;
+  tier_mode?: BillingTier | undefined;
   tiers?: Array<DtoCreatePriceTier> | undefined;
   transform_quantity?: PriceTransformQuantity | undefined;
 };
@@ -39,7 +33,7 @@ export type DtoUpdatePriceRequest = {
 export const DtoUpdatePriceRequest$zodSchema: z.ZodType<DtoUpdatePriceRequest> =
   z.object({
     amount: z.string().optional(),
-    billing_model: TypesBillingModel$zodSchema.optional(),
+    billing_model: BillingModel$zodSchema.optional(),
     description: z.string().optional(),
     display_name: z.string().optional(),
     effective_from: z.string().optional(),
@@ -48,7 +42,7 @@ export const DtoUpdatePriceRequest$zodSchema: z.ZodType<DtoUpdatePriceRequest> =
     metadata: z.record(z.string(), z.string()).optional(),
     price_unit_amount: z.string().optional(),
     price_unit_tiers: z.array(DtoCreatePriceTier$zodSchema).optional(),
-    tier_mode: TypesBillingTier$zodSchema.optional(),
+    tier_mode: BillingTier$zodSchema.optional(),
     tiers: z.array(DtoCreatePriceTier$zodSchema).optional(),
     transform_quantity: PriceTransformQuantity$zodSchema.optional(),
   });

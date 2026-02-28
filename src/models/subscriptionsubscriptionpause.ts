@@ -3,16 +3,10 @@
  */
 
 import * as z from "zod";
-import { TypesPauseMode, TypesPauseMode$zodSchema } from "./typespausemode.js";
-import {
-  TypesPauseStatus,
-  TypesPauseStatus$zodSchema,
-} from "./typespausestatus.js";
-import {
-  TypesResumeMode,
-  TypesResumeMode$zodSchema,
-} from "./typesresumemode.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { PauseMode, PauseMode$zodSchema } from "./pausemode.js";
+import { PauseStatus, PauseStatus$zodSchema } from "./pausestatus.js";
+import { ResumeMode, ResumeMode$zodSchema } from "./resumemode.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type SubscriptionSubscriptionPause = {
   created_at?: string | undefined;
@@ -23,13 +17,13 @@ export type SubscriptionSubscriptionPause = {
   original_period_end?: string | undefined;
   original_period_start?: string | undefined;
   pause_end?: string | undefined;
-  pause_mode?: TypesPauseMode | undefined;
+  pause_mode?: PauseMode | undefined;
   pause_start?: string | undefined;
-  pause_status?: TypesPauseStatus | undefined;
+  pause_status?: PauseStatus | undefined;
   reason?: string | undefined;
-  resume_mode?: TypesResumeMode | undefined;
+  resume_mode?: ResumeMode | undefined;
   resumed_at?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   subscription_id?: string | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
@@ -47,13 +41,13 @@ export const SubscriptionSubscriptionPause$zodSchema: z.ZodType<
   original_period_end: z.string().optional(),
   original_period_start: z.string().optional(),
   pause_end: z.string().optional(),
-  pause_mode: TypesPauseMode$zodSchema.optional(),
+  pause_mode: PauseMode$zodSchema.optional(),
   pause_start: z.string().optional(),
-  pause_status: TypesPauseStatus$zodSchema.optional(),
+  pause_status: PauseStatus$zodSchema.optional(),
   reason: z.string().optional(),
-  resume_mode: TypesResumeMode$zodSchema.optional(),
+  resume_mode: ResumeMode$zodSchema.optional(),
   resumed_at: z.string().optional(),
-  status: TypesStatus$zodSchema.optional(),
+  status: Status$zodSchema.optional(),
   subscription_id: z.string().optional(),
   tenant_id: z.string().optional(),
   updated_at: z.string().optional(),

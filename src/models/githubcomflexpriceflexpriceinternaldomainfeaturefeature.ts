@@ -3,18 +3,12 @@
  */
 
 import * as z from "zod";
-import {
-  TypesAlertSettings,
-  TypesAlertSettings$zodSchema,
-} from "./typesalertsettings.js";
-import {
-  TypesFeatureType,
-  TypesFeatureType$zodSchema,
-} from "./typesfeaturetype.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { AlertSettings, AlertSettings$zodSchema } from "./alertsettings.js";
+import { FeatureType, FeatureType$zodSchema } from "./featuretype.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type GithubComFlexpriceFlexpriceInternalDomainFeatureFeature = {
-  alert_settings?: TypesAlertSettings | undefined;
+  alert_settings?: AlertSettings | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
   description?: string | undefined;
@@ -24,9 +18,9 @@ export type GithubComFlexpriceFlexpriceInternalDomainFeatureFeature = {
   metadata?: { [k: string]: string } | undefined;
   meter_id?: string | undefined;
   name?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   tenant_id?: string | undefined;
-  type?: TypesFeatureType | undefined;
+  type?: FeatureType | undefined;
   unit_plural?: string | undefined;
   unit_singular?: string | undefined;
   updated_at?: string | undefined;
@@ -36,7 +30,7 @@ export type GithubComFlexpriceFlexpriceInternalDomainFeatureFeature = {
 export const GithubComFlexpriceFlexpriceInternalDomainFeatureFeature$zodSchema:
   z.ZodType<GithubComFlexpriceFlexpriceInternalDomainFeatureFeature> = z.object(
     {
-      alert_settings: TypesAlertSettings$zodSchema.optional(),
+      alert_settings: AlertSettings$zodSchema.optional(),
       created_at: z.string().optional(),
       created_by: z.string().optional(),
       description: z.string().optional(),
@@ -46,9 +40,9 @@ export const GithubComFlexpriceFlexpriceInternalDomainFeatureFeature$zodSchema:
       metadata: z.record(z.string(), z.string()).optional(),
       meter_id: z.string().optional(),
       name: z.string().optional(),
-      status: TypesStatus$zodSchema.optional(),
+      status: Status$zodSchema.optional(),
       tenant_id: z.string().optional(),
-      type: TypesFeatureType$zodSchema.optional(),
+      type: FeatureType$zodSchema.optional(),
       unit_plural: z.string().optional(),
       unit_singular: z.string().optional(),
       updated_at: z.string().optional(),

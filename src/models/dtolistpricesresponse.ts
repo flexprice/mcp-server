@@ -8,17 +8,17 @@ import {
   DtoPriceResponse$zodSchema,
 } from "./dtopriceresponse.js";
 import {
-  TypesPaginationResponse,
-  TypesPaginationResponse$zodSchema,
-} from "./typespaginationresponse.js";
+  PaginationResponse,
+  PaginationResponse$zodSchema,
+} from "./paginationresponse.js";
 
 export type DtoListPricesResponse = {
   items?: Array<DtoPriceResponse> | undefined;
-  pagination?: TypesPaginationResponse | undefined;
+  pagination?: PaginationResponse | undefined;
 };
 
 export const DtoListPricesResponse$zodSchema: z.ZodType<DtoListPricesResponse> =
   z.object({
     items: z.array(DtoPriceResponse$zodSchema).optional(),
-    pagination: TypesPaginationResponse$zodSchema.optional(),
+    pagination: PaginationResponse$zodSchema.optional(),
   });

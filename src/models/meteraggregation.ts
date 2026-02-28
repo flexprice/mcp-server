@@ -4,26 +4,25 @@
 
 import * as z from "zod";
 import {
-  TypesAggregationType,
-  TypesAggregationType$zodSchema,
-} from "./typesaggregationtype.js";
-import {
-  TypesWindowSize,
-  TypesWindowSize$zodSchema,
-} from "./typeswindowsize.js";
+  AggregationType,
+  AggregationType$zodSchema,
+} from "./aggregationtype.js";
+import { WindowSize, WindowSize$zodSchema } from "./windowsize.js";
 
 export type MeterAggregation = {
-  bucket_size?: TypesWindowSize | undefined;
+  bucket_size?: WindowSize | undefined;
   field?: string | undefined;
+  group_by?: string | undefined;
   multiplier?: string | undefined;
-  type?: TypesAggregationType | undefined;
+  type?: AggregationType | undefined;
 };
 
 export const MeterAggregation$zodSchema: z.ZodType<MeterAggregation> = z.object(
   {
-    bucket_size: TypesWindowSize$zodSchema.optional(),
+    bucket_size: WindowSize$zodSchema.optional(),
     field: z.string().optional(),
+    group_by: z.string().optional(),
     multiplier: z.string().optional(),
-    type: TypesAggregationType$zodSchema.optional(),
+    type: AggregationType$zodSchema.optional(),
   },
 );

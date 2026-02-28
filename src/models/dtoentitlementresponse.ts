@@ -16,18 +16,15 @@ import {
   DtoPlanResponse$zodSchema,
 } from "./dtoplanresponse.js";
 import {
-  TypesEntitlementEntityType,
-  TypesEntitlementEntityType$zodSchema,
-} from "./typesentitlemententitytype.js";
+  EntitlementEntityType,
+  EntitlementEntityType$zodSchema,
+} from "./entitlemententitytype.js";
 import {
-  TypesEntitlementUsageResetPeriod,
-  TypesEntitlementUsageResetPeriod$zodSchema,
-} from "./typesentitlementusageresetperiod.js";
-import {
-  TypesFeatureType,
-  TypesFeatureType$zodSchema,
-} from "./typesfeaturetype.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+  EntitlementUsageResetPeriod,
+  EntitlementUsageResetPeriod$zodSchema,
+} from "./entitlementusageresetperiod.js";
+import { FeatureType, FeatureType$zodSchema } from "./featuretype.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type DtoEntitlementResponse = {
   addon?: DtoAddonResponse | undefined;
@@ -36,11 +33,11 @@ export type DtoEntitlementResponse = {
   display_order?: number | undefined;
   end_date?: string | undefined;
   entity_id?: string | undefined;
-  entity_type?: TypesEntitlementEntityType | undefined;
+  entity_type?: EntitlementEntityType | undefined;
   environment_id?: string | undefined;
   feature?: DtoFeatureResponse | undefined;
   feature_id?: string | undefined;
-  feature_type?: TypesFeatureType | undefined;
+  feature_type?: FeatureType | undefined;
   id?: string | undefined;
   is_enabled?: boolean | undefined;
   is_soft_limit?: boolean | undefined;
@@ -49,12 +46,12 @@ export type DtoEntitlementResponse = {
   plan_id?: string | undefined;
   start_date?: string | undefined;
   static_value?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
   usage_limit?: number | undefined;
-  usage_reset_period?: TypesEntitlementUsageResetPeriod | undefined;
+  usage_reset_period?: EntitlementUsageResetPeriod | undefined;
 };
 
 export const DtoEntitlementResponse$zodSchema: z.ZodType<
@@ -66,11 +63,11 @@ export const DtoEntitlementResponse$zodSchema: z.ZodType<
   display_order: z.int().optional(),
   end_date: z.string().optional(),
   entity_id: z.string().optional(),
-  entity_type: TypesEntitlementEntityType$zodSchema.optional(),
+  entity_type: EntitlementEntityType$zodSchema.optional(),
   environment_id: z.string().optional(),
   feature: DtoFeatureResponse$zodSchema.optional(),
   feature_id: z.string().optional(),
-  feature_type: TypesFeatureType$zodSchema.optional(),
+  feature_type: FeatureType$zodSchema.optional(),
   id: z.string().optional(),
   is_enabled: z.boolean().optional(),
   is_soft_limit: z.boolean().optional(),
@@ -79,10 +76,10 @@ export const DtoEntitlementResponse$zodSchema: z.ZodType<
   plan_id: z.string().optional(),
   start_date: z.string().optional(),
   static_value: z.string().optional(),
-  status: TypesStatus$zodSchema.optional(),
+  status: Status$zodSchema.optional(),
   tenant_id: z.string().optional(),
   updated_at: z.string().optional(),
   updated_by: z.string().optional(),
   usage_limit: z.int().optional(),
-  usage_reset_period: TypesEntitlementUsageResetPeriod$zodSchema.optional(),
+  usage_reset_period: EntitlementUsageResetPeriod$zodSchema.optional(),
 });

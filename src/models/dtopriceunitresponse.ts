@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type DtoPriceUnitResponse = {
   base_currency?: string | undefined;
@@ -15,7 +15,7 @@ export type DtoPriceUnitResponse = {
   id?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   symbol?: string | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
@@ -33,7 +33,7 @@ export const DtoPriceUnitResponse$zodSchema: z.ZodType<DtoPriceUnitResponse> = z
     id: z.string().optional(),
     metadata: z.record(z.string(), z.string()).optional(),
     name: z.string().optional(),
-    status: TypesStatus$zodSchema.optional(),
+    status: Status$zodSchema.optional(),
     symbol: z.string().optional(),
     tenant_id: z.string().optional(),
     updated_at: z.string().optional(),

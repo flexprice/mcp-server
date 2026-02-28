@@ -48,14 +48,12 @@ export async function main(this: LocalContext, flags: StartCommandFlags) {
 async function startStdio(flags: StartCommandFlags) {
   const logger = createConsoleLogger(flags["log-level"]);
   const transport = new StdioServerTransport();
-  const serverURL =
-    flags["server-url"] || process.env["BASE_URL"] || "";
   const { server } = createMCPServer({
     logger,
     allowedTools: flags.tool,
     dynamic: flags.mode === "dynamic",
-    security: { ApiKeyAuth: flags["api-key-auth"] ?? process.env["API_KEY_APIKEYAUTH"] ?? "" },
-    serverURL,
+    security: { ApiKeyAuth: flags["api-key-auth"] ?? "" },
+    serverURL: flags["server-url"],
     serverIdx: flags["server-index"],
   });
   await server.connect(transport);
@@ -95,19 +93,17 @@ async function startSSE(cliFlags: StartCommandFlags) {
     const flags: StartCommandFlags = {
       ...cliFlags,
       // Security fields can be overridden via headers
-      "api-key-auth": (req.headers["ApiKeyAuth"] as string)
+      "api-key-auth": (req.headers["apikeyauth"] as string)
         ?? cliFlags["api-key-auth"],
     };
-    const serverURL =
-      flags["server-url"] || process.env["BASE_URL"] || "";
 
     // Create a new MCP server for this connection with its auth
     const { server: mcpServer } = createMCPServer({
       logger,
       allowedTools: flags.tool,
       dynamic: flags.mode === "dynamic",
-      security: { ApiKeyAuth: flags["api-key-auth"] ?? process.env["API_KEY_APIKEYAUTH"] ?? "" as string },
-      serverURL,
+      security: { ApiKeyAuth: flags["api-key-auth"] ?? "" },
+      serverURL: flags["server-url"],
       serverIdx: flags["server-index"],
     });
 

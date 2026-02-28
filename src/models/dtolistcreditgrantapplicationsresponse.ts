@@ -8,18 +8,18 @@ import {
   DtoCreditGrantApplicationResponse$zodSchema,
 } from "./dtocreditgrantapplicationresponse.js";
 import {
-  TypesPaginationResponse,
-  TypesPaginationResponse$zodSchema,
-} from "./typespaginationresponse.js";
+  PaginationResponse,
+  PaginationResponse$zodSchema,
+} from "./paginationresponse.js";
 
 export type DtoListCreditGrantApplicationsResponse = {
   items?: Array<DtoCreditGrantApplicationResponse> | undefined;
-  pagination?: TypesPaginationResponse | undefined;
+  pagination?: PaginationResponse | undefined;
 };
 
 export const DtoListCreditGrantApplicationsResponse$zodSchema: z.ZodType<
   DtoListCreditGrantApplicationsResponse
 > = z.object({
   items: z.array(DtoCreditGrantApplicationResponse$zodSchema).optional(),
-  pagination: TypesPaginationResponse$zodSchema.optional(),
+  pagination: PaginationResponse$zodSchema.optional(),
 });

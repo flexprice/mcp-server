@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import {
+  DebugTrackerStatus,
+  DebugTrackerStatus$zodSchema,
+} from "./debugtrackerstatus.js";
+import {
   ErrorsErrorResponse,
   ErrorsErrorResponse$zodSchema,
 } from "./errorserrorresponse.js";
@@ -11,17 +15,13 @@ import {
   GithubComFlexpriceFlexpriceInternalDomainCustomerCustomer,
   GithubComFlexpriceFlexpriceInternalDomainCustomerCustomer$zodSchema,
 } from "./githubcomflexpriceflexpriceinternaldomaincustomercustomer.js";
-import {
-  TypesDebugTrackerStatus,
-  TypesDebugTrackerStatus$zodSchema,
-} from "./typesdebugtrackerstatus.js";
 
 export type DtoCustomerLookupResult = {
   customer?:
     | GithubComFlexpriceFlexpriceInternalDomainCustomerCustomer
     | undefined;
   error?: ErrorsErrorResponse | undefined;
-  status?: TypesDebugTrackerStatus | undefined;
+  status?: DebugTrackerStatus | undefined;
 };
 
 export const DtoCustomerLookupResult$zodSchema: z.ZodType<
@@ -30,5 +30,5 @@ export const DtoCustomerLookupResult$zodSchema: z.ZodType<
   customer: GithubComFlexpriceFlexpriceInternalDomainCustomerCustomer$zodSchema
     .optional(),
   error: ErrorsErrorResponse$zodSchema.optional(),
-  status: TypesDebugTrackerStatus$zodSchema.optional(),
+  status: DebugTrackerStatus$zodSchema.optional(),
 });

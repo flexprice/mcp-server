@@ -8,10 +8,7 @@ import {
   MeterAggregation$zodSchema,
 } from "./meteraggregation.js";
 import { MeterFilter, MeterFilter$zodSchema } from "./meterfilter.js";
-import {
-  TypesResetUsage,
-  TypesResetUsage$zodSchema,
-} from "./typesresetusage.js";
+import { ResetUsage, ResetUsage$zodSchema } from "./resetusage.js";
 
 export type DtoMeterResponse = {
   aggregation?: MeterAggregation | undefined;
@@ -20,7 +17,7 @@ export type DtoMeterResponse = {
   filters?: Array<MeterFilter> | undefined;
   id?: string | undefined;
   name?: string | undefined;
-  reset_usage?: TypesResetUsage | undefined;
+  reset_usage?: ResetUsage | undefined;
   status?: string | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
@@ -34,7 +31,7 @@ export const DtoMeterResponse$zodSchema: z.ZodType<DtoMeterResponse> = z.object(
     filters: z.array(MeterFilter$zodSchema).optional(),
     id: z.string().optional(),
     name: z.string().optional(),
-    reset_usage: TypesResetUsage$zodSchema.optional(),
+    reset_usage: ResetUsage$zodSchema.optional(),
     status: z.string().optional(),
     tenant_id: z.string().optional(),
     updated_at: z.string().optional(),

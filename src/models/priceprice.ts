@@ -3,47 +3,29 @@
  */
 
 import * as z from "zod";
+import { BillingCadence, BillingCadence$zodSchema } from "./billingcadence.js";
+import { BillingModel, BillingModel$zodSchema } from "./billingmodel.js";
+import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
+import { BillingTier, BillingTier$zodSchema } from "./billingtier.js";
+import { InvoiceCadence, InvoiceCadence$zodSchema } from "./invoicecadence.js";
+import {
+  PriceEntityType,
+  PriceEntityType$zodSchema,
+} from "./priceentitytype.js";
 import {
   PriceJSONBTransformQuantity,
   PriceJSONBTransformQuantity$zodSchema,
 } from "./pricejsonbtransformquantity.js";
 import { PricePriceTier, PricePriceTier$zodSchema } from "./pricepricetier.js";
-import {
-  TypesBillingCadence,
-  TypesBillingCadence$zodSchema,
-} from "./typesbillingcadence.js";
-import {
-  TypesBillingModel,
-  TypesBillingModel$zodSchema,
-} from "./typesbillingmodel.js";
-import {
-  TypesBillingPeriod,
-  TypesBillingPeriod$zodSchema,
-} from "./typesbillingperiod.js";
-import {
-  TypesBillingTier,
-  TypesBillingTier$zodSchema,
-} from "./typesbillingtier.js";
-import {
-  TypesInvoiceCadence,
-  TypesInvoiceCadence$zodSchema,
-} from "./typesinvoicecadence.js";
-import {
-  TypesPriceEntityType,
-  TypesPriceEntityType$zodSchema,
-} from "./typespriceentitytype.js";
-import { TypesPriceType, TypesPriceType$zodSchema } from "./typespricetype.js";
-import {
-  TypesPriceUnitType,
-  TypesPriceUnitType$zodSchema,
-} from "./typespriceunittype.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { PriceType, PriceType$zodSchema } from "./pricetype.js";
+import { PriceUnitType, PriceUnitType$zodSchema } from "./priceunittype.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type PricePrice = {
   amount?: string | undefined;
-  billing_cadence?: TypesBillingCadence | undefined;
-  billing_model?: TypesBillingModel | undefined;
-  billing_period?: TypesBillingPeriod | undefined;
+  billing_cadence?: BillingCadence | undefined;
+  billing_model?: BillingModel | undefined;
+  billing_period?: BillingPeriod | undefined;
   billing_period_count?: number | undefined;
   conversion_rate?: string | undefined;
   created_at?: string | undefined;
@@ -55,11 +37,11 @@ export type PricePrice = {
   display_price_unit_amount?: string | undefined;
   end_date?: string | undefined;
   entity_id?: string | undefined;
-  entity_type?: TypesPriceEntityType | undefined;
+  entity_type?: PriceEntityType | undefined;
   environment_id?: string | undefined;
   group_id?: string | undefined;
   id?: string | undefined;
-  invoice_cadence?: TypesInvoiceCadence | undefined;
+  invoice_cadence?: InvoiceCadence | undefined;
   lookup_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   meter_id?: string | undefined;
@@ -69,24 +51,24 @@ export type PricePrice = {
   price_unit_amount?: string | undefined;
   price_unit_id?: string | undefined;
   price_unit_tiers?: Array<PricePriceTier> | undefined;
-  price_unit_type?: TypesPriceUnitType | undefined;
+  price_unit_type?: PriceUnitType | undefined;
   start_date?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   tenant_id?: string | undefined;
-  tier_mode?: TypesBillingTier | undefined;
+  tier_mode?: BillingTier | undefined;
   tiers?: Array<PricePriceTier> | undefined;
   transform_quantity?: PriceJSONBTransformQuantity | undefined;
   trial_period?: number | undefined;
-  type?: TypesPriceType | undefined;
+  type?: PriceType | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
 };
 
 export const PricePrice$zodSchema: z.ZodType<PricePrice> = z.object({
   amount: z.string().optional(),
-  billing_cadence: TypesBillingCadence$zodSchema.optional(),
-  billing_model: TypesBillingModel$zodSchema.optional(),
-  billing_period: TypesBillingPeriod$zodSchema.optional(),
+  billing_cadence: BillingCadence$zodSchema.optional(),
+  billing_model: BillingModel$zodSchema.optional(),
+  billing_period: BillingPeriod$zodSchema.optional(),
   billing_period_count: z.int().optional(),
   conversion_rate: z.string().optional(),
   created_at: z.string().optional(),
@@ -98,11 +80,11 @@ export const PricePrice$zodSchema: z.ZodType<PricePrice> = z.object({
   display_price_unit_amount: z.string().optional(),
   end_date: z.string().optional(),
   entity_id: z.string().optional(),
-  entity_type: TypesPriceEntityType$zodSchema.optional(),
+  entity_type: PriceEntityType$zodSchema.optional(),
   environment_id: z.string().optional(),
   group_id: z.string().optional(),
   id: z.string().optional(),
-  invoice_cadence: TypesInvoiceCadence$zodSchema.optional(),
+  invoice_cadence: InvoiceCadence$zodSchema.optional(),
   lookup_key: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   meter_id: z.string().optional(),
@@ -112,15 +94,15 @@ export const PricePrice$zodSchema: z.ZodType<PricePrice> = z.object({
   price_unit_amount: z.string().optional(),
   price_unit_id: z.string().optional(),
   price_unit_tiers: z.array(PricePriceTier$zodSchema).optional(),
-  price_unit_type: TypesPriceUnitType$zodSchema.optional(),
+  price_unit_type: PriceUnitType$zodSchema.optional(),
   start_date: z.string().optional(),
-  status: TypesStatus$zodSchema.optional(),
+  status: Status$zodSchema.optional(),
   tenant_id: z.string().optional(),
-  tier_mode: TypesBillingTier$zodSchema.optional(),
+  tier_mode: BillingTier$zodSchema.optional(),
   tiers: z.array(PricePriceTier$zodSchema).optional(),
   transform_quantity: PriceJSONBTransformQuantity$zodSchema.optional(),
   trial_period: z.int().optional(),
-  type: TypesPriceType$zodSchema.optional(),
+  type: PriceType$zodSchema.optional(),
   updated_at: z.string().optional(),
   updated_by: z.string().optional(),
 });

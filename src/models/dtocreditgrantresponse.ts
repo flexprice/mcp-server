@@ -4,29 +4,29 @@
 
 import * as z from "zod";
 import {
-  TypesCreditGrantCadence,
-  TypesCreditGrantCadence$zodSchema,
-} from "./typescreditgrantcadence.js";
+  CreditGrantCadence,
+  CreditGrantCadence$zodSchema,
+} from "./creditgrantcadence.js";
 import {
-  TypesCreditGrantExpiryDurationUnit,
-  TypesCreditGrantExpiryDurationUnit$zodSchema,
-} from "./typescreditgrantexpirydurationunit.js";
+  CreditGrantExpiryDurationUnit,
+  CreditGrantExpiryDurationUnit$zodSchema,
+} from "./creditgrantexpirydurationunit.js";
 import {
-  TypesCreditGrantExpiryType,
-  TypesCreditGrantExpiryType$zodSchema,
-} from "./typescreditgrantexpirytype.js";
+  CreditGrantExpiryType,
+  CreditGrantExpiryType$zodSchema,
+} from "./creditgrantexpirytype.js";
 import {
-  TypesCreditGrantPeriod,
-  TypesCreditGrantPeriod$zodSchema,
-} from "./typescreditgrantperiod.js";
+  CreditGrantPeriod,
+  CreditGrantPeriod$zodSchema,
+} from "./creditgrantperiod.js";
 import {
-  TypesCreditGrantScope,
-  TypesCreditGrantScope$zodSchema,
-} from "./typescreditgrantscope.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+  CreditGrantScope,
+  CreditGrantScope$zodSchema,
+} from "./creditgrantscope.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type DtoCreditGrantResponse = {
-  cadence?: TypesCreditGrantCadence | undefined;
+  cadence?: CreditGrantCadence | undefined;
   conversion_rate?: string | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -35,18 +35,18 @@ export type DtoCreditGrantResponse = {
   end_date?: string | undefined;
   environment_id?: string | undefined;
   expiration_duration?: number | undefined;
-  expiration_duration_unit?: TypesCreditGrantExpiryDurationUnit | undefined;
-  expiration_type?: TypesCreditGrantExpiryType | undefined;
+  expiration_duration_unit?: CreditGrantExpiryDurationUnit | undefined;
+  expiration_type?: CreditGrantExpiryType | undefined;
   id?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
-  period?: TypesCreditGrantPeriod | undefined;
+  period?: CreditGrantPeriod | undefined;
   period_count?: number | undefined;
   plan_id?: string | undefined;
   priority?: number | undefined;
-  scope?: TypesCreditGrantScope | undefined;
+  scope?: CreditGrantScope | undefined;
   start_date?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   subscription_id?: string | undefined;
   tenant_id?: string | undefined;
   topup_conversion_rate?: string | undefined;
@@ -57,7 +57,7 @@ export type DtoCreditGrantResponse = {
 export const DtoCreditGrantResponse$zodSchema: z.ZodType<
   DtoCreditGrantResponse
 > = z.object({
-  cadence: TypesCreditGrantCadence$zodSchema.optional(),
+  cadence: CreditGrantCadence$zodSchema.optional(),
   conversion_rate: z.string().optional(),
   created_at: z.string().optional(),
   created_by: z.string().optional(),
@@ -66,19 +66,18 @@ export const DtoCreditGrantResponse$zodSchema: z.ZodType<
   end_date: z.string().optional(),
   environment_id: z.string().optional(),
   expiration_duration: z.int().optional(),
-  expiration_duration_unit: TypesCreditGrantExpiryDurationUnit$zodSchema
-    .optional(),
-  expiration_type: TypesCreditGrantExpiryType$zodSchema.optional(),
+  expiration_duration_unit: CreditGrantExpiryDurationUnit$zodSchema.optional(),
+  expiration_type: CreditGrantExpiryType$zodSchema.optional(),
   id: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   name: z.string().optional(),
-  period: TypesCreditGrantPeriod$zodSchema.optional(),
+  period: CreditGrantPeriod$zodSchema.optional(),
   period_count: z.int().optional(),
   plan_id: z.string().optional(),
   priority: z.int().optional(),
-  scope: TypesCreditGrantScope$zodSchema.optional(),
+  scope: CreditGrantScope$zodSchema.optional(),
   start_date: z.string().optional(),
-  status: TypesStatus$zodSchema.optional(),
+  status: Status$zodSchema.optional(),
   subscription_id: z.string().optional(),
   tenant_id: z.string().optional(),
   topup_conversion_rate: z.string().optional(),

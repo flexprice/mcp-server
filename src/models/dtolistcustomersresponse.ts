@@ -8,21 +8,21 @@ import {
   DtoCustomerResponse$zodSchema,
 } from "./dtocustomerresponse.js";
 import {
-  TypesPaginationResponse,
-  TypesPaginationResponse$zodSchema,
-} from "./typespaginationresponse.js";
+  PaginationResponse,
+  PaginationResponse$zodSchema,
+} from "./paginationresponse.js";
 
 /**
  * Response object for listing customers with pagination
  */
 export type DtoListCustomersResponse = {
   items?: Array<DtoCustomerResponse> | undefined;
-  pagination?: TypesPaginationResponse | undefined;
+  pagination?: PaginationResponse | undefined;
 };
 
 export const DtoListCustomersResponse$zodSchema: z.ZodType<
   DtoListCustomersResponse
 > = z.object({
   items: z.array(DtoCustomerResponse$zodSchema).optional(),
-  pagination: TypesPaginationResponse$zodSchema.optional(),
+  pagination: PaginationResponse$zodSchema.optional(),
 }).describe("Response object for listing customers with pagination");

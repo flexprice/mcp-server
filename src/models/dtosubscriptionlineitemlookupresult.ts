@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import {
+  DebugTrackerStatus,
+  DebugTrackerStatus$zodSchema,
+} from "./debugtrackerstatus.js";
+import {
   DtoMatchedSubscriptionLineItem,
   DtoMatchedSubscriptionLineItem$zodSchema,
 } from "./dtomatchedsubscriptionlineitem.js";
@@ -11,15 +15,11 @@ import {
   ErrorsErrorResponse,
   ErrorsErrorResponse$zodSchema,
 } from "./errorserrorresponse.js";
-import {
-  TypesDebugTrackerStatus,
-  TypesDebugTrackerStatus$zodSchema,
-} from "./typesdebugtrackerstatus.js";
 
 export type DtoSubscriptionLineItemLookupResult = {
   error?: ErrorsErrorResponse | undefined;
   matched_line_items?: Array<DtoMatchedSubscriptionLineItem> | undefined;
-  status?: TypesDebugTrackerStatus | undefined;
+  status?: DebugTrackerStatus | undefined;
 };
 
 export const DtoSubscriptionLineItemLookupResult$zodSchema: z.ZodType<
@@ -28,5 +28,5 @@ export const DtoSubscriptionLineItemLookupResult$zodSchema: z.ZodType<
   error: ErrorsErrorResponse$zodSchema.optional(),
   matched_line_items: z.array(DtoMatchedSubscriptionLineItem$zodSchema)
     .optional(),
-  status: TypesDebugTrackerStatus$zodSchema.optional(),
+  status: DebugTrackerStatus$zodSchema.optional(),
 });

@@ -3,19 +3,13 @@
  */
 
 import * as z from "zod";
-import {
-  TypesCouponCadence,
-  TypesCouponCadence$zodSchema,
-} from "./typescouponcadence.js";
-import {
-  TypesCouponType,
-  TypesCouponType$zodSchema,
-} from "./typescoupontype.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { CouponCadence, CouponCadence$zodSchema } from "./couponcadence.js";
+import { CouponType, CouponType$zodSchema } from "./coupontype.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type GithubComFlexpriceFlexpriceInternalDomainCouponCoupon = {
   amount_off?: string | undefined;
-  cadence?: TypesCouponCadence | undefined;
+  cadence?: CouponCadence | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
   currency?: string | undefined;
@@ -29,10 +23,10 @@ export type GithubComFlexpriceFlexpriceInternalDomainCouponCoupon = {
   redeem_after?: string | undefined;
   redeem_before?: string | undefined;
   rules?: { [k: string]: any } | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   tenant_id?: string | undefined;
   total_redemptions?: number | undefined;
-  type?: TypesCouponType | undefined;
+  type?: CouponType | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
 };
@@ -40,7 +34,7 @@ export type GithubComFlexpriceFlexpriceInternalDomainCouponCoupon = {
 export const GithubComFlexpriceFlexpriceInternalDomainCouponCoupon$zodSchema:
   z.ZodType<GithubComFlexpriceFlexpriceInternalDomainCouponCoupon> = z.object({
     amount_off: z.string().optional(),
-    cadence: TypesCouponCadence$zodSchema.optional(),
+    cadence: CouponCadence$zodSchema.optional(),
     created_at: z.string().optional(),
     created_by: z.string().optional(),
     currency: z.string().optional(),
@@ -54,10 +48,10 @@ export const GithubComFlexpriceFlexpriceInternalDomainCouponCoupon$zodSchema:
     redeem_after: z.string().optional(),
     redeem_before: z.string().optional(),
     rules: z.record(z.string(), z.any()).optional(),
-    status: TypesStatus$zodSchema.optional(),
+    status: Status$zodSchema.optional(),
     tenant_id: z.string().optional(),
     total_redemptions: z.int().optional(),
-    type: TypesCouponType$zodSchema.optional(),
+    type: CouponType$zodSchema.optional(),
     updated_at: z.string().optional(),
     updated_by: z.string().optional(),
   });

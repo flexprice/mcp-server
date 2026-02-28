@@ -4,22 +4,22 @@
 
 import * as z from "zod";
 import {
-  TypesApplicationStatus,
-  TypesApplicationStatus$zodSchema,
-} from "./typesapplicationstatus.js";
+  ApplicationStatus,
+  ApplicationStatus$zodSchema,
+} from "./applicationstatus.js";
 import {
-  TypesCreditGrantApplicationReason,
-  TypesCreditGrantApplicationReason$zodSchema,
-} from "./typescreditgrantapplicationreason.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+  CreditGrantApplicationReason,
+  CreditGrantApplicationReason$zodSchema,
+} from "./creditgrantapplicationreason.js";
+import { Status, Status$zodSchema } from "./status.js";
 import {
-  TypesSubscriptionStatus,
-  TypesSubscriptionStatus$zodSchema,
-} from "./typessubscriptionstatus.js";
+  SubscriptionStatus,
+  SubscriptionStatus$zodSchema,
+} from "./subscriptionstatus.js";
 
 export type DtoCreditGrantApplicationResponse = {
-  application_reason?: TypesCreditGrantApplicationReason | undefined;
-  application_status?: TypesApplicationStatus | undefined;
+  application_reason?: CreditGrantApplicationReason | undefined;
+  application_status?: ApplicationStatus | undefined;
   applied_at?: string | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -34,9 +34,9 @@ export type DtoCreditGrantApplicationResponse = {
   period_start?: string | undefined;
   retry_count?: number | undefined;
   scheduled_for?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   subscription_id?: string | undefined;
-  subscription_status_at_application?: TypesSubscriptionStatus | undefined;
+  subscription_status_at_application?: SubscriptionStatus | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
@@ -45,8 +45,8 @@ export type DtoCreditGrantApplicationResponse = {
 export const DtoCreditGrantApplicationResponse$zodSchema: z.ZodType<
   DtoCreditGrantApplicationResponse
 > = z.object({
-  application_reason: TypesCreditGrantApplicationReason$zodSchema.optional(),
-  application_status: TypesApplicationStatus$zodSchema.optional(),
+  application_reason: CreditGrantApplicationReason$zodSchema.optional(),
+  application_status: ApplicationStatus$zodSchema.optional(),
   applied_at: z.string().optional(),
   created_at: z.string().optional(),
   created_by: z.string().optional(),
@@ -61,10 +61,9 @@ export const DtoCreditGrantApplicationResponse$zodSchema: z.ZodType<
   period_start: z.string().optional(),
   retry_count: z.int().optional(),
   scheduled_for: z.string().optional(),
-  status: TypesStatus$zodSchema.optional(),
+  status: Status$zodSchema.optional(),
   subscription_id: z.string().optional(),
-  subscription_status_at_application: TypesSubscriptionStatus$zodSchema
-    .optional(),
+  subscription_status_at_application: SubscriptionStatus$zodSchema.optional(),
   tenant_id: z.string().optional(),
   updated_at: z.string().optional(),
   updated_by: z.string().optional(),

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 /**
  * Customer response object containing all customer information
@@ -25,7 +25,7 @@ export type DtoCustomerResponse = {
   name?: string | undefined;
   parent_customer?: DtoCustomerResponse | undefined;
   parent_customer_id?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
@@ -49,7 +49,7 @@ export const DtoCustomerResponse$zodSchema: z.ZodType<DtoCustomerResponse> = z
     name: z.string().optional(),
     parent_customer: z.lazy(() => DtoCustomerResponse$zodSchema).optional(),
     parent_customer_id: z.string().optional(),
-    status: TypesStatus$zodSchema.optional(),
+    status: Status$zodSchema.optional(),
     tenant_id: z.string().optional(),
     updated_at: z.string().optional(),
     updated_by: z.string().optional(),

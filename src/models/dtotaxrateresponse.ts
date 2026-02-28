@@ -3,19 +3,10 @@
  */
 
 import * as z from "zod";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
-import {
-  TypesTaxRateScope,
-  TypesTaxRateScope$zodSchema,
-} from "./typestaxratescope.js";
-import {
-  TypesTaxRateStatus,
-  TypesTaxRateStatus$zodSchema,
-} from "./typestaxratestatus.js";
-import {
-  TypesTaxRateType,
-  TypesTaxRateType$zodSchema,
-} from "./typestaxratetype.js";
+import { Status, Status$zodSchema } from "./status.js";
+import { TaxRateScope, TaxRateScope$zodSchema } from "./taxratescope.js";
+import { TaxRateStatus, TaxRateStatus$zodSchema } from "./taxratestatus.js";
+import { TaxRateType, TaxRateType$zodSchema } from "./taxratetype.js";
 
 export type DtoTaxRateResponse = {
   code?: string | undefined;
@@ -28,10 +19,10 @@ export type DtoTaxRateResponse = {
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
   percentage_value?: string | undefined;
-  scope?: TypesTaxRateScope | undefined;
-  status?: TypesStatus | undefined;
-  tax_rate_status?: TypesTaxRateStatus | undefined;
-  tax_rate_type?: TypesTaxRateType | undefined;
+  scope?: TaxRateScope | undefined;
+  status?: Status | undefined;
+  tax_rate_status?: TaxRateStatus | undefined;
+  tax_rate_type?: TaxRateType | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
@@ -49,10 +40,10 @@ export const DtoTaxRateResponse$zodSchema: z.ZodType<DtoTaxRateResponse> = z
     metadata: z.record(z.string(), z.string()).optional(),
     name: z.string().optional(),
     percentage_value: z.string().optional(),
-    scope: TypesTaxRateScope$zodSchema.optional(),
-    status: TypesStatus$zodSchema.optional(),
-    tax_rate_status: TypesTaxRateStatus$zodSchema.optional(),
-    tax_rate_type: TypesTaxRateType$zodSchema.optional(),
+    scope: TaxRateScope$zodSchema.optional(),
+    status: Status$zodSchema.optional(),
+    tax_rate_status: TaxRateStatus$zodSchema.optional(),
+    tax_rate_type: TaxRateType$zodSchema.optional(),
     tenant_id: z.string().optional(),
     updated_at: z.string().optional(),
     updated_by: z.string().optional(),

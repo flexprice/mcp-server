@@ -3,33 +3,26 @@
  */
 
 import * as z from "zod";
+import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
+import { CommitmentType, CommitmentType$zodSchema } from "./commitmenttype.js";
+import { InvoiceCadence, InvoiceCadence$zodSchema } from "./invoicecadence.js";
 import { PricePrice, PricePrice$zodSchema } from "./priceprice.js";
+import { PriceType, PriceType$zodSchema } from "./pricetype.js";
+import { Status, Status$zodSchema } from "./status.js";
 import {
-  TypesBillingPeriod,
-  TypesBillingPeriod$zodSchema,
-} from "./typesbillingperiod.js";
-import {
-  TypesCommitmentType,
-  TypesCommitmentType$zodSchema,
-} from "./typescommitmenttype.js";
-import {
-  TypesInvoiceCadence,
-  TypesInvoiceCadence$zodSchema,
-} from "./typesinvoicecadence.js";
-import { TypesPriceType, TypesPriceType$zodSchema } from "./typespricetype.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
-import {
-  TypesSubscriptionLineItemEntityType,
-  TypesSubscriptionLineItemEntityType$zodSchema,
-} from "./typessubscriptionlineitementitytype.js";
+  SubscriptionLineItemEntityType,
+  SubscriptionLineItemEntityType$zodSchema,
+} from "./subscriptionlineitementitytype.js";
 
 export type SubscriptionSubscriptionLineItem = {
-  billing_period?: TypesBillingPeriod | undefined;
-  commitment_amount?: number | undefined;
-  commitment_overage_factor?: number | undefined;
-  commitment_quantity?: number | undefined;
+  billing_period?: BillingPeriod | undefined;
+  billing_period_count?: number | undefined;
+  commitment_amount?: string | undefined;
+  commitment_duration?: BillingPeriod | undefined;
+  commitment_overage_factor?: string | undefined;
+  commitment_quantity?: string | undefined;
   commitment_true_up_enabled?: boolean | undefined;
-  commitment_type?: TypesCommitmentType | undefined;
+  commitment_type?: CommitmentType | undefined;
   commitment_windowed?: boolean | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -38,22 +31,22 @@ export type SubscriptionSubscriptionLineItem = {
   display_name?: string | undefined;
   end_date?: string | undefined;
   entity_id?: string | undefined;
-  entity_type?: TypesSubscriptionLineItemEntityType | undefined;
+  entity_type?: SubscriptionLineItemEntityType | undefined;
   environment_id?: string | undefined;
   id?: string | undefined;
-  invoice_cadence?: TypesInvoiceCadence | undefined;
+  invoice_cadence?: InvoiceCadence | undefined;
   metadata?: { [k: string]: string } | undefined;
   meter_display_name?: string | undefined;
   meter_id?: string | undefined;
   plan_display_name?: string | undefined;
   price?: PricePrice | undefined;
   price_id?: string | undefined;
-  price_type?: TypesPriceType | undefined;
+  price_type?: PriceType | undefined;
   price_unit?: string | undefined;
   price_unit_id?: string | undefined;
   quantity?: string | undefined;
   start_date?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   subscription_id?: string | undefined;
   subscription_phase_id?: string | undefined;
   tenant_id?: string | undefined;
@@ -65,12 +58,14 @@ export type SubscriptionSubscriptionLineItem = {
 export const SubscriptionSubscriptionLineItem$zodSchema: z.ZodType<
   SubscriptionSubscriptionLineItem
 > = z.object({
-  billing_period: TypesBillingPeriod$zodSchema.optional(),
-  commitment_amount: z.number().optional(),
-  commitment_overage_factor: z.number().optional(),
-  commitment_quantity: z.number().optional(),
+  billing_period: BillingPeriod$zodSchema.optional(),
+  billing_period_count: z.int().optional(),
+  commitment_amount: z.string().optional(),
+  commitment_duration: BillingPeriod$zodSchema.optional(),
+  commitment_overage_factor: z.string().optional(),
+  commitment_quantity: z.string().optional(),
   commitment_true_up_enabled: z.boolean().optional(),
-  commitment_type: TypesCommitmentType$zodSchema.optional(),
+  commitment_type: CommitmentType$zodSchema.optional(),
   commitment_windowed: z.boolean().optional(),
   created_at: z.string().optional(),
   created_by: z.string().optional(),
@@ -79,22 +74,22 @@ export const SubscriptionSubscriptionLineItem$zodSchema: z.ZodType<
   display_name: z.string().optional(),
   end_date: z.string().optional(),
   entity_id: z.string().optional(),
-  entity_type: TypesSubscriptionLineItemEntityType$zodSchema.optional(),
+  entity_type: SubscriptionLineItemEntityType$zodSchema.optional(),
   environment_id: z.string().optional(),
   id: z.string().optional(),
-  invoice_cadence: TypesInvoiceCadence$zodSchema.optional(),
+  invoice_cadence: InvoiceCadence$zodSchema.optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   meter_display_name: z.string().optional(),
   meter_id: z.string().optional(),
   plan_display_name: z.string().optional(),
   price: PricePrice$zodSchema.optional(),
   price_id: z.string().optional(),
-  price_type: TypesPriceType$zodSchema.optional(),
+  price_type: PriceType$zodSchema.optional(),
   price_unit: z.string().optional(),
   price_unit_id: z.string().optional(),
   quantity: z.string().optional(),
   start_date: z.string().optional(),
-  status: TypesStatus$zodSchema.optional(),
+  status: Status$zodSchema.optional(),
   subscription_id: z.string().optional(),
   subscription_phase_id: z.string().optional(),
   tenant_id: z.string().optional(),

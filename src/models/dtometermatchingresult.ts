@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import {
+  DebugTrackerStatus,
+  DebugTrackerStatus$zodSchema,
+} from "./debugtrackerstatus.js";
+import {
   DtoMatchedMeter,
   DtoMatchedMeter$zodSchema,
 } from "./dtomatchedmeter.js";
@@ -11,15 +15,11 @@ import {
   ErrorsErrorResponse,
   ErrorsErrorResponse$zodSchema,
 } from "./errorserrorresponse.js";
-import {
-  TypesDebugTrackerStatus,
-  TypesDebugTrackerStatus$zodSchema,
-} from "./typesdebugtrackerstatus.js";
 
 export type DtoMeterMatchingResult = {
   error?: ErrorsErrorResponse | undefined;
   matched_meters?: Array<DtoMatchedMeter> | undefined;
-  status?: TypesDebugTrackerStatus | undefined;
+  status?: DebugTrackerStatus | undefined;
 };
 
 export const DtoMeterMatchingResult$zodSchema: z.ZodType<
@@ -27,5 +27,5 @@ export const DtoMeterMatchingResult$zodSchema: z.ZodType<
 > = z.object({
   error: ErrorsErrorResponse$zodSchema.optional(),
   matched_meters: z.array(DtoMatchedMeter$zodSchema).optional(),
-  status: TypesDebugTrackerStatus$zodSchema.optional(),
+  status: DebugTrackerStatus$zodSchema.optional(),
 });

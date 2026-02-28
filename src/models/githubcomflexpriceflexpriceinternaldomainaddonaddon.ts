@@ -3,8 +3,8 @@
  */
 
 import * as z from "zod";
-import { TypesAddonType, TypesAddonType$zodSchema } from "./typesaddontype.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { AddonType, AddonType$zodSchema } from "./addontype.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type GithubComFlexpriceFlexpriceInternalDomainAddonAddon = {
   created_at?: string | undefined;
@@ -15,9 +15,9 @@ export type GithubComFlexpriceFlexpriceInternalDomainAddonAddon = {
   lookup_key?: string | undefined;
   metadata?: { [k: string]: any } | undefined;
   name?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   tenant_id?: string | undefined;
-  type?: TypesAddonType | undefined;
+  type?: AddonType | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
 };
@@ -32,9 +32,9 @@ export const GithubComFlexpriceFlexpriceInternalDomainAddonAddon$zodSchema:
     lookup_key: z.string().optional(),
     metadata: z.record(z.string(), z.any()).optional(),
     name: z.string().optional(),
-    status: TypesStatus$zodSchema.optional(),
+    status: Status$zodSchema.optional(),
     tenant_id: z.string().optional(),
-    type: TypesAddonType$zodSchema.optional(),
+    type: AddonType$zodSchema.optional(),
     updated_at: z.string().optional(),
     updated_by: z.string().optional(),
   });

@@ -4,6 +4,11 @@
 
 import * as z from "zod";
 import {
+  AggregationType,
+  AggregationType$zodSchema,
+} from "./aggregationtype.js";
+import { CommitmentInfo, CommitmentInfo$zodSchema } from "./commitmentinfo.js";
+import {
   DtoPriceResponse,
   DtoPriceResponse$zodSchema,
 } from "./dtopriceresponse.js";
@@ -28,24 +33,13 @@ import {
   SubscriptionSubscriptionLineItem,
   SubscriptionSubscriptionLineItem$zodSchema,
 } from "./subscriptionsubscriptionlineitem.js";
-import {
-  TypesAggregationType,
-  TypesAggregationType$zodSchema,
-} from "./typesaggregationtype.js";
-import {
-  TypesCommitmentInfo,
-  TypesCommitmentInfo$zodSchema,
-} from "./typescommitmentinfo.js";
-import {
-  TypesWindowSize,
-  TypesWindowSize$zodSchema,
-} from "./typeswindowsize.js";
+import { WindowSize, WindowSize$zodSchema } from "./windowsize.js";
 
 export type DtoUsageAnalyticItem = {
   add_on_id?: string | undefined;
   addon?: GithubComFlexpriceFlexpriceInternalDomainAddonAddon | undefined;
-  aggregation_type?: TypesAggregationType | undefined;
-  commitment_info?: TypesCommitmentInfo | undefined;
+  aggregation_type?: AggregationType | undefined;
+  commitment_info?: CommitmentInfo | undefined;
   currency?: string | undefined;
   event_count?: number | undefined;
   event_name?: string | undefined;
@@ -69,7 +63,7 @@ export type DtoUsageAnalyticItem = {
   total_usage?: string | undefined;
   unit?: string | undefined;
   unit_plural?: string | undefined;
-  window_size?: TypesWindowSize | undefined;
+  window_size?: WindowSize | undefined;
 };
 
 export const DtoUsageAnalyticItem$zodSchema: z.ZodType<DtoUsageAnalyticItem> = z
@@ -77,8 +71,8 @@ export const DtoUsageAnalyticItem$zodSchema: z.ZodType<DtoUsageAnalyticItem> = z
     add_on_id: z.string().optional(),
     addon: GithubComFlexpriceFlexpriceInternalDomainAddonAddon$zodSchema
       .optional(),
-    aggregation_type: TypesAggregationType$zodSchema.optional(),
-    commitment_info: TypesCommitmentInfo$zodSchema.optional(),
+    aggregation_type: AggregationType$zodSchema.optional(),
+    commitment_info: CommitmentInfo$zodSchema.optional(),
     currency: z.string().optional(),
     event_count: z.int().optional(),
     event_name: z.string().optional(),
@@ -105,5 +99,5 @@ export const DtoUsageAnalyticItem$zodSchema: z.ZodType<DtoUsageAnalyticItem> = z
     total_usage: z.string().optional(),
     unit: z.string().optional(),
     unit_plural: z.string().optional(),
-    window_size: TypesWindowSize$zodSchema.optional(),
+    window_size: WindowSize$zodSchema.optional(),
   });

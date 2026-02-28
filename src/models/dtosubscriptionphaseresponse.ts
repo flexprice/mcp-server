@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type DtoSubscriptionPhaseResponse = {
   created_at?: string | undefined;
@@ -13,7 +13,7 @@ export type DtoSubscriptionPhaseResponse = {
   id?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   start_date?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   subscription_id?: string | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
@@ -30,7 +30,7 @@ export const DtoSubscriptionPhaseResponse$zodSchema: z.ZodType<
   id: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   start_date: z.string().optional(),
-  status: TypesStatus$zodSchema.optional(),
+  status: Status$zodSchema.optional(),
   subscription_id: z.string().optional(),
   tenant_id: z.string().optional(),
   updated_at: z.string().optional(),

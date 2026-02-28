@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type GithubComFlexpriceFlexpriceInternalDomainCustomerCustomer = {
   address_city?: string | undefined;
@@ -21,7 +21,7 @@ export type GithubComFlexpriceFlexpriceInternalDomainCustomerCustomer = {
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
   parent_customer_id?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
@@ -45,7 +45,7 @@ export const GithubComFlexpriceFlexpriceInternalDomainCustomerCustomer$zodSchema
       metadata: z.record(z.string(), z.string()).optional(),
       name: z.string().optional(),
       parent_customer_id: z.string().optional(),
-      status: TypesStatus$zodSchema.optional(),
+      status: Status$zodSchema.optional(),
       tenant_id: z.string().optional(),
       updated_at: z.string().optional(),
       updated_by: z.string().optional(),

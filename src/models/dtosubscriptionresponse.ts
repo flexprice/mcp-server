@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { BillingCadence, BillingCadence$zodSchema } from "./billingcadence.js";
+import { BillingCycle, BillingCycle$zodSchema } from "./billingcycle.js";
+import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
 import {
   DtoCouponAssociationResponse,
   DtoCouponAssociationResponse$zodSchema,
@@ -27,6 +30,17 @@ import {
   DtoSubscriptionPhaseResponse,
   DtoSubscriptionPhaseResponse$zodSchema,
 } from "./dtosubscriptionphaseresponse.js";
+import { PauseStatus, PauseStatus$zodSchema } from "./pausestatus.js";
+import { PaymentTerms, PaymentTerms$zodSchema } from "./paymentterms.js";
+import {
+  ProrationBehavior,
+  ProrationBehavior$zodSchema,
+} from "./prorationbehavior.js";
+import { Status, Status$zodSchema } from "./status.js";
+import {
+  SubscriptionStatus,
+  SubscriptionStatus$zodSchema,
+} from "./subscriptionstatus.js";
 import {
   SubscriptionSubscriptionLineItem,
   SubscriptionSubscriptionLineItem$zodSchema,
@@ -35,44 +49,20 @@ import {
   SubscriptionSubscriptionPause,
   SubscriptionSubscriptionPause$zodSchema,
 } from "./subscriptionsubscriptionpause.js";
-import {
-  TypesBillingCadence,
-  TypesBillingCadence$zodSchema,
-} from "./typesbillingcadence.js";
-import {
-  TypesBillingCycle,
-  TypesBillingCycle$zodSchema,
-} from "./typesbillingcycle.js";
-import {
-  TypesBillingPeriod,
-  TypesBillingPeriod$zodSchema,
-} from "./typesbillingperiod.js";
-import {
-  TypesPauseStatus,
-  TypesPauseStatus$zodSchema,
-} from "./typespausestatus.js";
-import {
-  TypesProrationBehavior,
-  TypesProrationBehavior$zodSchema,
-} from "./typesprorationbehavior.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
-import {
-  TypesSubscriptionStatus,
-  TypesSubscriptionStatus$zodSchema,
-} from "./typessubscriptionstatus.js";
 
 export type DtoSubscriptionResponse = {
   active_pause_id?: string | undefined;
   billing_anchor?: string | undefined;
-  billing_cadence?: TypesBillingCadence | undefined;
-  billing_cycle?: TypesBillingCycle | undefined;
-  billing_period?: TypesBillingPeriod | undefined;
+  billing_cadence?: BillingCadence | undefined;
+  billing_cycle?: BillingCycle | undefined;
+  billing_period?: BillingPeriod | undefined;
   billing_period_count?: number | undefined;
   cancel_at?: string | undefined;
   cancel_at_period_end?: boolean | undefined;
   cancelled_at?: string | undefined;
   collection_method?: string | undefined;
   commitment_amount?: string | undefined;
+  commitment_duration?: BillingPeriod | undefined;
   coupon_associations?: Array<DtoCouponAssociationResponse> | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -94,16 +84,18 @@ export type DtoSubscriptionResponse = {
   lookup_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   overage_factor?: string | undefined;
-  pause_status?: TypesPauseStatus | undefined;
+  parent_subscription_id?: string | undefined;
+  pause_status?: PauseStatus | undefined;
   pauses?: Array<SubscriptionSubscriptionPause> | undefined;
   payment_behavior?: string | undefined;
+  payment_terms?: PaymentTerms | undefined;
   phases?: Array<DtoSubscriptionPhaseResponse> | undefined;
   plan?: DtoPlanResponse | undefined;
   plan_id?: string | undefined;
-  proration_behavior?: TypesProrationBehavior | undefined;
+  proration_behavior?: ProrationBehavior | undefined;
   start_date?: string | undefined;
-  status?: TypesStatus | undefined;
-  subscription_status?: TypesSubscriptionStatus | undefined;
+  status?: Status | undefined;
+  subscription_status?: SubscriptionStatus | undefined;
   tenant_id?: string | undefined;
   trial_end?: string | undefined;
   trial_start?: string | undefined;
@@ -117,15 +109,16 @@ export const DtoSubscriptionResponse$zodSchema: z.ZodType<
 > = z.object({
   active_pause_id: z.string().optional(),
   billing_anchor: z.string().optional(),
-  billing_cadence: TypesBillingCadence$zodSchema.optional(),
-  billing_cycle: TypesBillingCycle$zodSchema.optional(),
-  billing_period: TypesBillingPeriod$zodSchema.optional(),
+  billing_cadence: BillingCadence$zodSchema.optional(),
+  billing_cycle: BillingCycle$zodSchema.optional(),
+  billing_period: BillingPeriod$zodSchema.optional(),
   billing_period_count: z.int().optional(),
   cancel_at: z.string().optional(),
   cancel_at_period_end: z.boolean().optional(),
   cancelled_at: z.string().optional(),
   collection_method: z.string().optional(),
   commitment_amount: z.string().optional(),
+  commitment_duration: BillingPeriod$zodSchema.optional(),
   coupon_associations: z.array(DtoCouponAssociationResponse$zodSchema)
     .optional(),
   created_at: z.string().optional(),
@@ -148,16 +141,18 @@ export const DtoSubscriptionResponse$zodSchema: z.ZodType<
   lookup_key: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   overage_factor: z.string().optional(),
-  pause_status: TypesPauseStatus$zodSchema.optional(),
+  parent_subscription_id: z.string().optional(),
+  pause_status: PauseStatus$zodSchema.optional(),
   pauses: z.array(SubscriptionSubscriptionPause$zodSchema).optional(),
   payment_behavior: z.string().optional(),
+  payment_terms: PaymentTerms$zodSchema.optional(),
   phases: z.array(DtoSubscriptionPhaseResponse$zodSchema).optional(),
   plan: DtoPlanResponse$zodSchema.optional(),
   plan_id: z.string().optional(),
-  proration_behavior: TypesProrationBehavior$zodSchema.optional(),
+  proration_behavior: ProrationBehavior$zodSchema.optional(),
   start_date: z.string().optional(),
-  status: TypesStatus$zodSchema.optional(),
-  subscription_status: TypesSubscriptionStatus$zodSchema.optional(),
+  status: Status$zodSchema.optional(),
+  subscription_status: SubscriptionStatus$zodSchema.optional(),
   tenant_id: z.string().optional(),
   trial_end: z.string().optional(),
   trial_start: z.string().optional(),

@@ -12,14 +12,14 @@ import {
   DtoFeatureUsageSummary$zodSchema,
 } from "./dtofeatureusagesummary.js";
 import {
-  TypesPaginationResponse,
-  TypesPaginationResponse$zodSchema,
-} from "./typespaginationresponse.js";
+  PaginationResponse,
+  PaginationResponse$zodSchema,
+} from "./paginationresponse.js";
 
 export type DtoCustomerUsageSummaryResponse = {
   customer_id?: string | undefined;
   features?: Array<DtoFeatureUsageSummary> | undefined;
-  pagination?: TypesPaginationResponse | undefined;
+  pagination?: PaginationResponse | undefined;
   period?: DtoBillingPeriodInfo | undefined;
 };
 
@@ -28,6 +28,6 @@ export const DtoCustomerUsageSummaryResponse$zodSchema: z.ZodType<
 > = z.object({
   customer_id: z.string().optional(),
   features: z.array(DtoFeatureUsageSummary$zodSchema).optional(),
-  pagination: TypesPaginationResponse$zodSchema.optional(),
+  pagination: PaginationResponse$zodSchema.optional(),
   period: DtoBillingPeriodInfo$zodSchema.optional(),
 });

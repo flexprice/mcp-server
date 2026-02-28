@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod";
+import { BillingCadence, BillingCadence$zodSchema } from "./billingcadence.js";
+import { BillingModel, BillingModel$zodSchema } from "./billingmodel.js";
+import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
+import { BillingTier, BillingTier$zodSchema } from "./billingtier.js";
 import {
   DtoCreatePriceTier,
   DtoCreatePriceTier$zodSchema,
@@ -11,95 +15,73 @@ import {
   DtoPriceUnitConfig,
   DtoPriceUnitConfig$zodSchema,
 } from "./dtopriceunitconfig.js";
+import { InvoiceCadence, InvoiceCadence$zodSchema } from "./invoicecadence.js";
+import {
+  PriceEntityType,
+  PriceEntityType$zodSchema,
+} from "./priceentitytype.js";
 import {
   PriceTransformQuantity,
   PriceTransformQuantity$zodSchema,
 } from "./pricetransformquantity.js";
-import {
-  TypesBillingCadence,
-  TypesBillingCadence$zodSchema,
-} from "./typesbillingcadence.js";
-import {
-  TypesBillingModel,
-  TypesBillingModel$zodSchema,
-} from "./typesbillingmodel.js";
-import {
-  TypesBillingPeriod,
-  TypesBillingPeriod$zodSchema,
-} from "./typesbillingperiod.js";
-import {
-  TypesBillingTier,
-  TypesBillingTier$zodSchema,
-} from "./typesbillingtier.js";
-import {
-  TypesInvoiceCadence,
-  TypesInvoiceCadence$zodSchema,
-} from "./typesinvoicecadence.js";
-import {
-  TypesPriceEntityType,
-  TypesPriceEntityType$zodSchema,
-} from "./typespriceentitytype.js";
-import { TypesPriceType, TypesPriceType$zodSchema } from "./typespricetype.js";
-import {
-  TypesPriceUnitType,
-  TypesPriceUnitType$zodSchema,
-} from "./typespriceunittype.js";
+import { PriceType, PriceType$zodSchema } from "./pricetype.js";
+import { PriceUnitType, PriceUnitType$zodSchema } from "./priceunittype.js";
 
 export type DtoCreatePriceRequest = {
   amount?: string | undefined;
-  billing_cadence: TypesBillingCadence;
-  billing_model: TypesBillingModel;
-  billing_period: TypesBillingPeriod;
+  billing_cadence: BillingCadence;
+  billing_model: BillingModel;
+  billing_period: BillingPeriod;
   billing_period_count?: number | undefined;
   currency: string;
   description?: string | undefined;
   display_name?: string | undefined;
   end_date?: string | undefined;
   entity_id: string;
-  entity_type: TypesPriceEntityType;
+  entity_type: PriceEntityType;
   filter_values?: { [k: string]: Array<string> } | undefined;
   group_id?: string | undefined;
-  invoice_cadence: TypesInvoiceCadence;
+  invoice_cadence: InvoiceCadence;
   lookup_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   meter_id?: string | undefined;
   min_quantity?: number | undefined;
   price_unit_config?: DtoPriceUnitConfig | undefined;
-  price_unit_type: TypesPriceUnitType;
+  price_unit_type: PriceUnitType;
   start_date?: string | undefined;
-  tier_mode?: TypesBillingTier | undefined;
+  tier_mode?: BillingTier | undefined;
   tiers?: Array<DtoCreatePriceTier> | undefined;
   transform_quantity?: PriceTransformQuantity | undefined;
   trial_period?: number | undefined;
-  type: TypesPriceType;
+  type: PriceType;
 };
 
 export const DtoCreatePriceRequest$zodSchema: z.ZodType<DtoCreatePriceRequest> =
   z.object({
     amount: z.string().optional(),
-    billing_cadence: TypesBillingCadence$zodSchema,
-    billing_model: TypesBillingModel$zodSchema,
-    billing_period: TypesBillingPeriod$zodSchema,
+    billing_cadence: BillingCadence$zodSchema,
+    billing_model: BillingModel$zodSchema,
+    billing_period: BillingPeriod$zodSchema,
     billing_period_count: z.int().optional(),
     currency: z.string(),
     description: z.string().optional(),
     display_name: z.string().optional(),
     end_date: z.string().optional(),
     entity_id: z.string(),
-    entity_type: TypesPriceEntityType$zodSchema,
+    entity_type: PriceEntityType$zodSchema,
     filter_values: z.record(z.string(), z.array(z.string())).optional(),
     group_id: z.string().optional(),
-    invoice_cadence: TypesInvoiceCadence$zodSchema,
+    invoice_cadence: InvoiceCadence$zodSchema,
     lookup_key: z.string().optional(),
     metadata: z.record(z.string(), z.string()).optional(),
     meter_id: z.string().optional(),
     min_quantity: z.int().optional(),
     price_unit_config: DtoPriceUnitConfig$zodSchema.optional(),
-    price_unit_type: TypesPriceUnitType$zodSchema,
+    price_unit_type: PriceUnitType$zodSchema,
     start_date: z.string().optional(),
-    tier_mode: TypesBillingTier$zodSchema.optional(),
+    tier_mode: BillingTier$zodSchema.optional(),
     tiers: z.array(DtoCreatePriceTier$zodSchema).optional(),
     transform_quantity: PriceTransformQuantity$zodSchema.optional(),
     trial_period: z.int().optional(),
-    type: TypesPriceType$zodSchema,
+    type: PriceType$zodSchema,
   });

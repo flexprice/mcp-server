@@ -4,16 +4,16 @@
 
 import * as z from "zod";
 import {
-  TypesEntitlementUsageResetPeriod,
-  TypesEntitlementUsageResetPeriod$zodSchema,
-} from "./typesentitlementusageresetperiod.js";
+  EntitlementUsageResetPeriod,
+  EntitlementUsageResetPeriod$zodSchema,
+} from "./entitlementusageresetperiod.js";
 
 export type DtoAggregatedEntitlement = {
   is_enabled?: boolean | undefined;
   is_soft_limit?: boolean | undefined;
   static_values?: Array<string> | undefined;
   usage_limit?: number | undefined;
-  usage_reset_period?: TypesEntitlementUsageResetPeriod | undefined;
+  usage_reset_period?: EntitlementUsageResetPeriod | undefined;
 };
 
 export const DtoAggregatedEntitlement$zodSchema: z.ZodType<
@@ -23,5 +23,5 @@ export const DtoAggregatedEntitlement$zodSchema: z.ZodType<
   is_soft_limit: z.boolean().optional(),
   static_values: z.array(z.string()).optional(),
   usage_limit: z.int().optional(),
-  usage_reset_period: TypesEntitlementUsageResetPeriod$zodSchema.optional(),
+  usage_reset_period: EntitlementUsageResetPeriod$zodSchema.optional(),
 });

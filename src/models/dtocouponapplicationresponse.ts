@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod";
-import {
-  TypesCouponType,
-  TypesCouponType$zodSchema,
-} from "./typescoupontype.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { CouponType, CouponType$zodSchema } from "./coupontype.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type DtoCouponApplicationResponse = {
   applied_at?: string | undefined;
@@ -18,7 +15,7 @@ export type DtoCouponApplicationResponse = {
   created_by?: string | undefined;
   currency?: string | undefined;
   discount_percentage?: string | undefined;
-  discount_type?: TypesCouponType | undefined;
+  discount_type?: CouponType | undefined;
   discounted_amount?: string | undefined;
   environment_id?: string | undefined;
   final_price?: string | undefined;
@@ -27,7 +24,7 @@ export type DtoCouponApplicationResponse = {
   invoice_line_item_id?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   original_price?: string | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   subscription_id?: string | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
@@ -45,7 +42,7 @@ export const DtoCouponApplicationResponse$zodSchema: z.ZodType<
   created_by: z.string().optional(),
   currency: z.string().optional(),
   discount_percentage: z.string().optional(),
-  discount_type: TypesCouponType$zodSchema.optional(),
+  discount_type: CouponType$zodSchema.optional(),
   discounted_amount: z.string().optional(),
   environment_id: z.string().optional(),
   final_price: z.string().optional(),
@@ -54,7 +51,7 @@ export const DtoCouponApplicationResponse$zodSchema: z.ZodType<
   invoice_line_item_id: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   original_price: z.string().optional(),
-  status: TypesStatus$zodSchema.optional(),
+  status: Status$zodSchema.optional(),
   subscription_id: z.string().optional(),
   tenant_id: z.string().optional(),
   updated_at: z.string().optional(),

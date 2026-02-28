@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import {
+  DebugTrackerStatus,
+  DebugTrackerStatus$zodSchema,
+} from "./debugtrackerstatus.js";
+import {
   DtoMatchedPrice,
   DtoMatchedPrice$zodSchema,
 } from "./dtomatchedprice.js";
@@ -11,20 +15,16 @@ import {
   ErrorsErrorResponse,
   ErrorsErrorResponse$zodSchema,
 } from "./errorserrorresponse.js";
-import {
-  TypesDebugTrackerStatus,
-  TypesDebugTrackerStatus$zodSchema,
-} from "./typesdebugtrackerstatus.js";
 
 export type DtoPriceLookupResult = {
   error?: ErrorsErrorResponse | undefined;
   matched_prices?: Array<DtoMatchedPrice> | undefined;
-  status?: TypesDebugTrackerStatus | undefined;
+  status?: DebugTrackerStatus | undefined;
 };
 
 export const DtoPriceLookupResult$zodSchema: z.ZodType<DtoPriceLookupResult> = z
   .object({
     error: ErrorsErrorResponse$zodSchema.optional(),
     matched_prices: z.array(DtoMatchedPrice$zodSchema).optional(),
-    status: TypesDebugTrackerStatus$zodSchema.optional(),
+    status: DebugTrackerStatus$zodSchema.optional(),
   });

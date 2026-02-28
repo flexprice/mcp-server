@@ -4,12 +4,17 @@
 
 import * as z from "zod";
 import {
+  DtoCustomAnalyticItem,
+  DtoCustomAnalyticItem$zodSchema,
+} from "./dtocustomanalyticitem.js";
+import {
   DtoUsageAnalyticItem,
   DtoUsageAnalyticItem$zodSchema,
 } from "./dtousageanalyticitem.js";
 
 export type DtoGetUsageAnalyticsResponse = {
   currency?: string | undefined;
+  custom_analytics?: Array<DtoCustomAnalyticItem> | undefined;
   items?: Array<DtoUsageAnalyticItem> | undefined;
   total_cost?: string | undefined;
 };
@@ -18,6 +23,7 @@ export const DtoGetUsageAnalyticsResponse$zodSchema: z.ZodType<
   DtoGetUsageAnalyticsResponse
 > = z.object({
   currency: z.string().optional(),
+  custom_analytics: z.array(DtoCustomAnalyticItem$zodSchema).optional(),
   items: z.array(DtoUsageAnalyticItem$zodSchema).optional(),
   total_cost: z.string().optional(),
 });

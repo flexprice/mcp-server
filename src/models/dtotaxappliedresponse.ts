@@ -7,11 +7,11 @@ import {
   DtoTaxRateResponse,
   DtoTaxRateResponse$zodSchema,
 } from "./dtotaxrateresponse.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { Status, Status$zodSchema } from "./status.js";
 import {
-  TypesTaxRateEntityType,
-  TypesTaxRateEntityType$zodSchema,
-} from "./typestaxrateentitytype.js";
+  TaxRateEntityType,
+  TaxRateEntityType$zodSchema,
+} from "./taxrateentitytype.js";
 
 export type DtoTaxAppliedResponse = {
   applied_at?: string | undefined;
@@ -19,12 +19,12 @@ export type DtoTaxAppliedResponse = {
   created_by?: string | undefined;
   currency?: string | undefined;
   entity_id?: string | undefined;
-  entity_type?: TypesTaxRateEntityType | undefined;
+  entity_type?: TaxRateEntityType | undefined;
   environment_id?: string | undefined;
   id?: string | undefined;
   idempotency_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   tax_amount?: string | undefined;
   tax_association_id?: string | undefined;
   tax_rate?: DtoTaxRateResponse | undefined;
@@ -42,12 +42,12 @@ export const DtoTaxAppliedResponse$zodSchema: z.ZodType<DtoTaxAppliedResponse> =
     created_by: z.string().optional(),
     currency: z.string().optional(),
     entity_id: z.string().optional(),
-    entity_type: TypesTaxRateEntityType$zodSchema.optional(),
+    entity_type: TaxRateEntityType$zodSchema.optional(),
     environment_id: z.string().optional(),
     id: z.string().optional(),
     idempotency_key: z.string().optional(),
     metadata: z.record(z.string(), z.string()).optional(),
-    status: TypesStatus$zodSchema.optional(),
+    status: Status$zodSchema.optional(),
     tax_amount: z.string().optional(),
     tax_association_id: z.string().optional(),
     tax_rate: DtoTaxRateResponse$zodSchema.optional(),

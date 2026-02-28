@@ -3,16 +3,16 @@
  */
 
 import * as z from "zod";
-import { DtoUsageResult, DtoUsageResult$zodSchema } from "./dtousageresult.js";
 import {
-  TypesAggregationType,
-  TypesAggregationType$zodSchema,
-} from "./typesaggregationtype.js";
+  AggregationType,
+  AggregationType$zodSchema,
+} from "./aggregationtype.js";
+import { DtoUsageResult, DtoUsageResult$zodSchema } from "./dtousageresult.js";
 
 export type DtoGetUsageResponse = {
   event_name?: string | undefined;
   results?: Array<DtoUsageResult> | undefined;
-  type?: TypesAggregationType | undefined;
+  type?: AggregationType | undefined;
   value?: number | undefined;
 };
 
@@ -20,6 +20,6 @@ export const DtoGetUsageResponse$zodSchema: z.ZodType<DtoGetUsageResponse> = z
   .object({
     event_name: z.string().optional(),
     results: z.array(DtoUsageResult$zodSchema).optional(),
-    type: TypesAggregationType$zodSchema.optional(),
+    type: AggregationType$zodSchema.optional(),
     value: z.number().optional(),
   });

@@ -3,17 +3,16 @@
  */
 
 import * as z from "zod";
-import {
-  TypesCommitmentInfo,
-  TypesCommitmentInfo$zodSchema,
-} from "./typescommitmentinfo.js";
+import { CommitmentInfo, CommitmentInfo$zodSchema } from "./commitmentinfo.js";
 
 export type DtoCreateInvoiceLineItemRequest = {
   amount: string;
-  commitment_info?: TypesCommitmentInfo | undefined;
+  commitment_info?: CommitmentInfo | undefined;
   display_name?: string | undefined;
   entity_id?: string | undefined;
   entity_type?: string | undefined;
+  invoice_level_discount?: string | undefined;
+  line_item_discount?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   meter_display_name?: string | undefined;
   meter_id?: string | undefined;
@@ -21,6 +20,7 @@ export type DtoCreateInvoiceLineItemRequest = {
   period_start?: string | undefined;
   plan_display_name?: string | undefined;
   plan_id?: string | undefined;
+  prepaid_credits_applied?: string | undefined;
   price_id?: string | undefined;
   price_type?: string | undefined;
   price_unit?: string | undefined;
@@ -32,10 +32,12 @@ export const DtoCreateInvoiceLineItemRequest$zodSchema: z.ZodType<
   DtoCreateInvoiceLineItemRequest
 > = z.object({
   amount: z.string(),
-  commitment_info: TypesCommitmentInfo$zodSchema.optional(),
+  commitment_info: CommitmentInfo$zodSchema.optional(),
   display_name: z.string().optional(),
   entity_id: z.string().optional(),
   entity_type: z.string().optional(),
+  invoice_level_discount: z.string().optional(),
+  line_item_discount: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   meter_display_name: z.string().optional(),
   meter_id: z.string().optional(),
@@ -43,6 +45,7 @@ export const DtoCreateInvoiceLineItemRequest$zodSchema: z.ZodType<
   period_start: z.string().optional(),
   plan_display_name: z.string().optional(),
   plan_id: z.string().optional(),
+  prepaid_credits_applied: z.string().optional(),
   price_id: z.string().optional(),
   price_type: z.string().optional(),
   price_unit: z.string().optional(),

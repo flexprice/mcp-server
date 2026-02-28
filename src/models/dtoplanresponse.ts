@@ -15,7 +15,7 @@ import {
   DtoPriceResponse,
   DtoPriceResponse$zodSchema,
 } from "./dtopriceresponse.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type DtoPlanResponse = {
   created_at?: string | undefined;
@@ -30,7 +30,7 @@ export type DtoPlanResponse = {
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
   prices?: Array<DtoPriceResponse> | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
@@ -50,7 +50,7 @@ export const DtoPlanResponse$zodSchema: z.ZodType<DtoPlanResponse> = z.object({
   metadata: z.record(z.string(), z.string()).optional(),
   name: z.string().optional(),
   prices: z.array(z.lazy(() => DtoPriceResponse$zodSchema)).optional(),
-  status: TypesStatus$zodSchema.optional(),
+  status: Status$zodSchema.optional(),
   tenant_id: z.string().optional(),
   updated_at: z.string().optional(),
   updated_by: z.string().optional(),

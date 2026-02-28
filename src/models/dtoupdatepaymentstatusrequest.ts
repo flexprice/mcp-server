@@ -3,19 +3,16 @@
  */
 
 import * as z from "zod";
-import {
-  TypesPaymentStatus,
-  TypesPaymentStatus$zodSchema,
-} from "./typespaymentstatus.js";
+import { PaymentStatus, PaymentStatus$zodSchema } from "./paymentstatus.js";
 
 export type DtoUpdatePaymentStatusRequest = {
   amount?: string | undefined;
-  payment_status: TypesPaymentStatus;
+  payment_status: PaymentStatus;
 };
 
 export const DtoUpdatePaymentStatusRequest$zodSchema: z.ZodType<
   DtoUpdatePaymentStatusRequest
 > = z.object({
   amount: z.string().optional(),
-  payment_status: TypesPaymentStatus$zodSchema,
+  payment_status: PaymentStatus$zodSchema,
 });

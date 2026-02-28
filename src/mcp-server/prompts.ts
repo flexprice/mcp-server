@@ -13,7 +13,7 @@ import {
   ServerNotification,
   ServerRequest,
 } from "@modelcontextprotocol/sdk/types.js";
-import { FlexPriceCore } from "../core.js";
+import { FlexpriceCore } from "../core.js";
 import { ConsoleLogger } from "./console-logger.js";
 import { MCPScope } from "./scopes.js";
 
@@ -25,7 +25,7 @@ export type PromptDefinition<
     scopes?: MCPScope[];
     args: Args;
     prompt: (
-      client: FlexPriceCore,
+      client: FlexpriceCore,
       args: ShapeOutput<Args>,
       extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
     ) => GetPromptResult | Promise<GetPromptResult>;
@@ -36,7 +36,7 @@ export type PromptDefinition<
     scopes?: MCPScope[];
     args?: undefined;
     prompt: (
-      client: FlexPriceCore,
+      client: FlexpriceCore,
       extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
     ) => GetPromptResult | Promise<GetPromptResult>;
   };
@@ -59,7 +59,7 @@ export async function formatResult(value: string): Promise<GetPromptResult> {
 export function createRegisterPrompt(
   logger: ConsoleLogger,
   server: McpServer,
-  getSDK: () => FlexPriceCore,
+  getSDK: () => FlexpriceCore,
   allowedScopes: Set<MCPScope>,
 ): <A extends ZodRawShapeCompat | undefined>(
   prompt: PromptDefinition<A>,

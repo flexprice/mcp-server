@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { AddonType, AddonType$zodSchema } from "./addontype.js";
 import {
   DtoEntitlementResponse,
   DtoEntitlementResponse$zodSchema,
@@ -11,8 +12,7 @@ import {
   DtoPriceResponse,
   DtoPriceResponse$zodSchema,
 } from "./dtopriceresponse.js";
-import { TypesAddonType, TypesAddonType$zodSchema } from "./typesaddontype.js";
-import { TypesStatus, TypesStatus$zodSchema } from "./typesstatus.js";
+import { Status, Status$zodSchema } from "./status.js";
 
 export type DtoAddonResponse = {
   created_at?: string | undefined;
@@ -25,9 +25,9 @@ export type DtoAddonResponse = {
   metadata?: { [k: string]: any } | undefined;
   name?: string | undefined;
   prices?: Array<DtoPriceResponse> | undefined;
-  status?: TypesStatus | undefined;
+  status?: Status | undefined;
   tenant_id?: string | undefined;
-  type?: TypesAddonType | undefined;
+  type?: AddonType | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
 };
@@ -45,9 +45,9 @@ export const DtoAddonResponse$zodSchema: z.ZodType<DtoAddonResponse> = z.object(
     metadata: z.record(z.string(), z.any()).optional(),
     name: z.string().optional(),
     prices: z.array(z.lazy(() => DtoPriceResponse$zodSchema)).optional(),
-    status: TypesStatus$zodSchema.optional(),
+    status: Status$zodSchema.optional(),
     tenant_id: z.string().optional(),
-    type: TypesAddonType$zodSchema.optional(),
+    type: AddonType$zodSchema.optional(),
     updated_at: z.string().optional(),
     updated_by: z.string().optional(),
   },

@@ -3,16 +3,16 @@
  */
 
 import * as z from "zod";
-import { TypesRoundType, TypesRoundType$zodSchema } from "./typesroundtype.js";
+import { RoundType, RoundType$zodSchema } from "./roundtype.js";
 
 export type PriceTransformQuantity = {
   divide_by?: number | undefined;
-  round?: TypesRoundType | undefined;
+  round?: RoundType | undefined;
 };
 
 export const PriceTransformQuantity$zodSchema: z.ZodType<
   PriceTransformQuantity
 > = z.object({
   divide_by: z.int().optional(),
-  round: TypesRoundType$zodSchema.optional(),
+  round: RoundType$zodSchema.optional(),
 });

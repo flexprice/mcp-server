@@ -13,15 +13,15 @@ import {
   DtoFeatureUsageInfo$zodSchema,
 } from "./dtofeatureusageinfo.js";
 import {
-  TypesEventProcessingStatusType,
-  TypesEventProcessingStatusType$zodSchema,
-} from "./typeseventprocessingstatustype.js";
+  EventProcessingStatusType,
+  EventProcessingStatusType$zodSchema,
+} from "./eventprocessingstatustype.js";
 
 export type DtoGetEventByIDResponse = {
   debug_tracker?: DtoDebugTracker | undefined;
   event?: DtoEvent | undefined;
   processed_events?: Array<DtoFeatureUsageInfo> | undefined;
-  status?: TypesEventProcessingStatusType | undefined;
+  status?: EventProcessingStatusType | undefined;
 };
 
 export const DtoGetEventByIDResponse$zodSchema: z.ZodType<
@@ -30,5 +30,5 @@ export const DtoGetEventByIDResponse$zodSchema: z.ZodType<
   debug_tracker: DtoDebugTracker$zodSchema.optional(),
   event: DtoEvent$zodSchema.optional(),
   processed_events: z.array(DtoFeatureUsageInfo$zodSchema).optional(),
-  status: TypesEventProcessingStatusType$zodSchema.optional(),
+  status: EventProcessingStatusType$zodSchema.optional(),
 });

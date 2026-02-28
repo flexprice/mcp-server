@@ -8,18 +8,18 @@ import {
   DtoInvoiceResponse$zodSchema,
 } from "./dtoinvoiceresponse.js";
 import {
-  TypesPaginationResponse,
-  TypesPaginationResponse$zodSchema,
-} from "./typespaginationresponse.js";
+  PaginationResponse,
+  PaginationResponse$zodSchema,
+} from "./paginationresponse.js";
 
 export type DtoListInvoicesResponse = {
   items?: Array<DtoInvoiceResponse> | undefined;
-  pagination?: TypesPaginationResponse | undefined;
+  pagination?: PaginationResponse | undefined;
 };
 
 export const DtoListInvoicesResponse$zodSchema: z.ZodType<
   DtoListInvoicesResponse
 > = z.object({
   items: z.array(DtoInvoiceResponse$zodSchema).optional(),
-  pagination: TypesPaginationResponse$zodSchema.optional(),
+  pagination: PaginationResponse$zodSchema.optional(),
 });

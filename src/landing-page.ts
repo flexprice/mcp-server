@@ -24,22 +24,25 @@ export function landingPageExpress(req: ExpressRequest, res: ExpressResponse) {
 
 export function landingPageHTML(origin: string): string {
   const o = origin;
-  const sseUrl = `${o}/sse`;
-  const mcpConfigLocal = {
-    command: "npx",
-    args: [
+  const mcpConfig = {
+    "command": "npx",
+    "args": [
       "-y",
-      "@flexprice/mcp-server",
-      "start",
-      "--server-url",
-      "https://api.cloud.flexprice.io/v1",
-      "--api-key-auth",
-      "YOUR_API_KEY",
+      "mcp-remote@0.1.25",
+      `${o}/sse`,
+      "--header",
+      "server-url:${SERVER_URL}",
+      "--header",
+      "api-key-auth:${API_KEY_AUTH}",
     ],
+    "env": {
+      "SERVER_URL": "YOUR_VALUE_HERE",
+      "API_KEY_AUTH": "YOUR_VALUE_HERE",
+    },
   };
-  const codexConfig = `[mcp_servers.FlexPrice]
-url = "${sseUrl}"
-http_headers = { "ApiKeyAuth" = "YOUR_API_KEY" }`;
+  const codexConfig = `[mcp_servers.Flexprice]
+url = "${o}/sse"
+http_headers = { "server-url" = "YOUR_SERVER_URL", "api-key-auth" = "YOUR_API_KEY_AUTH" }`;
 
   return `
 <!DOCTYPE html>
@@ -47,14 +50,14 @@ http_headers = { "ApiKeyAuth" = "YOUR_API_KEY" }`;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlexPrice MCP Server</title>
-    <meta name="description" content="Install FlexPrice MCP server for Cursor, VS Code, Claude, and more.">
+    <title>@flexprice/mcp-server MCP</title>
+    <meta name="description" content="Install @flexprice/mcp-server MCP server.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="FlexPrice - MCP Server">
-    <meta property="og:description" content="Install FlexPrice MCP server for Cursor, VS Code, Claude, and more.">
+    <meta property="og:title" content="@flexprice/mcp-server - MCP Server">
+    <meta property="og:description" content="Install @flexprice/mcp-server MCP server.">
     <meta property="twitter:card" content="summary">
-    <meta property="twitter:title" content="FlexPrice - MCP Server">
-    <meta property="twitter:description" content="Install FlexPrice MCP server for Cursor, VS Code, Claude, and more.">
+    <meta property="twitter:title" content="@flexprice/mcp-server - MCP Server">
+    <meta property="twitter:description" content="Install @flexprice/mcp-server MCP server.">
     <meta name="robots" content="index, follow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -661,7 +664,7 @@ http_headers = { "ApiKeyAuth" = "YOUR_API_KEY" }`;
                 </svg>
               </div>
               <div class="header-content">
-                <div class="mcp-name">mcp</div>
+                <div class="mcp-name">@flexprice/mcp-server</div>
                 <div class="mcp-description">MCP Server</div>
               </div>
             </div>
@@ -677,7 +680,7 @@ http_headers = { "ApiKeyAuth" = "YOUR_API_KEY" }`;
                   </svg>
                 </button>
                 <div class="popover-menu hidden" id="popover-menu">
-                  <a class="popover-button install-link" href="cursor://anysphere.cursor-deeplink/mcp/install?name=FlexPrice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBmbGV4cHJpY2UvbWNwLXNlcnZlciIsInN0YXJ0IiwiLS1zZXJ2ZXItdXJsIiwiaHR0cHM6Ly9hcGkuY2xvdWQuZmxleHByaWNlLmlvL3YxIiwiLS1hcGkta2V5LWF1dGgiLCIiXX0=">
+                  <a class="popover-button install-link" href="cursor://anysphere.cursor-deeplink/mcp/install?name=Flexprice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJAZmxleHByaWNlL21jcC1zZXJ2ZXIiLCJzdGFydCIsIi0tc2VydmVyLXVybCIsIiIsIi0tYXBpLWtleS1hdXRoIiwiIl19">
                     Cursor
                   </a>
                   <button class="popover-button" onclick="showModal('claude-code')">
@@ -686,7 +689,7 @@ http_headers = { "ApiKeyAuth" = "YOUR_API_KEY" }`;
                   <button class="popover-button" onclick="showModal('claude-desktop')">
                     Claude Desktop
                   </button>
-                  <a class="popover-button install-link" href="vscode://ms-vscode.vscode-mcp/install?name=FlexPrice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBmbGV4cHJpY2UvbWNwLXNlcnZlciIsInN0YXJ0IiwiLS1zZXJ2ZXItdXJsIiwiaHR0cHM6Ly9hcGkuY2xvdWQuZmxleHByaWNlLmlvL3YxIiwiLS1hcGkta2V5LWF1dGgiLCIiXX0=">
+                  <a class="popover-button install-link" href="vscode://ms-vscode.vscode-mcp/install?name=Flexprice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJAZmxleHByaWNlL21jcC1zZXJ2ZXIiLCJzdGFydCIsIi0tc2VydmVyLXVybCIsIiIsIi0tYXBpLWtleS1hdXRoIiwiIl19">
                     VS Code
                   </a>
                   <button class="popover-button" onclick="showModal('gemini')">
@@ -709,7 +712,7 @@ http_headers = { "ApiKeyAuth" = "YOUR_API_KEY" }`;
             </div>
           </header>
           <div class="install-targets">
-            <a tabindex="0" class="card install-target install-link" href="cursor://anysphere.cursor-deeplink/mcp/install?name=FlexPrice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBmbGV4cHJpY2UvbWNwLXNlcnZlciIsInN0YXJ0IiwiLS1zZXJ2ZXItdXJsIiwiaHR0cHM6Ly9hcGkuY2xvdWQuZmxleHByaWNlLmlvL3YxIiwiLS1hcGkta2V5LWF1dGgiLCIiXX0=">
+            <a tabindex="0" class="card install-target install-link" href="cursor://anysphere.cursor-deeplink/mcp/install?name=Flexprice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJAZmxleHByaWNlL21jcC1zZXJ2ZXIiLCJzdGFydCIsIi0tc2VydmVyLXVybCIsIiIsIi0tYXBpLWtleS1hdXRoIiwiIl19">
               <div class="target">
                 <img src="https://cursor.com/assets/images/logo.svg" alt="Cursor">
                 <span>Cursor</span>
@@ -731,7 +734,7 @@ http_headers = { "ApiKeyAuth" = "YOUR_API_KEY" }`;
                 <span>Claude Desktop</span>
               </div>
             </div>
-            <a tabindex="0" class="card install-target install-link" href="vscode://ms-vscode.vscode-mcp/install?name=FlexPrice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBmbGV4cHJpY2UvbWNwLXNlcnZlciIsInN0YXJ0IiwiLS1zZXJ2ZXItdXJsIiwiaHR0cHM6Ly9hcGkuY2xvdWQuZmxleHByaWNlLmlvL3YxIiwiLS1hcGkta2V5LWF1dGgiLCIiXX0=">
+            <a tabindex="0" class="card install-target install-link" href="vscode://ms-vscode.vscode-mcp/install?name=Flexprice&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJAZmxleHByaWNlL21jcC1zZXJ2ZXIiLCJzdGFydCIsIi0tc2VydmVyLXVybCIsIiIsIi0tYXBpLWtleS1hdXRoIiwiIl19">
               <div class="target">
                 <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
@@ -853,7 +856,7 @@ http_headers = { "ApiKeyAuth" = "YOUR_API_KEY" }`;
                 <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
               </svg>
             </button>
-            <code class="code-snippet" id="server-url">${sseUrl}</code>
+            <code class="code-snippet" id="server-url">${o}/mcp</code>
           </div>
         </section>
 
@@ -875,7 +878,7 @@ http_headers = { "ApiKeyAuth" = "YOUR_API_KEY" }`;
               </svg>
             </button>
             <code class="code-snippet language-json" id="raw-config">${
-    JSON.stringify({ flexprice: mcpConfigLocal }, null, 2)
+    JSON.stringify(mcpConfig, null, 2)
   }</code>
           </div>
         </section>
@@ -910,7 +913,7 @@ http_headers = { "ApiKeyAuth" = "YOUR_API_KEY" }`;
               <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
             </svg>
           </button>
-          <code class="code-snippet language-json" id="claude-cli-cmd">claude mcp add FlexPrice -- npx -y @flexprice/mcp-server start --server-url https://api.cloud.flexprice.io/v1 --api-key-auth YOUR_API_KEY</code>
+          <code class="code-snippet language-json" id="claude-cli-cmd">claude mcp add Flexprice -- npx -y @flexprice/mcp-server start --server-url  --api-key-auth </code>
         </div>
       </div>
     </div>
@@ -961,7 +964,7 @@ http_headers = { "ApiKeyAuth" = "YOUR_API_KEY" }`;
               <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
             </svg>
           </button>
-          <code class="code-snippet language-json" id="gemini-config">gemini mcp add FlexPrice -- npx -y @flexprice/mcp-server start --server-url https://api.cloud.flexprice.io/v1 --api-key-auth YOUR_API_KEY</code>
+          <code class="code-snippet language-json" id="gemini-config">gemini mcp add Flexprice -- npx -y @flexprice/mcp-server start --server-url  --api-key-auth </code>
         </div>
       </div>
     </div>

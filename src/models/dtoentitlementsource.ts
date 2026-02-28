@@ -3,14 +3,11 @@
  */
 
 import * as z from "zod";
+import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
 import {
   DtoEntitlementSourceEntityType,
   DtoEntitlementSourceEntityType$zodSchema,
 } from "./dtoentitlementsourceentitytype.js";
-import {
-  TypesBillingPeriod,
-  TypesBillingPeriod$zodSchema,
-} from "./typesbillingperiod.js";
 
 export type DtoEntitlementSource = {
   entitlement_id?: string | undefined;
@@ -22,7 +19,7 @@ export type DtoEntitlementSource = {
   static_value?: string | undefined;
   subscription_id?: string | undefined;
   usage_limit?: number | undefined;
-  usage_reset_period?: TypesBillingPeriod | undefined;
+  usage_reset_period?: BillingPeriod | undefined;
 };
 
 export const DtoEntitlementSource$zodSchema: z.ZodType<DtoEntitlementSource> = z
@@ -36,5 +33,5 @@ export const DtoEntitlementSource$zodSchema: z.ZodType<DtoEntitlementSource> = z
     static_value: z.string().optional(),
     subscription_id: z.string().optional(),
     usage_limit: z.int().optional(),
-    usage_reset_period: TypesBillingPeriod$zodSchema.optional(),
+    usage_reset_period: BillingPeriod$zodSchema.optional(),
   });

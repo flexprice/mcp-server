@@ -14,13 +14,13 @@ import {
   ServerNotification,
   ServerRequest,
 } from "@modelcontextprotocol/sdk/types.js";
-import { FlexPriceCore } from "../core.js";
+import { FlexpriceCore } from "../core.js";
 import { ConsoleLogger } from "./console-logger.js";
 import { MCPScope } from "./scopes.js";
 import { valueToBase64 } from "./shared.js";
 
 export type ReadResourceCallback = (
-  client: FlexPriceCore,
+  client: FlexpriceCore,
   uri: URL,
   extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
 ) => ReadResourceResult | Promise<ReadResourceResult>;
@@ -35,7 +35,7 @@ export type ResourceDefinition = {
 };
 
 export type ReadResourceTemplateCallback = (
-  client: FlexPriceCore,
+  client: FlexpriceCore,
   uri: URL,
   vars: Variables,
   extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
@@ -73,7 +73,7 @@ export async function formatResult(
 export function createRegisterResource(
   logger: ConsoleLogger,
   server: McpServer,
-  getSDK: () => FlexPriceCore,
+  getSDK: () => FlexpriceCore,
   allowedScopes: Set<MCPScope>,
 ): (resource: ResourceDefinition) => void {
   return (resource: ResourceDefinition): void => {
@@ -108,7 +108,7 @@ export function createRegisterResource(
 export function createRegisterResourceTemplate(
   logger: ConsoleLogger,
   server: McpServer,
-  getSDK: () => FlexPriceCore,
+  getSDK: () => FlexpriceCore,
   allowedScopes: Set<MCPScope>,
 ): (resource: ResourceTemplateDefinition) => void {
   return (resource: ResourceTemplateDefinition): void => {
