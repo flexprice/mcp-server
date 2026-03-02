@@ -11,6 +11,7 @@ import { WindowSize, WindowSize$zodSchema } from "./windowsize.js";
 
 export type MeterAggregation = {
   bucket_size?: WindowSize | undefined;
+  expression?: string | undefined;
   field?: string | undefined;
   group_by?: string | undefined;
   multiplier?: string | undefined;
@@ -20,6 +21,7 @@ export type MeterAggregation = {
 export const MeterAggregation$zodSchema: z.ZodType<MeterAggregation> = z.object(
   {
     bucket_size: WindowSize$zodSchema.optional(),
+    expression: z.string().optional(),
     field: z.string().optional(),
     group_by: z.string().optional(),
     multiplier: z.string().optional(),
