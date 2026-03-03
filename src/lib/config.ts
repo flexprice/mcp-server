@@ -12,7 +12,14 @@ import { Params, pathToFunc } from "./url.js";
  * Contains the list of servers available to the SDK
  */
 export const ServerList = [
-  "/v1",
+  /**
+   * US Region
+   */
+  "https://us.api.flexprice.io/v1",
+  /**
+   * India Region
+   */
+  "https://api.cloud.flexprice.io/v1",
 ] as const;
 
 export type SDKOptions = {
@@ -27,9 +34,9 @@ export type SDKOptions = {
    */
   serverIdx?: number | undefined;
   /**
-   * Specifies the server URL to be used by the SDK
+   * Allows overriding the default server URL used by the SDK
    */
-  serverURL: string;
+  serverURL?: string | undefined;
   /**
    * Allows overriding the default user agent used by the SDK
    */
@@ -63,7 +70,7 @@ export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0",
   sdkVersion: "2.0.1",
-  genVersion: "2.845.15",
+  genVersion: "2.846.1",
   userAgent:
-    "speakeasy-sdk/mcp-typescript 2.0.1 2.845.15 1.0 @flexprice/mcp-server",
+    "speakeasy-sdk/mcp-typescript 2.0.1 2.846.1 1.0 @flexprice/mcp-server",
 } as const;

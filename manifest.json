@@ -10,9 +10,9 @@
     "server",
     "flexprice",
     "api",
-    "provides"
+    "service"
   ],
-  "long_description": "Flexprice API: Flexprice API provides billing, metering, and subscription management for SaaS and usage-based products. Use it to manage customers, plans, invoices, payments, usage events, and entitlements. Authenticate with an API key in the x-api-key header.",
+  "long_description": "Flexprice API: Flexprice API Service",
   "manifest_version": "0.3",
   "name": "@flexprice/mcp-server",
   "prompts": [],
@@ -24,19 +24,21 @@
         "args": [
           "${__dirname}/bin/mcp-server.js",
           "start",
-          "--server-url",
-          "${user_config.server_url}",
+          "--server-index",
+          "${user_config.server_index}",
           "--api-key-auth",
           "${user_config.api_key_auth}"
         ]
       }
     },
   "user_config": {
-      "server_url": {
-        "type": "string",
-        "title": "Server URL",
-        "description": "The URL of the server to connect to",
-        "required": true
+      "server_index": {
+        "type": "number",
+        "title": "Server Index",
+        "description": "Available servers: [https://us.api.flexprice.io/v1, https://api.cloud.flexprice.io/v1]",
+        "required": false,
+        "default": "0",
+        "max": 1
       },
       "api_key_auth": {
         "type": "string",

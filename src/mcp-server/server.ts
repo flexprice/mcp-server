@@ -64,7 +64,7 @@ export function createMCPServer(deps: {
   dynamic?: boolean | undefined;
   scopes?: MCPScope[] | undefined;
   getSDK?: () => FlexpriceCore;
-  serverURL: string;
+  serverURL?: string | undefined;
   security?: SDKOptions["security"] | undefined;
   serverIdx?: SDKOptions["serverIdx"] | undefined;
 }) {

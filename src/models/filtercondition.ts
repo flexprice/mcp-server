@@ -8,21 +8,18 @@ import {
   FilterOperatorType,
   FilterOperatorType$zodSchema,
 } from "./filteroperatortype.js";
-import {
-  GithubComFlexpriceFlexpriceInternalTypesValue,
-  GithubComFlexpriceFlexpriceInternalTypesValue$zodSchema,
-} from "./githubcomflexpriceflexpriceinternaltypesvalue.js";
+import { Value, Value$zodSchema } from "./value.js";
 
 export type FilterCondition = {
   data_type?: DataType | undefined;
   field?: string | undefined;
   operator?: FilterOperatorType | undefined;
-  value?: GithubComFlexpriceFlexpriceInternalTypesValue | undefined;
+  value?: Value | undefined;
 };
 
 export const FilterCondition$zodSchema: z.ZodType<FilterCondition> = z.object({
   data_type: DataType$zodSchema.optional(),
   field: z.string().optional(),
   operator: FilterOperatorType$zodSchema.optional(),
-  value: GithubComFlexpriceFlexpriceInternalTypesValue$zodSchema.optional(),
+  value: Value$zodSchema.optional(),
 });

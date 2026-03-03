@@ -12,6 +12,6 @@ export interface MCPServerFlags {
   readonly tool?: string[];
   readonly mode?: "dynamic" | undefined;
   readonly "api-key-auth"?: string | undefined;
-  readonly "server-url": string;
+  readonly "server-url"?: string | undefined;
   readonly "server-index"?: SDKOptions["serverIdx"];
 }

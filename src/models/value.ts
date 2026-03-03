@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 
-export type GithubComFlexpriceFlexpriceInternalTypesValue = {
+export type Value = {
   array?: Array<string> | undefined;
   boolean?: boolean | undefined;
   date?: string | undefined;
@@ -12,9 +12,7 @@ export type GithubComFlexpriceFlexpriceInternalTypesValue = {
   string?: string | undefined;
 };
 
-export const GithubComFlexpriceFlexpriceInternalTypesValue$zodSchema: z.ZodType<
-  GithubComFlexpriceFlexpriceInternalTypesValue
-> = z.object({
+export const Value$zodSchema: z.ZodType<Value> = z.object({
   array: z.array(z.string()).optional(),
   boolean: z.boolean().optional(),
   date: z.string().optional(),
