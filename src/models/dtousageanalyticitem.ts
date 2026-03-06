@@ -29,6 +29,7 @@ import {
   GithubComFlexpriceFlexpriceInternalDomainPlanPlan$zodSchema,
 } from "./githubcomflexpriceflexpriceinternaldomainplanplan.js";
 import { MeterMeter, MeterMeter$zodSchema } from "./metermeter.js";
+import { ReportingUnit, ReportingUnit$zodSchema } from "./reportingunit.js";
 import {
   SubscriptionSubscriptionLineItem,
   SubscriptionSubscriptionLineItem$zodSchema,
@@ -54,6 +55,7 @@ export type DtoUsageAnalyticItem = {
   price?: DtoPriceResponse | undefined;
   price_id?: string | undefined;
   properties?: { [k: string]: string } | undefined;
+  reporting_unit?: ReportingUnit | undefined;
   source?: string | undefined;
   sources?: Array<string> | undefined;
   sub_line_item_id?: string | undefined;
@@ -61,6 +63,7 @@ export type DtoUsageAnalyticItem = {
   subscription_line_item?: SubscriptionSubscriptionLineItem | undefined;
   total_cost?: string | undefined;
   total_usage?: string | undefined;
+  total_usage_display?: string | undefined;
   unit?: string | undefined;
   unit_plural?: string | undefined;
   window_size?: WindowSize | undefined;
@@ -89,6 +92,7 @@ export const DtoUsageAnalyticItem$zodSchema: z.ZodType<DtoUsageAnalyticItem> = z
     price: DtoPriceResponse$zodSchema.optional(),
     price_id: z.string().optional(),
     properties: z.record(z.string(), z.string()).optional(),
+    reporting_unit: ReportingUnit$zodSchema.optional(),
     source: z.string().optional(),
     sources: z.array(z.string()).optional(),
     sub_line_item_id: z.string().optional(),
@@ -97,6 +101,7 @@ export const DtoUsageAnalyticItem$zodSchema: z.ZodType<DtoUsageAnalyticItem> = z
       .optional(),
     total_cost: z.string().optional(),
     total_usage: z.string().optional(),
+    total_usage_display: z.string().optional(),
     unit: z.string().optional(),
     unit_plural: z.string().optional(),
     window_size: WindowSize$zodSchema.optional(),

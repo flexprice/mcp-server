@@ -5,6 +5,7 @@
 import * as z from "zod";
 import { AlertSettings, AlertSettings$zodSchema } from "./alertsettings.js";
 import { FeatureType, FeatureType$zodSchema } from "./featuretype.js";
+import { ReportingUnit, ReportingUnit$zodSchema } from "./reportingunit.js";
 import { Status, Status$zodSchema } from "./status.js";
 
 export type GithubComFlexpriceFlexpriceInternalDomainFeatureFeature = {
@@ -18,6 +19,7 @@ export type GithubComFlexpriceFlexpriceInternalDomainFeatureFeature = {
   metadata?: { [k: string]: string } | undefined;
   meter_id?: string | undefined;
   name?: string | undefined;
+  reporting_unit?: ReportingUnit | undefined;
   status?: Status | undefined;
   tenant_id?: string | undefined;
   type?: FeatureType | undefined;
@@ -40,6 +42,7 @@ export const GithubComFlexpriceFlexpriceInternalDomainFeatureFeature$zodSchema:
       metadata: z.record(z.string(), z.string()).optional(),
       meter_id: z.string().optional(),
       name: z.string().optional(),
+      reporting_unit: ReportingUnit$zodSchema.optional(),
       status: Status$zodSchema.optional(),
       tenant_id: z.string().optional(),
       type: FeatureType$zodSchema.optional(),
