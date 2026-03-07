@@ -12,9 +12,9 @@ const args = {
 
 export const tool$invoicesRecalculateInvoice: ToolDefinition<typeof args> = {
   name: "recalculate-invoice",
-  description: `Recalculate invoice
+  description: `Recalculate invoice (default: voided invoice)
 
-Use when subscription or usage data changed and you need to refresh a draft invoice before finalizing. Optional finalize=true to lock after recalc.`,
+Creates a fresh replacement invoice for a voided SUBSCRIPTION invoice covering the same billing period. The original voided invoice is linked to the new invoice via recalculated_invoice_id. Can only be called once per voided invoice.`,
   annotations: {
     "title": "",
     "destructiveHint": false,

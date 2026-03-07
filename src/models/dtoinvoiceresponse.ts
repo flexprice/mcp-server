@@ -59,6 +59,7 @@ export type DtoInvoiceResponse = {
   payment_status?: PaymentStatus | undefined;
   period_end?: string | undefined;
   period_start?: string | undefined;
+  recalculated_invoice_id?: string | undefined;
   refunded_amount?: string | undefined;
   status?: Status | undefined;
   subscription?: DtoSubscriptionResponse | undefined;
@@ -109,6 +110,7 @@ export const DtoInvoiceResponse$zodSchema: z.ZodType<DtoInvoiceResponse> = z
     payment_status: PaymentStatus$zodSchema.optional(),
     period_end: z.string().optional(),
     period_start: z.string().optional(),
+    recalculated_invoice_id: z.string().optional(),
     refunded_amount: z.string().optional(),
     status: Status$zodSchema.optional(),
     subscription: z.lazy(() => DtoSubscriptionResponse$zodSchema).optional(),

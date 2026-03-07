@@ -3,7 +3,7 @@
  */
 
 import { FlexpriceCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -19,21 +19,21 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  RecalculateInvoiceRequest,
-  RecalculateInvoiceRequest$zodSchema,
-} from "../models/recalculateinvoiceop.js";
+  RecalculateInvoiceV2Request,
+  RecalculateInvoiceV2Request$zodSchema,
+} from "../models/recalculateinvoicev2op.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Recalculate invoice (default: voided invoice)
+ * Recalculate draft invoice (v2)
  *
  * @remarks
- * Creates a fresh replacement invoice for a voided SUBSCRIPTION invoice covering the same billing period. The original voided invoice is linked to the new invoice via recalculated_invoice_id. Can only be called once per voided invoice.
+ * Recalculates a draft SUBSCRIPTION invoice in-place (replaces line items, reapplies credits/coupons/taxes). Use when subscription or usage data changed before finalizing.
  */
-export function invoicesRecalculateInvoice(
+export function invoicesRecalculateInvoiceV2(
   client$: FlexpriceCore,
-  request: RecalculateInvoiceRequest,
+  request: RecalculateInvoiceV2Request,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function invoicesRecalculateInvoice(
 
 async function $do(
   client$: FlexpriceCore,
-  request: RecalculateInvoiceRequest,
+  request: RecalculateInvoiceV2Request,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => RecalculateInvoiceRequest$zodSchema.parse(value$),
+    (value$) => RecalculateInvoiceV2Request$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
@@ -90,9 +90,12 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/invoices/{id}/recalculate")(
+  const path$ = pathToFunc("/invoices/{id}/recalculate-v2")(
     pathParams$,
   );
+  const query$ = encodeFormQuery({
+    "finalize": payload$.finalize,
+  });
 
   const headers$ = new Headers(compactMap({
     Accept: "application/json",
@@ -103,7 +106,7 @@ async function $do(
   const context = {
     options: client$._options,
     baseURL: options?.serverURL ?? client$._baseURL ?? "",
-    operationID: "recalculateInvoice",
+    operationID: "recalculateInvoiceV2",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
     securitySource: client$._options.security,
@@ -125,6 +128,7 @@ async function $do(
     baseURL: options?.serverURL,
     path: path$,
     headers: headers$,
+    query: query$,
     body: body$,
     userAgent: client$._options.userAgent,
     timeoutMs: options?.timeoutMs || client$._options.timeoutMs

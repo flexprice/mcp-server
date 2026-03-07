@@ -39,6 +39,7 @@ import { tool$invoicesGetInvoicePdf } from "./tools/invoicesGetInvoicePdf.js";
 import { tool$invoicesGetInvoicePreview } from "./tools/invoicesGetInvoicePreview.js";
 import { tool$invoicesQueryInvoice } from "./tools/invoicesQueryInvoice.js";
 import { tool$invoicesRecalculateInvoice } from "./tools/invoicesRecalculateInvoice.js";
+import { tool$invoicesRecalculateInvoiceV2 } from "./tools/invoicesRecalculateInvoiceV2.js";
 import { tool$invoicesTriggerInvoiceCommsWebhook } from "./tools/invoicesTriggerInvoiceCommsWebhook.js";
 import { tool$invoicesUpdateInvoice } from "./tools/invoicesUpdateInvoice.js";
 import { tool$invoicesUpdateInvoicePaymentStatus } from "./tools/invoicesUpdateInvoicePaymentStatus.js";
@@ -135,6 +136,7 @@ export function createMCPServer(deps: {
   tool(tool$invoicesAttemptInvoicePayment);
   tool(tool$invoicesGetInvoicePdf);
   tool(tool$invoicesRecalculateInvoice);
+  tool(tool$invoicesRecalculateInvoiceV2);
   tool(tool$invoicesVoidInvoice);
   tool(tool$eventsIngestEvent);
   tool(tool$eventsGetUsageAnalytics);

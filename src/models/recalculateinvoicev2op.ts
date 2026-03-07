@@ -12,20 +12,26 @@ import {
   ErrorsErrorResponse$zodSchema,
 } from "./errorserrorresponse.js";
 
-export type RecalculateInvoiceRequest = { id: string };
+export type RecalculateInvoiceV2Request = {
+  id: string;
+  finalize?: boolean | undefined;
+};
 
-export const RecalculateInvoiceRequest$zodSchema: z.ZodType<
-  RecalculateInvoiceRequest
+export const RecalculateInvoiceV2Request$zodSchema: z.ZodType<
+  RecalculateInvoiceV2Request
 > = z.object({
+  finalize: z.boolean().describe(
+    "Whether to finalize the invoice after recalculation (default: true)",
+  ).optional(),
   id: z.string().describe("Invoice ID"),
 });
 
-export type RecalculateInvoiceResponse =
+export type RecalculateInvoiceV2Response =
   | DtoInvoiceResponse
   | ErrorsErrorResponse;
 
-export const RecalculateInvoiceResponse$zodSchema: z.ZodType<
-  RecalculateInvoiceResponse
+export const RecalculateInvoiceV2Response$zodSchema: z.ZodType<
+  RecalculateInvoiceV2Response
 > = z.union([
   DtoInvoiceResponse$zodSchema,
   ErrorsErrorResponse$zodSchema,
