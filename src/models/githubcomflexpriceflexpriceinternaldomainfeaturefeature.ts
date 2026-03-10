@@ -5,6 +5,7 @@
 import * as z from "zod";
 import { AlertSettings, AlertSettings$zodSchema } from "./alertsettings.js";
 import { FeatureType, FeatureType$zodSchema } from "./featuretype.js";
+import { GroupGroup, GroupGroup$zodSchema } from "./groupgroup.js";
 import { ReportingUnit, ReportingUnit$zodSchema } from "./reportingunit.js";
 import { Status, Status$zodSchema } from "./status.js";
 
@@ -14,6 +15,8 @@ export type GithubComFlexpriceFlexpriceInternalDomainFeatureFeature = {
   created_by?: string | undefined;
   description?: string | undefined;
   environment_id?: string | undefined;
+  group?: GroupGroup | undefined;
+  group_id?: string | undefined;
   id?: string | undefined;
   lookup_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
@@ -37,6 +40,8 @@ export const GithubComFlexpriceFlexpriceInternalDomainFeatureFeature$zodSchema:
       created_by: z.string().optional(),
       description: z.string().optional(),
       environment_id: z.string().optional(),
+      group: GroupGroup$zodSchema.optional(),
+      group_id: z.string().optional(),
       id: z.string().optional(),
       lookup_key: z.string().optional(),
       metadata: z.record(z.string(), z.string()).optional(),

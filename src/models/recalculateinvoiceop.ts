@@ -4,13 +4,13 @@
 
 import * as z from "zod";
 import {
-  DtoInvoiceResponse,
-  DtoInvoiceResponse$zodSchema,
-} from "./dtoinvoiceresponse.js";
-import {
   ErrorsErrorResponse,
   ErrorsErrorResponse$zodSchema,
 } from "./errorserrorresponse.js";
+import {
+  ModelsTemporalWorkflowResult,
+  ModelsTemporalWorkflowResult$zodSchema,
+} from "./modelstemporalworkflowresult.js";
 
 export type RecalculateInvoiceRequest = { id: string };
 
@@ -21,12 +21,12 @@ export const RecalculateInvoiceRequest$zodSchema: z.ZodType<
 });
 
 export type RecalculateInvoiceResponse =
-  | DtoInvoiceResponse
+  | ModelsTemporalWorkflowResult
   | ErrorsErrorResponse;
 
 export const RecalculateInvoiceResponse$zodSchema: z.ZodType<
   RecalculateInvoiceResponse
 > = z.union([
-  DtoInvoiceResponse$zodSchema,
+  ModelsTemporalWorkflowResult$zodSchema,
   ErrorsErrorResponse$zodSchema,
 ]);

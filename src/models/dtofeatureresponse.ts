@@ -5,6 +5,10 @@
 import * as z from "zod";
 import { AlertSettings, AlertSettings$zodSchema } from "./alertsettings.js";
 import {
+  DtoGroupResponse,
+  DtoGroupResponse$zodSchema,
+} from "./dtogroupresponse.js";
+import {
   DtoMeterResponse,
   DtoMeterResponse$zodSchema,
 } from "./dtometerresponse.js";
@@ -18,6 +22,8 @@ export type DtoFeatureResponse = {
   created_by?: string | undefined;
   description?: string | undefined;
   environment_id?: string | undefined;
+  group?: DtoGroupResponse | undefined;
+  group_id?: string | undefined;
   id?: string | undefined;
   lookup_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
@@ -41,6 +47,8 @@ export const DtoFeatureResponse$zodSchema: z.ZodType<DtoFeatureResponse> = z
     created_by: z.string().optional(),
     description: z.string().optional(),
     environment_id: z.string().optional(),
+    group: DtoGroupResponse$zodSchema.optional(),
+    group_id: z.string().optional(),
     id: z.string().optional(),
     lookup_key: z.string().optional(),
     metadata: z.record(z.string(), z.string()).optional(),
