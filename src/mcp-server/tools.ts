@@ -401,7 +401,7 @@ export function buildSDK(
     ...cliFlags,
     "api-key-auth": resolveHeader(
       headers,
-      "ApiKeyAuth",
+      "api-key-auth",
       z.string(),
       cliFlags["api-key-auth"],
       disableStaticAuth,
