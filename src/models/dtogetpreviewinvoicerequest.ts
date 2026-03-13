@@ -5,6 +5,7 @@
 import * as z from "zod";
 
 export type DtoGetPreviewInvoiceRequest = {
+  hide_zero_charges_line_items?: boolean | undefined;
   period_end?: string | undefined;
   period_start?: string | undefined;
   subscription_id: string;
@@ -13,6 +14,7 @@ export type DtoGetPreviewInvoiceRequest = {
 export const DtoGetPreviewInvoiceRequest$zodSchema: z.ZodType<
   DtoGetPreviewInvoiceRequest
 > = z.object({
+  hide_zero_charges_line_items: z.boolean().default(false),
   period_end: z.string().optional(),
   period_start: z.string().optional(),
   subscription_id: z.string(),
