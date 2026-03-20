@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$pricesQueryPrice: ToolDefinition<typeof args> = {
-  name: "query-price",
+  name: "prices-query-price",
   description: `Query prices
 
 Use when listing or searching prices (e.g. plan builder or catalog). Returns a paginated list; supports filtering and sorting.`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

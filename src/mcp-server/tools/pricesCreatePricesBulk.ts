@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$pricesCreatePricesBulk: ToolDefinition<typeof args> = {
-  name: "create-prices-bulk",
+  name: "prices-create-prices-bulk",
   description: `Create prices in bulk
 
 Use when creating many prices at once (e.g. importing a catalog or setting up a plan with multiple tiers).`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

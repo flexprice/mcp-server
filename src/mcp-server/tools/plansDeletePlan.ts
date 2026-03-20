@@ -11,13 +11,14 @@ const args = {
 };
 
 export const tool$plansDeletePlan: ToolDefinition<typeof args> = {
-  name: "delete-plan",
+  name: "plans-delete-plan",
   description: `Delete plan
 
 Use when retiring a plan (e.g. end-of-life). Existing subscriptions may be affected. Returns 200 with success message.`,
+  scopes: ["delete"],
   annotations: {
     "title": "",
-    "destructiveHint": false,
+    "destructiveHint": true,
     "idempotentHint": false,
     "openWorldHint": false,
     "readOnlyHint": false,

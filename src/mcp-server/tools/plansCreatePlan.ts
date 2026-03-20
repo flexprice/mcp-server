@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$plansCreatePlan: ToolDefinition<typeof args> = {
-  name: "create-plan",
+  name: "plans-create-plan",
   description: `Create plan
 
 Use when defining a new pricing plan (e.g. Free, Pro, Enterprise). Attach prices and entitlements; customers subscribe to plans.`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

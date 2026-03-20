@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$customersUpdateCustomer: ToolDefinition<typeof args> = {
-  name: "update-customer",
+  name: "customers-update-customer",
   description: `Update customer
 
 Use when updating customer details (e.g. name, email, or metadata). Identify by id or external_customer_id.`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

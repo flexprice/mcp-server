@@ -13,10 +13,11 @@ const args = {
 export const tool$invoicesUpdateInvoicePaymentStatus: ToolDefinition<
   typeof args
 > = {
-  name: "update-invoice-payment-status",
+  name: "invoices-update-invoice-payment-status",
   description: `Update invoice payment status
 
 Use when reconciling payment status from an external gateway or manual entry (e.g. mark paid after bank confirmation).`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

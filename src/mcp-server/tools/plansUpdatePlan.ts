@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$plansUpdatePlan: ToolDefinition<typeof args> = {
-  name: "update-plan",
+  name: "plans-update-plan",
   description: `Update plan
 
 Use when changing plan details (e.g. name, interval, or metadata). Partial update supported.`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

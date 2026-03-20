@@ -13,16 +13,17 @@ const args = {
 export const tool$customersGetCustomerUpcomingGrants: ToolDefinition<
   typeof args
 > = {
-  name: "get-customer-upcoming-grants",
+  name: "customers-get-customer-upcoming-grants",
   description: `Get upcoming credit grant applications
 
 Use when showing upcoming or pending credits for a customer (e.g. in a portal or for forecasting).`,
+  scopes: ["read"],
   annotations: {
     "title": "",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
-    "readOnlyHint": false,
+    "readOnlyHint": true,
   },
   args,
   tool: async (client, args, ctx) => {

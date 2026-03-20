@@ -11,16 +11,17 @@ const args = {
 };
 
 export const tool$customersQueryCustomer: ToolDefinition<typeof args> = {
-  name: "query-customer",
+  name: "customers-query-customer",
   description: `Query customers
 
 Use when listing or searching customers (e.g. admin CRM or reporting). Returns a paginated list; supports filtering and sorting.`,
+  scopes: ["read"],
   annotations: {
     "title": "",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
-    "readOnlyHint": false,
+    "readOnlyHint": true,
   },
   args,
   tool: async (client, args, ctx) => {

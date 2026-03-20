@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$invoicesUpdateInvoice: ToolDefinition<typeof args> = {
-  name: "update-invoice",
+  name: "invoices-update-invoice",
   description: `Update invoice
 
 Use when updating invoice metadata or due date (e.g. PDF URL, net terms). For paid invoices only safe fields can be updated.`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

@@ -3,6 +3,7 @@
  */
 
 import { SDKOptions } from "../lib/config.js";
+import { MCPScope } from "./scopes.js";
 
 /**
  * Base flags interface for MCP server configuration.
@@ -11,6 +12,7 @@ import { SDKOptions } from "../lib/config.js";
 export interface MCPServerFlags {
   readonly tool?: string[];
   readonly mode?: "dynamic" | undefined;
+  readonly scope?: MCPScope[];
   readonly "api-key-auth"?: string | undefined;
   readonly "server-url"?: string | undefined;
   readonly "server-index"?: SDKOptions["serverIdx"];

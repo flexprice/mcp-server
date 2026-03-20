@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$pricesCreatePrice: ToolDefinition<typeof args> = {
-  name: "create-price",
+  name: "prices-create-price",
   description: `Create price
 
 Use when adding a new price to a plan or catalog (e.g. per-seat, flat, or metered). Ideal for both simple and usage-based pricing.`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

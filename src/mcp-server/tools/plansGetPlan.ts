@@ -11,16 +11,17 @@ const args = {
 };
 
 export const tool$plansGetPlan: ToolDefinition<typeof args> = {
-  name: "get-plan",
+  name: "plans-get-plan",
   description: `Get plan
 
 Use when you need to load a single plan (e.g. for display or to create a subscription).`,
+  scopes: ["read"],
   annotations: {
     "title": "",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
-    "readOnlyHint": false,
+    "readOnlyHint": true,
   },
   args,
   tool: async (client, args, ctx) => {

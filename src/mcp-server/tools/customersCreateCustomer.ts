@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$customersCreateCustomer: ToolDefinition<typeof args> = {
-  name: "create-customer",
+  name: "customers-create-customer",
   description: `Create customer
 
 Use when onboarding a new billing customer (e.g. sign-up or CRM sync). Ideal for linking via external_customer_id to your app's user id.`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

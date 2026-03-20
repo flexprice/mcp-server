@@ -13,10 +13,11 @@ const args = {
 export const tool$invoicesTriggerInvoiceCommsWebhook: ToolDefinition<
   typeof args
 > = {
-  name: "trigger-invoice-comms-webhook",
+  name: "invoices-trigger-invoice-comms-webhook",
   description: `Trigger invoice communication webhook
 
 Use when sending an invoice to the customer (e.g. trigger email or Slack). Payload includes full invoice details for your integration.`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

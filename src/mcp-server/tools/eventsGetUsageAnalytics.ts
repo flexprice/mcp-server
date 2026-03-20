@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$eventsGetUsageAnalytics: ToolDefinition<typeof args> = {
-  name: "get-usage-analytics",
+  name: "events-get-usage-analytics",
   description: `Get usage analytics
 
 Use when building analytics views (e.g. usage by feature or customer over time). Supports filtering, grouping, and time-series breakdown.`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

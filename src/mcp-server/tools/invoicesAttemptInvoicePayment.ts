@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$invoicesAttemptInvoicePayment: ToolDefinition<typeof args> = {
-  name: "attempt-invoice-payment",
+  name: "invoices-attempt-invoice-payment",
   description: `Attempt invoice payment
 
 Use when paying an invoice with the customer's wallet balance (e.g. prepaid credits or balance applied at checkout).`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

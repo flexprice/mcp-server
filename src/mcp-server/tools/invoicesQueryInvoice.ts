@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$invoicesQueryInvoice: ToolDefinition<typeof args> = {
-  name: "query-invoice",
+  name: "invoices-query-invoice",
   description: `Query invoices
 
 Use when listing or searching invoices (e.g. admin view or customer history). Returns a paginated list; supports filtering by customer, status, date range.`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

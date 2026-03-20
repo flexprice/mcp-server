@@ -11,16 +11,17 @@ const args = {
 };
 
 export const tool$eventsGetEvent: ToolDefinition<typeof args> = {
-  name: "get-event",
+  name: "events-get-event",
   description: `Get event
 
 Use when debugging a specific event (e.g. why it failed or how it was aggregated). Includes processing status and debug info.`,
+  scopes: ["read"],
   annotations: {
     "title": "",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
-    "readOnlyHint": false,
+    "readOnlyHint": true,
   },
   args,
   tool: async (client, args, ctx) => {

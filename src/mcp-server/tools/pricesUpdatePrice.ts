@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$pricesUpdatePrice: ToolDefinition<typeof args> = {
-  name: "update-price",
+  name: "prices-update-price",
   description: `Update price
 
 Use when changing price configuration (e.g. amount, billing scheme, or metadata).`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,

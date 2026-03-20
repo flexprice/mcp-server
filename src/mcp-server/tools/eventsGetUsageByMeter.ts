@@ -11,10 +11,11 @@ const args = {
 };
 
 export const tool$eventsGetUsageByMeter: ToolDefinition<typeof args> = {
-  name: "get-usage-by-meter",
+  name: "events-get-usage-by-meter",
   description: `Get usage by meter
 
 Use when showing usage for a specific meter (e.g. dashboard or overage check). Supports time range, filters, and grouping by customer or subscription.`,
+  scopes: ["write"],
   annotations: {
     "title": "",
     "destructiveHint": false,
