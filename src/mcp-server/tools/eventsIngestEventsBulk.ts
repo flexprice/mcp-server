@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$eventsIngestEventsBulk: ToolDefinition<typeof args> = {
-  name: "events-ingest-events-bulk",
+  name: "ingest-events-bulk",
   description: `Bulk ingest events
 
 Use when batching usage events (e.g. backfill or high-volume ingestion). More efficient than single event calls; returns 202 when accepted.`,

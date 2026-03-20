@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsGetSubscriptionSchedule: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-get-subscription-schedule",
+  name: "get-subscription-schedule",
   description: `Get subscription schedule
 
 Use when you need to load a single scheduled change (e.g. to show when a plan change or renewal takes effect).`,

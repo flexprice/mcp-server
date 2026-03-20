@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$invoicesRecalculateInvoiceV2: ToolDefinition<typeof args> = {
-  name: "invoices-recalculate-invoice-v2",
+  name: "recalculate-invoice-v2",
   description: `Recalculate draft invoice (v2)
 
 Recalculates a draft SUBSCRIPTION invoice in-place (replaces line items, reapplies credits/coupons/taxes). Use when subscription or usage data changed before finalizing.`,

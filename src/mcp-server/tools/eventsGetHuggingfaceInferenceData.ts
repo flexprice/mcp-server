@@ -6,7 +6,7 @@ import { eventsGetHuggingfaceInferenceData } from "../../funcs/eventsGetHuggingf
 import { formatResult, ToolDefinition } from "../tools.js";
 
 export const tool$eventsGetHuggingfaceInferenceData: ToolDefinition = {
-  name: "events-get-huggingface-inference-data",
+  name: "get-huggingface-inference-data",
   description: `Get Hugging Face inference data
 
 Use when fetching Hugging Face inference usage or billing data (e.g. for HF-specific reporting or reconciliation).`,

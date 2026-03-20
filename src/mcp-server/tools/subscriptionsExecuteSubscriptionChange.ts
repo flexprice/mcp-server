@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsExecuteSubscriptionChange: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-execute-subscription-change",
+  name: "execute-subscription-change",
   description: `Execute subscription plan change
 
 Use when applying a plan change (e.g. upgrade or downgrade). Executes proration and generates invoice or credit as needed.`,

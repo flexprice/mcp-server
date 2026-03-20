@@ -13,7 +13,7 @@ const args = {
 export const tool$customersGetCustomerByExternalId: ToolDefinition<
   typeof args
 > = {
-  name: "customers-get-customer-by-external-id",
+  name: "get-customer-by-external-id",
   description: `Get customer by external ID
 
 Use when resolving a customer by your app's id (e.g. from your user table). Ideal for integrations that key by external id.`,

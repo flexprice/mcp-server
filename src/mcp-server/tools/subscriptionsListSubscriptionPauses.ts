@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsListSubscriptionPauses: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-list-subscription-pauses",
+  name: "list-subscription-pauses",
   description: `List all pauses for a subscription
 
 Use when showing pause history for a subscription (e.g. support or audit). Returns all past and future pauses.`,

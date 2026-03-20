@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$customersGetCustomer: ToolDefinition<typeof args> = {
-  name: "customers-get-customer",
+  name: "get-customer",
   description: `Get customer
 
 Use when you need to load a single customer (e.g. for a billing portal or to attach a subscription).`,

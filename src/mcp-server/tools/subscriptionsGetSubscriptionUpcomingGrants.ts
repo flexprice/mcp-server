@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsGetSubscriptionUpcomingGrants: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-get-subscription-upcoming-grants",
+  name: "get-subscription-upcoming-grants",
   description: `Get upcoming credit grant applications
 
 Use when showing upcoming or pending credits for a subscription (e.g. in a portal or for forecasting).`,

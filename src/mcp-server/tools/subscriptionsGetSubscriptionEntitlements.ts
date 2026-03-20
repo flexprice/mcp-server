@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsGetSubscriptionEntitlements: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-get-subscription-entitlements",
+  name: "get-subscription-entitlements",
   description: `Get subscription entitlements
 
 Use when checking what features or limits a subscription has (e.g. entitlement checks or feature gating). Optional feature_ids to filter.`,

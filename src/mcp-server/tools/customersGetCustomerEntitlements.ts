@@ -13,7 +13,7 @@ const args = {
 export const tool$customersGetCustomerEntitlements: ToolDefinition<
   typeof args
 > = {
-  name: "customers-get-customer-entitlements",
+  name: "get-customer-entitlements",
   description: `Get customer entitlements
 
 Use when checking what a customer can access (e.g. feature gating or usage limits). Supports optional filters (feature_ids, subscription_ids).`,

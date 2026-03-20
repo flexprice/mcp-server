@@ -12,7 +12,7 @@ const args = {
 
 export const tool$subscriptionsGetSubscriptionV2: ToolDefinition<typeof args> =
   {
-    name: "subscriptions-get-subscription-v2",
+    name: "get-subscription-v2",
     description: `Get subscription (V2)
 
 Use when you need a subscription with related data (line items, prices, plan). Supports expand for detailed payloads without extra round-trips.`,

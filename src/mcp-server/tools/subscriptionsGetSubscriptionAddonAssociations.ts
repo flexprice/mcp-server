@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsGetSubscriptionAddonAssociations: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-get-subscription-addon-associations",
+  name: "get-subscription-addon-associations",
   description: `Get active addon associations
 
 Use when listing which add-ons are currently attached to a subscription (e.g. for display or editing).`,

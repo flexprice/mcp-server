@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsCancelSubscriptionSchedule: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-cancel-subscription-schedule",
+  name: "cancel-subscription-schedule",
   description: `Cancel subscription schedule
 
 Use when cancelling a scheduled change (e.g. customer changed mind). Identify by schedule ID in path or by subscription ID + schedule type in body.`,

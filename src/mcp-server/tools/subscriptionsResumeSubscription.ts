@@ -12,7 +12,7 @@ const args = {
 
 export const tool$subscriptionsResumeSubscription: ToolDefinition<typeof args> =
   {
-    name: "subscriptions-resume-subscription",
+    name: "resume-subscription",
     description: `Resume a paused subscription
 
 Use when reactivating a paused subscription (e.g. end of hold). Billing and access resume from the resume date.`,

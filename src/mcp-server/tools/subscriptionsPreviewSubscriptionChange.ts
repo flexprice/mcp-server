@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsPreviewSubscriptionChange: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-preview-subscription-change",
+  name: "preview-subscription-change",
   description: `Preview subscription plan change
 
 Use when showing a customer the cost of a plan change before they confirm (e.g. upgrade/downgrade preview with proration).`,

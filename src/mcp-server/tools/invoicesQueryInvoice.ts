@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$invoicesQueryInvoice: ToolDefinition<typeof args> = {
-  name: "invoices-query-invoice",
+  name: "query-invoice",
   description: `Query invoices
 
 Use when listing or searching invoices (e.g. admin view or customer history). Returns a paginated list; supports filtering by customer, status, date range.`,

@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsListSubscriptionSchedules: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-list-subscription-schedules",
+  name: "list-subscription-schedules",
   description: `List subscription schedules
 
 Use when listing scheduled changes for a subscription (e.g. upcoming plan change or renewal). Returns all schedules for that subscription.`,

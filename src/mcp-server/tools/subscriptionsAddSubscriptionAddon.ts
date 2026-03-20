@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsAddSubscriptionAddon: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-add-subscription-addon",
+  name: "add-subscription-addon",
   description: `Add addon to subscription
 
 Use when adding an optional product or add-on to an existing subscription (e.g. extra storage or support tier).`,

@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsGetSubscriptionUsage: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-get-subscription-usage",
+  name: "get-subscription-usage",
   description: `Get usage by subscription
 
 Use when showing usage for a subscription (e.g. in a portal or for overage checks). Supports time range and filters.`,

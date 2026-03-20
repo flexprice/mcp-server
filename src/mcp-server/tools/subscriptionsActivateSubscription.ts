@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsActivateSubscription: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-activate-subscription",
+  name: "activate-subscription",
   description: `Activate draft subscription
 
 Use when turning a draft subscription live (e.g. after collecting payment or completing setup). Once activated, billing and entitlements apply.`,

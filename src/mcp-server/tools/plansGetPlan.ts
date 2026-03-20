@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$plansGetPlan: ToolDefinition<typeof args> = {
-  name: "plans-get-plan",
+  name: "get-plan",
   description: `Get plan
 
 Use when you need to load a single plan (e.g. for display or to create a subscription).`,

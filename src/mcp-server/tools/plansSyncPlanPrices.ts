@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$plansSyncPlanPrices: ToolDefinition<typeof args> = {
-  name: "plans-sync-plan-prices",
+  name: "sync-plan-prices",
   description: `Synchronize plan prices
 
 Use when you have changed plan prices and need to push them to all active subscriptions (e.g. global price update). Returns workflow ID.`,

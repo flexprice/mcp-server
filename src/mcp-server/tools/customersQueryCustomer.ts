@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$customersQueryCustomer: ToolDefinition<typeof args> = {
-  name: "customers-query-customer",
+  name: "query-customer",
   description: `Query customers
 
 Use when listing or searching customers (e.g. admin CRM or reporting). Returns a paginated list; supports filtering and sorting.`,

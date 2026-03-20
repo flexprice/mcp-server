@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$invoicesRecalculateInvoice: ToolDefinition<typeof args> = {
-  name: "invoices-recalculate-invoice",
+  name: "recalculate-invoice",
   description: `Recalculate invoice (voided invoice)
 
 Starts an async workflow that creates a fresh replacement invoice for a voided SUBSCRIPTION invoice (same billing period). Returns workflow_id and run_id; poll workflow status or GET the new invoice via recalculated_invoice_id after completion.`,

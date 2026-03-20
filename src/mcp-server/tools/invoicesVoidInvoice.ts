@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$invoicesVoidInvoice: ToolDefinition<typeof args> = {
-  name: "invoices-void-invoice",
+  name: "void-invoice",
   description: `Void invoice
 
 Use when cancelling an invoice (e.g. order cancelled or duplicate). Only unpaid invoices can be voided.`,

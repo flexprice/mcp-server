@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$pricesGetPrice: ToolDefinition<typeof args> = {
-  name: "prices-get-price",
+  name: "get-price",
   description: `Get price
 
 Use when you need to load a single price (e.g. for display or editing). Response includes expanded meter and price unit when applicable.`,

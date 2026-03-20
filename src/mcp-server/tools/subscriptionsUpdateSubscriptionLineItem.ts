@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsUpdateSubscriptionLineItem: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-update-subscription-line-item",
+  name: "update-subscription-line-item",
   description: `Update subscription line item
 
 Use when changing a subscription line item (e.g. quantity or price). Implemented by ending the current line and creating a new one for clean billing.`,

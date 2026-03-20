@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$plansCreatePlan: ToolDefinition<typeof args> = {
-  name: "plans-create-plan",
+  name: "create-plan",
   description: `Create plan
 
 Use when defining a new pricing plan (e.g. Free, Pro, Enterprise). Attach prices and entitlements; customers subscribe to plans.`,

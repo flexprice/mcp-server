@@ -12,7 +12,7 @@ const args = {
 
 export const tool$subscriptionsUpdateSubscription: ToolDefinition<typeof args> =
   {
-    name: "subscriptions-update-subscription",
+    name: "update-subscription",
     description: `Update subscription
 
 Use when changing subscription details (e.g. quantity, billing anchor, or parent). Supports partial update; send "" to clear parent_subscription_id.`,

@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$eventsGetUsageStatistics: ToolDefinition<typeof args> = {
-  name: "events-get-usage-statistics",
+  name: "get-usage-statistics",
   description: `Get usage statistics
 
 Use when building usage reports or dashboards across events. Supports filters and grouping; defaults to last 7 days if no range provided.`,

@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsDeleteSubscriptionLineItem: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-delete-subscription-line-item",
+  name: "delete-subscription-line-item",
   description: `Delete subscription line item
 
 Use when removing a charge or seat from a subscription (e.g. downgrade). Line item ends; retained for history but no longer billed.`,

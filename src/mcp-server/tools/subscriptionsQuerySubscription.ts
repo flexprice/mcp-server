@@ -12,7 +12,7 @@ const args = {
 
 export const tool$subscriptionsQuerySubscription: ToolDefinition<typeof args> =
   {
-    name: "subscriptions-query-subscription",
+    name: "query-subscription",
     description: `Query subscriptions
 
 Use when listing or searching subscriptions (e.g. admin view or customer subscription list). Returns a paginated list; supports filtering by customer, plan, status.`,

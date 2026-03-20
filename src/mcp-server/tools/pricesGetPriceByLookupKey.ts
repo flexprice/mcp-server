@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$pricesGetPriceByLookupKey: ToolDefinition<typeof args> = {
-  name: "prices-get-price-by-lookup-key",
+  name: "get-price-by-lookup-key",
   description: `Get price by lookup key
 
 Use when resolving a price by external id (e.g. from your catalog or CMS). Ideal for integrations.`,

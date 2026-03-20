@@ -12,7 +12,7 @@ const args = {
 
 export const tool$subscriptionsCancelSubscription: ToolDefinition<typeof args> =
   {
-    name: "subscriptions-cancel-subscription",
+    name: "cancel-subscription",
     description: `Cancel subscription
 
 Use when a customer churns or downgrades. Supports immediate or end-of-period cancellation and proration. Ideal for self-serve or support-driven cancellations.`,

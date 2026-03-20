@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$eventsListRawEvents: ToolDefinition<typeof args> = {
-  name: "events-list-raw-events",
+  name: "list-raw-events",
   description: `List raw events
 
 Use when debugging ingestion or exporting raw event data (e.g. support or audit). Returns a paginated list; supports time range and sorting.`,

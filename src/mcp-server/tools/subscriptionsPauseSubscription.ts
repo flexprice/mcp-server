@@ -12,7 +12,7 @@ const args = {
 
 export const tool$subscriptionsPauseSubscription: ToolDefinition<typeof args> =
   {
-    name: "subscriptions-pause-subscription",
+    name: "pause-subscription",
     description: `Pause a subscription
 
 Use when temporarily stopping a subscription (e.g. customer hold or seasonal pause). Billing and access pause; resume when ready.`,

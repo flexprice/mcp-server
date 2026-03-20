@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$invoicesCreateInvoice: ToolDefinition<typeof args> = {
-  name: "invoices-create-invoice",
+  name: "create-invoice",
   description: `Create one-off invoice
 
 Use when creating a manual or one-off invoice (e.g. custom charge or non-recurring billing). Invoice is created in draft; finalize when ready.`,

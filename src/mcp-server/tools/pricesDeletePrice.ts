@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$pricesDeletePrice: ToolDefinition<typeof args> = {
-  name: "prices-delete-price",
+  name: "delete-price",
   description: `Delete price
 
 Use when retiring a price (e.g. end-of-life or replacement). Optional effective date or cascade for subscriptions.`,

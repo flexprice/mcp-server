@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$invoicesFinalizeInvoice: ToolDefinition<typeof args> = {
-  name: "invoices-finalize-invoice",
+  name: "finalize-invoice",
   description: `Finalize invoice
 
 Use when locking an invoice for payment (e.g. after review). Once finalized, line items are locked; invoice can be paid or voided.`,

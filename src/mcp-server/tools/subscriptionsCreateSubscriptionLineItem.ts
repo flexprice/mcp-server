@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsCreateSubscriptionLineItem: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-create-subscription-line-item",
+  name: "create-subscription-line-item",
   description: `Create subscription line item
 
 Use when adding a new charge or seat to a subscription (e.g. extra seat or one-time add). Supports price_id or inline price.`,

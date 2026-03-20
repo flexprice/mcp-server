@@ -12,7 +12,7 @@ const args = {
 
 export const tool$subscriptionsCreateSubscription: ToolDefinition<typeof args> =
   {
-    name: "subscriptions-create-subscription",
+    name: "create-subscription",
     description: `Create subscription
 
 Use when onboarding a customer to a plan or starting a new subscription. Ideal for draft subscriptions (activate later) or active from start.`,

@@ -13,7 +13,7 @@ const args = {
 export const tool$subscriptionsRemoveSubscriptionAddon: ToolDefinition<
   typeof args
 > = {
-  name: "subscriptions-remove-subscription-addon",
+  name: "remove-subscription-addon",
   description: `Remove addon from subscription
 
 Use when removing an add-on from a subscription (e.g. downgrade or opt-out).`,

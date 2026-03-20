@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$invoicesGetInvoicePreview: ToolDefinition<typeof args> = {
-  name: "invoices-get-invoice-preview",
+  name: "get-invoice-preview",
   description: `Get invoice preview
 
 Use when showing a customer what they will be charged (e.g. preview before checkout or plan change). No invoice is created.`,
