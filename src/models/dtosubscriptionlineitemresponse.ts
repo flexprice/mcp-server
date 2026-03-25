@@ -62,8 +62,10 @@ export const DtoSubscriptionLineItemResponse$zodSchema: z.ZodType<
   DtoSubscriptionLineItemResponse
 > = z.object({
   billing_period: BillingPeriod$zodSchema.optional(),
-  billing_period_count: z.int().optional(),
-  commitment_amount: z.string().optional(),
+  billing_period_count: z.int().optional().describe(
+    "from price at create; default 1",
+  ),
+  commitment_amount: z.string().optional().describe("Commitment fields"),
   commitment_duration: BillingPeriod$zodSchema.optional(),
   commitment_overage_factor: z.string().optional(),
   commitment_quantity: z.string().optional(),

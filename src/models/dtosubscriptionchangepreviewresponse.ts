@@ -42,14 +42,22 @@ export const DtoSubscriptionChangePreviewResponse$zodSchema: z.ZodType<
 > = z.object({
   change_type: SubscriptionChangeType$zodSchema.optional(),
   current_plan: DtoPlanSummary$zodSchema.optional(),
-  effective_date: z.string().optional(),
-  metadata: z.record(z.string(), z.string()).optional(),
+  effective_date: z.string().optional().describe(
+    "effective_date is when the change would take effect",
+  ),
+  metadata: z.record(z.string(), z.string()).optional().describe(
+    "metadata from the request",
+  ),
   new_billing_cycle: DtoBillingCycleInfo$zodSchema.optional(),
   next_invoice_preview: DtoInvoicePreview$zodSchema.optional(),
   proration_details: DtoProrationDetails$zodSchema.optional(),
-  subscription_id: z.string().optional(),
+  subscription_id: z.string().optional().describe(
+    "subscription_id is the ID of the subscription being changed",
+  ),
   target_plan: DtoPlanSummary$zodSchema.optional(),
-  warnings: z.array(z.string()).optional(),
+  warnings: z.array(z.string()).optional().describe(
+    "warnings contains any warnings about the change",
+  ),
 }).describe(
   "Response showing the financial impact of a subscription plan change",
 );

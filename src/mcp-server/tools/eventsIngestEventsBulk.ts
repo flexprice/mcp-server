@@ -7,7 +7,7 @@ import { DtoBulkIngestEventRequest$zodSchema } from "../../models/dtobulkingeste
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoBulkIngestEventRequest$zodSchema,
+  request: DtoBulkIngestEventRequest$zodSchema.describe(`Event data`),
 };
 
 export const tool$eventsIngestEventsBulk: ToolDefinition<typeof args> = {

@@ -13,6 +13,8 @@ export type DtoUpdatePaymentStatusRequest = {
 export const DtoUpdatePaymentStatusRequest$zodSchema: z.ZodType<
   DtoUpdatePaymentStatusRequest
 > = z.object({
-  amount: z.string().optional(),
+  amount: z.string().optional().describe(
+    "amount is the optional payment amount to record",
+  ),
   payment_status: PaymentStatus$zodSchema,
 });

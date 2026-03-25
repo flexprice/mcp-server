@@ -25,13 +25,23 @@ export const DtoSubscriptionPhaseResponse$zodSchema: z.ZodType<
 > = z.object({
   created_at: z.string().optional(),
   created_by: z.string().optional(),
-  end_date: z.string().optional(),
-  environment_id: z.string().optional(),
-  id: z.string().optional(),
+  end_date: z.string().optional().describe(
+    "EndDate is when the phase ends (nil if phase is still active or indefinite)",
+  ),
+  environment_id: z.string().optional().describe(
+    "EnvironmentID is the environment identifier for the phase",
+  ),
+  id: z.string().optional().describe(
+    "ID is the unique identifier for the subscription phase",
+  ),
   metadata: z.record(z.string(), z.string()).optional(),
-  start_date: z.string().optional(),
+  start_date: z.string().optional().describe(
+    "StartDate is when the phase starts",
+  ),
   status: Status$zodSchema.optional(),
-  subscription_id: z.string().optional(),
+  subscription_id: z.string().optional().describe(
+    "SubscriptionID is the identifier for the subscription",
+  ),
   tenant_id: z.string().optional(),
   updated_at: z.string().optional(),
   updated_by: z.string().optional(),

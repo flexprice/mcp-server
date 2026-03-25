@@ -23,11 +23,15 @@ export const CommitmentInfo$zodSchema: z.ZodType<CommitmentInfo> = z.object({
   amount: z.string().optional(),
   computed_commitment_utilized_amount: z.string().optional(),
   computed_overage_amount: z.string().optional(),
-  computed_true_up_amount: z.string().optional(),
+  computed_true_up_amount: z.string().optional().describe(
+    "total_cost = computed_commitment_utilized_amount + computed_overage_amount + computed_true_up_amount",
+  ),
   duration: BillingPeriod$zodSchema.optional(),
   is_windowed: z.boolean().optional(),
   overage_factor: z.string().optional(),
-  quantity: z.string().optional(),
+  quantity: z.string().optional().describe(
+    "Only used for quantity-based commitments",
+  ),
   true_up_enabled: z.boolean().optional(),
   type: CommitmentType$zodSchema.optional(),
 });

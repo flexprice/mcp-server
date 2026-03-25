@@ -7,7 +7,9 @@ import { DtoCreateBulkPriceRequest$zodSchema } from "../../models/dtocreatebulkp
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoCreateBulkPriceRequest$zodSchema,
+  request: DtoCreateBulkPriceRequest$zodSchema.describe(
+    `Bulk price configuration`,
+  ),
 };
 
 export const tool$pricesCreatePricesBulk: ToolDefinition<typeof args> = {

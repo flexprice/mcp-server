@@ -17,11 +17,17 @@ export type DtoInvoiceLineItemPreview = {
 export const DtoInvoiceLineItemPreview$zodSchema: z.ZodType<
   DtoInvoiceLineItemPreview
 > = z.object({
-  amount: z.string().optional(),
-  description: z.string().optional(),
-  is_proration: z.boolean().optional(),
-  period_end: z.string().optional(),
-  period_start: z.string().optional(),
-  quantity: z.string().optional(),
-  unit_price: z.string().optional(),
+  amount: z.string().optional().describe("amount for this line item"),
+  description: z.string().optional().describe("description of the line item"),
+  is_proration: z.boolean().optional().describe(
+    "is_proration indicates if this line item is a proration",
+  ),
+  period_end: z.string().optional().describe(
+    "period_end for this line item (if applicable)",
+  ),
+  period_start: z.string().optional().describe(
+    "period_start for this line item (if applicable)",
+  ),
+  quantity: z.string().optional().describe("quantity for this line item"),
+  unit_price: z.string().optional().describe("unit_price for this line item"),
 });

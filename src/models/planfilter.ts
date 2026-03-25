@@ -39,7 +39,9 @@ export type PlanFilter = {
 export const PlanFilter$zodSchema: z.ZodType<PlanFilter> = z.object({
   end_time: z.string().optional(),
   expand: z.string().optional(),
-  filters: z.array(FilterCondition$zodSchema).optional(),
+  filters: z.array(FilterCondition$zodSchema).optional().describe(
+    "filters allows complex filtering based on multiple fields",
+  ),
   limit: z.int().optional(),
   lookup_key: z.string().optional(),
   offset: z.int().optional(),

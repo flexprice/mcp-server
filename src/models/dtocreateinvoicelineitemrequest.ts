@@ -31,24 +31,60 @@ export type DtoCreateInvoiceLineItemRequest = {
 export const DtoCreateInvoiceLineItemRequest$zodSchema: z.ZodType<
   DtoCreateInvoiceLineItemRequest
 > = z.object({
-  amount: z.string(),
+  amount: z.string().describe(
+    "amount is the monetary amount for this line item",
+  ),
   commitment_info: CommitmentInfo$zodSchema.optional(),
-  display_name: z.string().optional(),
-  entity_id: z.string().optional(),
-  entity_type: z.string().optional(),
-  invoice_level_discount: z.string().optional(),
-  line_item_discount: z.string().optional(),
+  display_name: z.string().optional().describe(
+    "display_name is the optional human-readable name for this line item",
+  ),
+  entity_id: z.string().optional().describe(
+    "entity_id is the optional unique identifier of the entity associated with this line item",
+  ),
+  entity_type: z.string().optional().describe(
+    "entity_type is the optional type of the entity associated with this line item",
+  ),
+  invoice_level_discount: z.string().optional().describe(
+    "invoice_level_discount is the discount amount in invoice currency applied to all line items on the invoice.",
+  ),
+  line_item_discount: z.string().optional().describe(
+    "line_item_discount is the discount amount in invoice currency applied directly to this line item.",
+  ),
   metadata: z.record(z.string(), z.string()).optional(),
-  meter_display_name: z.string().optional(),
-  meter_id: z.string().optional(),
-  period_end: z.string().optional(),
-  period_start: z.string().optional(),
-  plan_display_name: z.string().optional(),
-  plan_id: z.string().optional(),
-  prepaid_credits_applied: z.string().optional(),
-  price_id: z.string().optional(),
-  price_type: z.string().optional(),
-  price_unit: z.string().optional(),
-  price_unit_amount: z.string().optional(),
-  quantity: z.string(),
+  meter_display_name: z.string().optional().describe(
+    "meter_display_name is the optional human-readable name of the meter",
+  ),
+  meter_id: z.string().optional().describe(
+    "meter_id is the optional unique identifier of the meter used for usage tracking",
+  ),
+  period_end: z.string().optional().describe(
+    "period_end is the optional end date of the period this line item covers",
+  ),
+  period_start: z.string().optional().describe(
+    "period_start is the optional start date of the period this line item covers",
+  ),
+  plan_display_name: z.string().optional().describe(
+    "plan_display_name is the optional human-readable name of the plan",
+  ),
+  plan_id: z.string().optional().describe(
+    "TODO: !REMOVE after migration\nplan_id is the optional unique identifier of the plan associated with this line item",
+  ),
+  prepaid_credits_applied: z.string().optional().describe(
+    "prepaid_credits_applied is the amount in invoice currency reduced from this line item due to prepaid credits application.",
+  ),
+  price_id: z.string().optional().describe(
+    "price_id is the optional unique identifier of the price associated with this line item",
+  ),
+  price_type: z.string().optional().describe(
+    "price_type indicates the type of pricing (fixed, usage, tiered, etc.)",
+  ),
+  price_unit: z.string().optional().describe(
+    "price_unit is the optional 3-digit ISO code of the price unit associated with this line item",
+  ),
+  price_unit_amount: z.string().optional().describe(
+    "price_unit_amount is the optional amount converted to the price unit currency",
+  ),
+  quantity: z.string().describe(
+    "quantity is the quantity of units for this line item",
+  ),
 });

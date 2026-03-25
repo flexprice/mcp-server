@@ -36,18 +36,26 @@ export type DtoUpdateSubscriptionLineItemRequest = {
 export const DtoUpdateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   DtoUpdateSubscriptionLineItemRequest
 > = z.object({
-  amount: z.string().optional(),
+  amount: z.string().optional().describe(
+    "Amount is the new price amount that overrides the original price",
+  ),
   billing_model: BillingModel$zodSchema.optional(),
-  commitment_amount: z.number().optional(),
+  commitment_amount: z.number().optional().describe("Commitment fields"),
   commitment_duration: BillingPeriod$zodSchema.optional(),
   commitment_overage_factor: z.number().optional(),
   commitment_quantity: z.number().optional(),
   commitment_true_up_enabled: z.boolean().optional(),
   commitment_type: CommitmentType$zodSchema.optional(),
   commitment_windowed: z.boolean().optional(),
-  effective_from: z.string().optional(),
-  metadata: z.record(z.string(), z.string()).optional(),
+  effective_from: z.string().optional().describe(
+    "EffectiveFrom for the existing line item (if not provided, defaults to now)",
+  ),
+  metadata: z.record(z.string(), z.string()).optional().describe(
+    "Metadata for the new line item",
+  ),
   tier_mode: BillingTier$zodSchema.optional(),
-  tiers: z.array(DtoCreatePriceTier$zodSchema).optional(),
+  tiers: z.array(DtoCreatePriceTier$zodSchema).optional().describe(
+    "Tiers determines the pricing tiers for this line item",
+  ),
   transform_quantity: PriceTransformQuantity$zodSchema.optional(),
 });

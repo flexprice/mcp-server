@@ -24,7 +24,9 @@ export type DeleteSubscriptionLineItemRequest = {
 export const DeleteSubscriptionLineItemRequest$zodSchema: z.ZodType<
   DeleteSubscriptionLineItemRequest
 > = z.object({
-  body: DtoDeleteSubscriptionLineItemRequest$zodSchema,
+  body: DtoDeleteSubscriptionLineItemRequest$zodSchema.describe(
+    "Delete Line Item Request",
+  ),
   id: z.string().describe("Line Item ID"),
 });
 

@@ -20,7 +20,7 @@ export type UpdatePlanRequest = { id: string; body: DtoUpdatePlanRequest };
 
 export const UpdatePlanRequest$zodSchema: z.ZodType<UpdatePlanRequest> = z
   .object({
-    body: DtoUpdatePlanRequest$zodSchema,
+    body: DtoUpdatePlanRequest$zodSchema.describe("Plan update"),
     id: z.string().describe("Plan ID"),
   });
 

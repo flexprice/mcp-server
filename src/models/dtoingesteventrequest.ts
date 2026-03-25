@@ -20,7 +20,11 @@ export const DtoIngestEventRequest$zodSchema: z.ZodType<DtoIngestEventRequest> =
     event_id: z.string().optional(),
     event_name: z.string(),
     external_customer_id: z.string(),
-    properties: z.record(z.string(), z.string()).optional(),
+    properties: z.record(z.string(), z.string()).optional().describe(
+      "Handled separately for dynamic columns",
+    ),
     source: z.string().optional(),
-    timestamp: z.string().optional(),
+    timestamp: z.string().optional().describe(
+      "Handled separately due to parsing",
+    ),
   });

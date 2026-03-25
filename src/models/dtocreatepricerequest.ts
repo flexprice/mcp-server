@@ -70,12 +70,16 @@ export const DtoCreatePriceRequest$zodSchema: z.ZodType<DtoCreatePriceRequest> =
     entity_id: z.string(),
     entity_type: PriceEntityType$zodSchema,
     filter_values: z.record(z.string(), z.array(z.string())).optional(),
-    group_id: z.string().optional(),
+    group_id: z.string().optional().describe(
+      "GroupID is the id of the group to add the price to",
+    ),
     invoice_cadence: InvoiceCadence$zodSchema,
     lookup_key: z.string().optional(),
     metadata: z.record(z.string(), z.string()).optional(),
     meter_id: z.string().optional(),
-    min_quantity: z.int().optional(),
+    min_quantity: z.int().optional().describe(
+      "MinQuantity is the minimum quantity of the price",
+    ),
     price_unit_config: DtoPriceUnitConfig$zodSchema.optional(),
     price_unit_type: PriceUnitType$zodSchema,
     start_date: z.string().optional(),

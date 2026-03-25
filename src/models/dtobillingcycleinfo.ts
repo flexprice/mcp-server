@@ -17,10 +17,18 @@ export type DtoBillingCycleInfo = {
 
 export const DtoBillingCycleInfo$zodSchema: z.ZodType<DtoBillingCycleInfo> = z
   .object({
-    billing_anchor: z.string().optional(),
+    billing_anchor: z.string().optional().describe(
+      "billing_anchor is the new billing anchor",
+    ),
     billing_cadence: BillingCadence$zodSchema.optional(),
     billing_period: BillingPeriod$zodSchema.optional(),
-    billing_period_count: z.int().optional(),
-    period_end: z.string().optional(),
-    period_start: z.string().optional(),
+    billing_period_count: z.int().optional().describe(
+      "billing_period_count is the billing period count",
+    ),
+    period_end: z.string().optional().describe(
+      "period_end is the end of the new billing period",
+    ),
+    period_start: z.string().optional().describe(
+      "period_start is the start of the new billing period",
+    ),
   });

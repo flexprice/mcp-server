@@ -22,17 +22,44 @@ export type DtoGetEventsRequest = {
 
 export const DtoGetEventsRequest$zodSchema: z.ZodType<DtoGetEventsRequest> = z
   .object({
-    end_time: z.string().optional(),
-    event_id: z.string().optional(),
-    event_name: z.string().optional(),
-    external_customer_id: z.string().optional(),
-    iter_first_key: z.string().optional(),
-    iter_last_key: z.string().optional(),
-    offset: z.int().optional(),
-    order: z.string().optional(),
-    page_size: z.int().optional(),
-    property_filters: z.record(z.string(), z.array(z.string())).optional(),
-    sort: z.string().optional(),
-    source: z.string().optional(),
-    start_time: z.string().optional(),
+    end_time: z.string().optional().describe(
+      "End time of the events to be fetched in ISO 8601 format\nDefaults to now if not provided",
+    ),
+    event_id: z.string().optional().describe(
+      "Event ID is the idempotency key for the event",
+    ),
+    event_name: z.string().optional().describe(
+      "Event name / Unique identifier for the event in your system",
+    ),
+    external_customer_id: z.string().optional().describe(
+      "Customer ID in your system that was sent with the event",
+    ),
+    iter_first_key: z.string().optional().describe(
+      "First key to iterate over the events",
+    ),
+    iter_last_key: z.string().optional().describe(
+      "Last key to iterate over the events",
+    ),
+    offset: z.int().optional().describe(
+      "Offset to fetch the events and is set to 0 by default",
+    ),
+    order: z.string().optional().describe(
+      "Order by condition. Allowed values (case sensitive): asc, desc (default: desc)",
+    ),
+    page_size: z.int().optional().describe(
+      "Page size to fetch the events and is set to 50 by default",
+    ),
+    property_filters: z.record(z.string(), z.array(z.string())).optional()
+      .describe(
+        "Property filters to filter the events by the keys in `properties` field of the event",
+      ),
+    sort: z.string().optional().describe(
+      "Sort by the field. Allowed values (case sensitive): timestamp, event_name (default: timestamp)",
+    ),
+    source: z.string().optional().describe(
+      "Source to filter the events by the source",
+    ),
+    start_time: z.string().optional().describe(
+      "Start time of the events to be fetched in ISO 8601 format\nDefaults to last 7 days from now if not provided",
+    ),
   });

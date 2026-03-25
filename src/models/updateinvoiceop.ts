@@ -23,7 +23,7 @@ export type UpdateInvoiceRequest = {
 
 export const UpdateInvoiceRequest$zodSchema: z.ZodType<UpdateInvoiceRequest> = z
   .object({
-    body: DtoUpdateInvoiceRequest$zodSchema,
+    body: DtoUpdateInvoiceRequest$zodSchema.describe("Invoice Update Request"),
     id: z.string().describe("Invoice ID"),
   });
 

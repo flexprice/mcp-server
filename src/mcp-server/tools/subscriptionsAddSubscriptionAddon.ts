@@ -7,7 +7,7 @@ import { DtoAddAddonRequest$zodSchema } from "../../models/dtoaddaddonrequest.js
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoAddAddonRequest$zodSchema,
+  request: DtoAddAddonRequest$zodSchema.describe(`Add Addon Request`),
 };
 
 export const tool$subscriptionsAddSubscriptionAddon: ToolDefinition<

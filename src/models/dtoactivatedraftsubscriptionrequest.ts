@@ -9,5 +9,7 @@ export type DtoActivateDraftSubscriptionRequest = { start_date: string };
 export const DtoActivateDraftSubscriptionRequest$zodSchema: z.ZodType<
   DtoActivateDraftSubscriptionRequest
 > = z.object({
-  start_date: z.string(),
+  start_date: z.string().describe(
+    "start_date is the new start date for the subscription when activating",
+  ),
 });

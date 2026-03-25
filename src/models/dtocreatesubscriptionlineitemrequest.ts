@@ -31,7 +31,7 @@ export type DtoCreateSubscriptionLineItemRequest = {
 export const DtoCreateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   DtoCreateSubscriptionLineItemRequest
 > = z.object({
-  commitment_amount: z.number().optional(),
+  commitment_amount: z.number().optional().describe("Commitment fields"),
   commitment_duration: BillingPeriod$zodSchema.optional(),
   commitment_overage_factor: z.number().optional(),
   commitment_quantity: z.number().optional(),
@@ -42,7 +42,9 @@ export const DtoCreateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   end_date: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   price: DtoSubscriptionPriceCreateRequest$zodSchema.optional(),
-  price_id: z.string().optional(),
+  price_id: z.string().optional().describe(
+    "PriceID references an existing price (plan, addon, or subscription-scoped). Exactly one of price_id or price must be set.",
+  ),
   quantity: z.number().optional(),
   start_date: z.string().optional(),
   subscription_phase_id: z.string().optional(),

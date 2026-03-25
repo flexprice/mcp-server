@@ -7,7 +7,9 @@ import { DtoGetPreviewInvoiceRequest$zodSchema } from "../../models/dtogetprevie
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoGetPreviewInvoiceRequest$zodSchema,
+  request: DtoGetPreviewInvoiceRequest$zodSchema.describe(
+    `Preview Invoice Request`,
+  ),
 };
 
 export const tool$invoicesGetInvoicePreview: ToolDefinition<typeof args> = {

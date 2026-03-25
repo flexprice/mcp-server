@@ -19,10 +19,21 @@ export type DtoInvoicePreview = {
 
 export const DtoInvoicePreview$zodSchema: z.ZodType<DtoInvoicePreview> = z
   .object({
-    currency: z.string().optional(),
-    due_date: z.string().optional(),
-    line_items: z.array(DtoInvoiceLineItemPreview$zodSchema).optional(),
-    subtotal: z.string().optional(),
-    tax_amount: z.string().optional(),
-    total: z.string().optional(),
+    currency: z.string().optional().describe(
+      "currency is the currency for all amounts",
+    ),
+    due_date: z.string().optional().describe(
+      "due_date is when the invoice would be due",
+    ),
+    line_items: z.array(DtoInvoiceLineItemPreview$zodSchema).optional()
+      .describe("line_items contains preview of line items"),
+    subtotal: z.string().optional().describe(
+      "subtotal is the subtotal amount before taxes",
+    ),
+    tax_amount: z.string().optional().describe(
+      "tax_amount is the total tax amount",
+    ),
+    total: z.string().optional().describe(
+      "total is the total amount including taxes",
+    ),
   });

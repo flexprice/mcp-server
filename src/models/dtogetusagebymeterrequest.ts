@@ -20,7 +20,9 @@ export type DtoGetUsageByMeterRequest = {
 export const DtoGetUsageByMeterRequest$zodSchema: z.ZodType<
   DtoGetUsageByMeterRequest
 > = z.object({
-  billing_anchor: z.string().optional(),
+  billing_anchor: z.string().optional().describe(
+    "BillingAnchor enables custom monthly billing periods for meter usage aggregation.\n\nUsage guidelines:\n- Only effective when WindowSize = \"MONTH\"\n- For other window sizes (DAY, HOUR, WEEK), this field is ignored\n- When nil, uses standard calendar months (1st to 1st)\n- When provided, creates custom monthly periods (e.g., 5th to 5th)\n\nCommon use cases:\n- Subscription billing periods that don't align with calendar months\n- Customer-specific billing cycles (e.g., signed up on 15th)\n- Multi-tenant systems with different billing anchor dates\n\nExample: If BillingAnchor = \"2024-03-05T14:30:45Z\" and WindowSize = \"MONTH\":\n  - March period: 2024-03-05 14:30:45 to 2024-04-05 14:30:45\n  - April period: 2024-04-05 14:30:45 to 2024-05-05 14:30:45",
+  ),
   bucket_size: WindowSize$zodSchema.optional(),
   customer_id: z.string().optional(),
   end_time: z.string().optional(),

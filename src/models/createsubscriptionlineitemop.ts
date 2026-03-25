@@ -24,7 +24,9 @@ export type CreateSubscriptionLineItemRequest = {
 export const CreateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   CreateSubscriptionLineItemRequest
 > = z.object({
-  body: DtoCreateSubscriptionLineItemRequest$zodSchema,
+  body: DtoCreateSubscriptionLineItemRequest$zodSchema.describe(
+    "Create Line Item Request",
+  ),
   id: z.string().describe("Subscription ID"),
 });
 

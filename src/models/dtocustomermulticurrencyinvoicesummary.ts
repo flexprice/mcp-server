@@ -17,7 +17,13 @@ export type DtoCustomerMultiCurrencyInvoiceSummary = {
 export const DtoCustomerMultiCurrencyInvoiceSummary$zodSchema: z.ZodType<
   DtoCustomerMultiCurrencyInvoiceSummary
 > = z.object({
-  customer_id: z.string().optional(),
-  default_currency: z.string().optional(),
-  summaries: z.array(DtoCustomerInvoiceSummary$zodSchema).optional(),
+  customer_id: z.string().optional().describe(
+    "customer_id is the unique identifier of the customer",
+  ),
+  default_currency: z.string().optional().describe(
+    "default_currency is the primary currency for this customer",
+  ),
+  summaries: z.array(DtoCustomerInvoiceSummary$zodSchema).optional().describe(
+    "summaries contains the invoice summaries for each currency",
+  ),
 });

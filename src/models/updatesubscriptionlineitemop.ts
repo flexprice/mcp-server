@@ -24,7 +24,9 @@ export type UpdateSubscriptionLineItemRequest = {
 export const UpdateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   UpdateSubscriptionLineItemRequest
 > = z.object({
-  body: DtoUpdateSubscriptionLineItemRequest$zodSchema,
+  body: DtoUpdateSubscriptionLineItemRequest$zodSchema.describe(
+    "Update Line Item Request",
+  ),
   id: z.string().describe("Line Item ID"),
 });
 

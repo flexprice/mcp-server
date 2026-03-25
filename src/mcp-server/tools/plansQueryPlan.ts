@@ -7,7 +7,7 @@ import { PlanFilter$zodSchema } from "../../models/planfilter.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: PlanFilter$zodSchema,
+  request: PlanFilter$zodSchema.describe(`Filter`),
 };
 
 export const tool$plansQueryPlan: ToolDefinition<typeof args> = {

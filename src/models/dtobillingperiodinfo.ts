@@ -13,6 +13,6 @@ export type DtoBillingPeriodInfo = {
 export const DtoBillingPeriodInfo$zodSchema: z.ZodType<DtoBillingPeriodInfo> = z
   .object({
     end_time: z.string().optional(),
-    period: z.string().optional(),
+    period: z.string().optional().describe("e.g., \"monthly\", \"yearly\""),
     start_time: z.string().optional(),
   });

@@ -34,6 +34,8 @@ export type DtoIntegrationEntityMapping = { id: string; provider: Provider };
 export const DtoIntegrationEntityMapping$zodSchema: z.ZodType<
   DtoIntegrationEntityMapping
 > = z.object({
-  id: z.string(),
-  provider: Provider$zodSchema,
+  id: z.string().describe("id is the external entity ID from the provider"),
+  provider: Provider$zodSchema.describe(
+    "provider is the integration provider name (e.g., \"stripe\", \"razorpay\")",
+  ),
 }).describe("Integration entity mapping for external provider systems");

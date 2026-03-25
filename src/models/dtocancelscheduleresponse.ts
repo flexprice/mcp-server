@@ -16,6 +16,6 @@ export type DtoCancelScheduleResponse = {
 export const DtoCancelScheduleResponse$zodSchema: z.ZodType<
   DtoCancelScheduleResponse
 > = z.object({
-  message: z.string().optional(),
+  message: z.string().optional().describe("message is a confirmation message"),
   status: ScheduleStatus$zodSchema.optional(),
 }).describe("Confirmation of schedule cancellation");

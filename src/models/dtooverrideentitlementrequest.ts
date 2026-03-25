@@ -14,8 +14,16 @@ export type DtoOverrideEntitlementRequest = {
 export const DtoOverrideEntitlementRequest$zodSchema: z.ZodType<
   DtoOverrideEntitlementRequest
 > = z.object({
-  entitlement_id: z.string(),
-  is_enabled: z.boolean().optional(),
-  static_value: z.string().optional(),
-  usage_limit: z.int().optional(),
+  entitlement_id: z.string().describe(
+    "EntitlementID references the plan/addon entitlement to override",
+  ),
+  is_enabled: z.boolean().optional().describe(
+    "IsEnabled determines if the entitlement is enabled or disabled",
+  ),
+  static_value: z.string().optional().describe(
+    "StaticValue is the static value for static features",
+  ),
+  usage_limit: z.int().optional().describe(
+    "UsageLimit is the new usage limit (only these 3 fields can be overridden)\nFor metered features, nil means unlimited usage",
+  ),
 });

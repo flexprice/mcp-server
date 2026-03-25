@@ -45,14 +45,26 @@ export const DtoSubscriptionChangeExecuteResponse$zodSchema: z.ZodType<
   DtoSubscriptionChangeExecuteResponse
 > = z.object({
   change_type: SubscriptionChangeType$zodSchema.optional(),
-  credit_grants: z.array(DtoCreditGrantResponse$zodSchema).optional(),
-  effective_date: z.string().optional(),
+  credit_grants: z.array(DtoCreditGrantResponse$zodSchema).optional().describe(
+    "credit_grants contains any credit grants created for proration credits",
+  ),
+  effective_date: z.string().optional().describe(
+    "effective_date is when the change took effect",
+  ),
   invoice: DtoInvoiceResponse$zodSchema.optional(),
-  is_scheduled: z.boolean().optional(),
-  metadata: z.record(z.string(), z.string()).optional(),
+  is_scheduled: z.boolean().optional().describe(
+    "is_scheduled indicates if the change was scheduled or executed immediately",
+  ),
+  metadata: z.record(z.string(), z.string()).optional().describe(
+    "metadata from the request",
+  ),
   new_subscription: DtoSubscriptionSummary$zodSchema.optional(),
   old_subscription: DtoSubscriptionSummary$zodSchema.optional(),
   proration_applied: DtoProrationDetails$zodSchema.optional(),
-  schedule_id: z.string().optional(),
-  scheduled_at: z.string().optional(),
+  schedule_id: z.string().optional().describe(
+    "schedule_id is the ID of the created schedule (only if is_scheduled=true)",
+  ),
+  scheduled_at: z.string().optional().describe(
+    "scheduled_at is when the change will execute (only if is_scheduled=true)",
+  ),
 }).describe("Response after successfully executing a subscription plan change");

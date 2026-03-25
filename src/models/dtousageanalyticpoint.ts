@@ -16,11 +16,15 @@ export type DtoUsageAnalyticPoint = {
 
 export const DtoUsageAnalyticPoint$zodSchema: z.ZodType<DtoUsageAnalyticPoint> =
   z.object({
-    computed_commitment_utilized_amount: z.string().optional(),
+    computed_commitment_utilized_amount: z.string().optional().describe(
+      "Commitment breakdown (only populated for windowed commitments)",
+    ),
     computed_overage_amount: z.string().optional(),
     computed_true_up_amount: z.string().optional(),
     cost: z.string().optional(),
-    event_count: z.int().optional(),
+    event_count: z.int().optional().describe(
+      "Number of events in this time window",
+    ),
     timestamp: z.string().optional(),
     usage: z.string().optional(),
   });

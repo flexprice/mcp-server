@@ -7,7 +7,7 @@ import { SubscriptionFilter$zodSchema } from "../../models/subscriptionfilter.js
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: SubscriptionFilter$zodSchema,
+  request: SubscriptionFilter$zodSchema.describe(`Filter`),
 };
 
 export const tool$subscriptionsQuerySubscription: ToolDefinition<typeof args> =

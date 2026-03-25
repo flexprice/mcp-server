@@ -44,6 +44,13 @@ export const serveCommand = buildCommand({
         values: ["dynamic"],
         optional: true,
       },
+      "tool-annotations": {
+        kind: "parsed",
+        brief:
+          "Filter tools by annotations (comma-separated: readOnly, destructive, idempotent, openWorld). Listed = required true, unlisted = required false.",
+        optional: true,
+        parse: (value) => value.split(",").map(s => s.trim()),
+      },
       scope: {
         kind: "enum",
         brief: "Mount tools/resources that match given scope (repeatable flag)",

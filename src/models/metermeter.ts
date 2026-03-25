@@ -31,11 +31,19 @@ export const MeterMeter$zodSchema: z.ZodType<MeterMeter> = z.object({
   aggregation: MeterAggregation$zodSchema.optional(),
   created_at: z.string().optional(),
   created_by: z.string().optional(),
-  environment_id: z.string().optional(),
-  event_name: z.string().optional(),
-  filters: z.array(MeterFilter$zodSchema).optional(),
-  id: z.string().optional(),
-  name: z.string().optional(),
+  environment_id: z.string().optional().describe(
+    "EnvironmentID is the environment identifier for the meter",
+  ),
+  event_name: z.string().optional().describe(
+    "EventName is the unique identifier for the event that this meter is tracking\nIt is a mandatory field in the events table and hence being used as the primary matching field\nWe can have multiple meters tracking the same event but with different filters and aggregation",
+  ),
+  filters: z.array(MeterFilter$zodSchema).optional().describe(
+    "Filters define the criteria for the meter to be applied on the events before aggregation\nIt also defines the possible values on which later the charges will be applied",
+  ),
+  id: z.string().optional().describe(
+    "ID is the unique identifier for the meter",
+  ),
+  name: z.string().optional().describe("Name is the display name of the meter"),
   reset_usage: ResetUsage$zodSchema.optional(),
   status: Status$zodSchema.optional(),
   tenant_id: z.string().optional(),

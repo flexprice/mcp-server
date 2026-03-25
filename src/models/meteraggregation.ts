@@ -21,10 +21,18 @@ export type MeterAggregation = {
 export const MeterAggregation$zodSchema: z.ZodType<MeterAggregation> = z.object(
   {
     bucket_size: WindowSize$zodSchema.optional(),
-    expression: z.string().optional(),
-    field: z.string().optional(),
-    group_by: z.string().optional(),
-    multiplier: z.string().optional(),
+    expression: z.string().optional().describe(
+      "Expression is an optional CEL expression to compute per-event quantity from event.properties.\nWhen set, it replaces Field-based extraction. Property names are used directly (e.g., token * duration * pixel).",
+    ),
+    field: z.string().optional().describe(
+      "Field is the key in $event.properties on which the aggregation is to be applied\nFor ex if the aggregation type is sum for API usage, the field could be \"duration_ms\"\nIgnored when Expression is set.",
+    ),
+    group_by: z.string().optional().describe(
+      "GroupBy is the property name in event.properties to group by before aggregating.\nCurrently only supported for MAX aggregation with bucket_size.\nWhen set, aggregation is applied per unique value of this property within each bucket,\nthen the per-group results are summed to produce the bucket total.",
+    ),
+    multiplier: z.string().optional().describe(
+      "Multiplier is the multiplier for the aggregation\nFor ex if the aggregation type is sum_with_multiplier for API usage, the multiplier could be 1000\nto scale up by a factor of 1000. If not provided, it will be null.",
+    ),
     type: AggregationType$zodSchema.optional(),
   },
 );

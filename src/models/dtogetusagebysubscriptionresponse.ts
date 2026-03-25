@@ -28,12 +28,18 @@ export const DtoGetUsageBySubscriptionResponse$zodSchema: z.ZodType<
   amount: z.number().optional(),
   charges: z.array(DtoSubscriptionUsageByMetersResponse$zodSchema).optional(),
   commitment_amount: z.number().optional(),
-  commitment_utilized: z.number().optional(),
+  commitment_utilized: z.number().optional().describe(
+    "Amount of commitment used",
+  ),
   currency: z.string().optional(),
   display_amount: z.string().optional(),
   end_time: z.string().optional(),
-  has_overage: z.boolean().optional(),
-  overage_amount: z.number().optional(),
+  has_overage: z.boolean().optional().describe(
+    "Whether any usage exceeded commitment",
+  ),
+  overage_amount: z.number().optional().describe(
+    "Amount charged at overage rate",
+  ),
   overage_factor: z.number().optional(),
   start_time: z.string().optional(),
 });

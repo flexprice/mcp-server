@@ -21,7 +21,9 @@ export const DtoAggregatedEntitlement$zodSchema: z.ZodType<
 > = z.object({
   is_enabled: z.boolean().optional(),
   is_soft_limit: z.boolean().optional(),
-  static_values: z.array(z.string()).optional(),
+  static_values: z.array(z.string()).optional().describe(
+    "For static/SLA features",
+  ),
   usage_limit: z.int().optional(),
   usage_reset_period: EntitlementUsageResetPeriod$zodSchema.optional(),
 });

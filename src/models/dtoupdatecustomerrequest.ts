@@ -30,20 +30,46 @@ export type DtoUpdateCustomerRequest = {
 export const DtoUpdateCustomerRequest$zodSchema: z.ZodType<
   DtoUpdateCustomerRequest
 > = z.object({
-  address_city: z.string().optional(),
-  address_country: z.string().optional(),
-  address_line1: z.string().optional(),
-  address_line2: z.string().optional(),
-  address_postal_code: z.string().optional(),
-  address_state: z.string().optional(),
-  email: z.string().optional(),
-  external_id: z.string().optional(),
+  address_city: z.string().optional().describe(
+    "address_city is the updated city name with maximum 100 characters",
+  ),
+  address_country: z.string().optional().describe(
+    "address_country is the updated two-letter ISO 3166-1 alpha-2 country code",
+  ),
+  address_line1: z.string().optional().describe(
+    "address_line1 is the updated primary address line with maximum 255 characters",
+  ),
+  address_line2: z.string().optional().describe(
+    "address_line2 is the updated secondary address line with maximum 255 characters",
+  ),
+  address_postal_code: z.string().optional().describe(
+    "address_postal_code is the updated postal code with maximum 20 characters",
+  ),
+  address_state: z.string().optional().describe(
+    "address_state is the updated state, province, or region name with maximum 100 characters",
+  ),
+  email: z.string().optional().describe(
+    "email is the updated email address and must be a valid email format if provided",
+  ),
+  external_id: z.string().optional().describe(
+    "external_id is the updated external identifier for the customer",
+  ),
   integration_entity_mapping: z.array(DtoIntegrationEntityMapping$zodSchema)
-    .optional(),
-  metadata: z.record(z.string(), z.string()).optional(),
-  name: z.string().optional(),
-  parent_customer_external_id: z.string().optional(),
-  parent_customer_id: z.string().optional(),
+    .optional().describe(
+      "integration_entity_mapping contains provider integration mappings for this customer",
+    ),
+  metadata: z.record(z.string(), z.string()).optional().describe(
+    "metadata contains updated key-value pairs that will replace existing metadata",
+  ),
+  name: z.string().optional().describe(
+    "name is the updated name or company name for the customer",
+  ),
+  parent_customer_external_id: z.string().optional().describe(
+    "Deprecated: See ParentCustomerID.\nparent_customer_external_id is the external ID of the parent customer from your system.\nExactly one of parent_customer_id or parent_customer_external_id may be provided.\nIf you provide the external ID, the parent customer value will be ignored.",
+  ),
+  parent_customer_id: z.string().optional().describe(
+    "Deprecated: Customer parent hierarchy is deprecated in favor of subscription-level hierarchy.\nThis field is accepted for backward compatibility but no hierarchy validations are enforced.\nparent_customer_id is the internal FlexPrice ID of the parent customer.",
+  ),
 }).describe(
   "Request object for updating an existing customer. All fields are optional - only provided fields will be updated",
 );

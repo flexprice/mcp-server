@@ -24,7 +24,7 @@ export type UpdateCustomerRequest = {
 
 export const UpdateCustomerRequest$zodSchema: z.ZodType<UpdateCustomerRequest> =
   z.object({
-    body: DtoUpdateCustomerRequest$zodSchema,
+    body: DtoUpdateCustomerRequest$zodSchema.describe("Customer"),
     external_customer_id: z.string().describe("Customer External ID")
       .optional(),
     id: z.string().describe("Customer ID").optional(),

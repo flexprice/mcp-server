@@ -11,7 +11,13 @@ export type PricePriceTier = {
 };
 
 export const PricePriceTier$zodSchema: z.ZodType<PricePriceTier> = z.object({
-  flat_amount: z.string().optional(),
-  unit_amount: z.string().optional(),
-  up_to: z.int().optional(),
+  flat_amount: z.string().optional().describe(
+    "flat_amount is the flat amount for the given tier (optional)\nApplied on top of unit_amount*quantity. Useful for cases like \"2.7$ + 5c\"",
+  ),
+  unit_amount: z.string().optional().describe(
+    "unit_amount is the amount per unit for the given tier",
+  ),
+  up_to: z.int().optional().describe(
+    "up_to is the quantity up to which this tier applies. It is null for the last tier.\nIMPORTANT: Tier boundaries are INCLUSIVE.\n- If up_to is 1000, then quantity less than or equal to 1000 belongs to this tier\n- This behavior is consistent across both VOLUME and SLAB tier modes",
+  ),
 });

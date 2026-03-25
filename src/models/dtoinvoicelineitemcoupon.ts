@@ -15,5 +15,5 @@ export const DtoInvoiceLineItemCoupon$zodSchema: z.ZodType<
 > = z.object({
   coupon_association_id: z.string().optional(),
   coupon_id: z.string(),
-  line_item_id: z.string(),
+  line_item_id: z.string().describe("price_id used to match the line item"),
 });

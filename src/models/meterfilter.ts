@@ -10,6 +10,10 @@ export type MeterFilter = {
 };
 
 export const MeterFilter$zodSchema: z.ZodType<MeterFilter> = z.object({
-  key: z.string().optional(),
-  values: z.array(z.string()).optional(),
+  key: z.string().optional().describe(
+    "Key is the key for the filter from $event.properties\nCurrently we support only first level keys in the properties and not nested keys",
+  ),
+  values: z.array(z.string()).optional().describe(
+    "Values are the possible values for the filter to be considered for the meter\nFor ex \"model_name\" could have values \"o1-mini\", \"gpt-4o\" etc",
+  ),
 });

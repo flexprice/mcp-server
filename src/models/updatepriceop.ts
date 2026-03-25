@@ -20,7 +20,7 @@ export type UpdatePriceRequest = { id: string; body: DtoUpdatePriceRequest };
 
 export const UpdatePriceRequest$zodSchema: z.ZodType<UpdatePriceRequest> = z
   .object({
-    body: DtoUpdatePriceRequest$zodSchema,
+    body: DtoUpdatePriceRequest$zodSchema.describe("Price configuration"),
     id: z.string().describe("Price ID"),
   });
 

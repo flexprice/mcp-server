@@ -19,6 +19,9 @@ export type DtoGetPendingSchedulesResponse = {
 export const DtoGetPendingSchedulesResponse$zodSchema: z.ZodType<
   DtoGetPendingSchedulesResponse
 > = z.object({
-  count: z.int().optional(),
-  schedules: z.array(DtoSubscriptionScheduleResponse$zodSchema).optional(),
+  count: z.int().optional().describe(
+    "count is the number of pending schedules",
+  ),
+  schedules: z.array(DtoSubscriptionScheduleResponse$zodSchema).optional()
+    .describe("schedules is the list of pending schedules"),
 }).describe("List of pending schedules for a subscription");

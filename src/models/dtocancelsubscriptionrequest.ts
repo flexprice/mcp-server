@@ -17,6 +17,7 @@ import {
 } from "./prorationbehavior.js";
 
 export type DtoCancelSubscriptionRequest = {
+  cancel_at?: string | undefined;
   cancel_immediately_inovice_policy?:
     | CancelImmediatelyInvoicePolicy
     | undefined;
@@ -28,9 +29,14 @@ export type DtoCancelSubscriptionRequest = {
 export const DtoCancelSubscriptionRequest$zodSchema: z.ZodType<
   DtoCancelSubscriptionRequest
 > = z.object({
+  cancel_at: z.string().optional().describe(
+    "CancelAt is the custom date to cancel the subscription.\nRequired when CancellationType is \"scheduled_date\". Must be in the future.",
+  ),
   cancel_immediately_inovice_policy: CancelImmediatelyInvoicePolicy$zodSchema
     .optional(),
   cancellation_type: CancellationType$zodSchema,
   proration_behavior: ProrationBehavior$zodSchema.optional(),
-  reason: z.string().optional(),
+  reason: z.string().optional().describe(
+    "Reason for cancellation (for audit and business intelligence)",
+  ),
 });

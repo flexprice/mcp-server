@@ -19,11 +19,21 @@ export type DtoLineItemCommitmentConfig = {
 export const DtoLineItemCommitmentConfig$zodSchema: z.ZodType<
   DtoLineItemCommitmentConfig
 > = z.object({
-  commitment_amount: z.number().optional(),
+  commitment_amount: z.number().optional().describe(
+    "CommitmentAmount is the minimum amount committed for this line item",
+  ),
   commitment_duration: BillingPeriod$zodSchema.optional(),
-  commitment_quantity: z.number().optional(),
+  commitment_quantity: z.number().optional().describe(
+    "CommitmentQuantity is the minimum quantity committed for this line item",
+  ),
   commitment_type: CommitmentType$zodSchema.optional(),
-  enable_true_up: z.boolean().optional(),
-  is_window_commitment: z.boolean().optional(),
-  overage_factor: z.number().optional(),
+  enable_true_up: z.boolean().optional().describe(
+    "EnableTrueUp determines if true-up fee should be applied when usage is below commitment",
+  ),
+  is_window_commitment: z.boolean().optional().describe(
+    "IsWindowCommitment determines if commitment is applied per window (e.g., per day) rather than per billing period",
+  ),
+  overage_factor: z.number().optional().describe(
+    "OverageFactor is a multiplier applied to usage beyond the commitment",
+  ),
 });

@@ -7,7 +7,7 @@ import { DtoCreatePlanRequest$zodSchema } from "../../models/dtocreateplanreques
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoCreatePlanRequest$zodSchema,
+  request: DtoCreatePlanRequest$zodSchema.describe(`Plan configuration`),
 };
 
 export const tool$plansCreatePlan: ToolDefinition<typeof args> = {

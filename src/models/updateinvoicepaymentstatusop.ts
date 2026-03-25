@@ -24,7 +24,9 @@ export type UpdateInvoicePaymentStatusRequest = {
 export const UpdateInvoicePaymentStatusRequest$zodSchema: z.ZodType<
   UpdateInvoicePaymentStatusRequest
 > = z.object({
-  body: DtoUpdatePaymentStatusRequest$zodSchema,
+  body: DtoUpdatePaymentStatusRequest$zodSchema.describe(
+    "Payment Status Update Request",
+  ),
   id: z.string().describe("Invoice ID"),
 });
 

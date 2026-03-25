@@ -20,7 +20,11 @@ export type DtoCancelScheduleRequest = {
 export const DtoCancelScheduleRequest$zodSchema: z.ZodType<
   DtoCancelScheduleRequest
 > = z.object({
-  schedule_id: z.string().optional(),
+  schedule_id: z.string().optional().describe(
+    "schedule_id is the ID of the schedule to cancel (optional if subscription_id and schedule_type are provided)",
+  ),
   schedule_type: SubscriptionScheduleChangeType$zodSchema.optional(),
-  subscription_id: z.string().optional(),
+  subscription_id: z.string().optional().describe(
+    "subscription_id is the ID of the subscription (required if schedule_id is not provided)",
+  ),
 }).describe("Request to cancel a subscription schedule (supports two modes)");

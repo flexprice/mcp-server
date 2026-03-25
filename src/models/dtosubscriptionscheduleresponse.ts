@@ -52,19 +52,39 @@ export type DtoSubscriptionScheduleResponse = {
 export const DtoSubscriptionScheduleResponse$zodSchema: z.ZodType<
   DtoSubscriptionScheduleResponse
 > = z.object({
-  can_be_cancelled: z.boolean().optional(),
-  cancelled_at: z.string().optional(),
-  configuration: z.lazy(() => Configuration$zodSchema).optional(),
-  created_at: z.string().optional(),
-  days_until_execution: z.int().optional(),
-  error_message: z.string().optional(),
-  executed_at: z.string().optional(),
-  execution_result: z.lazy(() => ExecutionResult$zodSchema).optional(),
-  id: z.string().optional(),
-  metadata: z.record(z.string(), z.string()).optional(),
+  can_be_cancelled: z.boolean().optional().describe(
+    "can_be_cancelled indicates if the schedule can be cancelled",
+  ),
+  cancelled_at: z.string().optional().describe(
+    "cancelled_at is when the schedule was cancelled",
+  ),
+  configuration: z.lazy(() => Configuration$zodSchema).optional().describe(
+    "configuration contains type-specific configuration (e.g., target_plan_id for plan changes)",
+  ),
+  created_at: z.string().optional().describe("created_at timestamp"),
+  days_until_execution: z.int().optional().describe(
+    "days_until_execution is the number of days until execution",
+  ),
+  error_message: z.string().optional().describe(
+    "error_message contains the error if execution failed",
+  ),
+  executed_at: z.string().optional().describe(
+    "executed_at is when the schedule was executed",
+  ),
+  execution_result: z.lazy(() => ExecutionResult$zodSchema).optional().describe(
+    "execution_result contains type-specific execution result",
+  ),
+  id: z.string().optional().describe("id of the schedule"),
+  metadata: z.record(z.string(), z.string()).optional().describe(
+    "metadata from the schedule",
+  ),
   schedule_type: SubscriptionScheduleChangeType$zodSchema.optional(),
-  scheduled_at: z.string().optional(),
+  scheduled_at: z.string().optional().describe(
+    "scheduled_at is when the schedule will execute",
+  ),
   status: ScheduleStatus$zodSchema.optional(),
-  subscription_id: z.string().optional(),
-  updated_at: z.string().optional(),
+  subscription_id: z.string().optional().describe(
+    "subscription_id is the ID of the subscription",
+  ),
+  updated_at: z.string().optional().describe("updated_at timestamp"),
 }).describe("Full details of a subscription schedule");

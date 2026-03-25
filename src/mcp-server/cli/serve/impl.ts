@@ -12,6 +12,7 @@ import {
 } from "../../console-logger.js";
 import { MCPServerFlags } from "../../flags.js";
 import { createMCPServer } from "../../server.js";
+import { buildAnnotationFilter } from "../../tools.js";
 import { buildSDK } from "../../tools.js";
 
 import { landingPageExpress } from "../../../landing-page.js";
@@ -65,6 +66,7 @@ async function startStreamableHTTP(cliFlags: ServeCommandFlags) {
       logger,
       allowedTools: cliFlags.tool,
       dynamic: cliFlags.mode === "dynamic",
+      annotationFilter: buildAnnotationFilter(cliFlags["tool-annotations"]),
       scopes: cliFlags.scope,
       serverURL: cliFlags["server-url"],
       getSDK: () =>

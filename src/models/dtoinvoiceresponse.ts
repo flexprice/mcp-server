@@ -79,51 +79,122 @@ export type DtoInvoiceResponse = {
 
 export const DtoInvoiceResponse$zodSchema: z.ZodType<DtoInvoiceResponse> = z
   .object({
-    adjustment_amount: z.string().optional(),
-    amount_due: z.string().optional(),
-    amount_paid: z.string().optional(),
-    amount_remaining: z.string().optional(),
-    billing_period: z.string().optional(),
-    billing_reason: z.string().optional(),
-    billing_sequence: z.int().optional(),
+    adjustment_amount: z.string().optional().describe(
+      "adjustment_amount is the total sum of credit notes of type \"adjustment\".\nThese are non-cash reductions applied to the invoice (e.g. goodwill credit, billing correction).",
+    ),
+    amount_due: z.string().optional().describe(
+      "amount_due is the total amount that needs to be paid for this invoice",
+    ),
+    amount_paid: z.string().optional().describe(
+      "amount_paid is the amount that has already been paid towards this invoice",
+    ),
+    amount_remaining: z.string().optional().describe(
+      "amount_remaining is the outstanding amount still owed on this invoice (calculated as amount_due minus amount_paid)",
+    ),
+    billing_period: z.string().optional().describe(
+      "billing_period describes the billing period this invoice covers (e.g., \"January 2024\", \"Q1 2024\")",
+    ),
+    billing_reason: z.string().optional().describe(
+      "billing_reason indicates why this invoice was generated (e.g., \"subscription_billing\", \"manual_charge\")",
+    ),
+    billing_sequence: z.int().optional().describe(
+      "billing_sequence is the sequential number indicating the billing cycle for subscription invoices",
+    ),
     coupon_applications: z.array(DtoCouponApplicationResponse$zodSchema)
-      .optional(),
+      .optional().describe(
+        "coupon_applications contains the coupon applications associated with this invoice (overrides embedded field)",
+      ),
     created_at: z.string().optional(),
     created_by: z.string().optional(),
-    currency: z.string().optional(),
-    customer: DtoCustomerResponse$zodSchema.optional(),
-    customer_id: z.string().optional(),
-    description: z.string().optional(),
-    due_date: z.string().optional(),
-    environment_id: z.string().optional(),
-    finalized_at: z.string().optional(),
-    id: z.string().optional(),
-    idempotency_key: z.string().optional(),
-    invoice_number: z.string().optional(),
-    invoice_pdf_url: z.string().optional(),
+    currency: z.string().optional().describe(
+      "currency is the three-letter ISO currency code (e.g., USD, EUR, GBP) that applies to all monetary amounts on this invoice",
+    ),
+    customer: DtoCustomerResponse$zodSchema.optional().describe(
+      "Customer response object containing all customer information",
+    ),
+    customer_id: z.string().optional().describe(
+      "customer_id is the ID of the customer who will receive this invoice",
+    ),
+    description: z.string().optional().describe(
+      "description is an optional description or notes about this invoice",
+    ),
+    due_date: z.string().optional().describe(
+      "due_date is the date when payment for this invoice is due",
+    ),
+    environment_id: z.string().optional().describe(
+      "environment_id is the ID of the environment this invoice belongs to (for multi-environment setups)",
+    ),
+    finalized_at: z.string().optional().describe(
+      "finalized_at is the timestamp when this invoice was finalized and made ready for payment",
+    ),
+    id: z.string().optional().describe(
+      "id is the unique identifier for this invoice",
+    ),
+    idempotency_key: z.string().optional().describe(
+      "idempotency_key is a unique key used to prevent duplicate invoice creation when retrying API calls",
+    ),
+    invoice_number: z.string().optional().describe(
+      "invoice_number is the human-readable invoice number displayed to customers (e.g., INV-2024-001)",
+    ),
+    invoice_pdf_url: z.string().optional().describe(
+      "invoice_pdf_url is the URL where customers can download the PDF version of this invoice",
+    ),
     invoice_status: InvoiceStatus$zodSchema.optional(),
     invoice_type: InvoiceType$zodSchema.optional(),
-    line_items: z.array(DtoInvoiceLineItemResponse$zodSchema).optional(),
+    line_items: z.array(DtoInvoiceLineItemResponse$zodSchema).optional()
+      .describe(
+        "line_items contains the individual items that make up this invoice (overrides embedded field)",
+      ),
     metadata: z.record(z.string(), z.string()).optional(),
-    overpaid_amount: z.string().optional(),
-    paid_at: z.string().optional(),
+    overpaid_amount: z.string().optional().describe(
+      "overpaid_amount is the amount overpaid if payment_status is OVERPAID (amount_paid - total)",
+    ),
+    paid_at: z.string().optional().describe(
+      "paid_at is the timestamp when this invoice was fully paid",
+    ),
     payment_status: PaymentStatus$zodSchema.optional(),
-    period_end: z.string().optional(),
-    period_start: z.string().optional(),
-    recalculated_invoice_id: z.string().optional(),
-    refunded_amount: z.string().optional(),
+    period_end: z.string().optional().describe(
+      "period_end is the end date of the billing period covered by this invoice",
+    ),
+    period_start: z.string().optional().describe(
+      "period_start is the start date of the billing period covered by this invoice",
+    ),
+    recalculated_invoice_id: z.string().optional().describe(
+      "recalculated_invoice_id is the ID of the replacement invoice created when this invoice was voided and recalculated.\nWhen set, it forms a parent→child link from this (voided) invoice to the new replacement invoice.",
+    ),
+    refunded_amount: z.string().optional().describe(
+      "refunded_amount is the total sum of credit notes of type \"refund\".\nThese are actual refunds issued to the customer.",
+    ),
     status: Status$zodSchema.optional(),
     subscription: z.lazy(() => DtoSubscriptionResponse$zodSchema).optional(),
-    subscription_id: z.string().optional(),
-    subtotal: z.string().optional(),
-    taxes: z.array(DtoTaxAppliedResponse$zodSchema).optional(),
+    subscription_id: z.string().optional().describe(
+      "subscription_id is the ID of the subscription this invoice is associated with (only present for subscription-based invoices)",
+    ),
+    subtotal: z.string().optional().describe(
+      "subtotal is the sum of all line items before any taxes, discounts, or additional fees",
+    ),
+    taxes: z.array(DtoTaxAppliedResponse$zodSchema).optional().describe(
+      "tax_applied_records contains the tax applied records associated with this invoice",
+    ),
     tenant_id: z.string().optional(),
-    total: z.string().optional(),
-    total_discount: z.string().optional(),
-    total_prepaid_credits_applied: z.string().optional(),
-    total_tax: z.string().optional(),
+    total: z.string().optional().describe(
+      "total is the final amount including taxes, fees, and discounts",
+    ),
+    total_discount: z.string().optional().describe(
+      "total_discount is the sum of all coupon discounts applied to the invoice",
+    ),
+    total_prepaid_credits_applied: z.string().optional().describe(
+      "total_prepaid_credits_applied is the total amount of prepaid credits applied to this invoice.",
+    ),
+    total_tax: z.string().optional().describe(
+      "total_tax is the sum of all taxes combined at the invoice level.",
+    ),
     updated_at: z.string().optional(),
     updated_by: z.string().optional(),
-    version: z.int().optional(),
-    voided_at: z.string().optional(),
+    version: z.int().optional().describe(
+      "version is the version number for tracking changes to this invoice",
+    ),
+    voided_at: z.string().optional().describe(
+      "voided_at is the timestamp when this invoice was voided or cancelled",
+    ),
   });

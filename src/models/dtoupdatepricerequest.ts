@@ -32,17 +32,29 @@ export type DtoUpdatePriceRequest = {
 
 export const DtoUpdatePriceRequest$zodSchema: z.ZodType<DtoUpdatePriceRequest> =
   z.object({
-    amount: z.string().optional(),
+    amount: z.string().optional().describe(
+      "Amount is the new price amount that overrides the original price (optional)",
+    ),
     billing_model: BillingModel$zodSchema.optional(),
     description: z.string().optional(),
     display_name: z.string().optional(),
     effective_from: z.string().optional(),
-    group_id: z.string().optional(),
-    lookup_key: z.string().optional(),
+    group_id: z.string().optional().describe(
+      "GroupID is the id of the group to update the price in.\nIf not provided (nil), the group will not be changed\nIf provided as empty string (\"\"), the group will be removed (price will be ungrouped)\nIf provided as a group ID, the price will be assigned to that group (must exist and be published)",
+    ),
+    lookup_key: z.string().optional().describe(
+      "All price fields that can be updated\nNon-critical fields (can be updated directly)",
+    ),
     metadata: z.record(z.string(), z.string()).optional(),
-    price_unit_amount: z.string().optional(),
-    price_unit_tiers: z.array(DtoCreatePriceTier$zodSchema).optional(),
+    price_unit_amount: z.string().optional().describe(
+      "PriceUnitAmount is the price unit amount (for CUSTOM price unit type, FLAT_FEE/PACKAGE billing models)",
+    ),
+    price_unit_tiers: z.array(DtoCreatePriceTier$zodSchema).optional().describe(
+      "PriceUnitTiers are the price unit tiers (for CUSTOM price unit type, TIERED billing model)",
+    ),
     tier_mode: BillingTier$zodSchema.optional(),
-    tiers: z.array(DtoCreatePriceTier$zodSchema).optional(),
+    tiers: z.array(DtoCreatePriceTier$zodSchema).optional().describe(
+      "Tiers determines the pricing tiers for this line item",
+    ),
     transform_quantity: PriceTransformQuantity$zodSchema.optional(),
   });

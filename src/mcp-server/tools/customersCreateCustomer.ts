@@ -7,7 +7,7 @@ import { DtoCreateCustomerRequest$zodSchema } from "../../models/dtocreatecustom
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoCreateCustomerRequest$zodSchema,
+  request: DtoCreateCustomerRequest$zodSchema.describe(`Customer`),
 };
 
 export const tool$customersCreateCustomer: ToolDefinition<typeof args> = {

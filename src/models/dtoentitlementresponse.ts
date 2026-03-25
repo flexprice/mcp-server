@@ -73,7 +73,9 @@ export const DtoEntitlementResponse$zodSchema: z.ZodType<
   is_soft_limit: z.boolean().optional(),
   parent_entitlement_id: z.string().optional(),
   plan: z.lazy(() => DtoPlanResponse$zodSchema).optional(),
-  plan_id: z.string().optional(),
+  plan_id: z.string().optional().describe(
+    "TODO: Remove this once we have a proper entitlement entity type",
+  ),
   start_date: z.string().optional(),
   static_value: z.string().optional(),
   status: Status$zodSchema.optional(),

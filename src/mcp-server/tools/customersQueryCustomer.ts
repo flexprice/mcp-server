@@ -7,7 +7,7 @@ import { CustomerFilter$zodSchema } from "../../models/customerfilter.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: CustomerFilter$zodSchema,
+  request: CustomerFilter$zodSchema.describe(`Filter`),
 };
 
 export const tool$customersQueryCustomer: ToolDefinition<typeof args> = {

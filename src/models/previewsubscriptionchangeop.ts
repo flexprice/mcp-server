@@ -24,7 +24,9 @@ export type PreviewSubscriptionChangeRequest = {
 export const PreviewSubscriptionChangeRequest$zodSchema: z.ZodType<
   PreviewSubscriptionChangeRequest
 > = z.object({
-  body: DtoSubscriptionChangeRequest$zodSchema,
+  body: DtoSubscriptionChangeRequest$zodSchema.describe(
+    "Subscription change preview request",
+  ),
   id: z.string().describe("Subscription ID"),
 });
 

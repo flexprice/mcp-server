@@ -55,24 +55,41 @@ export type SubscriptionFilter = {
 
 export const SubscriptionFilter$zodSchema: z.ZodType<SubscriptionFilter> = z
   .object({
-    active_at: z.string().optional(),
-    billing_cadence: z.array(BillingCadence$zodSchema).optional(),
-    billing_period: z.array(BillingPeriod$zodSchema).optional(),
-    customer_id: z.string().optional(),
+    active_at: z.string().optional().describe(
+      "ActiveAt filters subscriptions that are active at the given time",
+    ),
+    billing_cadence: z.array(BillingCadence$zodSchema).optional().describe(
+      "BillingCadence filters by billing cadence",
+    ),
+    billing_period: z.array(BillingPeriod$zodSchema).optional().describe(
+      "BillingPeriod filters by billing period",
+    ),
+    customer_id: z.string().optional().describe(
+      "CustomerID filters by customer ID",
+    ),
     end_time: z.string().optional(),
     expand: z.string().optional(),
-    external_customer_id: z.string().optional(),
+    external_customer_id: z.string().optional().describe(
+      "ExternalCustomerID filters by external customer ID",
+    ),
     filters: z.array(FilterCondition$zodSchema).optional(),
-    invoicing_customer_ids: z.array(z.string()).optional(),
+    invoicing_customer_ids: z.array(z.string()).optional().describe(
+      "InvoicingCustomerIDs filters by invoicing customer ID",
+    ),
     limit: z.int().optional(),
     offset: z.int().optional(),
     order: SubscriptionFilterOrder$zodSchema.optional(),
-    parent_subscription_ids: z.array(z.string()).optional(),
-    plan_id: z.string().optional(),
+    parent_subscription_ids: z.array(z.string()).optional().describe(
+      "ParentSubscriptionIDs filters by parent subscription IDs",
+    ),
+    plan_id: z.string().optional().describe("PlanID filters by plan ID"),
     sort: z.array(SortCondition$zodSchema).optional(),
     start_time: z.string().optional(),
     status: Status$zodSchema.optional(),
     subscription_ids: z.array(z.string()).optional(),
-    subscription_status: z.array(SubscriptionStatus$zodSchema).optional(),
-    with_line_items: z.boolean().optional(),
+    subscription_status: z.array(SubscriptionStatus$zodSchema).optional()
+      .describe("SubscriptionStatus filters by subscription status"),
+    with_line_items: z.boolean().optional().describe(
+      "WithLineItems includes line items in the response",
+    ),
   });

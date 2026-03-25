@@ -8,10 +8,12 @@ import { ClosedEnum } from "../types/enums.js";
 export const CancellationType = {
   Immediate: "immediate",
   EndOfPeriod: "end_of_period",
+  ScheduledDate: "scheduled_date",
 } as const;
 export type CancellationType = ClosedEnum<typeof CancellationType>;
 
 export const CancellationType$zodSchema = z.enum([
   "immediate",
   "end_of_period",
+  "scheduled_date",
 ]);

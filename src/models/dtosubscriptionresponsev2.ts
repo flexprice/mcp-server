@@ -102,55 +102,120 @@ export type DtoSubscriptionResponseV2 = {
 export const DtoSubscriptionResponseV2$zodSchema: z.ZodType<
   DtoSubscriptionResponseV2
 > = z.object({
-  active_pause_id: z.string().optional(),
-  billing_anchor: z.string().optional(),
+  active_pause_id: z.string().optional().describe(
+    "ActivePauseID references the current active pause configuration\nThis will be null if no pause is active or scheduled",
+  ),
+  billing_anchor: z.string().optional().describe(
+    "BillingAnchor is the reference point that aligns future billing cycle dates.\nIt sets the day of week for week intervals, the day of month for month and year intervals,\nand the month of year for year intervals. The timestamp is in UTC format.",
+  ),
   billing_cadence: BillingCadence$zodSchema.optional(),
   billing_cycle: BillingCycle$zodSchema.optional(),
   billing_period: BillingPeriod$zodSchema.optional(),
-  billing_period_count: z.int().optional(),
-  cancel_at: z.string().optional(),
-  cancel_at_period_end: z.boolean().optional(),
-  cancelled_at: z.string().optional(),
-  collection_method: z.string().optional(),
-  commitment_amount: z.string().optional(),
+  billing_period_count: z.int().optional().describe(
+    "BillingPeriodCount is the total number units of the billing period.",
+  ),
+  cancel_at: z.string().optional().describe(
+    "CancelAt is the date the subscription will be canceled",
+  ),
+  cancel_at_period_end: z.boolean().optional().describe(
+    "CancelAtPeriodEnd is whether the subscription was canceled at the end of the current period",
+  ),
+  cancelled_at: z.string().optional().describe(
+    "CanceledAt is the date the subscription was canceled",
+  ),
+  collection_method: z.string().optional().describe(
+    "CollectionMethod determines how invoices are collected",
+  ),
+  commitment_amount: z.string().optional().describe(
+    "CommitmentAmount is the minimum amount a customer commits to paying for a billing period",
+  ),
   commitment_duration: BillingPeriod$zodSchema.optional(),
   coupon_associations: z.array(DtoCouponAssociationResponse$zodSchema)
-    .optional(),
+    .optional().describe(
+      "CouponAssociations are included when \"coupon_associations\" is in expand parameter",
+    ),
   created_at: z.string().optional(),
   created_by: z.string().optional(),
-  credit_grants: z.array(DtoCreditGrantResponse$zodSchema).optional(),
-  currency: z.string().optional(),
-  current_period_end: z.string().optional(),
-  current_period_start: z.string().optional(),
-  customer: DtoCustomerResponse$zodSchema.optional(),
-  customer_id: z.string().optional(),
+  credit_grants: z.array(DtoCreditGrantResponse$zodSchema).optional().describe(
+    "CreditGrants are included when \"credit_grants\" is in expand parameter",
+  ),
+  currency: z.string().optional().describe(
+    "Currency is the currency of the subscription in lowercase 3 digit ISO codes",
+  ),
+  current_period_end: z.string().optional().describe(
+    "CurrentPeriodEnd is the end of the current period that the subscription has been invoiced for.\nAt the end of this period, a new invoice will be created.",
+  ),
+  current_period_start: z.string().optional().describe(
+    "CurrentPeriodStart is the end of the current period that the subscription has been invoiced for.\nAt the end of this period, a new invoice will be created.",
+  ),
+  customer: DtoCustomerResponse$zodSchema.optional().describe(
+    "Customer response object containing all customer information",
+  ),
+  customer_id: z.string().optional().describe(
+    "CustomerID is the identifier for the customer in our system",
+  ),
   customer_timezone: z.string().optional(),
   enable_true_up: z.boolean().optional(),
-  end_date: z.string().optional(),
-  environment_id: z.string().optional(),
-  gateway_payment_method_id: z.string().optional(),
-  id: z.string().optional(),
-  invoicing_customer_id: z.string().optional(),
-  line_items: z.array(DtoSubscriptionLineItemResponse$zodSchema).optional(),
-  lookup_key: z.string().optional(),
+  end_date: z.string().optional().describe(
+    "EndDate is the end date of the subscription",
+  ),
+  environment_id: z.string().optional().describe(
+    "EnvironmentID is the environment identifier for the subscription",
+  ),
+  gateway_payment_method_id: z.string().optional().describe(
+    "GatewayPaymentMethodID is the gateway payment method ID for this subscription",
+  ),
+  id: z.string().optional().describe(
+    "ID is the unique identifier for the subscription",
+  ),
+  invoicing_customer_id: z.string().optional().describe(
+    "InvoicingCustomerID is the customer ID to use for invoicing\nThis can differ from the subscription customer (e.g., parent company invoicing for child company)",
+  ),
+  line_items: z.array(DtoSubscriptionLineItemResponse$zodSchema).optional()
+    .describe(
+      "LineItems is expanded only if \"subscription_line_items\" is in expand parameter\nEach line item can optionally include expanded price data",
+    ),
+  lookup_key: z.string().optional().describe(
+    "LookupKey is the key used to lookup the subscription in our system",
+  ),
   metadata: z.record(z.string(), z.string()).optional(),
-  overage_factor: z.string().optional(),
-  parent_subscription_id: z.string().optional(),
+  overage_factor: z.string().optional().describe(
+    "OverageFactor is a multiplier applied to usage beyond the commitment amount",
+  ),
+  parent_subscription_id: z.string().optional().describe(
+    "ParentSubscriptionID is the parent subscription ID for hierarchy (e.g. child subscription under a parent)",
+  ),
   pause_status: PauseStatus$zodSchema.optional(),
-  pauses: z.array(SubscriptionSubscriptionPause$zodSchema).optional(),
-  payment_behavior: z.string().optional(),
+  pauses: z.array(SubscriptionSubscriptionPause$zodSchema).optional().describe(
+    "Pauses are included when subscription has pause status",
+  ),
+  payment_behavior: z.string().optional().describe(
+    "PaymentBehavior determines how subscription payments are handled",
+  ),
   payment_terms: PaymentTerms$zodSchema.optional(),
-  phases: z.array(DtoSubscriptionPhaseResponse$zodSchema).optional(),
+  phases: z.array(DtoSubscriptionPhaseResponse$zodSchema).optional().describe(
+    "Phases are included when \"phases\" is in expand parameter",
+  ),
   plan: DtoPlanResponse$zodSchema.optional(),
-  plan_id: z.string().optional(),
+  plan_id: z.string().optional().describe(
+    "PlanID is the identifier for the plan in our system",
+  ),
   proration_behavior: ProrationBehavior$zodSchema.optional(),
-  start_date: z.string().optional(),
+  start_date: z.string().optional().describe(
+    "StartDate is the start date of the subscription",
+  ),
   status: Status$zodSchema.optional(),
   subscription_status: SubscriptionStatus$zodSchema.optional(),
   tenant_id: z.string().optional(),
-  trial_end: z.string().optional(),
-  trial_start: z.string().optional(),
+  trial_end: z.string().optional().describe(
+    "TrialEnd is the end date of the trial period",
+  ),
+  trial_start: z.string().optional().describe(
+    "TrialStart is the start date of the trial period",
+  ),
   updated_at: z.string().optional(),
   updated_by: z.string().optional(),
-  version: z.int().optional(),
+  version: z.int().optional().describe(
+    "Version is used for optimistic locking",
+  ),
 });

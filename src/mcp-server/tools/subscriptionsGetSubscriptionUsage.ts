@@ -7,7 +7,7 @@ import { DtoGetUsageBySubscriptionRequest$zodSchema } from "../../models/dtogetu
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoGetUsageBySubscriptionRequest$zodSchema,
+  request: DtoGetUsageBySubscriptionRequest$zodSchema.describe(`Usage request`),
 };
 
 export const tool$subscriptionsGetSubscriptionUsage: ToolDefinition<

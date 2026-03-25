@@ -20,15 +20,37 @@ export type DtoProrationDetails = {
 
 export const DtoProrationDetails$zodSchema: z.ZodType<DtoProrationDetails> = z
   .object({
-    charge_amount: z.string().optional(),
-    charge_description: z.string().optional(),
-    credit_amount: z.string().optional(),
-    credit_description: z.string().optional(),
-    currency: z.string().optional(),
-    current_period_end: z.string().optional(),
-    current_period_start: z.string().optional(),
-    days_remaining: z.int().optional(),
-    days_used: z.int().optional(),
-    net_amount: z.string().optional(),
-    proration_date: z.string().optional(),
+    charge_amount: z.string().optional().describe(
+      "charge_amount is the charge amount for the new subscription",
+    ),
+    charge_description: z.string().optional().describe(
+      "charge_description describes what the charge is for",
+    ),
+    credit_amount: z.string().optional().describe(
+      "credit_amount is the credit amount from the old subscription",
+    ),
+    credit_description: z.string().optional().describe(
+      "credit_description describes what the credit is for",
+    ),
+    currency: z.string().optional().describe(
+      "currency is the currency for all amounts",
+    ),
+    current_period_end: z.string().optional().describe(
+      "current_period_end is the end of the current billing period",
+    ),
+    current_period_start: z.string().optional().describe(
+      "current_period_start is the start of the current billing period",
+    ),
+    days_remaining: z.int().optional().describe(
+      "days_remaining is the number of days remaining in the current period",
+    ),
+    days_used: z.int().optional().describe(
+      "days_used is the number of days used in the current period",
+    ),
+    net_amount: z.string().optional().describe(
+      "net_amount is the net amount (charge - credit)",
+    ),
+    proration_date: z.string().optional().describe(
+      "proration_date is the date used for proration calculations",
+    ),
   });

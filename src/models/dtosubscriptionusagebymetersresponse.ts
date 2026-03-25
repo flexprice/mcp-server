@@ -26,11 +26,17 @@ export const DtoSubscriptionUsageByMetersResponse$zodSchema: z.ZodType<
   currency: z.string().optional(),
   display_amount: z.string().optional(),
   filter_values: z.record(z.string(), z.array(z.string())).optional(),
-  is_overage: z.boolean().optional(),
+  is_overage: z.boolean().optional().describe(
+    "Whether this charge is at overage rate",
+  ),
   meter_display_name: z.string().optional(),
   meter_id: z.string().optional(),
-  overage_factor: z.number().optional(),
+  overage_factor: z.number().optional().describe(
+    "Factor applied to this charge if in overage",
+  ),
   price: PricePrice$zodSchema.optional(),
   quantity: z.number().optional(),
-  subscription_line_item_id: z.string().optional(),
+  subscription_line_item_id: z.string().optional().describe(
+    "For feature_usage: direct match by sub_line_item_id",
+  ),
 });

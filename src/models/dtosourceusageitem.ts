@@ -14,9 +14,19 @@ export type DtoSourceUsageItem = {
 
 export const DtoSourceUsageItem$zodSchema: z.ZodType<DtoSourceUsageItem> = z
   .object({
-    cost: z.string().optional(),
-    event_count: z.int().optional(),
-    percentage: z.string().optional(),
-    source: z.string().optional(),
-    usage: z.string().optional(),
+    cost: z.string().optional().describe(
+      "cost is the cost attributed to this source for the line item",
+    ),
+    event_count: z.int().optional().describe(
+      "event_count is the number of events from this source (optional)",
+    ),
+    percentage: z.string().optional().describe(
+      "percentage is the percentage of total line item cost from this source (optional)",
+    ),
+    source: z.string().optional().describe(
+      "source is the name of the event source",
+    ),
+    usage: z.string().optional().describe(
+      "usage is the total usage amount from this source (optional, for additional context)",
+    ),
   });

@@ -11,7 +11,13 @@ export type ReportingUnit = {
 };
 
 export const ReportingUnit$zodSchema: z.ZodType<ReportingUnit> = z.object({
-  conversion_rate: z.number().optional(),
-  unit_plural: z.string().optional(),
-  unit_singular: z.string().optional(),
+  conversion_rate: z.number().optional().describe(
+    "Multiplier: reporting_unit_value = unit_value * conversion_rate; must be > 0",
+  ),
+  unit_plural: z.string().optional().describe(
+    "Display unit label, plural (e.g. \"seconds\")",
+  ),
+  unit_singular: z.string().optional().describe(
+    "Display unit label, singular (e.g. \"second\")",
+  ),
 });

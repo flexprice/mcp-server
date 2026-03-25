@@ -38,12 +38,12 @@ export const DtoCancelSubscriptionResponse$zodSchema: z.ZodType<
 > = z.object({
   cancellation_type: CancellationType$zodSchema.optional(),
   effective_date: z.string().optional(),
-  message: z.string().optional(),
+  message: z.string().optional().describe("Response metadata"),
   processed_at: z.string().optional(),
   proration_details: z.array(DtoProrationDetail$zodSchema).optional(),
   proration_invoice: DtoInvoiceResponse$zodSchema.optional(),
   reason: z.string().optional(),
   status: SubscriptionStatus$zodSchema.optional(),
-  subscription_id: z.string().optional(),
+  subscription_id: z.string().optional().describe("Basic cancellation info"),
   total_credit_amount: z.string().optional(),
 });

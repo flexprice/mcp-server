@@ -21,11 +21,18 @@ export const DtoGetUsageAnalyticsRequest$zodSchema: z.ZodType<
   DtoGetUsageAnalyticsRequest
 > = z.object({
   end_time: z.string().optional(),
-  expand: z.array(z.string()).optional(),
+  expand: z.array(z.string()).optional().describe(
+    "allowed values: \"price\", \"meter\", \"feature\", \"subscription_line_item\",\"plan\",\"addon\"",
+  ),
   external_customer_id: z.string(),
   feature_ids: z.array(z.string()).optional(),
-  group_by: z.array(z.string()).optional(),
-  property_filters: z.record(z.string(), z.array(z.string())).optional(),
+  group_by: z.array(z.string()).optional().describe(
+    "allowed values: \"source\", \"feature_id\", \"properties.<field_name>\"",
+  ),
+  property_filters: z.record(z.string(), z.array(z.string())).optional()
+    .describe(
+      "Property filters to filter the events by the keys in `properties` field of the event",
+    ),
   sources: z.array(z.string()).optional(),
   start_time: z.string().optional(),
   window_size: WindowSize$zodSchema.optional(),

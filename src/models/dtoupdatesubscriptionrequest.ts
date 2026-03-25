@@ -20,6 +20,8 @@ export const DtoUpdateSubscriptionRequest$zodSchema: z.ZodType<
 > = z.object({
   cancel_at: z.string().optional(),
   cancel_at_period_end: z.boolean().optional(),
-  parent_subscription_id: z.string().optional(),
+  parent_subscription_id: z.string().optional().describe(
+    "ParentSubscriptionID sets or clears the parent subscription. Omit to leave unchanged; send \"\" to clear.",
+  ),
   status: SubscriptionStatus$zodSchema.optional(),
 });

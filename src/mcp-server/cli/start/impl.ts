@@ -12,6 +12,7 @@ import {
 } from "../../console-logger.js";
 import { MCPServerFlags } from "../../flags.js";
 import { createMCPServer } from "../../server.js";
+import { buildAnnotationFilter } from "../../tools.js";
 
 import { landingPageExpress } from "../../../landing-page.js";
 
@@ -52,6 +53,7 @@ async function startStdio(flags: StartCommandFlags) {
     logger,
     allowedTools: flags.tool,
     dynamic: flags.mode === "dynamic",
+    annotationFilter: buildAnnotationFilter(flags["tool-annotations"]),
     scopes: flags.scope,
     security: { ApiKeyAuth: flags["api-key-auth"] ?? "" },
     serverURL: flags["server-url"],
@@ -103,6 +105,7 @@ async function startSSE(cliFlags: StartCommandFlags) {
       logger,
       allowedTools: flags.tool,
       dynamic: flags.mode === "dynamic",
+      annotationFilter: buildAnnotationFilter(flags["tool-annotations"]),
       scopes: flags.scope,
       security: { ApiKeyAuth: flags["api-key-auth"] ?? "" },
       serverURL: flags["server-url"],

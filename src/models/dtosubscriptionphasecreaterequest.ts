@@ -20,10 +20,18 @@ export type DtoSubscriptionPhaseCreateRequest = {
 export const DtoSubscriptionPhaseCreateRequest$zodSchema: z.ZodType<
   DtoSubscriptionPhaseCreateRequest
 > = z.object({
-  coupons: z.array(z.string()).optional(),
+  coupons: z.array(z.string()).optional().describe(
+    "Coupons represents subscription-level coupons to be applied to this phase",
+  ),
   end_date: z.string().optional(),
-  line_item_coupons: z.record(z.string(), z.array(z.string())).optional(),
+  line_item_coupons: z.record(z.string(), z.array(z.string())).optional()
+    .describe(
+      "LineItemCoupons represents line item-level coupons (map of line_item_id to coupon IDs)",
+    ),
   metadata: z.record(z.string(), z.string()).optional(),
-  override_line_items: z.array(DtoOverrideLineItemRequest$zodSchema).optional(),
+  override_line_items: z.array(DtoOverrideLineItemRequest$zodSchema).optional()
+    .describe(
+      "OverrideLineItems allows customizing specific prices for this phase\nIf not provided, phase will use the same line items as the subscription (plan prices)",
+    ),
   start_date: z.string(),
 });

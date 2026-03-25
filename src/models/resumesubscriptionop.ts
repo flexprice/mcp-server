@@ -24,7 +24,9 @@ export type ResumeSubscriptionRequest = {
 export const ResumeSubscriptionRequest$zodSchema: z.ZodType<
   ResumeSubscriptionRequest
 > = z.object({
-  body: DtoResumeSubscriptionRequest$zodSchema,
+  body: DtoResumeSubscriptionRequest$zodSchema.describe(
+    "Resume subscription request",
+  ),
   id: z.string().describe("Subscription ID"),
 });
 

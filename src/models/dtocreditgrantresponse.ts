@@ -58,7 +58,9 @@ export const DtoCreditGrantResponse$zodSchema: z.ZodType<
   DtoCreditGrantResponse
 > = z.object({
   cadence: CreditGrantCadence$zodSchema.optional(),
-  conversion_rate: z.string().optional(),
+  conversion_rate: z.string().optional().describe(
+    "amount in the currency =  number of credits * conversion_rate\nex if conversion_rate is 1, then 1 USD = 1 credit\nex if conversion_rate is 2, then 1 USD = 0.5 credits\nex if conversion_rate is 0.5, then 1 USD = 2 credits",
+  ),
   created_at: z.string().optional(),
   created_by: z.string().optional(),
   credit_grant_anchor: z.string().optional(),
@@ -80,7 +82,9 @@ export const DtoCreditGrantResponse$zodSchema: z.ZodType<
   status: Status$zodSchema.optional(),
   subscription_id: z.string().optional(),
   tenant_id: z.string().optional(),
-  topup_conversion_rate: z.string().optional(),
+  topup_conversion_rate: z.string().optional().describe(
+    "topup_conversion_rate is the conversion rate for the topup to the currency\nex if topup_conversion_rate is 1, then 1 USD = 1 credit\nex if topup_conversion_rate is 2, then 1 USD = 0.5 credits\nex if topup_conversion_rate is 0.5, then 1 USD = 2 credits",
+  ),
   updated_at: z.string().optional(),
   updated_by: z.string().optional(),
 });

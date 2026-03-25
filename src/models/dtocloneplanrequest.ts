@@ -14,9 +14,17 @@ export type DtoClonePlanRequest = {
 
 export const DtoClonePlanRequest$zodSchema: z.ZodType<DtoClonePlanRequest> = z
   .object({
-    description: z.string().optional(),
-    display_order: z.int().optional(),
-    lookup_key: z.string().optional(),
+    description: z.string().optional().describe(
+      "Description overrides the source plan's description when provided",
+    ),
+    display_order: z.int().optional().describe(
+      "DisplayOrder overrides the source plan's display order when provided",
+    ),
+    lookup_key: z.string().optional().describe(
+      "LookupKey is required and must be unique across published plans",
+    ),
     metadata: z.record(z.string(), z.string()).optional(),
-    name: z.string().optional(),
+    name: z.string().optional().describe(
+      "Name is required and must be different from the source plan's name",
+    ),
   });

@@ -22,12 +22,20 @@ export type DtoSubscriptionSummary = {
 export const DtoSubscriptionSummary$zodSchema: z.ZodType<
   DtoSubscriptionSummary
 > = z.object({
-  archived_at: z.string().optional(),
-  billing_anchor: z.string().optional(),
-  created_at: z.string().optional(),
-  current_period_end: z.string().optional(),
-  current_period_start: z.string().optional(),
-  id: z.string().optional(),
-  plan_id: z.string().optional(),
+  archived_at: z.string().optional().describe(
+    "archived_at timestamp (for old subscriptions)",
+  ),
+  billing_anchor: z.string().optional().describe(
+    "billing_anchor of the subscription",
+  ),
+  created_at: z.string().optional().describe("created_at timestamp"),
+  current_period_end: z.string().optional().describe(
+    "current_period_end of the subscription",
+  ),
+  current_period_start: z.string().optional().describe(
+    "current_period_start of the subscription",
+  ),
+  id: z.string().optional().describe("id of the subscription"),
+  plan_id: z.string().optional().describe("plan_id of the subscription"),
   status: SubscriptionStatus$zodSchema.optional(),
 });

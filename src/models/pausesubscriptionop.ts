@@ -24,7 +24,9 @@ export type PauseSubscriptionRequest = {
 export const PauseSubscriptionRequest$zodSchema: z.ZodType<
   PauseSubscriptionRequest
 > = z.object({
-  body: DtoPauseSubscriptionRequest$zodSchema,
+  body: DtoPauseSubscriptionRequest$zodSchema.describe(
+    "Pause subscription request",
+  ),
   id: z.string().describe("Subscription ID"),
 });
 

@@ -65,43 +65,85 @@ export type PricePrice = {
 };
 
 export const PricePrice$zodSchema: z.ZodType<PricePrice> = z.object({
-  amount: z.string().optional(),
+  amount: z.string().optional().describe(
+    "Amount stored in main currency units (e.g., dollars, not cents)\nFor USD: 12.50 means $12.50",
+  ),
   billing_cadence: BillingCadence$zodSchema.optional(),
   billing_model: BillingModel$zodSchema.optional(),
   billing_period: BillingPeriod$zodSchema.optional(),
-  billing_period_count: z.int().optional(),
-  conversion_rate: z.string().optional(),
+  billing_period_count: z.int().optional().describe(
+    "BillingPeriodCount is the count of the billing period ex 1, 3, 6, 12",
+  ),
+  conversion_rate: z.string().optional().describe(
+    "ConversionRate is the conversion rate of the price unit to the fiat currency",
+  ),
   created_at: z.string().optional(),
   created_by: z.string().optional(),
-  currency: z.string().optional(),
-  description: z.string().optional(),
-  display_amount: z.string().optional(),
-  display_name: z.string().optional(),
-  display_price_unit_amount: z.string().optional(),
-  end_date: z.string().optional(),
-  entity_id: z.string().optional(),
+  currency: z.string().optional().describe(
+    "Currency 3 digit ISO currency code in lowercase ex usd, eur, gbp",
+  ),
+  description: z.string().optional().describe("Description of the price"),
+  display_amount: z.string().optional().describe(
+    "DisplayAmount is the formatted amount with currency symbol\nFor USD: $12.50",
+  ),
+  display_name: z.string().optional().describe(
+    "DisplayName is the name of the price",
+  ),
+  display_price_unit_amount: z.string().optional().describe(
+    "DisplayPriceUnitAmount is the formatted amount of the price unit",
+  ),
+  end_date: z.string().optional().describe(
+    "EndDate is the end date of the price",
+  ),
+  entity_id: z.string().optional().describe(
+    "EntityID holds the value of the \"entity_id\" field.",
+  ),
   entity_type: PriceEntityType$zodSchema.optional(),
-  environment_id: z.string().optional(),
-  group_id: z.string().optional(),
-  id: z.string().optional(),
+  environment_id: z.string().optional().describe(
+    "EnvironmentID is the environment identifier for the price",
+  ),
+  group_id: z.string().optional().describe(
+    "GroupID references the group this price belongs to",
+  ),
+  id: z.string().optional().describe("ID uuid identifier for the price"),
   invoice_cadence: InvoiceCadence$zodSchema.optional(),
-  lookup_key: z.string().optional(),
+  lookup_key: z.string().optional().describe(
+    "LookupKey used for looking up the price in the database",
+  ),
   metadata: z.record(z.string(), z.string()).optional(),
-  meter_id: z.string().optional(),
-  min_quantity: z.string().nullable().optional(),
-  parent_price_id: z.string().optional(),
-  price_unit: z.string().optional(),
-  price_unit_amount: z.string().optional(),
-  price_unit_id: z.string().optional(),
-  price_unit_tiers: z.array(PricePriceTier$zodSchema).optional(),
+  meter_id: z.string().optional().describe(
+    "MeterID is the id of the meter for usage based pricing",
+  ),
+  min_quantity: z.string().nullable().optional().describe(
+    "MinQuantity is the minimum quantity of the price",
+  ),
+  parent_price_id: z.string().optional().describe(
+    "ParentPriceID references the root price (always set for price lineage tracking)",
+  ),
+  price_unit: z.string().optional().describe(
+    "PriceUnit is the code of the price unit (e.g., 'btc', 'eth')",
+  ),
+  price_unit_amount: z.string().optional().describe(
+    "PriceUnitAmount is the amount of the price unit",
+  ),
+  price_unit_id: z.string().optional().describe(
+    "PriceUnitID is the id of the price unit (for CUSTOM type)",
+  ),
+  price_unit_tiers: z.array(PricePriceTier$zodSchema).optional().describe(
+    "PriceUnitTiers are the tiers for the price unit when BillingModel is TIERED",
+  ),
   price_unit_type: PriceUnitType$zodSchema.optional(),
-  start_date: z.string().optional(),
+  start_date: z.string().optional().describe(
+    "StartDate is the start date of the price",
+  ),
   status: Status$zodSchema.optional(),
   tenant_id: z.string().optional(),
   tier_mode: BillingTier$zodSchema.optional(),
   tiers: z.array(PricePriceTier$zodSchema).optional(),
   transform_quantity: PriceJSONBTransformQuantity$zodSchema.optional(),
-  trial_period: z.int().optional(),
+  trial_period: z.int().optional().describe(
+    "TrialPeriod is the number of days for the trial period\nNote: This is only applicable for recurring prices (BILLING_CADENCE_RECURRING)",
+  ),
   type: PriceType$zodSchema.optional(),
   updated_at: z.string().optional(),
   updated_by: z.string().optional(),

@@ -17,7 +17,11 @@ export type DtoResumeSubscriptionRequest = {
 export const DtoResumeSubscriptionRequest$zodSchema: z.ZodType<
   DtoResumeSubscriptionRequest
 > = z.object({
-  dry_run: z.boolean().optional(),
-  metadata: z.record(z.string(), z.string()).optional(),
+  dry_run: z.boolean().optional().describe(
+    "Whether to perform a dry run\n@Description If true, validates the request and shows impact without actually resuming the subscription\n@Example false",
+  ),
+  metadata: z.record(z.string(), z.string()).optional().describe(
+    "Additional metadata as key-value pairs\n@Description Optional metadata for storing additional information about the resume operation\n@Example {\"resumed_by\": \"admin\", \"reason\": \"issue_resolved\"}",
+  ),
   resume_mode: ResumeMode$zodSchema,
 }).describe("Request object for resuming a paused subscription");

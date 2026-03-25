@@ -76,6 +76,8 @@ export type DtoCreateSubscriptionRequest = {
   external_customer_id?: string | undefined;
   gateway_payment_method_id?: string | undefined;
   invoice_billing?: InvoiceBilling | undefined;
+  invoicing_customer_external_id?: string | undefined;
+  invoicing_customer_id?: string | undefined;
   line_item_commitments?:
     | { [k: string]: DtoLineItemCommitmentConfig }
     | undefined;
@@ -102,46 +104,84 @@ export type DtoCreateSubscriptionRequest = {
 export const DtoCreateSubscriptionRequest$zodSchema: z.ZodType<
   DtoCreateSubscriptionRequest
 > = z.object({
-  addons: z.array(DtoAddAddonToSubscriptionRequest$zodSchema).optional(),
+  addons: z.array(DtoAddAddonToSubscriptionRequest$zodSchema).optional()
+    .describe(
+      "Addons represents addons to be added to the subscription during creation",
+    ),
   billing_cadence: BillingCadence$zodSchema,
   billing_cycle: BillingCycle$zodSchema.optional(),
   billing_period: BillingPeriod$zodSchema,
   billing_period_count: z.int().optional(),
   collection_method: CollectionMethod$zodSchema.optional(),
-  commitment_amount: z.string().optional(),
+  commitment_amount: z.string().optional().describe(
+    "CommitmentAmount is the minimum amount a customer commits to paying for a billing period",
+  ),
   commitment_duration: BillingPeriod$zodSchema.optional(),
   coupons: z.array(z.string()).optional(),
-  credit_grants: z.array(DtoCreateCreditGrantRequest$zodSchema).optional(),
+  credit_grants: z.array(DtoCreateCreditGrantRequest$zodSchema).optional()
+    .describe("Credit grants to be applied when subscription is created"),
   currency: z.string(),
-  customer_id: z.string().optional(),
-  customer_timezone: z.string().optional(),
-  enable_true_up: z.boolean().optional(),
+  customer_id: z.string().optional().describe(
+    "customer_id is the flexprice customer id\nand it is prioritized over external_customer_id in case both are provided.",
+  ),
+  customer_timezone: z.string().optional().describe(
+    "Timezone of the customer.\nIf not set, the default value is UTC.",
+  ),
+  enable_true_up: z.boolean().optional().describe(
+    "Enable Commitment True Up Fee",
+  ),
   end_date: z.string().optional(),
-  external_customer_id: z.string().optional(),
+  external_customer_id: z.string().optional().describe(
+    "external_customer_id is the customer id in your DB\nand must be same as what you provided as external_id while creating the customer in flexprice.",
+  ),
   gateway_payment_method_id: z.string().optional(),
   invoice_billing: InvoiceBilling$zodSchema.optional(),
+  invoicing_customer_external_id: z.string().optional().describe(
+    "invoicing_customer_external_id is the external ID of the customer to use for invoicing.\nResolved internally to an internal customer ID via external ID lookup.\nMutually exclusive with invoicing_customer_id.",
+  ),
+  invoicing_customer_id: z.string().optional().describe(
+    "invoicing_customer_id is the FlexPrice customer ID to use for invoicing.\nThis can differ from the subscription customer (e.g., a billing entity invoicing on behalf of another customer).\nMutually exclusive with invoicing_customer_external_id.",
+  ),
   line_item_commitments: z.record(
     z.string(),
     DtoLineItemCommitmentConfig$zodSchema,
-  ).optional(),
+  ).optional().describe(
+    "LineItemCommitments allows setting commitment configuration per line item (keyed by price_id)",
+  ),
   line_item_coupons: z.record(z.string(), z.array(z.string())).optional(),
-  line_items: z.array(DtoCreateSubscriptionLineItemRequest$zodSchema)
-    .optional(),
+  line_items: z.array(DtoCreateSubscriptionLineItemRequest$zodSchema).optional()
+    .describe(
+      "LineItems are extra line items to add at creation (each with price_id or price), in addition to plan prices",
+    ),
   lookup_key: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
-  overage_factor: z.string().optional(),
+  overage_factor: z.string().optional().describe(
+    "OverageFactor is a multiplier applied to usage beyond the commitment amount",
+  ),
   override_entitlements: z.array(DtoOverrideEntitlementRequest$zodSchema)
-    .optional(),
-  override_line_items: z.array(DtoOverrideLineItemRequest$zodSchema).optional(),
-  parent_subscription_id: z.string().optional(),
+    .optional().describe(
+      "OverrideEntitlements allows customizing specific entitlements for this subscription",
+    ),
+  override_line_items: z.array(DtoOverrideLineItemRequest$zodSchema).optional()
+    .describe(
+      "OverrideLineItems allows customizing specific prices for this subscription",
+    ),
+  parent_subscription_id: z.string().optional().describe(
+    "ParentSubscriptionID is the parent subscription ID for hierarchy (e.g. child subscription under a parent)",
+  ),
   payment_behavior: PaymentBehavior$zodSchema.optional(),
   payment_terms: PaymentTerms$zodSchema.optional(),
-  phases: z.array(DtoSubscriptionPhaseCreateRequest$zodSchema).optional(),
+  phases: z.array(DtoSubscriptionPhaseCreateRequest$zodSchema).optional()
+    .describe(
+      "Phases represents subscription phases to be created with the subscription",
+    ),
   plan_id: z.string(),
   proration_behavior: ProrationBehavior$zodSchema.optional(),
   start_date: z.string().optional(),
   subscription_status: SubscriptionStatus$zodSchema.optional(),
-  tax_rate_overrides: z.array(DtoTaxRateOverride$zodSchema).optional(),
+  tax_rate_overrides: z.array(DtoTaxRateOverride$zodSchema).optional().describe(
+    "tax_rate_overrides is the tax rate overrides\tto be applied to the subscription",
+  ),
   trial_end: z.string().optional(),
   trial_start: z.string().optional(),
 });

@@ -7,7 +7,7 @@ import { DtoGetUsageByMeterRequest$zodSchema } from "../../models/dtogetusagebym
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoGetUsageByMeterRequest$zodSchema,
+  request: DtoGetUsageByMeterRequest$zodSchema.describe(`Request body`),
 };
 
 export const tool$eventsGetUsageByMeter: ToolDefinition<typeof args> = {

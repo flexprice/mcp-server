@@ -14,8 +14,16 @@ export type DtoGetPreviewInvoiceRequest = {
 export const DtoGetPreviewInvoiceRequest$zodSchema: z.ZodType<
   DtoGetPreviewInvoiceRequest
 > = z.object({
-  hide_zero_charges_line_items: z.boolean().default(false),
-  period_end: z.string().optional(),
-  period_start: z.string().optional(),
-  subscription_id: z.string(),
+  hide_zero_charges_line_items: z.boolean().default(false).describe(
+    "hide_zero_charges_line_items indicates whether to hide line items with zero cost",
+  ),
+  period_end: z.string().optional().describe(
+    "period_end is the optional end date of the period to preview",
+  ),
+  period_start: z.string().optional().describe(
+    "period_start is the optional start date of the period to preview",
+  ),
+  subscription_id: z.string().describe(
+    "subscription_id is the unique identifier of the subscription to preview invoice for",
+  ),
 });

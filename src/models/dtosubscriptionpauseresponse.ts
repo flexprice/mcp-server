@@ -38,20 +38,36 @@ export const DtoSubscriptionPauseResponse$zodSchema: z.ZodType<
 > = z.object({
   created_at: z.string().optional(),
   created_by: z.string().optional(),
-  environment_id: z.string().optional(),
-  id: z.string().optional(),
+  environment_id: z.string().optional().describe(
+    "EnvironmentID is the environment identifier for the pause",
+  ),
+  id: z.string().optional().describe(
+    "ID is the unique identifier for the subscription pause",
+  ),
   metadata: z.record(z.string(), z.string()).optional(),
-  original_period_end: z.string().optional(),
-  original_period_start: z.string().optional(),
-  pause_end: z.string().optional(),
+  original_period_end: z.string().optional().describe(
+    "OriginalPeriodEnd is the end of the billing period when the pause was created",
+  ),
+  original_period_start: z.string().optional().describe(
+    "OriginalPeriodStart is the start of the billing period when the pause was created",
+  ),
+  pause_end: z.string().optional().describe(
+    "PauseEnd is when the pause will end (null for indefinite)",
+  ),
   pause_mode: PauseMode$zodSchema.optional(),
-  pause_start: z.string().optional(),
+  pause_start: z.string().optional().describe(
+    "PauseStart is when the pause actually started",
+  ),
   pause_status: PauseStatus$zodSchema.optional(),
-  reason: z.string().optional(),
+  reason: z.string().optional().describe("Reason is the reason for pausing"),
   resume_mode: ResumeMode$zodSchema.optional(),
-  resumed_at: z.string().optional(),
+  resumed_at: z.string().optional().describe(
+    "ResumedAt is when the pause was actually ended (if manually resumed)",
+  ),
   status: Status$zodSchema.optional(),
-  subscription_id: z.string().optional(),
+  subscription_id: z.string().optional().describe(
+    "SubscriptionID is the identifier for the subscription",
+  ),
   tenant_id: z.string().optional(),
   updated_at: z.string().optional(),
   updated_by: z.string().optional(),

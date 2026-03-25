@@ -12,8 +12,8 @@ export type DtoPlanSummary = {
 };
 
 export const DtoPlanSummary$zodSchema: z.ZodType<DtoPlanSummary> = z.object({
-  description: z.string().optional(),
-  id: z.string().optional(),
-  lookup_key: z.string().optional(),
-  name: z.string().optional(),
+  description: z.string().optional().describe("description of the plan"),
+  id: z.string().optional().describe("id of the plan"),
+  lookup_key: z.string().optional().describe("lookup_key of the plan"),
+  name: z.string().optional().describe("name of the plan"),
 });

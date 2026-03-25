@@ -33,22 +33,43 @@ export type DtoCustomerResponse = {
 
 export const DtoCustomerResponse$zodSchema: z.ZodType<DtoCustomerResponse> = z
   .object({
-    address_city: z.string().optional(),
-    address_country: z.string().optional(),
-    address_line1: z.string().optional(),
-    address_line2: z.string().optional(),
-    address_postal_code: z.string().optional(),
-    address_state: z.string().optional(),
+    address_city: z.string().optional().describe(
+      "AddressCity is the city of the customer's address",
+    ),
+    address_country: z.string().optional().describe(
+      "AddressCountry is the country of the customer's address (ISO 3166-1 alpha-2)",
+    ),
+    address_line1: z.string().optional().describe(
+      "AddressLine1 is the first line of the customer's address",
+    ),
+    address_line2: z.string().optional().describe(
+      "AddressLine2 is the second line of the customer's address",
+    ),
+    address_postal_code: z.string().optional().describe(
+      "AddressPostalCode is the postal code of the customer's address",
+    ),
+    address_state: z.string().optional().describe(
+      "AddressState is the state of the customer's address",
+    ),
     created_at: z.string().optional(),
     created_by: z.string().optional(),
-    email: z.string().optional(),
-    environment_id: z.string().optional(),
-    external_id: z.string().optional(),
-    id: z.string().optional(),
-    metadata: z.record(z.string(), z.string()).optional(),
-    name: z.string().optional(),
-    parent_customer: z.lazy(() => DtoCustomerResponse$zodSchema).optional(),
-    parent_customer_id: z.string().optional(),
+    email: z.string().optional().describe("Email is the email of the customer"),
+    environment_id: z.string().optional().describe(
+      "EnvironmentID is the environment identifier for the customer",
+    ),
+    external_id: z.string().optional().describe(
+      "ExternalID is the external identifier for the customer",
+    ),
+    id: z.string().optional().describe(
+      "ID is the unique identifier for the customer",
+    ),
+    metadata: z.record(z.string(), z.string()).optional().describe("Metadata"),
+    name: z.string().optional().describe("Name is the name of the customer"),
+    parent_customer: z.lazy(() => DtoCustomerResponse$zodSchema).optional()
+      .describe("Customer response object containing all customer information"),
+    parent_customer_id: z.string().optional().describe(
+      "Deprecated: Customer parent hierarchy is deprecated in favor of subscription-level hierarchy.\nRetained for backward compatibility; no hierarchy rules are enforced at the service layer.\nParentCustomerID is the parent customer identifier for the customer.",
+    ),
     status: Status$zodSchema.optional(),
     tenant_id: z.string().optional(),
     updated_at: z.string().optional(),

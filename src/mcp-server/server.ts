@@ -12,7 +12,11 @@ import {
   createRegisterResourceTemplate,
 } from "./resources.js";
 import { MCPScope } from "./scopes.js";
-import { createRegisterTool, registerDynamicTools } from "./tools.js";
+import {
+  createRegisterTool,
+  MCPToolAnnotationFilter,
+  registerDynamicTools,
+} from "./tools.js";
 import { tool$customersCreateCustomer } from "./tools/customersCreateCustomer.js";
 import { tool$customersDeleteCustomer } from "./tools/customersDeleteCustomer.js";
 import { tool$customersGetCustomer } from "./tools/customersGetCustomer.js";
@@ -89,6 +93,7 @@ export function createMCPServer(deps: {
   allowedTools?: string[] | undefined;
   dynamic?: boolean | undefined;
   scopes?: MCPScope[] | undefined;
+  annotationFilter?: MCPToolAnnotationFilter | undefined;
   getSDK?: () => FlexpriceCore;
   serverURL?: string | undefined;
   security?: SDKOptions["security"] | undefined;
@@ -96,7 +101,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.0.10",
+    version: "2.0.11",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -123,6 +128,7 @@ export function createMCPServer(deps: {
     scopes,
     allowedTools,
     deps.dynamic,
+    deps.annotationFilter,
   );
   const resource = createRegisterResource(
     deps.logger,

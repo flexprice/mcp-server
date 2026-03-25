@@ -7,7 +7,7 @@ import { DtoCreatePriceRequest$zodSchema } from "../../models/dtocreatepricerequ
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoCreatePriceRequest$zodSchema,
+  request: DtoCreatePriceRequest$zodSchema.describe(`Price configuration`),
 };
 
 export const tool$pricesCreatePrice: ToolDefinition<typeof args> = {

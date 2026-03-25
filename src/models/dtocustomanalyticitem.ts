@@ -14,9 +14,15 @@ export type DtoCustomAnalyticItem = {
 
 export const DtoCustomAnalyticItem$zodSchema: z.ZodType<DtoCustomAnalyticItem> =
   z.object({
-    feature_name: z.string().optional(),
+    feature_name: z.string().optional().describe(
+      "Name of the feature this applies to",
+    ),
     id: z.string().optional(),
-    name: z.string().optional(),
-    type: z.string().optional(),
+    name: z.string().optional().describe(
+      "Calculation name (e.g., \"Revenue per Minute\")",
+    ),
+    type: z.string().optional().describe(
+      "\"feature\", \"meter\", \"event_name\"",
+    ),
     value: z.string().optional(),
   });

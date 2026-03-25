@@ -52,27 +52,53 @@ export type InvoiceFilter = {
 };
 
 export const InvoiceFilter$zodSchema: z.ZodType<InvoiceFilter> = z.object({
-  amount_due_gt: z.number().optional(),
-  amount_remaining_gt: z.number().optional(),
-  customer_id: z.string().optional(),
+  amount_due_gt: z.number().optional().describe(
+    "amount_due_gt filters invoices with a total amount due greater than the specified value\nUseful for finding invoices above a certain threshold or identifying high-value invoices",
+  ),
+  amount_remaining_gt: z.number().optional().describe(
+    "amount_remaining_gt filters invoices with an outstanding balance greater than the specified value\nUseful for finding invoices that still have significant unpaid amounts",
+  ),
+  customer_id: z.string().optional().describe(
+    "customer_id filters invoices for a specific customer using FlexPrice's internal customer ID\nThis is the ID returned by FlexPrice when creating or retrieving customers",
+  ),
   end_time: z.string().optional(),
   expand: z.string().optional(),
-  external_customer_id: z.string().optional(),
+  external_customer_id: z.string().optional().describe(
+    "external_customer_id filters invoices for a customer using your system's customer identifier\nThis is the ID you provided when creating the customer in FlexPrice",
+  ),
   filters: z.array(FilterCondition$zodSchema).optional(),
-  invoice_ids: z.array(z.string()).optional(),
-  invoice_status: z.array(InvoiceStatus$zodSchema).optional(),
+  invoice_ids: z.array(z.string()).optional().describe(
+    "invoice_ids restricts results to invoices with the specified IDs\nUse this to retrieve specific invoices when you know their exact identifiers",
+  ),
+  invoice_status: z.array(InvoiceStatus$zodSchema).optional().describe(
+    "invoice_status filters by the current state of invoices in their lifecycle\nMultiple statuses can be specified to include invoices in any of the listed states",
+  ),
   invoice_type: InvoiceType$zodSchema.optional(),
   limit: z.int().optional(),
   offset: z.int().optional(),
   order: InvoiceFilterOrder$zodSchema.optional(),
-  payment_status: z.array(PaymentStatus$zodSchema).optional(),
-  period_end_gte: z.string().optional(),
-  period_end_lte: z.string().optional(),
-  period_start_gte: z.string().optional(),
-  period_start_lte: z.string().optional(),
-  skip_line_items: z.boolean().optional(),
+  payment_status: z.array(PaymentStatus$zodSchema).optional().describe(
+    "payment_status filters by the payment state of invoices\nMultiple statuses can be specified to include invoices with any of the listed payment states",
+  ),
+  period_end_gte: z.string().optional().describe(
+    "period_end_gte filters invoices with period_end >= value",
+  ),
+  period_end_lte: z.string().optional().describe(
+    "period_end_lte filters invoices with period_end <= value",
+  ),
+  period_start_gte: z.string().optional().describe(
+    "period_start_gte filters invoices with period_start >= value",
+  ),
+  period_start_lte: z.string().optional().describe(
+    "period_start_lte filters invoices with period_start <= value",
+  ),
+  skip_line_items: z.boolean().optional().describe(
+    "SkipLineItems if true, will not include line items in the response",
+  ),
   sort: z.array(SortCondition$zodSchema).optional(),
   start_time: z.string().optional(),
   status: Status$zodSchema.optional(),
-  subscription_id: z.string().optional(),
+  subscription_id: z.string().optional().describe(
+    "subscription_id filters invoices generated for a specific subscription\nOnly returns invoices that were created as part of the specified subscription's billing",
+  ),
 });

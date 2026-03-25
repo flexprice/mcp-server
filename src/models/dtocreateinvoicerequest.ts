@@ -65,32 +65,74 @@ export type DtoCreateInvoiceRequest = {
 export const DtoCreateInvoiceRequest$zodSchema: z.ZodType<
   DtoCreateInvoiceRequest
 > = z.object({
-  amount_due: z.string(),
-  amount_paid: z.string().optional(),
-  billing_period: z.string().optional(),
+  amount_due: z.string().describe(
+    "amount_due is the total amount that needs to be paid for this invoice",
+  ),
+  amount_paid: z.string().optional().describe(
+    "amount_paid is the amount that has been paid towards this invoice",
+  ),
+  billing_period: z.string().optional().describe(
+    "billing_period is the period this invoice covers (e.g., \"monthly\", \"yearly\")",
+  ),
   billing_reason: InvoiceBillingReason$zodSchema.optional(),
-  coupons: z.array(z.string()).optional(),
-  currency: z.string(),
-  customer_id: z.string(),
-  description: z.string().optional(),
-  due_date: z.string().optional(),
-  idempotency_key: z.string().optional(),
-  invoice_coupons: z.array(DtoInvoiceCoupon$zodSchema).optional(),
-  invoice_number: z.string().optional(),
-  invoice_pdf_url: z.string().optional(),
+  coupons: z.array(z.string()).optional().describe("coupons"),
+  currency: z.string().describe(
+    "currency is the three-letter ISO currency code (e.g., USD, EUR) for the invoice",
+  ),
+  customer_id: z.string().describe(
+    "customer_id is the unique identifier of the customer this invoice belongs to",
+  ),
+  description: z.string().optional().describe(
+    "description is an optional text description of the invoice",
+  ),
+  due_date: z.string().optional().describe(
+    "due_date is the date by which payment is expected",
+  ),
+  idempotency_key: z.string().optional().describe(
+    "idempotency_key is an optional key used to prevent duplicate invoice creation",
+  ),
+  invoice_coupons: z.array(DtoInvoiceCoupon$zodSchema).optional().describe(
+    "Invoice Coupons",
+  ),
+  invoice_number: z.string().optional().describe(
+    "invoice_number is an optional human-readable identifier for the invoice",
+  ),
+  invoice_pdf_url: z.string().optional().describe(
+    "invoice_pdf_url is the URL where customers can download the PDF version of this invoice",
+  ),
   invoice_status: InvoiceStatus$zodSchema.optional(),
   invoice_type: InvoiceType$zodSchema.optional(),
-  line_item_coupons: z.array(DtoInvoiceLineItemCoupon$zodSchema).optional(),
-  line_items: z.array(DtoCreateInvoiceLineItemRequest$zodSchema).optional(),
+  line_item_coupons: z.array(DtoInvoiceLineItemCoupon$zodSchema).optional()
+    .describe("Invoice Line Item Coupons"),
+  line_items: z.array(DtoCreateInvoiceLineItemRequest$zodSchema).optional()
+    .describe(
+      "line_items contains the individual items that make up this invoice",
+    ),
   metadata: z.record(z.string(), z.string()).optional(),
   payment_status: PaymentStatus$zodSchema.optional(),
-  period_end: z.string().optional(),
-  period_start: z.string().optional(),
-  prepared_tax_rates: z.array(DtoTaxRateResponse$zodSchema).optional(),
-  subscription_id: z.string().optional(),
-  subtotal: z.string(),
-  tax_rate_overrides: z.array(DtoTaxRateOverride$zodSchema).optional(),
-  tax_rates: z.array(z.string()).optional(),
-  total: z.string(),
-  total_prepaid_applied: z.string().optional(),
+  period_end: z.string().optional().describe(
+    "period_end is the end date of the billing period",
+  ),
+  period_start: z.string().optional().describe(
+    "period_start is the start date of the billing period",
+  ),
+  prepared_tax_rates: z.array(DtoTaxRateResponse$zodSchema).optional().describe(
+    "prepared_tax_rates contains the tax rates pre-resolved by the caller (e.g., billing service)",
+  ),
+  subscription_id: z.string().optional().describe(
+    "subscription_id is the optional unique identifier of the subscription associated with this invoice",
+  ),
+  subtotal: z.string().describe(
+    "subtotal is the amount before taxes and discounts are applied",
+  ),
+  tax_rate_overrides: z.array(DtoTaxRateOverride$zodSchema).optional().describe(
+    "tax_rate_overrides is the tax rate overrides to be applied to the invoice",
+  ),
+  tax_rates: z.array(z.string()).optional().describe("tax_rates"),
+  total: z.string().describe(
+    "total is the total amount of the invoice including taxes and discounts",
+  ),
+  total_prepaid_applied: z.string().optional().describe(
+    "total_prepaid_applied is the total amount of prepaid applied to this invoice.",
+  ),
 });

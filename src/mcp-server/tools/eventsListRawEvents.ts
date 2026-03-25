@@ -7,7 +7,7 @@ import { DtoGetEventsRequest$zodSchema } from "../../models/dtogeteventsrequest.
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoGetEventsRequest$zodSchema,
+  request: DtoGetEventsRequest$zodSchema.describe(`Request body`),
 };
 
 export const tool$eventsListRawEvents: ToolDefinition<typeof args> = {

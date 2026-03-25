@@ -24,7 +24,9 @@ export type ExecuteSubscriptionChangeRequest = {
 export const ExecuteSubscriptionChangeRequest$zodSchema: z.ZodType<
   ExecuteSubscriptionChangeRequest
 > = z.object({
-  body: DtoSubscriptionChangeRequest$zodSchema,
+  body: DtoSubscriptionChangeRequest$zodSchema.describe(
+    "Subscription change request",
+  ),
   id: z.string().describe("Subscription ID"),
 });
 

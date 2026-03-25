@@ -24,7 +24,9 @@ export type CancelSubscriptionRequest = {
 export const CancelSubscriptionRequest$zodSchema: z.ZodType<
   CancelSubscriptionRequest
 > = z.object({
-  body: DtoCancelSubscriptionRequest$zodSchema,
+  body: DtoCancelSubscriptionRequest$zodSchema.describe(
+    "Cancel Subscription Request",
+  ),
   id: z.string().describe("Subscription ID"),
 });
 

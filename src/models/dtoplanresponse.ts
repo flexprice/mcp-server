@@ -49,7 +49,9 @@ export const DtoPlanResponse$zodSchema: z.ZodType<DtoPlanResponse> = z.object({
   lookup_key: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   name: z.string().optional(),
-  prices: z.array(z.lazy(() => DtoPriceResponse$zodSchema)).optional(),
+  prices: z.array(z.lazy(() => DtoPriceResponse$zodSchema)).optional().describe(
+    "TODO: Add inline addons",
+  ),
   status: Status$zodSchema.optional(),
   tenant_id: z.string().optional(),
   updated_at: z.string().optional(),

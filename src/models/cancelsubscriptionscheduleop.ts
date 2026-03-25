@@ -16,7 +16,9 @@ export type CancelSubscriptionScheduleRequest = {
 export const CancelSubscriptionScheduleRequest$zodSchema: z.ZodType<
   CancelSubscriptionScheduleRequest
 > = z.object({
-  body: DtoCancelScheduleRequest$zodSchema.optional(),
+  body: DtoCancelScheduleRequest$zodSchema.optional().describe(
+    "Cancel request (optional if using path parameter)",
+  ),
   schedule_id: z.string().describe(
     "Schedule ID (optional if using request body)",
   ),

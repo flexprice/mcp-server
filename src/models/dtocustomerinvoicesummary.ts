@@ -20,14 +20,34 @@ export type DtoCustomerInvoiceSummary = {
 export const DtoCustomerInvoiceSummary$zodSchema: z.ZodType<
   DtoCustomerInvoiceSummary
 > = z.object({
-  currency: z.string().optional(),
-  customer_id: z.string().optional(),
-  overdue_invoice_count: z.int().optional(),
-  total_invoice_count: z.int().optional(),
-  total_overdue_amount: z.string().optional(),
-  total_revenue_amount: z.string().optional(),
-  total_unpaid_amount: z.string().optional(),
-  unpaid_fixed_charges: z.string().optional(),
-  unpaid_invoice_count: z.int().optional(),
-  unpaid_usage_charges: z.string().optional(),
+  currency: z.string().optional().describe(
+    "currency is the three-letter ISO currency code for this summary",
+  ),
+  customer_id: z.string().optional().describe(
+    "customer_id is the unique identifier of the customer",
+  ),
+  overdue_invoice_count: z.int().optional().describe(
+    "overdue_invoice_count is the number of overdue invoices for this customer in this currency",
+  ),
+  total_invoice_count: z.int().optional().describe(
+    "total_invoice_count is the total number of invoices for this customer in this currency",
+  ),
+  total_overdue_amount: z.string().optional().describe(
+    "total_overdue_amount is the total amount of overdue invoices in this currency",
+  ),
+  total_revenue_amount: z.string().optional().describe(
+    "total_revenue_amount is the total revenue generated from this customer in this currency",
+  ),
+  total_unpaid_amount: z.string().optional().describe(
+    "total_unpaid_amount is the total amount of unpaid invoices in this currency",
+  ),
+  unpaid_fixed_charges: z.string().optional().describe(
+    "unpaid_fixed_charges is the total amount of unpaid fixed charges in this currency",
+  ),
+  unpaid_invoice_count: z.int().optional().describe(
+    "unpaid_invoice_count is the number of unpaid invoices for this customer in this currency",
+  ),
+  unpaid_usage_charges: z.string().optional().describe(
+    "unpaid_usage_charges is the total amount of unpaid usage-based charges in this currency",
+  ),
 });

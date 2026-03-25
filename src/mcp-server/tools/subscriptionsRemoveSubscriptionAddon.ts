@@ -7,7 +7,7 @@ import { DtoRemoveAddonRequest$zodSchema } from "../../models/dtoremoveaddonrequ
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoRemoveAddonRequest$zodSchema,
+  request: DtoRemoveAddonRequest$zodSchema.describe(`Remove Addon Request`),
 };
 
 export const tool$subscriptionsRemoveSubscriptionAddon: ToolDefinition<

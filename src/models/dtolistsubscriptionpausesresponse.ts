@@ -19,6 +19,10 @@ export type DtoListSubscriptionPausesResponse = {
 export const DtoListSubscriptionPausesResponse$zodSchema: z.ZodType<
   DtoListSubscriptionPausesResponse
 > = z.object({
-  items: z.array(DtoSubscriptionPauseResponse$zodSchema).optional(),
-  total: z.int().optional(),
+  items: z.array(DtoSubscriptionPauseResponse$zodSchema).optional().describe(
+    "List of subscription pause objects\n@Description Array of subscription pauses",
+  ),
+  total: z.int().optional().describe(
+    "Total number of pauses\n@Description Total count of subscription pauses in the response",
+  ),
 }).describe("Response object for listing subscription pauses with total count");

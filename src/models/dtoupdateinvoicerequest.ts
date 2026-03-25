@@ -14,6 +14,8 @@ export const DtoUpdateInvoiceRequest$zodSchema: z.ZodType<
   DtoUpdateInvoiceRequest
 > = z.object({
   due_date: z.string().optional(),
-  invoice_pdf_url: z.string().optional(),
+  invoice_pdf_url: z.string().optional().describe(
+    "invoice_pdf_url is the URL where customers can download the PDF version of this invoice",
+  ),
   metadata: z.record(z.string(), z.string()).optional(),
 });

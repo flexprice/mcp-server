@@ -24,7 +24,9 @@ export type ActivateSubscriptionRequest = {
 export const ActivateSubscriptionRequest$zodSchema: z.ZodType<
   ActivateSubscriptionRequest
 > = z.object({
-  body: DtoActivateDraftSubscriptionRequest$zodSchema,
+  body: DtoActivateDraftSubscriptionRequest$zodSchema.describe(
+    "Activate Draft Subscription Request",
+  ),
   id: z.string().describe("Subscription ID"),
 });
 

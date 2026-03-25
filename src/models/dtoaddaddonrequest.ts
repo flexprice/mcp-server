@@ -24,7 +24,9 @@ export const DtoAddAddonRequest$zodSchema: z.ZodType<DtoAddAddonRequest> = z
     line_item_commitments: z.record(
       z.string(),
       DtoLineItemCommitmentConfig$zodSchema,
-    ).optional(),
+    ).optional().describe(
+      "LineItemCommitments allows setting commitment configuration per addon line item (keyed by price_id)",
+    ),
     metadata: z.record(z.string(), z.any()).optional(),
     start_date: z.string().optional(),
     subscription_id: z.string(),

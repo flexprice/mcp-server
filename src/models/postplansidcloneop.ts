@@ -21,7 +21,7 @@ export type PostPlansIdCloneRequest = { id: string; body: DtoClonePlanRequest };
 export const PostPlansIdCloneRequest$zodSchema: z.ZodType<
   PostPlansIdCloneRequest
 > = z.object({
-  body: DtoClonePlanRequest$zodSchema,
+  body: DtoClonePlanRequest$zodSchema.describe("Clone configuration"),
   id: z.string().describe("Source Plan ID"),
 });
 

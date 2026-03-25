@@ -7,7 +7,9 @@ import { DtoCreateSubscriptionRequest$zodSchema } from "../../models/dtocreatesu
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoCreateSubscriptionRequest$zodSchema,
+  request: DtoCreateSubscriptionRequest$zodSchema.describe(
+    `Subscription Request`,
+  ),
 };
 
 export const tool$subscriptionsCreateSubscription: ToolDefinition<typeof args> =

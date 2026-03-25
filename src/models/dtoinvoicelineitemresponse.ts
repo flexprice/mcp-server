@@ -66,15 +66,21 @@ export const DtoInvoiceLineItemResponse$zodSchema: z.ZodType<
   environment_id: z.string().optional(),
   id: z.string().optional(),
   invoice_id: z.string().optional(),
-  invoice_level_discount: z.string().optional(),
-  line_item_discount: z.string().optional(),
+  invoice_level_discount: z.string().optional().describe(
+    "invoice_level_discount is the discount amount in invoice currency applied to all line items on the invoice.",
+  ),
+  line_item_discount: z.string().optional().describe(
+    "line_item_discount is the discount amount in invoice currency applied directly to this line item.",
+  ),
   metadata: z.record(z.string(), z.string()).optional(),
   meter_display_name: z.string().optional(),
   meter_id: z.string().optional(),
   period_end: z.string().optional(),
   period_start: z.string().optional(),
   plan_display_name: z.string().optional(),
-  prepaid_credits_applied: z.string().optional(),
+  prepaid_credits_applied: z.string().optional().describe(
+    "prepaid_credits_applied is the amount in invoice currency reduced from this line item due to prepaid credits application.",
+  ),
   price_id: z.string().optional(),
   price_type: z.string().optional(),
   price_unit: z.string().optional(),
@@ -86,6 +92,10 @@ export const DtoInvoiceLineItemResponse$zodSchema: z.ZodType<
   tenant_id: z.string().optional(),
   updated_at: z.string().optional(),
   updated_by: z.string().optional(),
-  usage_analytics: z.array(DtoSourceUsageItem$zodSchema).optional(),
-  usage_breakdown: z.array(DtoUsageBreakdownItem$zodSchema).optional(),
+  usage_analytics: z.array(DtoSourceUsageItem$zodSchema).optional().describe(
+    "usage_analytics contains usage analytics for this line item (legacy - grouped by source)",
+  ),
+  usage_breakdown: z.array(DtoUsageBreakdownItem$zodSchema).optional().describe(
+    "usage_breakdown contains flexible usage breakdown for this line item (supports any grouping)",
+  ),
 });

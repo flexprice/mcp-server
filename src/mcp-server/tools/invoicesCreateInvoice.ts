@@ -7,7 +7,7 @@ import { DtoCreateInvoiceRequest$zodSchema } from "../../models/dtocreateinvoice
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoCreateInvoiceRequest$zodSchema,
+  request: DtoCreateInvoiceRequest$zodSchema.describe(`Invoice details`),
 };
 
 export const tool$invoicesCreateInvoice: ToolDefinition<typeof args> = {

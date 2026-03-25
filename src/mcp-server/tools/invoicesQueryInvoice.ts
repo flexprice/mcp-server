@@ -7,7 +7,7 @@ import { InvoiceFilter$zodSchema } from "../../models/invoicefilter.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: InvoiceFilter$zodSchema,
+  request: InvoiceFilter$zodSchema.describe(`Filter`),
 };
 
 export const tool$invoicesQueryInvoice: ToolDefinition<typeof args> = {

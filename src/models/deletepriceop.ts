@@ -20,7 +20,7 @@ export type DeletePriceRequest = { id: string; body: DtoDeletePriceRequest };
 
 export const DeletePriceRequest$zodSchema: z.ZodType<DeletePriceRequest> = z
   .object({
-    body: DtoDeletePriceRequest$zodSchema,
+    body: DtoDeletePriceRequest$zodSchema.describe("Delete Price Request"),
     id: z.string().describe("Price ID"),
   });
 

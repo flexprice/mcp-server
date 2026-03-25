@@ -7,7 +7,7 @@ import { PriceFilter$zodSchema } from "../../models/pricefilter.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: PriceFilter$zodSchema,
+  request: PriceFilter$zodSchema.describe(`Filter`),
 };
 
 export const tool$pricesQueryPrice: ToolDefinition<typeof args> = {

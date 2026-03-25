@@ -32,11 +32,17 @@ export const DtoSubscriptionChangeRequest$zodSchema: z.ZodType<
   billing_cadence: BillingCadence$zodSchema,
   billing_cycle: BillingCycle$zodSchema,
   billing_period: BillingPeriod$zodSchema,
-  billing_period_count: z.int().optional(),
+  billing_period_count: z.int().optional().describe(
+    "billing_period_count is the billing period count for the new subscription",
+  ),
   change_at: ScheduleType$zodSchema.optional(),
-  metadata: z.record(z.string(), z.string()).optional(),
+  metadata: z.record(z.string(), z.string()).optional().describe(
+    "metadata contains additional key-value pairs for storing extra information",
+  ),
   proration_behavior: ProrationBehavior$zodSchema,
-  target_plan_id: z.string(),
+  target_plan_id: z.string().describe(
+    "target_plan_id is the ID of the new plan to change to (required)",
+  ),
 }).describe(
   "Request object for changing a subscription plan (upgrade/downgrade)",
 );

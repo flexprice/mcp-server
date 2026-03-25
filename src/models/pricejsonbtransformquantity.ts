@@ -13,6 +13,6 @@ export type PriceJSONBTransformQuantity = {
 export const PriceJSONBTransformQuantity$zodSchema: z.ZodType<
   PriceJSONBTransformQuantity
 > = z.object({
-  divide_by: z.int().optional(),
+  divide_by: z.int().optional().describe("Divide quantity by this number"),
   round: RoundType$zodSchema.optional(),
 });

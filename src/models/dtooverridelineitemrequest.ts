@@ -29,13 +29,25 @@ export type DtoOverrideLineItemRequest = {
 export const DtoOverrideLineItemRequest$zodSchema: z.ZodType<
   DtoOverrideLineItemRequest
 > = z.object({
-  amount: z.string().optional(),
+  amount: z.string().optional().describe(
+    "Amount is the new price amount that overrides the original price (optional)",
+  ),
   billing_model: BillingModel$zodSchema.optional(),
-  price_id: z.string(),
-  price_unit_amount: z.string().optional(),
-  price_unit_tiers: z.array(DtoCreatePriceTier$zodSchema).optional(),
-  quantity: z.string().optional(),
+  price_id: z.string().describe(
+    "PriceID references the plan price to override",
+  ),
+  price_unit_amount: z.string().optional().describe(
+    "PriceUnitAmount is the amount of the price unit (for CUSTOM type, FLAT_FEE/PACKAGE billing models)",
+  ),
+  price_unit_tiers: z.array(DtoCreatePriceTier$zodSchema).optional().describe(
+    "PriceUnitTiers are the tiers for the price unit (for CUSTOM type, TIERED billing model)",
+  ),
+  quantity: z.string().optional().describe(
+    "Quantity for this line item (optional)",
+  ),
   tier_mode: BillingTier$zodSchema.optional(),
-  tiers: z.array(DtoCreatePriceTier$zodSchema).optional(),
+  tiers: z.array(DtoCreatePriceTier$zodSchema).optional().describe(
+    "Tiers determines the pricing tiers for this line item",
+  ),
   transform_quantity: PriceTransformQuantity$zodSchema.optional(),
 });

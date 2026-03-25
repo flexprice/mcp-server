@@ -24,7 +24,9 @@ export type UpdateSubscriptionRequest = {
 export const UpdateSubscriptionRequest$zodSchema: z.ZodType<
   UpdateSubscriptionRequest
 > = z.object({
-  body: DtoUpdateSubscriptionRequest$zodSchema,
+  body: DtoUpdateSubscriptionRequest$zodSchema.describe(
+    "Update Subscription Request",
+  ),
   id: z.string().describe("Subscription ID"),
 });
 
