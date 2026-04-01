@@ -4,10 +4,6 @@
 
 import * as z from "zod";
 import {
-  DtoIntegrationEntityMapping,
-  DtoIntegrationEntityMapping$zodSchema,
-} from "./dtointegrationentitymapping.js";
-import {
   DtoTaxRateOverride,
   DtoTaxRateOverride$zodSchema,
 } from "./dtotaxrateoverride.js";
@@ -24,7 +20,6 @@ export type DtoCreateCustomerRequest = {
   address_state?: string | undefined;
   email?: string | undefined;
   external_id: string;
-  integration_entity_mapping?: Array<DtoIntegrationEntityMapping> | undefined;
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
   parent_customer_external_id?: string | undefined;
@@ -60,10 +55,6 @@ export const DtoCreateCustomerRequest$zodSchema: z.ZodType<
   external_id: z.string().describe(
     "external_id is the unique identifier from your system to reference this customer (required)",
   ),
-  integration_entity_mapping: z.array(DtoIntegrationEntityMapping$zodSchema)
-    .optional().describe(
-      "integration_entity_mapping contains provider integration mappings for this customer",
-    ),
   metadata: z.record(z.string(), z.string()).optional().describe(
     "metadata contains additional key-value pairs for storing extra information",
   ),

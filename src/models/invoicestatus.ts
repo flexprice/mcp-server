@@ -9,6 +9,7 @@ export const InvoiceStatus = {
   Draft: "DRAFT",
   Finalized: "FINALIZED",
   Voided: "VOIDED",
+  Skipped: "SKIPPED",
 } as const;
 export type InvoiceStatus = ClosedEnum<typeof InvoiceStatus>;
 
@@ -16,4 +17,5 @@ export const InvoiceStatus$zodSchema = z.enum([
   "DRAFT",
   "FINALIZED",
   "VOIDED",
+  "SKIPPED",
 ]);

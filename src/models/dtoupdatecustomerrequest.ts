@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod";
-import {
-  DtoIntegrationEntityMapping,
-  DtoIntegrationEntityMapping$zodSchema,
-} from "./dtointegrationentitymapping.js";
 
 /**
  * Request object for updating an existing customer. All fields are optional - only provided fields will be updated
@@ -20,7 +16,6 @@ export type DtoUpdateCustomerRequest = {
   address_state?: string | undefined;
   email?: string | undefined;
   external_id?: string | undefined;
-  integration_entity_mapping?: Array<DtoIntegrationEntityMapping> | undefined;
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
   parent_customer_external_id?: string | undefined;
@@ -54,10 +49,6 @@ export const DtoUpdateCustomerRequest$zodSchema: z.ZodType<
   external_id: z.string().optional().describe(
     "external_id is the updated external identifier for the customer",
   ),
-  integration_entity_mapping: z.array(DtoIntegrationEntityMapping$zodSchema)
-    .optional().describe(
-      "integration_entity_mapping contains provider integration mappings for this customer",
-    ),
   metadata: z.record(z.string(), z.string()).optional().describe(
     "metadata contains updated key-value pairs that will replace existing metadata",
   ),

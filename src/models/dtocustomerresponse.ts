@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod";
+import {
+  DtoEntityIntegrationMappingResponse,
+  DtoEntityIntegrationMappingResponse$zodSchema,
+} from "./dtoentityintegrationmappingresponse.js";
 import { Status, Status$zodSchema } from "./status.js";
 
 /**
@@ -21,6 +25,7 @@ export type DtoCustomerResponse = {
   environment_id?: string | undefined;
   external_id?: string | undefined;
   id?: string | undefined;
+  integrations?: Array<DtoEntityIntegrationMappingResponse> | undefined;
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
   parent_customer?: DtoCustomerResponse | undefined;
@@ -63,6 +68,8 @@ export const DtoCustomerResponse$zodSchema: z.ZodType<DtoCustomerResponse> = z
     id: z.string().optional().describe(
       "ID is the unique identifier for the customer",
     ),
+    integrations: z.array(DtoEntityIntegrationMappingResponse$zodSchema)
+      .optional(),
     metadata: z.record(z.string(), z.string()).optional().describe("Metadata"),
     name: z.string().optional().describe("Name is the name of the customer"),
     parent_customer: z.lazy(() => DtoCustomerResponse$zodSchema).optional()

@@ -52,6 +52,7 @@ export type DtoInvoiceResponse = {
   invoice_pdf_url?: string | undefined;
   invoice_status?: InvoiceStatus | undefined;
   invoice_type?: InvoiceType | undefined;
+  last_computed_at?: string | undefined;
   line_items?: Array<DtoInvoiceLineItemResponse> | undefined;
   metadata?: { [k: string]: string } | undefined;
   overpaid_amount?: string | undefined;
@@ -141,6 +142,9 @@ export const DtoInvoiceResponse$zodSchema: z.ZodType<DtoInvoiceResponse> = z
     ),
     invoice_status: InvoiceStatus$zodSchema.optional(),
     invoice_type: InvoiceType$zodSchema.optional(),
+    last_computed_at: z.string().optional().describe(
+      "last_computed_at is the timestamp when this invoice was last computed by ComputeInvoice",
+    ),
     line_items: z.array(DtoInvoiceLineItemResponse$zodSchema).optional()
       .describe(
         "line_items contains the individual items that make up this invoice (overrides embedded field)",

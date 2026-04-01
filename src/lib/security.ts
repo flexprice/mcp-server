@@ -239,8 +239,9 @@ function applyBearer(
 }
 export function resolveGlobalSecurity(
   security: Partial<Security> | null | undefined,
+  allowedFields?: number[],
 ): SecurityState | null {
-  return resolveSecurity(
+  let inputs: SecurityInput[][] = [
     [
       {
         fieldName: "x-api-key",
@@ -248,7 +249,18 @@ export function resolveGlobalSecurity(
         value: security?.ApiKeyAuth,
       },
     ],
-  );
+  ];
+
+  if (allowedFields) {
+    inputs = allowedFields.map((i) => {
+      if (i < 0 || i >= inputs.length) {
+        throw new RangeError(`invalid allowedFields index ${i}`);
+      }
+      return inputs[i]!;
+    });
+  }
+
+  return resolveSecurity(...inputs);
 }
 
 export async function extractSecurity<
