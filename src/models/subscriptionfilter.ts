@@ -35,6 +35,7 @@ export type SubscriptionFilter = {
   billing_cadence?: Array<BillingCadence> | undefined;
   billing_period?: Array<BillingPeriod> | undefined;
   customer_id?: string | undefined;
+  effective_date_for_update?: string | undefined;
   end_time?: string | undefined;
   expand?: string | undefined;
   external_customer_id?: string | undefined;
@@ -66,6 +67,9 @@ export const SubscriptionFilter$zodSchema: z.ZodType<SubscriptionFilter> = z
     ),
     customer_id: z.string().optional().describe(
       "CustomerID filters by customer ID",
+    ),
+    effective_date_for_update: z.string().optional().describe(
+      "EffectiveDateForUpdate selects subscriptions that need a billing-period pass on or before this time:\ncurrent_period_end <= date OR (cancel_at IS NOT NULL AND cancel_at <= date).\nWhen nil, period/cancel cutoff logic is not applied by this field (see TimeRangeFilter for legacy period-end filtering).",
     ),
     end_time: z.string().optional(),
     expand: z.string().optional(),
