@@ -5,10 +5,17 @@
 import * as z from "zod";
 import * as b64$ from "../lib/base64.js";
 
-export type GetInvoicePdfRequest = { id: string; url?: boolean | undefined };
+export type GetInvoicePdfRequest = {
+  id: string;
+  url?: boolean | undefined;
+  force_generate?: boolean | undefined;
+};
 
 export const GetInvoicePdfRequest$zodSchema: z.ZodType<GetInvoicePdfRequest> = z
   .object({
+    force_generate: z.boolean().describe(
+      "Force regeneration of the PDF even if one already exists in S3 (default: false). Note: force_generate has no effect if invoice_pdf_url is already set on the invoice.",
+    ).optional(),
     id: z.string().describe("Invoice ID"),
     url: z.boolean().describe("Return presigned URL from s3 instead of PDF")
       .optional(),

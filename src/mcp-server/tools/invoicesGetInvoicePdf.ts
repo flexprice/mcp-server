@@ -14,7 +14,7 @@ export const tool$invoicesGetInvoicePdf: ToolDefinition<typeof args> = {
   name: "get-invoice-pdf",
   description: `Get invoice PDF
 
-Use when delivering an invoice PDF to the customer (e.g. email attachment or download). Use url=true for a presigned URL instead of binary.`,
+Use when delivering an invoice PDF to the customer (e.g. email attachment or download). Use url=true for a presigned URL instead of binary. Use force_generate=true to regenerate and re-upload the PDF even if one already exists in S3.`,
   scopes: ["read"],
   annotations: {
     "title": "",
