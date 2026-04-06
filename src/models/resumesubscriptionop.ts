@@ -3,40 +3,37 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoResumeSubscriptionRequest,
-  DtoResumeSubscriptionRequest$zodSchema,
-} from "./dtoresumesubscriptionrequest.js";
+  ResumeSubscriptionRequest,
+  ResumeSubscriptionRequest$zodSchema,
+} from "./resumesubscriptionrequest.js";
 import {
-  DtoSubscriptionPauseResponse,
-  DtoSubscriptionPauseResponse$zodSchema,
-} from "./dtosubscriptionpauseresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  SubscriptionPauseResponse,
+  SubscriptionPauseResponse$zodSchema,
+} from "./subscriptionpauseresponse.js";
 
-export type ResumeSubscriptionRequest = {
+export type ResumeSubscriptionRequestRequest = {
   id: string;
-  body: DtoResumeSubscriptionRequest;
+  body: ResumeSubscriptionRequest;
 };
 
-export const ResumeSubscriptionRequest$zodSchema: z.ZodType<
-  ResumeSubscriptionRequest
+export const ResumeSubscriptionRequestRequest$zodSchema: z.ZodType<
+  ResumeSubscriptionRequestRequest
 > = z.object({
-  body: DtoResumeSubscriptionRequest$zodSchema.describe(
+  body: ResumeSubscriptionRequest$zodSchema.describe(
     "Resume subscription request",
   ),
   id: z.string().describe("Subscription ID"),
 });
 
 export type ResumeSubscriptionResponse =
-  | DtoSubscriptionPauseResponse
-  | ErrorsErrorResponse;
+  | SubscriptionPauseResponse
+  | ErrorResponse;
 
 export const ResumeSubscriptionResponse$zodSchema: z.ZodType<
   ResumeSubscriptionResponse
 > = z.union([
-  DtoSubscriptionPauseResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  SubscriptionPauseResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

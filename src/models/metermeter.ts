@@ -29,7 +29,7 @@ export type MeterMeter = {
 
 export const MeterMeter$zodSchema: z.ZodType<MeterMeter> = z.object({
   aggregation: MeterAggregation$zodSchema.optional(),
-  created_at: z.string().optional(),
+  created_at: z.iso.datetime({ offset: true }).optional(),
   created_by: z.string().optional(),
   environment_id: z.string().optional().describe(
     "EnvironmentID is the environment identifier for the meter",
@@ -47,6 +47,6 @@ export const MeterMeter$zodSchema: z.ZodType<MeterMeter> = z.object({
   reset_usage: ResetUsage$zodSchema.optional(),
   status: Status$zodSchema.optional(),
   tenant_id: z.string().optional(),
-  updated_at: z.string().optional(),
+  updated_at: z.iso.datetime({ offset: true }).optional(),
   updated_by: z.string().optional(),
 });

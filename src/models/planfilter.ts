@@ -37,7 +37,7 @@ export type PlanFilter = {
 };
 
 export const PlanFilter$zodSchema: z.ZodType<PlanFilter> = z.object({
-  end_time: z.string().optional(),
+  end_time: z.iso.datetime({ offset: true }).optional(),
   expand: z.string().optional(),
   filters: z.array(FilterCondition$zodSchema).optional().describe(
     "filters allows complex filtering based on multiple fields",
@@ -48,6 +48,6 @@ export const PlanFilter$zodSchema: z.ZodType<PlanFilter> = z.object({
   order: PlanFilterOrder$zodSchema.optional(),
   plan_ids: z.array(z.string()).optional(),
   sort: z.array(SortCondition$zodSchema).optional(),
-  start_time: z.string().optional(),
+  start_time: z.iso.datetime({ offset: true }).optional(),
   status: Status$zodSchema.optional(),
 });

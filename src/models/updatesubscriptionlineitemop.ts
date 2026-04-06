@@ -3,40 +3,37 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoSubscriptionLineItemResponse,
-  DtoSubscriptionLineItemResponse$zodSchema,
-} from "./dtosubscriptionlineitemresponse.js";
+  SubscriptionLineItemResponse,
+  SubscriptionLineItemResponse$zodSchema,
+} from "./subscriptionlineitemresponse.js";
 import {
-  DtoUpdateSubscriptionLineItemRequest,
-  DtoUpdateSubscriptionLineItemRequest$zodSchema,
-} from "./dtoupdatesubscriptionlineitemrequest.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  UpdateSubscriptionLineItemRequest,
+  UpdateSubscriptionLineItemRequest$zodSchema,
+} from "./updatesubscriptionlineitemrequest.js";
 
-export type UpdateSubscriptionLineItemRequest = {
+export type UpdateSubscriptionLineItemRequestRequest = {
   id: string;
-  body: DtoUpdateSubscriptionLineItemRequest;
+  body: UpdateSubscriptionLineItemRequest;
 };
 
-export const UpdateSubscriptionLineItemRequest$zodSchema: z.ZodType<
-  UpdateSubscriptionLineItemRequest
+export const UpdateSubscriptionLineItemRequestRequest$zodSchema: z.ZodType<
+  UpdateSubscriptionLineItemRequestRequest
 > = z.object({
-  body: DtoUpdateSubscriptionLineItemRequest$zodSchema.describe(
+  body: UpdateSubscriptionLineItemRequest$zodSchema.describe(
     "Update Line Item Request",
   ),
   id: z.string().describe("Line Item ID"),
 });
 
 export type UpdateSubscriptionLineItemResponse =
-  | DtoSubscriptionLineItemResponse
-  | ErrorsErrorResponse;
+  | SubscriptionLineItemResponse
+  | ErrorResponse;
 
 export const UpdateSubscriptionLineItemResponse$zodSchema: z.ZodType<
   UpdateSubscriptionLineItemResponse
 > = z.union([
-  DtoSubscriptionLineItemResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  SubscriptionLineItemResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

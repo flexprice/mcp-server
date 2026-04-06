@@ -3,10 +3,7 @@
  */
 
 import * as z from "zod";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
   ModelsTemporalWorkflowResult,
   ModelsTemporalWorkflowResult$zodSchema,
@@ -21,11 +18,11 @@ export const SyncPlanPricesRequest$zodSchema: z.ZodType<SyncPlanPricesRequest> =
 
 export type SyncPlanPricesResponse =
   | ModelsTemporalWorkflowResult
-  | ErrorsErrorResponse;
+  | ErrorResponse;
 
 export const SyncPlanPricesResponse$zodSchema: z.ZodType<
   SyncPlanPricesResponse
 > = z.union([
   ModelsTemporalWorkflowResult$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

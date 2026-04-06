@@ -3,19 +3,13 @@
  */
 
 import * as z from "zod";
-import {
-  DtoPriceResponse,
-  DtoPriceResponse$zodSchema,
-} from "./dtopriceresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
+import { PriceResponse, PriceResponse$zodSchema } from "./priceresponse.js";
 
-export type CreatePriceResponse = DtoPriceResponse | ErrorsErrorResponse;
+export type CreatePriceResponse = PriceResponse | ErrorResponse;
 
 export const CreatePriceResponse$zodSchema: z.ZodType<CreatePriceResponse> = z
   .union([
-    DtoPriceResponse$zodSchema,
-    ErrorsErrorResponse$zodSchema,
+    PriceResponse$zodSchema,
+    ErrorResponse$zodSchema,
   ]);

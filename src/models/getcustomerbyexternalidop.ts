@@ -4,13 +4,10 @@
 
 import * as z from "zod";
 import {
-  DtoCustomerResponse,
-  DtoCustomerResponse$zodSchema,
-} from "./dtocustomerresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  CustomerResponse,
+  CustomerResponse$zodSchema,
+} from "./customerresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 
 export type GetCustomerByExternalIdRequest = { external_id: string };
 
@@ -20,13 +17,11 @@ export const GetCustomerByExternalIdRequest$zodSchema: z.ZodType<
   external_id: z.string().describe("Customer External ID"),
 });
 
-export type GetCustomerByExternalIdResponse =
-  | DtoCustomerResponse
-  | ErrorsErrorResponse;
+export type GetCustomerByExternalIdResponse = CustomerResponse | ErrorResponse;
 
 export const GetCustomerByExternalIdResponse$zodSchema: z.ZodType<
   GetCustomerByExternalIdResponse
 > = z.union([
-  DtoCustomerResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  CustomerResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

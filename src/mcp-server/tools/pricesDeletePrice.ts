@@ -3,11 +3,11 @@
  */
 
 import { pricesDeletePrice } from "../../funcs/pricesDeletePrice.js";
-import { DeletePriceRequest$zodSchema } from "../../models/deletepriceop.js";
+import { DeletePriceRequestRequest$zodSchema } from "../../models/deletepriceop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DeletePriceRequest$zodSchema,
+  request: DeletePriceRequestRequest$zodSchema,
 };
 
 export const tool$pricesDeletePrice: ToolDefinition<typeof args> = {

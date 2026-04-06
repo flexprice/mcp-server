@@ -4,19 +4,16 @@
 
 import * as z from "zod";
 import {
-  DtoCustomerResponse,
-  DtoCustomerResponse$zodSchema,
-} from "./dtocustomerresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  CustomerResponse,
+  CustomerResponse$zodSchema,
+} from "./customerresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 
-export type CreateCustomerResponse = DtoCustomerResponse | ErrorsErrorResponse;
+export type CreateCustomerResponse = CustomerResponse | ErrorResponse;
 
 export const CreateCustomerResponse$zodSchema: z.ZodType<
   CreateCustomerResponse
 > = z.union([
-  DtoCustomerResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  CustomerResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

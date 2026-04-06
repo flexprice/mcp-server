@@ -10,9 +10,9 @@ import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
-  DtoAddAddonRequest,
-  DtoAddAddonRequest$zodSchema,
-} from "../models/dtoaddaddonrequest.js";
+  AddAddonRequest,
+  AddAddonRequest$zodSchema,
+} from "../models/addaddonrequest.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function subscriptionsAddSubscriptionAddon(
   client$: FlexpriceCore,
-  request: DtoAddAddonRequest,
+  request: AddAddonRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function subscriptionsAddSubscriptionAddon(
 
 async function $do(
   client$: FlexpriceCore,
-  request: DtoAddAddonRequest,
+  request: AddAddonRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => DtoAddAddonRequest$zodSchema.parse(value$),
+    (value$) => AddAddonRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

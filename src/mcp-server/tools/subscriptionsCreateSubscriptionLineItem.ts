@@ -3,11 +3,11 @@
  */
 
 import { subscriptionsCreateSubscriptionLineItem } from "../../funcs/subscriptionsCreateSubscriptionLineItem.js";
-import { CreateSubscriptionLineItemRequest$zodSchema } from "../../models/createsubscriptionlineitemop.js";
+import { CreateSubscriptionLineItemRequestRequest$zodSchema } from "../../models/createsubscriptionlineitemop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: CreateSubscriptionLineItemRequest$zodSchema,
+  request: CreateSubscriptionLineItemRequestRequest$zodSchema,
 };
 
 export const tool$subscriptionsCreateSubscriptionLineItem: ToolDefinition<

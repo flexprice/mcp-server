@@ -4,39 +4,34 @@
 
 import * as z from "zod";
 import {
-  DtoActivateDraftSubscriptionRequest,
-  DtoActivateDraftSubscriptionRequest$zodSchema,
-} from "./dtoactivatedraftsubscriptionrequest.js";
+  ActivateDraftSubscriptionRequest,
+  ActivateDraftSubscriptionRequest$zodSchema,
+} from "./activatedraftsubscriptionrequest.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoSubscriptionResponse,
-  DtoSubscriptionResponse$zodSchema,
-} from "./dtosubscriptionresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  SubscriptionResponse,
+  SubscriptionResponse$zodSchema,
+} from "./subscriptionresponse.js";
 
 export type ActivateSubscriptionRequest = {
   id: string;
-  body: DtoActivateDraftSubscriptionRequest;
+  body: ActivateDraftSubscriptionRequest;
 };
 
 export const ActivateSubscriptionRequest$zodSchema: z.ZodType<
   ActivateSubscriptionRequest
 > = z.object({
-  body: DtoActivateDraftSubscriptionRequest$zodSchema.describe(
+  body: ActivateDraftSubscriptionRequest$zodSchema.describe(
     "Activate Draft Subscription Request",
   ),
   id: z.string().describe("Subscription ID"),
 });
 
-export type ActivateSubscriptionResponse =
-  | DtoSubscriptionResponse
-  | ErrorsErrorResponse;
+export type ActivateSubscriptionResponse = SubscriptionResponse | ErrorResponse;
 
 export const ActivateSubscriptionResponse$zodSchema: z.ZodType<
   ActivateSubscriptionResponse
 > = z.union([
-  DtoSubscriptionResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  SubscriptionResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

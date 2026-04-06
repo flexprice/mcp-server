@@ -10,8 +10,8 @@ import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
-  DeleteSubscriptionLineItemRequest,
-  DeleteSubscriptionLineItemRequest$zodSchema,
+  DeleteSubscriptionLineItemRequestRequest,
+  DeleteSubscriptionLineItemRequestRequest$zodSchema,
 } from "../models/deletesubscriptionlineitemop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function subscriptionsDeleteSubscriptionLineItem(
   client$: FlexpriceCore,
-  request: DeleteSubscriptionLineItemRequest,
+  request: DeleteSubscriptionLineItemRequestRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function subscriptionsDeleteSubscriptionLineItem(
 
 async function $do(
   client$: FlexpriceCore,
-  request: DeleteSubscriptionLineItemRequest,
+  request: DeleteSubscriptionLineItemRequestRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,8 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => DeleteSubscriptionLineItemRequest$zodSchema.parse(value$),
+    (value$) =>
+      DeleteSubscriptionLineItemRequestRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

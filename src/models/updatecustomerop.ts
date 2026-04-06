@@ -4,37 +4,34 @@
 
 import * as z from "zod";
 import {
-  DtoCustomerResponse,
-  DtoCustomerResponse$zodSchema,
-} from "./dtocustomerresponse.js";
+  CustomerResponse,
+  CustomerResponse$zodSchema,
+} from "./customerresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoUpdateCustomerRequest,
-  DtoUpdateCustomerRequest$zodSchema,
-} from "./dtoupdatecustomerrequest.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  UpdateCustomerRequest,
+  UpdateCustomerRequest$zodSchema,
+} from "./updatecustomerrequest.js";
 
-export type UpdateCustomerRequest = {
+export type UpdateCustomerRequestRequest = {
   id?: string | undefined;
   external_customer_id?: string | undefined;
-  body: DtoUpdateCustomerRequest;
+  body: UpdateCustomerRequest;
 };
 
-export const UpdateCustomerRequest$zodSchema: z.ZodType<UpdateCustomerRequest> =
-  z.object({
-    body: DtoUpdateCustomerRequest$zodSchema.describe("Customer"),
-    external_customer_id: z.string().describe("Customer External ID")
-      .optional(),
-    id: z.string().describe("Customer ID").optional(),
-  });
+export const UpdateCustomerRequestRequest$zodSchema: z.ZodType<
+  UpdateCustomerRequestRequest
+> = z.object({
+  body: UpdateCustomerRequest$zodSchema.describe("Customer"),
+  external_customer_id: z.string().describe("Customer External ID").optional(),
+  id: z.string().describe("Customer ID").optional(),
+});
 
-export type UpdateCustomerResponse = DtoCustomerResponse | ErrorsErrorResponse;
+export type UpdateCustomerResponse = CustomerResponse | ErrorResponse;
 
 export const UpdateCustomerResponse$zodSchema: z.ZodType<
   UpdateCustomerResponse
 > = z.union([
-  DtoCustomerResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  CustomerResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

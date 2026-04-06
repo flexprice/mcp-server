@@ -3,11 +3,11 @@
  */
 
 import { plansCreatePlan } from "../../funcs/plansCreatePlan.js";
-import { DtoCreatePlanRequest$zodSchema } from "../../models/dtocreateplanrequest.js";
+import { CreatePlanRequest$zodSchema } from "../../models/createplanrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoCreatePlanRequest$zodSchema.describe(`Plan configuration`),
+  request: CreatePlanRequest$zodSchema.describe(`Plan configuration`),
 };
 
 export const tool$plansCreatePlan: ToolDefinition<typeof args> = {

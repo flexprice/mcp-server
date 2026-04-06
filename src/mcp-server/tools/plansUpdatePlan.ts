@@ -3,11 +3,11 @@
  */
 
 import { plansUpdatePlan } from "../../funcs/plansUpdatePlan.js";
-import { UpdatePlanRequest$zodSchema } from "../../models/updateplanop.js";
+import { UpdatePlanRequestRequest$zodSchema } from "../../models/updateplanop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: UpdatePlanRequest$zodSchema,
+  request: UpdatePlanRequestRequest$zodSchema,
 };
 
 export const tool$plansUpdatePlan: ToolDefinition<typeof args> = {

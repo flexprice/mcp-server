@@ -3,21 +3,18 @@
  */
 
 import * as z from "zod";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
   FailurePointType,
   FailurePointType$zodSchema,
 } from "./failurepointtype.js";
 
 export type FailurePoint = {
-  error?: ErrorsErrorResponse | undefined;
+  error?: ErrorResponse | undefined;
   failure_point_type?: FailurePointType | undefined;
 };
 
 export const FailurePoint$zodSchema: z.ZodType<FailurePoint> = z.object({
-  error: ErrorsErrorResponse$zodSchema.optional(),
+  error: ErrorResponse$zodSchema.optional(),
   failure_point_type: FailurePointType$zodSchema.optional(),
 });

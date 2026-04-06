@@ -3,40 +3,35 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoSubscriptionResponse,
-  DtoSubscriptionResponse$zodSchema,
-} from "./dtosubscriptionresponse.js";
+  SubscriptionResponse,
+  SubscriptionResponse$zodSchema,
+} from "./subscriptionresponse.js";
 import {
-  DtoUpdateSubscriptionRequest,
-  DtoUpdateSubscriptionRequest$zodSchema,
-} from "./dtoupdatesubscriptionrequest.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  UpdateSubscriptionRequest,
+  UpdateSubscriptionRequest$zodSchema,
+} from "./updatesubscriptionrequest.js";
 
-export type UpdateSubscriptionRequest = {
+export type UpdateSubscriptionRequestRequest = {
   id: string;
-  body: DtoUpdateSubscriptionRequest;
+  body: UpdateSubscriptionRequest;
 };
 
-export const UpdateSubscriptionRequest$zodSchema: z.ZodType<
-  UpdateSubscriptionRequest
+export const UpdateSubscriptionRequestRequest$zodSchema: z.ZodType<
+  UpdateSubscriptionRequestRequest
 > = z.object({
-  body: DtoUpdateSubscriptionRequest$zodSchema.describe(
+  body: UpdateSubscriptionRequest$zodSchema.describe(
     "Update Subscription Request",
   ),
   id: z.string().describe("Subscription ID"),
 });
 
-export type UpdateSubscriptionResponse =
-  | DtoSubscriptionResponse
-  | ErrorsErrorResponse;
+export type UpdateSubscriptionResponse = SubscriptionResponse | ErrorResponse;
 
 export const UpdateSubscriptionResponse$zodSchema: z.ZodType<
   UpdateSubscriptionResponse
 > = z.union([
-  DtoSubscriptionResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  SubscriptionResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

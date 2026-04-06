@@ -3,11 +3,11 @@
  */
 
 import { subscriptionsCancelSubscription } from "../../funcs/subscriptionsCancelSubscription.js";
-import { CancelSubscriptionRequest$zodSchema } from "../../models/cancelsubscriptionop.js";
+import { CancelSubscriptionRequestRequest$zodSchema } from "../../models/cancelsubscriptionop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: CancelSubscriptionRequest$zodSchema,
+  request: CancelSubscriptionRequestRequest$zodSchema,
 };
 
 export const tool$subscriptionsCancelSubscription: ToolDefinition<typeof args> =

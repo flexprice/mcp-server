@@ -3,14 +3,11 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoListCreditGrantApplicationsResponse,
-  DtoListCreditGrantApplicationsResponse$zodSchema,
-} from "./dtolistcreditgrantapplicationsresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  ListCreditGrantApplicationsResponse,
+  ListCreditGrantApplicationsResponse$zodSchema,
+} from "./listcreditgrantapplicationsresponse.js";
 
 export type GetSubscriptionUpcomingGrantsRequest = { id: string };
 
@@ -21,12 +18,12 @@ export const GetSubscriptionUpcomingGrantsRequest$zodSchema: z.ZodType<
 });
 
 export type GetSubscriptionUpcomingGrantsResponse =
-  | DtoListCreditGrantApplicationsResponse
-  | ErrorsErrorResponse;
+  | ListCreditGrantApplicationsResponse
+  | ErrorResponse;
 
 export const GetSubscriptionUpcomingGrantsResponse$zodSchema: z.ZodType<
   GetSubscriptionUpcomingGrantsResponse
 > = z.union([
-  DtoListCreditGrantApplicationsResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  ListCreditGrantApplicationsResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

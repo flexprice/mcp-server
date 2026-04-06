@@ -3,14 +3,11 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoGetEventByIDResponse,
-  DtoGetEventByIDResponse$zodSchema,
-} from "./dtogeteventbyidresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  GetEventByIDResponse,
+  GetEventByIDResponse$zodSchema,
+} from "./geteventbyidresponse.js";
 
 export type GetEventRequest = { id: string };
 
@@ -18,9 +15,9 @@ export const GetEventRequest$zodSchema: z.ZodType<GetEventRequest> = z.object({
   id: z.string().describe("Event ID"),
 });
 
-export type GetEventResponse = DtoGetEventByIDResponse | ErrorsErrorResponse;
+export type GetEventResponse = GetEventByIDResponse | ErrorResponse;
 
 export const GetEventResponse$zodSchema: z.ZodType<GetEventResponse> = z.union([
-  DtoGetEventByIDResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  GetEventByIDResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

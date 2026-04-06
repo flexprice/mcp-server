@@ -3,13 +3,11 @@
  */
 
 import { subscriptionsCreateSubscription } from "../../funcs/subscriptionsCreateSubscription.js";
-import { DtoCreateSubscriptionRequest$zodSchema } from "../../models/dtocreatesubscriptionrequest.js";
+import { CreateSubscriptionRequest$zodSchema } from "../../models/createsubscriptionrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoCreateSubscriptionRequest$zodSchema.describe(
-    `Subscription Request`,
-  ),
+  request: CreateSubscriptionRequest$zodSchema.describe(`Subscription Request`),
 };
 
 export const tool$subscriptionsCreateSubscription: ToolDefinition<typeof args> =

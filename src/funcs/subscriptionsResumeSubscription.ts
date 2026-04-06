@@ -19,8 +19,8 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  ResumeSubscriptionRequest,
-  ResumeSubscriptionRequest$zodSchema,
+  ResumeSubscriptionRequestRequest,
+  ResumeSubscriptionRequestRequest$zodSchema,
 } from "../models/resumesubscriptionop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function subscriptionsResumeSubscription(
   client$: FlexpriceCore,
-  request: ResumeSubscriptionRequest,
+  request: ResumeSubscriptionRequestRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function subscriptionsResumeSubscription(
 
 async function $do(
   client$: FlexpriceCore,
-  request: ResumeSubscriptionRequest,
+  request: ResumeSubscriptionRequestRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => ResumeSubscriptionRequest$zodSchema.parse(value$),
+    (value$) => ResumeSubscriptionRequestRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

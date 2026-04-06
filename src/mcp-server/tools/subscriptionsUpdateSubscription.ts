@@ -3,11 +3,11 @@
  */
 
 import { subscriptionsUpdateSubscription } from "../../funcs/subscriptionsUpdateSubscription.js";
-import { UpdateSubscriptionRequest$zodSchema } from "../../models/updatesubscriptionop.js";
+import { UpdateSubscriptionRequestRequest$zodSchema } from "../../models/updatesubscriptionop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: UpdateSubscriptionRequest$zodSchema,
+  request: UpdateSubscriptionRequestRequest$zodSchema,
 };
 
 export const tool$subscriptionsUpdateSubscription: ToolDefinition<typeof args> =

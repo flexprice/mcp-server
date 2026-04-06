@@ -3,11 +3,11 @@
  */
 
 import { eventsGetUsageAnalytics } from "../../funcs/eventsGetUsageAnalytics.js";
-import { DtoGetUsageAnalyticsRequest$zodSchema } from "../../models/dtogetusageanalyticsrequest.js";
+import { GetUsageAnalyticsRequest$zodSchema } from "../../models/getusageanalyticsrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoGetUsageAnalyticsRequest$zodSchema.describe(`Request body`),
+  request: GetUsageAnalyticsRequest$zodSchema.describe(`Request body`),
 };
 
 export const tool$eventsGetUsageAnalytics: ToolDefinition<typeof args> = {

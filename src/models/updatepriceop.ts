@@ -3,31 +3,29 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
+import { PriceResponse, PriceResponse$zodSchema } from "./priceresponse.js";
 import {
-  DtoPriceResponse,
-  DtoPriceResponse$zodSchema,
-} from "./dtopriceresponse.js";
-import {
-  DtoUpdatePriceRequest,
-  DtoUpdatePriceRequest$zodSchema,
-} from "./dtoupdatepricerequest.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  UpdatePriceRequest,
+  UpdatePriceRequest$zodSchema,
+} from "./updatepricerequest.js";
 
-export type UpdatePriceRequest = { id: string; body: DtoUpdatePriceRequest };
+export type UpdatePriceRequestRequest = {
+  id: string;
+  body: UpdatePriceRequest;
+};
 
-export const UpdatePriceRequest$zodSchema: z.ZodType<UpdatePriceRequest> = z
-  .object({
-    body: DtoUpdatePriceRequest$zodSchema.describe("Price configuration"),
-    id: z.string().describe("Price ID"),
-  });
+export const UpdatePriceRequestRequest$zodSchema: z.ZodType<
+  UpdatePriceRequestRequest
+> = z.object({
+  body: UpdatePriceRequest$zodSchema.describe("Price configuration"),
+  id: z.string().describe("Price ID"),
+});
 
-export type UpdatePriceResponse = DtoPriceResponse | ErrorsErrorResponse;
+export type UpdatePriceResponse = PriceResponse | ErrorResponse;
 
 export const UpdatePriceResponse$zodSchema: z.ZodType<UpdatePriceResponse> = z
   .union([
-    DtoPriceResponse$zodSchema,
-    ErrorsErrorResponse$zodSchema,
+    PriceResponse$zodSchema,
+    ErrorResponse$zodSchema,
   ]);

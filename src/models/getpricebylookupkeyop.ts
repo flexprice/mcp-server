@@ -3,14 +3,8 @@
  */
 
 import * as z from "zod";
-import {
-  DtoPriceResponse,
-  DtoPriceResponse$zodSchema,
-} from "./dtopriceresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
+import { PriceResponse, PriceResponse$zodSchema } from "./priceresponse.js";
 
 export type GetPriceByLookupKeyRequest = { lookup_key: string };
 
@@ -20,13 +14,11 @@ export const GetPriceByLookupKeyRequest$zodSchema: z.ZodType<
   lookup_key: z.string().describe("Lookup key"),
 });
 
-export type GetPriceByLookupKeyResponse =
-  | DtoPriceResponse
-  | ErrorsErrorResponse;
+export type GetPriceByLookupKeyResponse = PriceResponse | ErrorResponse;
 
 export const GetPriceByLookupKeyResponse$zodSchema: z.ZodType<
   GetPriceByLookupKeyResponse
 > = z.union([
-  DtoPriceResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  PriceResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

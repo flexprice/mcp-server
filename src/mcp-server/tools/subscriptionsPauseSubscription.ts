@@ -3,11 +3,11 @@
  */
 
 import { subscriptionsPauseSubscription } from "../../funcs/subscriptionsPauseSubscription.js";
-import { PauseSubscriptionRequest$zodSchema } from "../../models/pausesubscriptionop.js";
+import { PauseSubscriptionRequestRequest$zodSchema } from "../../models/pausesubscriptionop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: PauseSubscriptionRequest$zodSchema,
+  request: PauseSubscriptionRequestRequest$zodSchema,
 };
 
 export const tool$subscriptionsPauseSubscription: ToolDefinition<typeof args> =

@@ -3,11 +3,11 @@
  */
 
 import { eventsGetUsageByMeter } from "../../funcs/eventsGetUsageByMeter.js";
-import { DtoGetUsageByMeterRequest$zodSchema } from "../../models/dtogetusagebymeterrequest.js";
+import { GetUsageByMeterRequest$zodSchema } from "../../models/getusagebymeterrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoGetUsageByMeterRequest$zodSchema.describe(`Request body`),
+  request: GetUsageByMeterRequest$zodSchema.describe(`Request body`),
 };
 
 export const tool$eventsGetUsageByMeter: ToolDefinition<typeof args> = {

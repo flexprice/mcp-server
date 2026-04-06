@@ -3,14 +3,11 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoSuccessResponse,
-  DtoSuccessResponse$zodSchema,
-} from "./dtosuccessresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  SuccessResponse,
+  SuccessResponse$zodSchema,
+} from "./successresponse.js";
 
 export type TriggerInvoiceCommsWebhookRequest = { id: string };
 
@@ -21,12 +18,12 @@ export const TriggerInvoiceCommsWebhookRequest$zodSchema: z.ZodType<
 });
 
 export type TriggerInvoiceCommsWebhookResponse =
-  | DtoSuccessResponse
-  | ErrorsErrorResponse;
+  | SuccessResponse
+  | ErrorResponse;
 
 export const TriggerInvoiceCommsWebhookResponse$zodSchema: z.ZodType<
   TriggerInvoiceCommsWebhookResponse
 > = z.union([
-  DtoSuccessResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  SuccessResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

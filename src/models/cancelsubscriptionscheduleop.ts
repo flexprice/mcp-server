@@ -4,19 +4,19 @@
 
 import * as z from "zod";
 import {
-  DtoCancelScheduleRequest,
-  DtoCancelScheduleRequest$zodSchema,
-} from "./dtocancelschedulerequest.js";
+  CancelScheduleRequest,
+  CancelScheduleRequest$zodSchema,
+} from "./cancelschedulerequest.js";
 
 export type CancelSubscriptionScheduleRequest = {
   schedule_id: string;
-  body?: DtoCancelScheduleRequest | undefined;
+  body?: CancelScheduleRequest | undefined;
 };
 
 export const CancelSubscriptionScheduleRequest$zodSchema: z.ZodType<
   CancelSubscriptionScheduleRequest
 > = z.object({
-  body: DtoCancelScheduleRequest$zodSchema.optional().describe(
+  body: CancelScheduleRequest$zodSchema.optional().describe(
     "Cancel request (optional if using path parameter)",
   ),
   schedule_id: z.string().describe(

@@ -4,13 +4,10 @@
 
 import * as z from "zod";
 import {
-  DtoCustomerUsageSummaryResponse,
-  DtoCustomerUsageSummaryResponse$zodSchema,
-} from "./dtocustomerusagesummaryresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  CustomerUsageSummaryResponse,
+  CustomerUsageSummaryResponse$zodSchema,
+} from "./customerusagesummaryresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 
 export type GetCustomerUsageSummaryRequest = {
   customer_id?: string | undefined;
@@ -31,12 +28,12 @@ export const GetCustomerUsageSummaryRequest$zodSchema: z.ZodType<
 });
 
 export type GetCustomerUsageSummaryResponse =
-  | DtoCustomerUsageSummaryResponse
-  | ErrorsErrorResponse;
+  | CustomerUsageSummaryResponse
+  | ErrorResponse;
 
 export const GetCustomerUsageSummaryResponse$zodSchema: z.ZodType<
   GetCustomerUsageSummaryResponse
 > = z.union([
-  DtoCustomerUsageSummaryResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  CustomerUsageSummaryResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

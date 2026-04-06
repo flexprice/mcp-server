@@ -9,10 +9,6 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import {
-  DtoRemoveAddonRequest,
-  DtoRemoveAddonRequest$zodSchema,
-} from "../models/dtoremoveaddonrequest.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -22,6 +18,10 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import {
+  RemoveAddonRequest,
+  RemoveAddonRequest$zodSchema,
+} from "../models/removeaddonrequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function subscriptionsRemoveSubscriptionAddon(
   client$: FlexpriceCore,
-  request: DtoRemoveAddonRequest,
+  request: RemoveAddonRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function subscriptionsRemoveSubscriptionAddon(
 
 async function $do(
   client$: FlexpriceCore,
-  request: DtoRemoveAddonRequest,
+  request: RemoveAddonRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => DtoRemoveAddonRequest$zodSchema.parse(value$),
+    (value$) => RemoveAddonRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

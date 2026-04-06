@@ -9,10 +9,6 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import {
-  DtoGetUsageByMeterRequest,
-  DtoGetUsageByMeterRequest$zodSchema,
-} from "../models/dtogetusagebymeterrequest.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -22,6 +18,10 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import {
+  GetUsageByMeterRequest,
+  GetUsageByMeterRequest$zodSchema,
+} from "../models/getusagebymeterrequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function eventsGetUsageByMeter(
   client$: FlexpriceCore,
-  request: DtoGetUsageByMeterRequest,
+  request: GetUsageByMeterRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function eventsGetUsageByMeter(
 
 async function $do(
   client$: FlexpriceCore,
-  request: DtoGetUsageByMeterRequest,
+  request: GetUsageByMeterRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => DtoGetUsageByMeterRequest$zodSchema.parse(value$),
+    (value$) => GetUsageByMeterRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

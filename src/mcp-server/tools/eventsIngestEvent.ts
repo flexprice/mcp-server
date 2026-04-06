@@ -3,11 +3,11 @@
  */
 
 import { eventsIngestEvent } from "../../funcs/eventsIngestEvent.js";
-import { DtoIngestEventRequest$zodSchema } from "../../models/dtoingesteventrequest.js";
+import { IngestEventRequest$zodSchema } from "../../models/ingesteventrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoIngestEventRequest$zodSchema.describe(`Event data`),
+  request: IngestEventRequest$zodSchema.describe(`Event data`),
 };
 
 export const tool$eventsIngestEvent: ToolDefinition<typeof args> = {

@@ -4,39 +4,36 @@
 
 import * as z from "zod";
 import {
-  DtoCreateSubscriptionLineItemRequest,
-  DtoCreateSubscriptionLineItemRequest$zodSchema,
-} from "./dtocreatesubscriptionlineitemrequest.js";
+  CreateSubscriptionLineItemRequest,
+  CreateSubscriptionLineItemRequest$zodSchema,
+} from "./createsubscriptionlineitemrequest.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoSubscriptionLineItemResponse,
-  DtoSubscriptionLineItemResponse$zodSchema,
-} from "./dtosubscriptionlineitemresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  SubscriptionLineItemResponse,
+  SubscriptionLineItemResponse$zodSchema,
+} from "./subscriptionlineitemresponse.js";
 
-export type CreateSubscriptionLineItemRequest = {
+export type CreateSubscriptionLineItemRequestRequest = {
   id: string;
-  body: DtoCreateSubscriptionLineItemRequest;
+  body: CreateSubscriptionLineItemRequest;
 };
 
-export const CreateSubscriptionLineItemRequest$zodSchema: z.ZodType<
-  CreateSubscriptionLineItemRequest
+export const CreateSubscriptionLineItemRequestRequest$zodSchema: z.ZodType<
+  CreateSubscriptionLineItemRequestRequest
 > = z.object({
-  body: DtoCreateSubscriptionLineItemRequest$zodSchema.describe(
+  body: CreateSubscriptionLineItemRequest$zodSchema.describe(
     "Create Line Item Request",
   ),
   id: z.string().describe("Subscription ID"),
 });
 
 export type CreateSubscriptionLineItemResponse =
-  | DtoSubscriptionLineItemResponse
-  | ErrorsErrorResponse;
+  | SubscriptionLineItemResponse
+  | ErrorResponse;
 
 export const CreateSubscriptionLineItemResponse$zodSchema: z.ZodType<
   CreateSubscriptionLineItemResponse
 > = z.union([
-  DtoSubscriptionLineItemResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  SubscriptionLineItemResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

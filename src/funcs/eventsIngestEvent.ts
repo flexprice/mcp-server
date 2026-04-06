@@ -9,10 +9,6 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import {
-  DtoIngestEventRequest,
-  DtoIngestEventRequest$zodSchema,
-} from "../models/dtoingesteventrequest.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -22,6 +18,10 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import {
+  IngestEventRequest,
+  IngestEventRequest$zodSchema,
+} from "../models/ingesteventrequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function eventsIngestEvent(
   client$: FlexpriceCore,
-  request: DtoIngestEventRequest,
+  request: IngestEventRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function eventsIngestEvent(
 
 async function $do(
   client$: FlexpriceCore,
-  request: DtoIngestEventRequest,
+  request: IngestEventRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => DtoIngestEventRequest$zodSchema.parse(value$),
+    (value$) => IngestEventRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

@@ -61,7 +61,7 @@ export const InvoiceFilter$zodSchema: z.ZodType<InvoiceFilter> = z.object({
   customer_id: z.string().optional().describe(
     "customer_id filters invoices for a specific customer using FlexPrice's internal customer ID\nThis is the ID returned by FlexPrice when creating or retrieving customers",
   ),
-  end_time: z.string().optional(),
+  end_time: z.iso.datetime({ offset: true }).optional(),
   expand: z.string().optional(),
   external_customer_id: z.string().optional().describe(
     "external_customer_id filters invoices for a customer using your system's customer identifier\nThis is the ID you provided when creating the customer in FlexPrice",
@@ -96,7 +96,7 @@ export const InvoiceFilter$zodSchema: z.ZodType<InvoiceFilter> = z.object({
     "SkipLineItems if true, will not include line items in the response",
   ),
   sort: z.array(SortCondition$zodSchema).optional(),
-  start_time: z.string().optional(),
+  start_time: z.iso.datetime({ offset: true }).optional(),
   status: Status$zodSchema.optional(),
   subscription_id: z.string().optional().describe(
     "subscription_id filters invoices generated for a specific subscription\nOnly returns invoices that were created as part of the specified subscription's billing",

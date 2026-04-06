@@ -10,8 +10,8 @@ import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
-  CancelSubscriptionRequest,
-  CancelSubscriptionRequest$zodSchema,
+  CancelSubscriptionRequestRequest,
+  CancelSubscriptionRequestRequest$zodSchema,
 } from "../models/cancelsubscriptionop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function subscriptionsCancelSubscription(
   client$: FlexpriceCore,
-  request: CancelSubscriptionRequest,
+  request: CancelSubscriptionRequestRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function subscriptionsCancelSubscription(
 
 async function $do(
   client$: FlexpriceCore,
-  request: CancelSubscriptionRequest,
+  request: CancelSubscriptionRequestRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => CancelSubscriptionRequest$zodSchema.parse(value$),
+    (value$) => CancelSubscriptionRequestRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

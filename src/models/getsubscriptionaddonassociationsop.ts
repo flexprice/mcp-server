@@ -4,13 +4,10 @@
 
 import * as z from "zod";
 import {
-  DtoAddonAssociationResponse,
-  DtoAddonAssociationResponse$zodSchema,
-} from "./dtoaddonassociationresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  AddonAssociationResponse,
+  AddonAssociationResponse$zodSchema,
+} from "./addonassociationresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 
 export type GetSubscriptionAddonAssociationsRequest = { id: string };
 
@@ -21,12 +18,12 @@ export const GetSubscriptionAddonAssociationsRequest$zodSchema: z.ZodType<
 });
 
 export type GetSubscriptionAddonAssociationsResponse =
-  | Array<DtoAddonAssociationResponse>
-  | ErrorsErrorResponse;
+  | Array<AddonAssociationResponse>
+  | ErrorResponse;
 
 export const GetSubscriptionAddonAssociationsResponse$zodSchema: z.ZodType<
   GetSubscriptionAddonAssociationsResponse
 > = z.union([
-  z.array(DtoAddonAssociationResponse$zodSchema).describe("OK"),
-  ErrorsErrorResponse$zodSchema,
+  z.array(AddonAssociationResponse$zodSchema).describe("OK"),
+  ErrorResponse$zodSchema,
 ]);

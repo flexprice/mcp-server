@@ -3,11 +3,11 @@
  */
 
 import { subscriptionsResumeSubscription } from "../../funcs/subscriptionsResumeSubscription.js";
-import { ResumeSubscriptionRequest$zodSchema } from "../../models/resumesubscriptionop.js";
+import { ResumeSubscriptionRequestRequest$zodSchema } from "../../models/resumesubscriptionop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: ResumeSubscriptionRequest$zodSchema,
+  request: ResumeSubscriptionRequestRequest$zodSchema,
 };
 
 export const tool$subscriptionsResumeSubscription: ToolDefinition<typeof args> =

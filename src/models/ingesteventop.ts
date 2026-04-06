@@ -3,17 +3,14 @@
  */
 
 import * as z from "zod";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 
-export type IngestEventResponse = { [k: string]: string } | ErrorsErrorResponse;
+export type IngestEventResponse = { [k: string]: string } | ErrorResponse;
 
 export const IngestEventResponse$zodSchema: z.ZodType<IngestEventResponse> = z
   .union([
     z.record(z.string(), z.string()).describe(
       "message:Event accepted for processing",
     ),
-    ErrorsErrorResponse$zodSchema,
+    ErrorResponse$zodSchema,
   ]);

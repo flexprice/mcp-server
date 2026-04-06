@@ -4,30 +4,31 @@
 
 import * as z from "zod";
 import {
-  DtoDeletePriceRequest,
-  DtoDeletePriceRequest$zodSchema,
-} from "./dtodeletepricerequest.js";
+  DeletePriceRequest,
+  DeletePriceRequest$zodSchema,
+} from "./deletepricerequest.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoSuccessResponse,
-  DtoSuccessResponse$zodSchema,
-} from "./dtosuccessresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  SuccessResponse,
+  SuccessResponse$zodSchema,
+} from "./successresponse.js";
 
-export type DeletePriceRequest = { id: string; body: DtoDeletePriceRequest };
+export type DeletePriceRequestRequest = {
+  id: string;
+  body: DeletePriceRequest;
+};
 
-export const DeletePriceRequest$zodSchema: z.ZodType<DeletePriceRequest> = z
-  .object({
-    body: DtoDeletePriceRequest$zodSchema.describe("Delete Price Request"),
-    id: z.string().describe("Price ID"),
-  });
+export const DeletePriceRequestRequest$zodSchema: z.ZodType<
+  DeletePriceRequestRequest
+> = z.object({
+  body: DeletePriceRequest$zodSchema.describe("Delete Price Request"),
+  id: z.string().describe("Price ID"),
+});
 
-export type DeletePriceResponse = DtoSuccessResponse | ErrorsErrorResponse;
+export type DeletePriceResponse = SuccessResponse | ErrorResponse;
 
 export const DeletePriceResponse$zodSchema: z.ZodType<DeletePriceResponse> = z
   .union([
-    DtoSuccessResponse$zodSchema,
-    ErrorsErrorResponse$zodSchema,
+    SuccessResponse$zodSchema,
+    ErrorResponse$zodSchema,
   ]);

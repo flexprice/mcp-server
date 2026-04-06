@@ -4,21 +4,16 @@
 
 import * as z from "zod";
 import {
-  DtoCreateBulkPriceResponse,
-  DtoCreateBulkPriceResponse$zodSchema,
-} from "./dtocreatebulkpriceresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  CreateBulkPriceResponse,
+  CreateBulkPriceResponse$zodSchema,
+} from "./createbulkpriceresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 
-export type CreatePricesBulkResponse =
-  | DtoCreateBulkPriceResponse
-  | ErrorsErrorResponse;
+export type CreatePricesBulkResponse = CreateBulkPriceResponse | ErrorResponse;
 
 export const CreatePricesBulkResponse$zodSchema: z.ZodType<
   CreatePricesBulkResponse
 > = z.union([
-  DtoCreateBulkPriceResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  CreateBulkPriceResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

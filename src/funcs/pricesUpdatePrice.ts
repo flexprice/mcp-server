@@ -19,8 +19,8 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  UpdatePriceRequest,
-  UpdatePriceRequest$zodSchema,
+  UpdatePriceRequestRequest,
+  UpdatePriceRequestRequest$zodSchema,
 } from "../models/updatepriceop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function pricesUpdatePrice(
   client$: FlexpriceCore,
-  request: UpdatePriceRequest,
+  request: UpdatePriceRequestRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function pricesUpdatePrice(
 
 async function $do(
   client$: FlexpriceCore,
-  request: UpdatePriceRequest,
+  request: UpdatePriceRequestRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => UpdatePriceRequest$zodSchema.parse(value$),
+    (value$) => UpdatePriceRequestRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

@@ -3,11 +3,11 @@
  */
 
 import { subscriptionsAddSubscriptionAddon } from "../../funcs/subscriptionsAddSubscriptionAddon.js";
-import { DtoAddAddonRequest$zodSchema } from "../../models/dtoaddaddonrequest.js";
+import { AddAddonRequest$zodSchema } from "../../models/addaddonrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoAddAddonRequest$zodSchema.describe(`Add Addon Request`),
+  request: AddAddonRequest$zodSchema.describe(`Add Addon Request`),
 };
 
 export const tool$subscriptionsAddSubscriptionAddon: ToolDefinition<

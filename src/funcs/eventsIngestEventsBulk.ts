@@ -10,9 +10,9 @@ import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
-  DtoBulkIngestEventRequest,
-  DtoBulkIngestEventRequest$zodSchema,
-} from "../models/dtobulkingesteventrequest.js";
+  BulkIngestEventRequest,
+  BulkIngestEventRequest$zodSchema,
+} from "../models/bulkingesteventrequest.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function eventsIngestEventsBulk(
   client$: FlexpriceCore,
-  request: DtoBulkIngestEventRequest,
+  request: BulkIngestEventRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function eventsIngestEventsBulk(
 
 async function $do(
   client$: FlexpriceCore,
-  request: DtoBulkIngestEventRequest,
+  request: BulkIngestEventRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => DtoBulkIngestEventRequest$zodSchema.parse(value$),
+    (value$) => BulkIngestEventRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

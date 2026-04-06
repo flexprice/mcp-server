@@ -3,40 +3,37 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoInvoiceResponse,
-  DtoInvoiceResponse$zodSchema,
-} from "./dtoinvoiceresponse.js";
+  InvoiceResponse,
+  InvoiceResponse$zodSchema,
+} from "./invoiceresponse.js";
 import {
-  DtoUpdatePaymentStatusRequest,
-  DtoUpdatePaymentStatusRequest$zodSchema,
-} from "./dtoupdatepaymentstatusrequest.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  UpdatePaymentStatusRequest,
+  UpdatePaymentStatusRequest$zodSchema,
+} from "./updatepaymentstatusrequest.js";
 
 export type UpdateInvoicePaymentStatusRequest = {
   id: string;
-  body: DtoUpdatePaymentStatusRequest;
+  body: UpdatePaymentStatusRequest;
 };
 
 export const UpdateInvoicePaymentStatusRequest$zodSchema: z.ZodType<
   UpdateInvoicePaymentStatusRequest
 > = z.object({
-  body: DtoUpdatePaymentStatusRequest$zodSchema.describe(
+  body: UpdatePaymentStatusRequest$zodSchema.describe(
     "Payment Status Update Request",
   ),
   id: z.string().describe("Invoice ID"),
 });
 
 export type UpdateInvoicePaymentStatusResponse =
-  | DtoInvoiceResponse
-  | ErrorsErrorResponse;
+  | InvoiceResponse
+  | ErrorResponse;
 
 export const UpdateInvoicePaymentStatusResponse$zodSchema: z.ZodType<
   UpdateInvoicePaymentStatusResponse
 > = z.union([
-  DtoInvoiceResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  InvoiceResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

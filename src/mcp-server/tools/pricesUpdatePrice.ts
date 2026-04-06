@@ -3,11 +3,11 @@
  */
 
 import { pricesUpdatePrice } from "../../funcs/pricesUpdatePrice.js";
-import { UpdatePriceRequest$zodSchema } from "../../models/updatepriceop.js";
+import { UpdatePriceRequestRequest$zodSchema } from "../../models/updatepriceop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: UpdatePriceRequest$zodSchema,
+  request: UpdatePriceRequestRequest$zodSchema,
 };
 
 export const tool$pricesUpdatePrice: ToolDefinition<typeof args> = {

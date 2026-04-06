@@ -3,31 +3,26 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
+import { PlanResponse, PlanResponse$zodSchema } from "./planresponse.js";
 import {
-  DtoPlanResponse,
-  DtoPlanResponse$zodSchema,
-} from "./dtoplanresponse.js";
-import {
-  DtoUpdatePlanRequest,
-  DtoUpdatePlanRequest$zodSchema,
-} from "./dtoupdateplanrequest.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  UpdatePlanRequest,
+  UpdatePlanRequest$zodSchema,
+} from "./updateplanrequest.js";
 
-export type UpdatePlanRequest = { id: string; body: DtoUpdatePlanRequest };
+export type UpdatePlanRequestRequest = { id: string; body: UpdatePlanRequest };
 
-export const UpdatePlanRequest$zodSchema: z.ZodType<UpdatePlanRequest> = z
-  .object({
-    body: DtoUpdatePlanRequest$zodSchema.describe("Plan update"),
-    id: z.string().describe("Plan ID"),
-  });
+export const UpdatePlanRequestRequest$zodSchema: z.ZodType<
+  UpdatePlanRequestRequest
+> = z.object({
+  body: UpdatePlanRequest$zodSchema.describe("Plan update"),
+  id: z.string().describe("Plan ID"),
+});
 
-export type UpdatePlanResponse = DtoPlanResponse | ErrorsErrorResponse;
+export type UpdatePlanResponse = PlanResponse | ErrorResponse;
 
 export const UpdatePlanResponse$zodSchema: z.ZodType<UpdatePlanResponse> = z
   .union([
-    DtoPlanResponse$zodSchema,
-    ErrorsErrorResponse$zodSchema,
+    PlanResponse$zodSchema,
+    ErrorResponse$zodSchema,
   ]);

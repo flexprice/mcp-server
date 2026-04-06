@@ -19,8 +19,8 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  UpdateInvoiceRequest,
-  UpdateInvoiceRequest$zodSchema,
+  UpdateInvoiceRequestRequest,
+  UpdateInvoiceRequestRequest$zodSchema,
 } from "../models/updateinvoiceop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function invoicesUpdateInvoice(
   client$: FlexpriceCore,
-  request: UpdateInvoiceRequest,
+  request: UpdateInvoiceRequestRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function invoicesUpdateInvoice(
 
 async function $do(
   client$: FlexpriceCore,
-  request: UpdateInvoiceRequest,
+  request: UpdateInvoiceRequestRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => UpdateInvoiceRequest$zodSchema.parse(value$),
+    (value$) => UpdateInvoiceRequestRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

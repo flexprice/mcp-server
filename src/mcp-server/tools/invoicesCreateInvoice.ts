@@ -3,11 +3,11 @@
  */
 
 import { invoicesCreateInvoice } from "../../funcs/invoicesCreateInvoice.js";
-import { DtoCreateInvoiceRequest$zodSchema } from "../../models/dtocreateinvoicerequest.js";
+import { CreateInvoiceRequest$zodSchema } from "../../models/createinvoicerequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoCreateInvoiceRequest$zodSchema.describe(`Invoice details`),
+  request: CreateInvoiceRequest$zodSchema.describe(`Invoice details`),
 };
 
 export const tool$invoicesCreateInvoice: ToolDefinition<typeof args> = {

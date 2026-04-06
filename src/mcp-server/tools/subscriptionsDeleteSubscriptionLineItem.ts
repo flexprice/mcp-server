@@ -3,11 +3,11 @@
  */
 
 import { subscriptionsDeleteSubscriptionLineItem } from "../../funcs/subscriptionsDeleteSubscriptionLineItem.js";
-import { DeleteSubscriptionLineItemRequest$zodSchema } from "../../models/deletesubscriptionlineitemop.js";
+import { DeleteSubscriptionLineItemRequestRequest$zodSchema } from "../../models/deletesubscriptionlineitemop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DeleteSubscriptionLineItemRequest$zodSchema,
+  request: DeleteSubscriptionLineItemRequestRequest$zodSchema,
 };
 
 export const tool$subscriptionsDeleteSubscriptionLineItem: ToolDefinition<

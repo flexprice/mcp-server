@@ -10,9 +10,9 @@ import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
-  DtoCreateCustomerRequest,
-  DtoCreateCustomerRequest$zodSchema,
-} from "../models/dtocreatecustomerrequest.js";
+  CreateCustomerRequest,
+  CreateCustomerRequest$zodSchema,
+} from "../models/createcustomerrequest.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function customersCreateCustomer(
   client$: FlexpriceCore,
-  request: DtoCreateCustomerRequest,
+  request: CreateCustomerRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function customersCreateCustomer(
 
 async function $do(
   client$: FlexpriceCore,
-  request: DtoCreateCustomerRequest,
+  request: CreateCustomerRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => DtoCreateCustomerRequest$zodSchema.parse(value$),
+    (value$) => CreateCustomerRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

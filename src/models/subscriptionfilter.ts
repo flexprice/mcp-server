@@ -16,6 +16,10 @@ import {
   SubscriptionStatus,
   SubscriptionStatus$zodSchema,
 } from "./subscriptionstatus.js";
+import {
+  SubscriptionType,
+  SubscriptionType$zodSchema,
+} from "./subscriptiontype.js";
 
 export const SubscriptionFilterOrder = {
   Asc: "asc",
@@ -35,6 +39,7 @@ export type SubscriptionFilter = {
   billing_cadence?: Array<BillingCadence> | undefined;
   billing_period?: Array<BillingPeriod> | undefined;
   customer_id?: string | undefined;
+  customer_ids?: Array<string> | undefined;
   effective_date_for_update?: string | undefined;
   end_time?: string | undefined;
   expand?: string | undefined;
@@ -51,12 +56,13 @@ export type SubscriptionFilter = {
   status?: Status | undefined;
   subscription_ids?: Array<string> | undefined;
   subscription_status?: Array<SubscriptionStatus> | undefined;
+  subscription_type?: Array<SubscriptionType> | undefined;
   with_line_items?: boolean | undefined;
 };
 
 export const SubscriptionFilter$zodSchema: z.ZodType<SubscriptionFilter> = z
   .object({
-    active_at: z.string().optional().describe(
+    active_at: z.iso.datetime({ offset: true }).optional().describe(
       "ActiveAt filters subscriptions that are active at the given time",
     ),
     billing_cadence: z.array(BillingCadence$zodSchema).optional().describe(
@@ -68,10 +74,13 @@ export const SubscriptionFilter$zodSchema: z.ZodType<SubscriptionFilter> = z
     customer_id: z.string().optional().describe(
       "CustomerID filters by customer ID",
     ),
+    customer_ids: z.array(z.string()).optional().describe(
+      "CustomerIDs filters by customer IDs",
+    ),
     effective_date_for_update: z.string().optional().describe(
       "EffectiveDateForUpdate selects subscriptions that need a billing-period pass on or before this time:\ncurrent_period_end <= date OR (cancel_at IS NOT NULL AND cancel_at <= date).\nWhen nil, period/cancel cutoff logic is not applied by this field (see TimeRangeFilter for legacy period-end filtering).",
     ),
-    end_time: z.string().optional(),
+    end_time: z.iso.datetime({ offset: true }).optional(),
     expand: z.string().optional(),
     external_customer_id: z.string().optional().describe(
       "ExternalCustomerID filters by external customer ID",
@@ -88,11 +97,14 @@ export const SubscriptionFilter$zodSchema: z.ZodType<SubscriptionFilter> = z
     ),
     plan_id: z.string().optional().describe("PlanID filters by plan ID"),
     sort: z.array(SortCondition$zodSchema).optional(),
-    start_time: z.string().optional(),
+    start_time: z.iso.datetime({ offset: true }).optional(),
     status: Status$zodSchema.optional(),
     subscription_ids: z.array(z.string()).optional(),
     subscription_status: z.array(SubscriptionStatus$zodSchema).optional()
       .describe("SubscriptionStatus filters by subscription status"),
+    subscription_type: z.array(SubscriptionType$zodSchema).optional().describe(
+      "SubscriptionType filters by subscription type",
+    ),
     with_line_items: z.boolean().optional().describe(
       "WithLineItems includes line items in the response",
     ),

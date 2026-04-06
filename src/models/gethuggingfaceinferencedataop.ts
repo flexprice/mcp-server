@@ -3,22 +3,19 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoGetHuggingFaceBillingDataResponse,
-  DtoGetHuggingFaceBillingDataResponse$zodSchema,
-} from "./dtogethuggingfacebillingdataresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  GetHuggingFaceBillingDataResponse,
+  GetHuggingFaceBillingDataResponse$zodSchema,
+} from "./gethuggingfacebillingdataresponse.js";
 
 export type GetHuggingfaceInferenceDataResponse =
-  | DtoGetHuggingFaceBillingDataResponse
-  | ErrorsErrorResponse;
+  | GetHuggingFaceBillingDataResponse
+  | ErrorResponse;
 
 export const GetHuggingfaceInferenceDataResponse$zodSchema: z.ZodType<
   GetHuggingfaceInferenceDataResponse
 > = z.union([
-  DtoGetHuggingFaceBillingDataResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  GetHuggingFaceBillingDataResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

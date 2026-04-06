@@ -3,14 +3,11 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoSuccessResponse,
-  DtoSuccessResponse$zodSchema,
-} from "./dtosuccessresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  SuccessResponse,
+  SuccessResponse$zodSchema,
+} from "./successresponse.js";
 
 export type DeletePlanRequest = { id: string };
 
@@ -19,10 +16,10 @@ export const DeletePlanRequest$zodSchema: z.ZodType<DeletePlanRequest> = z
     id: z.string().describe("Plan ID"),
   });
 
-export type DeletePlanResponse = DtoSuccessResponse | ErrorsErrorResponse;
+export type DeletePlanResponse = SuccessResponse | ErrorResponse;
 
 export const DeletePlanResponse$zodSchema: z.ZodType<DeletePlanResponse> = z
   .union([
-    DtoSuccessResponse$zodSchema,
-    ErrorsErrorResponse$zodSchema,
+    SuccessResponse$zodSchema,
+    ErrorResponse$zodSchema,
   ]);

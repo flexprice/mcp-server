@@ -33,7 +33,7 @@ export type SubscriptionSubscriptionPause = {
 export const SubscriptionSubscriptionPause$zodSchema: z.ZodType<
   SubscriptionSubscriptionPause
 > = z.object({
-  created_at: z.string().optional(),
+  created_at: z.iso.datetime({ offset: true }).optional(),
   created_by: z.string().optional(),
   environment_id: z.string().optional().describe(
     "EnvironmentID is the environment identifier for the pause",
@@ -42,23 +42,23 @@ export const SubscriptionSubscriptionPause$zodSchema: z.ZodType<
     "ID is the unique identifier for the subscription pause",
   ),
   metadata: z.record(z.string(), z.string()).optional(),
-  original_period_end: z.string().optional().describe(
+  original_period_end: z.iso.datetime({ offset: true }).optional().describe(
     "OriginalPeriodEnd is the end of the billing period when the pause was created",
   ),
-  original_period_start: z.string().optional().describe(
+  original_period_start: z.iso.datetime({ offset: true }).optional().describe(
     "OriginalPeriodStart is the start of the billing period when the pause was created",
   ),
-  pause_end: z.string().optional().describe(
+  pause_end: z.iso.datetime({ offset: true }).optional().describe(
     "PauseEnd is when the pause will end (null for indefinite)",
   ),
   pause_mode: PauseMode$zodSchema.optional(),
-  pause_start: z.string().optional().describe(
+  pause_start: z.iso.datetime({ offset: true }).optional().describe(
     "PauseStart is when the pause actually started",
   ),
   pause_status: PauseStatus$zodSchema.optional(),
   reason: z.string().optional().describe("Reason is the reason for pausing"),
   resume_mode: ResumeMode$zodSchema.optional(),
-  resumed_at: z.string().optional().describe(
+  resumed_at: z.iso.datetime({ offset: true }).optional().describe(
     "ResumedAt is when the pause was actually ended (if manually resumed)",
   ),
   status: Status$zodSchema.optional(),
@@ -66,6 +66,6 @@ export const SubscriptionSubscriptionPause$zodSchema: z.ZodType<
     "SubscriptionID is the identifier for the subscription",
   ),
   tenant_id: z.string().optional(),
-  updated_at: z.string().optional(),
+  updated_at: z.iso.datetime({ offset: true }).optional(),
   updated_by: z.string().optional(),
 });

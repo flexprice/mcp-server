@@ -4,39 +4,36 @@
 
 import * as z from "zod";
 import {
-  DtoCancelSubscriptionRequest,
-  DtoCancelSubscriptionRequest$zodSchema,
-} from "./dtocancelsubscriptionrequest.js";
+  CancelSubscriptionRequest,
+  CancelSubscriptionRequest$zodSchema,
+} from "./cancelsubscriptionrequest.js";
 import {
-  DtoCancelSubscriptionResponse,
-  DtoCancelSubscriptionResponse$zodSchema,
-} from "./dtocancelsubscriptionresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  CancelSubscriptionResponse,
+  CancelSubscriptionResponse$zodSchema,
+} from "./cancelsubscriptionresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 
-export type CancelSubscriptionRequest = {
+export type CancelSubscriptionRequestRequest = {
   id: string;
-  body: DtoCancelSubscriptionRequest;
+  body: CancelSubscriptionRequest;
 };
 
-export const CancelSubscriptionRequest$zodSchema: z.ZodType<
-  CancelSubscriptionRequest
+export const CancelSubscriptionRequestRequest$zodSchema: z.ZodType<
+  CancelSubscriptionRequestRequest
 > = z.object({
-  body: DtoCancelSubscriptionRequest$zodSchema.describe(
+  body: CancelSubscriptionRequest$zodSchema.describe(
     "Cancel Subscription Request",
   ),
   id: z.string().describe("Subscription ID"),
 });
 
-export type CancelSubscriptionResponse =
-  | DtoCancelSubscriptionResponse
-  | ErrorsErrorResponse;
+export type CancelSubscriptionResponseResponse =
+  | CancelSubscriptionResponse
+  | ErrorResponse;
 
-export const CancelSubscriptionResponse$zodSchema: z.ZodType<
-  CancelSubscriptionResponse
+export const CancelSubscriptionResponseResponse$zodSchema: z.ZodType<
+  CancelSubscriptionResponseResponse
 > = z.union([
-  DtoCancelSubscriptionResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  CancelSubscriptionResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

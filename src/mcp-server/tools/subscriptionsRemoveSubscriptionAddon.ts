@@ -3,11 +3,11 @@
  */
 
 import { subscriptionsRemoveSubscriptionAddon } from "../../funcs/subscriptionsRemoveSubscriptionAddon.js";
-import { DtoRemoveAddonRequest$zodSchema } from "../../models/dtoremoveaddonrequest.js";
+import { RemoveAddonRequest$zodSchema } from "../../models/removeaddonrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoRemoveAddonRequest$zodSchema.describe(`Remove Addon Request`),
+  request: RemoveAddonRequest$zodSchema.describe(`Remove Addon Request`),
 };
 
 export const tool$subscriptionsRemoveSubscriptionAddon: ToolDefinition<

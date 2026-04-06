@@ -4,39 +4,36 @@
 
 import * as z from "zod";
 import {
-  DtoDeleteSubscriptionLineItemRequest,
-  DtoDeleteSubscriptionLineItemRequest$zodSchema,
-} from "./dtodeletesubscriptionlineitemrequest.js";
+  DeleteSubscriptionLineItemRequest,
+  DeleteSubscriptionLineItemRequest$zodSchema,
+} from "./deletesubscriptionlineitemrequest.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoSubscriptionLineItemResponse,
-  DtoSubscriptionLineItemResponse$zodSchema,
-} from "./dtosubscriptionlineitemresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  SubscriptionLineItemResponse,
+  SubscriptionLineItemResponse$zodSchema,
+} from "./subscriptionlineitemresponse.js";
 
-export type DeleteSubscriptionLineItemRequest = {
+export type DeleteSubscriptionLineItemRequestRequest = {
   id: string;
-  body: DtoDeleteSubscriptionLineItemRequest;
+  body: DeleteSubscriptionLineItemRequest;
 };
 
-export const DeleteSubscriptionLineItemRequest$zodSchema: z.ZodType<
-  DeleteSubscriptionLineItemRequest
+export const DeleteSubscriptionLineItemRequestRequest$zodSchema: z.ZodType<
+  DeleteSubscriptionLineItemRequestRequest
 > = z.object({
-  body: DtoDeleteSubscriptionLineItemRequest$zodSchema.describe(
+  body: DeleteSubscriptionLineItemRequest$zodSchema.describe(
     "Delete Line Item Request",
   ),
   id: z.string().describe("Line Item ID"),
 });
 
 export type DeleteSubscriptionLineItemResponse =
-  | DtoSubscriptionLineItemResponse
-  | ErrorsErrorResponse;
+  | SubscriptionLineItemResponse
+  | ErrorResponse;
 
 export const DeleteSubscriptionLineItemResponse$zodSchema: z.ZodType<
   DeleteSubscriptionLineItemResponse
 > = z.union([
-  DtoSubscriptionLineItemResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  SubscriptionLineItemResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

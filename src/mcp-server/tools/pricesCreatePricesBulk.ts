@@ -3,11 +3,11 @@
  */
 
 import { pricesCreatePricesBulk } from "../../funcs/pricesCreatePricesBulk.js";
-import { DtoCreateBulkPriceRequest$zodSchema } from "../../models/dtocreatebulkpricerequest.js";
+import { CreateBulkPriceRequest$zodSchema } from "../../models/createbulkpricerequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoCreateBulkPriceRequest$zodSchema.describe(
+  request: CreateBulkPriceRequest$zodSchema.describe(
     `Bulk price configuration`,
   ),
 };

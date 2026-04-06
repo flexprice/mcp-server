@@ -77,7 +77,7 @@ export const PricePrice$zodSchema: z.ZodType<PricePrice> = z.object({
   conversion_rate: z.string().optional().describe(
     "ConversionRate is the conversion rate of the price unit to the fiat currency",
   ),
-  created_at: z.string().optional(),
+  created_at: z.iso.datetime({ offset: true }).optional(),
   created_by: z.string().optional(),
   currency: z.string().optional().describe(
     "Currency 3 digit ISO currency code in lowercase ex usd, eur, gbp",
@@ -92,7 +92,7 @@ export const PricePrice$zodSchema: z.ZodType<PricePrice> = z.object({
   display_price_unit_amount: z.string().optional().describe(
     "DisplayPriceUnitAmount is the formatted amount of the price unit",
   ),
-  end_date: z.string().optional().describe(
+  end_date: z.iso.datetime({ offset: true }).optional().describe(
     "EndDate is the end date of the price",
   ),
   entity_id: z.string().optional().describe(
@@ -133,7 +133,7 @@ export const PricePrice$zodSchema: z.ZodType<PricePrice> = z.object({
     "PriceUnitTiers are the tiers for the price unit when BillingModel is TIERED",
   ),
   price_unit_type: PriceUnitType$zodSchema.optional(),
-  start_date: z.string().optional().describe(
+  start_date: z.iso.datetime({ offset: true }).optional().describe(
     "StartDate is the start date of the price",
   ),
   status: Status$zodSchema.optional(),
@@ -145,6 +145,6 @@ export const PricePrice$zodSchema: z.ZodType<PricePrice> = z.object({
     "TrialPeriod is the number of days for the trial period\nNote: This is only applicable for recurring prices (BILLING_CADENCE_RECURRING)",
   ),
   type: PriceType$zodSchema.optional(),
-  updated_at: z.string().optional(),
+  updated_at: z.iso.datetime({ offset: true }).optional(),
   updated_by: z.string().optional(),
 });

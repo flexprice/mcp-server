@@ -4,21 +4,18 @@
 
 import * as z from "zod";
 import {
-  DtoAddonAssociationResponse,
-  DtoAddonAssociationResponse$zodSchema,
-} from "./dtoaddonassociationresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  AddonAssociationResponse,
+  AddonAssociationResponse$zodSchema,
+} from "./addonassociationresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 
 export type AddSubscriptionAddonResponse =
-  | DtoAddonAssociationResponse
-  | ErrorsErrorResponse;
+  | AddonAssociationResponse
+  | ErrorResponse;
 
 export const AddSubscriptionAddonResponse$zodSchema: z.ZodType<
   AddSubscriptionAddonResponse
 > = z.union([
-  DtoAddonAssociationResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  AddonAssociationResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

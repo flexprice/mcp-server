@@ -70,6 +70,7 @@ import { tool$subscriptionsCreateSubscription } from "./tools/subscriptionsCreat
 import { tool$subscriptionsCreateSubscriptionLineItem } from "./tools/subscriptionsCreateSubscriptionLineItem.js";
 import { tool$subscriptionsDeleteSubscriptionLineItem } from "./tools/subscriptionsDeleteSubscriptionLineItem.js";
 import { tool$subscriptionsExecuteSubscriptionChange } from "./tools/subscriptionsExecuteSubscriptionChange.js";
+import { tool$subscriptionsExecuteSubscriptionModify } from "./tools/subscriptionsExecuteSubscriptionModify.js";
 import { tool$subscriptionsGetSubscription } from "./tools/subscriptionsGetSubscription.js";
 import { tool$subscriptionsGetSubscriptionAddonAssociations } from "./tools/subscriptionsGetSubscriptionAddonAssociations.js";
 import { tool$subscriptionsGetSubscriptionEntitlements } from "./tools/subscriptionsGetSubscriptionEntitlements.js";
@@ -101,7 +102,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.0.16",
+    version: "2.0.20",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -208,6 +209,7 @@ export function createMCPServer(deps: {
   tool(tool$subscriptionsGetSubscriptionEntitlements);
   tool(tool$subscriptionsGetSubscriptionUpcomingGrants);
   tool(tool$subscriptionsCreateSubscriptionLineItem);
+  tool(tool$subscriptionsExecuteSubscriptionModify);
   tool(tool$subscriptionsPauseSubscription);
   tool(tool$subscriptionsListSubscriptionPauses);
   tool(tool$subscriptionsResumeSubscription);

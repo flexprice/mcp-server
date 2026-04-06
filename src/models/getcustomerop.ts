@@ -4,13 +4,10 @@
 
 import * as z from "zod";
 import {
-  DtoCustomerResponse,
-  DtoCustomerResponse$zodSchema,
-} from "./dtocustomerresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  CustomerResponse,
+  CustomerResponse$zodSchema,
+} from "./customerresponse.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 
 export type GetCustomerRequest = { id: string };
 
@@ -19,10 +16,10 @@ export const GetCustomerRequest$zodSchema: z.ZodType<GetCustomerRequest> = z
     id: z.string().describe("Customer ID"),
   });
 
-export type GetCustomerResponse = DtoCustomerResponse | ErrorsErrorResponse;
+export type GetCustomerResponse = CustomerResponse | ErrorResponse;
 
 export const GetCustomerResponse$zodSchema: z.ZodType<GetCustomerResponse> = z
   .union([
-    DtoCustomerResponse$zodSchema,
-    ErrorsErrorResponse$zodSchema,
+    CustomerResponse$zodSchema,
+    ErrorResponse$zodSchema,
   ]);

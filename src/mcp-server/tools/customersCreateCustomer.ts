@@ -3,11 +3,11 @@
  */
 
 import { customersCreateCustomer } from "../../funcs/customersCreateCustomer.js";
-import { DtoCreateCustomerRequest$zodSchema } from "../../models/dtocreatecustomerrequest.js";
+import { CreateCustomerRequest$zodSchema } from "../../models/createcustomerrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoCreateCustomerRequest$zodSchema.describe(`Customer`),
+  request: CreateCustomerRequest$zodSchema.describe(`Customer`),
 };
 
 export const tool$customersCreateCustomer: ToolDefinition<typeof args> = {

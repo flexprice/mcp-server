@@ -3,14 +3,11 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoInvoiceResponse,
-  DtoInvoiceResponse$zodSchema,
-} from "./dtoinvoiceresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  InvoiceResponse,
+  InvoiceResponse$zodSchema,
+} from "./invoiceresponse.js";
 
 export type RecalculateInvoiceV2Request = {
   id: string;
@@ -26,13 +23,11 @@ export const RecalculateInvoiceV2Request$zodSchema: z.ZodType<
   id: z.string().describe("Invoice ID"),
 });
 
-export type RecalculateInvoiceV2Response =
-  | DtoInvoiceResponse
-  | ErrorsErrorResponse;
+export type RecalculateInvoiceV2Response = InvoiceResponse | ErrorResponse;
 
 export const RecalculateInvoiceV2Response$zodSchema: z.ZodType<
   RecalculateInvoiceV2Response
 > = z.union([
-  DtoInvoiceResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  InvoiceResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

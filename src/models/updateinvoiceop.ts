@@ -3,34 +3,32 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoInvoiceResponse,
-  DtoInvoiceResponse$zodSchema,
-} from "./dtoinvoiceresponse.js";
+  InvoiceResponse,
+  InvoiceResponse$zodSchema,
+} from "./invoiceresponse.js";
 import {
-  DtoUpdateInvoiceRequest,
-  DtoUpdateInvoiceRequest$zodSchema,
-} from "./dtoupdateinvoicerequest.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  UpdateInvoiceRequest,
+  UpdateInvoiceRequest$zodSchema,
+} from "./updateinvoicerequest.js";
 
-export type UpdateInvoiceRequest = {
+export type UpdateInvoiceRequestRequest = {
   id: string;
-  body: DtoUpdateInvoiceRequest;
+  body: UpdateInvoiceRequest;
 };
 
-export const UpdateInvoiceRequest$zodSchema: z.ZodType<UpdateInvoiceRequest> = z
-  .object({
-    body: DtoUpdateInvoiceRequest$zodSchema.describe("Invoice Update Request"),
-    id: z.string().describe("Invoice ID"),
-  });
+export const UpdateInvoiceRequestRequest$zodSchema: z.ZodType<
+  UpdateInvoiceRequestRequest
+> = z.object({
+  body: UpdateInvoiceRequest$zodSchema.describe("Invoice Update Request"),
+  id: z.string().describe("Invoice ID"),
+});
 
-export type UpdateInvoiceResponse = DtoInvoiceResponse | ErrorsErrorResponse;
+export type UpdateInvoiceResponse = InvoiceResponse | ErrorResponse;
 
 export const UpdateInvoiceResponse$zodSchema: z.ZodType<UpdateInvoiceResponse> =
   z.union([
-    DtoInvoiceResponse$zodSchema,
-    ErrorsErrorResponse$zodSchema,
+    InvoiceResponse$zodSchema,
+    ErrorResponse$zodSchema,
   ]);

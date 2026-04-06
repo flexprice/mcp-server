@@ -3,11 +3,11 @@
  */
 
 import { eventsIngestEventsBulk } from "../../funcs/eventsIngestEventsBulk.js";
-import { DtoBulkIngestEventRequest$zodSchema } from "../../models/dtobulkingesteventrequest.js";
+import { BulkIngestEventRequest$zodSchema } from "../../models/bulkingesteventrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoBulkIngestEventRequest$zodSchema.describe(`Event data`),
+  request: BulkIngestEventRequest$zodSchema.describe(`Event data`),
 };
 
 export const tool$eventsIngestEventsBulk: ToolDefinition<typeof args> = {

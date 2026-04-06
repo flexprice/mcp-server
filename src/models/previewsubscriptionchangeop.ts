@@ -3,40 +3,37 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoSubscriptionChangePreviewResponse,
-  DtoSubscriptionChangePreviewResponse$zodSchema,
-} from "./dtosubscriptionchangepreviewresponse.js";
+  SubscriptionChangePreviewResponse,
+  SubscriptionChangePreviewResponse$zodSchema,
+} from "./subscriptionchangepreviewresponse.js";
 import {
-  DtoSubscriptionChangeRequest,
-  DtoSubscriptionChangeRequest$zodSchema,
-} from "./dtosubscriptionchangerequest.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  SubscriptionChangeRequest,
+  SubscriptionChangeRequest$zodSchema,
+} from "./subscriptionchangerequest.js";
 
 export type PreviewSubscriptionChangeRequest = {
   id: string;
-  body: DtoSubscriptionChangeRequest;
+  body: SubscriptionChangeRequest;
 };
 
 export const PreviewSubscriptionChangeRequest$zodSchema: z.ZodType<
   PreviewSubscriptionChangeRequest
 > = z.object({
-  body: DtoSubscriptionChangeRequest$zodSchema.describe(
+  body: SubscriptionChangeRequest$zodSchema.describe(
     "Subscription change preview request",
   ),
   id: z.string().describe("Subscription ID"),
 });
 
 export type PreviewSubscriptionChangeResponse =
-  | DtoSubscriptionChangePreviewResponse
-  | ErrorsErrorResponse;
+  | SubscriptionChangePreviewResponse
+  | ErrorResponse;
 
 export const PreviewSubscriptionChangeResponse$zodSchema: z.ZodType<
   PreviewSubscriptionChangeResponse
 > = z.union([
-  DtoSubscriptionChangePreviewResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  SubscriptionChangePreviewResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

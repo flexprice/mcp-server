@@ -3,40 +3,37 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoPauseSubscriptionRequest,
-  DtoPauseSubscriptionRequest$zodSchema,
-} from "./dtopausesubscriptionrequest.js";
+  PauseSubscriptionRequest,
+  PauseSubscriptionRequest$zodSchema,
+} from "./pausesubscriptionrequest.js";
 import {
-  DtoSubscriptionPauseResponse,
-  DtoSubscriptionPauseResponse$zodSchema,
-} from "./dtosubscriptionpauseresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  SubscriptionPauseResponse,
+  SubscriptionPauseResponse$zodSchema,
+} from "./subscriptionpauseresponse.js";
 
-export type PauseSubscriptionRequest = {
+export type PauseSubscriptionRequestRequest = {
   id: string;
-  body: DtoPauseSubscriptionRequest;
+  body: PauseSubscriptionRequest;
 };
 
-export const PauseSubscriptionRequest$zodSchema: z.ZodType<
-  PauseSubscriptionRequest
+export const PauseSubscriptionRequestRequest$zodSchema: z.ZodType<
+  PauseSubscriptionRequestRequest
 > = z.object({
-  body: DtoPauseSubscriptionRequest$zodSchema.describe(
+  body: PauseSubscriptionRequest$zodSchema.describe(
     "Pause subscription request",
   ),
   id: z.string().describe("Subscription ID"),
 });
 
 export type PauseSubscriptionResponse =
-  | DtoSubscriptionPauseResponse
-  | ErrorsErrorResponse;
+  | SubscriptionPauseResponse
+  | ErrorResponse;
 
 export const PauseSubscriptionResponse$zodSchema: z.ZodType<
   PauseSubscriptionResponse
 > = z.union([
-  DtoSubscriptionPauseResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  SubscriptionPauseResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

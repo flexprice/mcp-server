@@ -3,11 +3,11 @@
  */
 
 import { pricesCreatePrice } from "../../funcs/pricesCreatePrice.js";
-import { DtoCreatePriceRequest$zodSchema } from "../../models/dtocreatepricerequest.js";
+import { CreatePriceRequest$zodSchema } from "../../models/createpricerequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoCreatePriceRequest$zodSchema.describe(`Price configuration`),
+  request: CreatePriceRequest$zodSchema.describe(`Price configuration`),
 };
 
 export const tool$pricesCreatePrice: ToolDefinition<typeof args> = {

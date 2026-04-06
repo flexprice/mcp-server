@@ -25,7 +25,7 @@ export type GroupGroup = {
 };
 
 export const GroupGroup$zodSchema: z.ZodType<GroupGroup> = z.object({
-  created_at: z.string().optional(),
+  created_at: z.iso.datetime({ offset: true }).optional(),
   created_by: z.string().optional(),
   entity_type: GroupEntityType$zodSchema.optional(),
   environment_id: z.string().optional(),
@@ -35,6 +35,6 @@ export const GroupGroup$zodSchema: z.ZodType<GroupGroup> = z.object({
   name: z.string().optional(),
   status: Status$zodSchema.optional(),
   tenant_id: z.string().optional(),
-  updated_at: z.string().optional(),
+  updated_at: z.iso.datetime({ offset: true }).optional(),
   updated_by: z.string().optional(),
 });

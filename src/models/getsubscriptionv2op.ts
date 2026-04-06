@@ -3,14 +3,11 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoSubscriptionResponseV2,
-  DtoSubscriptionResponseV2$zodSchema,
-} from "./dtosubscriptionresponsev2.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  SubscriptionResponseV2,
+  SubscriptionResponseV2$zodSchema,
+} from "./subscriptionresponsev2.js";
 
 export type GetSubscriptionV2Request = {
   id: string;
@@ -26,13 +23,11 @@ export const GetSubscriptionV2Request$zodSchema: z.ZodType<
   id: z.string().describe("Subscription ID"),
 });
 
-export type GetSubscriptionV2Response =
-  | DtoSubscriptionResponseV2
-  | ErrorsErrorResponse;
+export type GetSubscriptionV2Response = SubscriptionResponseV2 | ErrorResponse;
 
 export const GetSubscriptionV2Response$zodSchema: z.ZodType<
   GetSubscriptionV2Response
 > = z.union([
-  DtoSubscriptionResponseV2$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  SubscriptionResponseV2$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

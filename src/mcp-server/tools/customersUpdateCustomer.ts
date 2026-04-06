@@ -3,11 +3,11 @@
  */
 
 import { customersUpdateCustomer } from "../../funcs/customersUpdateCustomer.js";
-import { UpdateCustomerRequest$zodSchema } from "../../models/updatecustomerop.js";
+import { UpdateCustomerRequestRequest$zodSchema } from "../../models/updatecustomerop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: UpdateCustomerRequest$zodSchema,
+  request: UpdateCustomerRequestRequest$zodSchema,
 };
 
 export const tool$customersUpdateCustomer: ToolDefinition<typeof args> = {

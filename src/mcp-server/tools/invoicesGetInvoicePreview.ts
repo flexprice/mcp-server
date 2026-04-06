@@ -3,11 +3,11 @@
  */
 
 import { invoicesGetInvoicePreview } from "../../funcs/invoicesGetInvoicePreview.js";
-import { DtoGetPreviewInvoiceRequest$zodSchema } from "../../models/dtogetpreviewinvoicerequest.js";
+import { GetPreviewInvoiceRequest$zodSchema } from "../../models/getpreviewinvoicerequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoGetPreviewInvoiceRequest$zodSchema.describe(
+  request: GetPreviewInvoiceRequest$zodSchema.describe(
     `Preview Invoice Request`,
   ),
 };

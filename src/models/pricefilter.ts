@@ -48,7 +48,7 @@ export type PriceFilter = {
 
 export const PriceFilter$zodSchema: z.ZodType<PriceFilter> = z.object({
   allow_expired_prices: z.boolean().default(false),
-  end_time: z.string().optional(),
+  end_time: z.iso.datetime({ offset: true }).optional(),
   entity_ids: z.array(z.string()).optional(),
   entity_type: PriceEntityType$zodSchema.optional(),
   expand: z.string().optional(),
@@ -66,7 +66,7 @@ export const PriceFilter$zodSchema: z.ZodType<PriceFilter> = z.object({
   price_ids: z.array(z.string()).optional(),
   sort: z.string().optional(),
   start_date_lt: z.string().optional(),
-  start_time: z.string().optional(),
+  start_time: z.iso.datetime({ offset: true }).optional(),
   status: Status$zodSchema.optional(),
   subscription_id: z.string().optional(),
 });

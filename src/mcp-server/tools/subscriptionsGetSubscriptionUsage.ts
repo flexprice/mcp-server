@@ -3,11 +3,11 @@
  */
 
 import { subscriptionsGetSubscriptionUsage } from "../../funcs/subscriptionsGetSubscriptionUsage.js";
-import { DtoGetUsageBySubscriptionRequest$zodSchema } from "../../models/dtogetusagebysubscriptionrequest.js";
+import { GetUsageBySubscriptionRequest$zodSchema } from "../../models/getusagebysubscriptionrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoGetUsageBySubscriptionRequest$zodSchema.describe(`Usage request`),
+  request: GetUsageBySubscriptionRequest$zodSchema.describe(`Usage request`),
 };
 
 export const tool$subscriptionsGetSubscriptionUsage: ToolDefinition<

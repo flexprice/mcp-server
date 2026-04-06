@@ -33,7 +33,6 @@ export type CustomerFilter = {
   limit?: number | undefined;
   offset?: number | undefined;
   order?: CustomerFilterOrder | undefined;
-  parent_customer_ids?: Array<string> | undefined;
   sort?: Array<SortCondition> | undefined;
   start_time?: string | undefined;
   status?: Status | undefined;
@@ -42,7 +41,7 @@ export type CustomerFilter = {
 export const CustomerFilter$zodSchema: z.ZodType<CustomerFilter> = z.object({
   customer_ids: z.array(z.string()).optional(),
   email: z.string().optional(),
-  end_time: z.string().optional(),
+  end_time: z.iso.datetime({ offset: true }).optional(),
   expand: z.string().optional(),
   external_id: z.string().optional(),
   external_ids: z.array(z.string()).optional(),
@@ -50,8 +49,7 @@ export const CustomerFilter$zodSchema: z.ZodType<CustomerFilter> = z.object({
   limit: z.int().optional(),
   offset: z.int().optional(),
   order: CustomerFilterOrder$zodSchema.optional(),
-  parent_customer_ids: z.array(z.string()).optional(),
   sort: z.array(SortCondition$zodSchema).optional(),
-  start_time: z.string().optional(),
+  start_time: z.iso.datetime({ offset: true }).optional(),
   status: Status$zodSchema.optional(),
 });

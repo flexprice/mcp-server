@@ -3,11 +3,11 @@
  */
 
 import { eventsListRawEvents } from "../../funcs/eventsListRawEvents.js";
-import { DtoGetEventsRequest$zodSchema } from "../../models/dtogeteventsrequest.js";
+import { GetEventsRequest$zodSchema } from "../../models/geteventsrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DtoGetEventsRequest$zodSchema.describe(`Request body`),
+  request: GetEventsRequest$zodSchema.describe(`Request body`),
 };
 
 export const tool$eventsListRawEvents: ToolDefinition<typeof args> = {

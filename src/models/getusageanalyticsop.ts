@@ -3,22 +3,19 @@
  */
 
 import * as z from "zod";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import {
-  DtoGetUsageAnalyticsResponse,
-  DtoGetUsageAnalyticsResponse$zodSchema,
-} from "./dtogetusageanalyticsresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  GetUsageAnalyticsResponse,
+  GetUsageAnalyticsResponse$zodSchema,
+} from "./getusageanalyticsresponse.js";
 
-export type GetUsageAnalyticsResponse =
-  | DtoGetUsageAnalyticsResponse
-  | ErrorsErrorResponse;
+export type GetUsageAnalyticsResponseResponse =
+  | GetUsageAnalyticsResponse
+  | ErrorResponse;
 
-export const GetUsageAnalyticsResponse$zodSchema: z.ZodType<
-  GetUsageAnalyticsResponse
+export const GetUsageAnalyticsResponseResponse$zodSchema: z.ZodType<
+  GetUsageAnalyticsResponseResponse
 > = z.union([
-  DtoGetUsageAnalyticsResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  GetUsageAnalyticsResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

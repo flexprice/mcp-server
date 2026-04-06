@@ -3,11 +3,11 @@
  */
 
 import { invoicesUpdateInvoice } from "../../funcs/invoicesUpdateInvoice.js";
-import { UpdateInvoiceRequest$zodSchema } from "../../models/updateinvoiceop.js";
+import { UpdateInvoiceRequestRequest$zodSchema } from "../../models/updateinvoiceop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: UpdateInvoiceRequest$zodSchema,
+  request: UpdateInvoiceRequestRequest$zodSchema,
 };
 
 export const tool$invoicesUpdateInvoice: ToolDefinition<typeof args> = {

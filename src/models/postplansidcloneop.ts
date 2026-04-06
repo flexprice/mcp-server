@@ -4,32 +4,26 @@
 
 import * as z from "zod";
 import {
-  DtoClonePlanRequest,
-  DtoClonePlanRequest$zodSchema,
-} from "./dtocloneplanrequest.js";
-import {
-  DtoPlanResponse,
-  DtoPlanResponse$zodSchema,
-} from "./dtoplanresponse.js";
-import {
-  ErrorsErrorResponse,
-  ErrorsErrorResponse$zodSchema,
-} from "./errorserrorresponse.js";
+  ClonePlanRequest,
+  ClonePlanRequest$zodSchema,
+} from "./cloneplanrequest.js";
+import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
+import { PlanResponse, PlanResponse$zodSchema } from "./planresponse.js";
 
-export type PostPlansIdCloneRequest = { id: string; body: DtoClonePlanRequest };
+export type PostPlansIdCloneRequest = { id: string; body: ClonePlanRequest };
 
 export const PostPlansIdCloneRequest$zodSchema: z.ZodType<
   PostPlansIdCloneRequest
 > = z.object({
-  body: DtoClonePlanRequest$zodSchema.describe("Clone configuration"),
+  body: ClonePlanRequest$zodSchema.describe("Clone configuration"),
   id: z.string().describe("Source Plan ID"),
 });
 
-export type PostPlansIdCloneResponse = DtoPlanResponse | ErrorsErrorResponse;
+export type PostPlansIdCloneResponse = PlanResponse | ErrorResponse;
 
 export const PostPlansIdCloneResponse$zodSchema: z.ZodType<
   PostPlansIdCloneResponse
 > = z.union([
-  DtoPlanResponse$zodSchema,
-  ErrorsErrorResponse$zodSchema,
+  PlanResponse$zodSchema,
+  ErrorResponse$zodSchema,
 ]);

@@ -9,10 +9,6 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import {
-  DtoGetUsageBySubscriptionRequest,
-  DtoGetUsageBySubscriptionRequest$zodSchema,
-} from "../models/dtogetusagebysubscriptionrequest.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -22,6 +18,10 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import {
+  GetUsageBySubscriptionRequest,
+  GetUsageBySubscriptionRequest$zodSchema,
+} from "../models/getusagebysubscriptionrequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function subscriptionsGetSubscriptionUsage(
   client$: FlexpriceCore,
-  request: DtoGetUsageBySubscriptionRequest,
+  request: GetUsageBySubscriptionRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function subscriptionsGetSubscriptionUsage(
 
 async function $do(
   client$: FlexpriceCore,
-  request: DtoGetUsageBySubscriptionRequest,
+  request: GetUsageBySubscriptionRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => DtoGetUsageBySubscriptionRequest$zodSchema.parse(value$),
+    (value$) => GetUsageBySubscriptionRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
