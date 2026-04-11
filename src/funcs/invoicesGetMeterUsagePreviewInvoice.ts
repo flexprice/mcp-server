@@ -3,7 +3,7 @@
  */
 
 import { FlexpriceCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -19,21 +19,21 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  ExecuteSubscriptionModifyRequestRequest,
-  ExecuteSubscriptionModifyRequestRequest$zodSchema,
-} from "../models/executesubscriptionmodifyop.js";
+  GetPreviewInvoiceRequest,
+  GetPreviewInvoiceRequest$zodSchema,
+} from "../models/getpreviewinvoicerequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Execute subscription modification
+ * Get invoice preview using meter_usage data
  *
  * @remarks
- * Execute a mid-cycle subscription modification (inheritance or quantity change).
+ * Preview invoice using the meter_usage table for usage data instead of feature_usage.
  */
-export function subscriptionsExecuteSubscriptionModify(
+export function invoicesGetMeterUsagePreviewInvoice(
   client$: FlexpriceCore,
-  request: ExecuteSubscriptionModifyRequestRequest,
+  request: GetPreviewInvoiceRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function subscriptionsExecuteSubscriptionModify(
 
 async function $do(
   client$: FlexpriceCore,
-  request: ExecuteSubscriptionModifyRequestRequest,
+  request: GetPreviewInvoiceRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,24 +75,15 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => ExecuteSubscriptionModifyRequestRequest$zodSchema.parse(value$),
+    (value$) => GetPreviewInvoiceRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.body, { explode: true });
-
-  const pathParams$ = {
-    id: encodeSimple("id", payload$.id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-  const path$ = pathToFunc("/subscriptions/{id}/modify/execute")(
-    pathParams$,
-  );
+  const body$ = encodeJSON("body", payload$, { explode: true });
+  const path$ = pathToFunc("/invoices/meter-usage-preview")();
 
   const headers$ = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -104,7 +95,7 @@ async function $do(
   const context = {
     options: client$._options,
     baseURL: options?.serverURL ?? client$._baseURL ?? "",
-    operationID: "executeSubscriptionModify",
+    operationID: "getMeterUsagePreviewInvoice",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
     securitySource: client$._options.security,

@@ -7,11 +7,9 @@ import { ClosedEnum } from "../types/enums.js";
 
 export const BillingCadence = {
   Recurring: "RECURRING",
-  Onetime: "ONETIME",
 } as const;
 export type BillingCadence = ClosedEnum<typeof BillingCadence>;
 
 export const BillingCadence$zodSchema = z.enum([
   "RECURRING",
-  "ONETIME",
 ]);

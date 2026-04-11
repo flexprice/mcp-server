@@ -12,6 +12,7 @@ export const BillingPeriod = {
   Daily: "DAILY",
   Quarterly: "QUARTERLY",
   HalfYearly: "HALF_YEARLY",
+  Onetime: "ONETIME",
 } as const;
 export type BillingPeriod = ClosedEnum<typeof BillingPeriod>;
 
@@ -22,4 +23,5 @@ export const BillingPeriod$zodSchema = z.enum([
   "DAILY",
   "QUARTERLY",
   "HALF_YEARLY",
+  "ONETIME",
 ]);

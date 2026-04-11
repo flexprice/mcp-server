@@ -13,26 +13,26 @@ import {
   SubscriptionModifyResponse$zodSchema,
 } from "./subscriptionmodifyresponse.js";
 
-export type ExecuteSubscriptionModifyRequestRequest = {
+export type PreviewSubscriptionModifyRequest = {
   id: string;
   body: ExecuteSubscriptionModifyRequest;
 };
 
-export const ExecuteSubscriptionModifyRequestRequest$zodSchema: z.ZodType<
-  ExecuteSubscriptionModifyRequestRequest
+export const PreviewSubscriptionModifyRequest$zodSchema: z.ZodType<
+  PreviewSubscriptionModifyRequest
 > = z.object({
   body: ExecuteSubscriptionModifyRequest$zodSchema.describe(
-    "Modification request",
+    "Modification preview request",
   ),
   id: z.string().describe("Subscription ID"),
 });
 
-export type ExecuteSubscriptionModifyResponse =
+export type PreviewSubscriptionModifyResponse =
   | SubscriptionModifyResponse
   | ErrorResponse;
 
-export const ExecuteSubscriptionModifyResponse$zodSchema: z.ZodType<
-  ExecuteSubscriptionModifyResponse
+export const PreviewSubscriptionModifyResponse$zodSchema: z.ZodType<
+  PreviewSubscriptionModifyResponse
 > = z.union([
   SubscriptionModifyResponse$zodSchema,
   ErrorResponse$zodSchema,

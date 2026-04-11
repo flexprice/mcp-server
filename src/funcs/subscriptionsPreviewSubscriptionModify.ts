@@ -19,21 +19,21 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  ExecuteSubscriptionModifyRequestRequest,
-  ExecuteSubscriptionModifyRequestRequest$zodSchema,
-} from "../models/executesubscriptionmodifyop.js";
+  PreviewSubscriptionModifyRequest,
+  PreviewSubscriptionModifyRequest$zodSchema,
+} from "../models/previewsubscriptionmodifyop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Execute subscription modification
+ * Preview subscription modification
  *
  * @remarks
- * Execute a mid-cycle subscription modification (inheritance or quantity change).
+ * Preview the impact of a mid-cycle subscription modification without committing changes.
  */
-export function subscriptionsExecuteSubscriptionModify(
+export function subscriptionsPreviewSubscriptionModify(
   client$: FlexpriceCore,
-  request: ExecuteSubscriptionModifyRequestRequest,
+  request: PreviewSubscriptionModifyRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function subscriptionsExecuteSubscriptionModify(
 
 async function $do(
   client$: FlexpriceCore,
-  request: ExecuteSubscriptionModifyRequestRequest,
+  request: PreviewSubscriptionModifyRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => ExecuteSubscriptionModifyRequestRequest$zodSchema.parse(value$),
+    (value$) => PreviewSubscriptionModifyRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
@@ -90,7 +90,7 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/subscriptions/{id}/modify/execute")(
+  const path$ = pathToFunc("/subscriptions/{id}/modify/preview")(
     pathParams$,
   );
 
@@ -104,7 +104,7 @@ async function $do(
   const context = {
     options: client$._options,
     baseURL: options?.serverURL ?? client$._baseURL ?? "",
-    operationID: "executeSubscriptionModify",
+    operationID: "previewSubscriptionModify",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
     securitySource: client$._options.security,

@@ -48,6 +48,7 @@ export type InvoiceFilter = {
   sort?: Array<SortCondition> | undefined;
   start_time?: string | undefined;
   status?: Status | undefined;
+  subscription_customer_id?: Array<string> | undefined;
   subscription_id?: string | undefined;
 };
 
@@ -98,6 +99,9 @@ export const InvoiceFilter$zodSchema: z.ZodType<InvoiceFilter> = z.object({
   sort: z.array(SortCondition$zodSchema).optional(),
   start_time: z.iso.datetime({ offset: true }).optional(),
   status: Status$zodSchema.optional(),
+  subscription_customer_id: z.array(z.string()).optional().describe(
+    "subscription_customer_id filters invoices by the subscription owner's customer ID",
+  ),
   subscription_id: z.string().optional().describe(
     "subscription_id filters invoices generated for a specific subscription\nOnly returns invoices that were created as part of the specified subscription's billing",
   ),

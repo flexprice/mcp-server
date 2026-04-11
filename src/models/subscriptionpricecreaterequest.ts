@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { BillingCadence, BillingCadence$zodSchema } from "./billingcadence.js";
 import { BillingModel, BillingModel$zodSchema } from "./billingmodel.js";
 import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
 import { BillingTier, BillingTier$zodSchema } from "./billingtier.js";
@@ -25,7 +24,6 @@ import { PriceUnitType, PriceUnitType$zodSchema } from "./priceunittype.js";
 
 export type SubscriptionPriceCreateRequest = {
   amount?: string | undefined;
-  billing_cadence: BillingCadence;
   billing_model: BillingModel;
   billing_period: BillingPeriod;
   billing_period_count?: number | undefined;
@@ -52,7 +50,6 @@ export const SubscriptionPriceCreateRequest$zodSchema: z.ZodType<
   SubscriptionPriceCreateRequest
 > = z.object({
   amount: z.string().optional(),
-  billing_cadence: BillingCadence$zodSchema,
   billing_model: BillingModel$zodSchema,
   billing_period: BillingPeriod$zodSchema,
   billing_period_count: z.int().optional(),

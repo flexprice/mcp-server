@@ -7,7 +7,6 @@ import {
   AddAddonToSubscriptionRequest,
   AddAddonToSubscriptionRequest$zodSchema,
 } from "./addaddontosubscriptionrequest.js";
-import { BillingCadence, BillingCadence$zodSchema } from "./billingcadence.js";
 import { BillingCycle, BillingCycle$zodSchema } from "./billingcycle.js";
 import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
 import {
@@ -62,7 +61,6 @@ import {
 
 export type CreateSubscriptionRequest = {
   addons?: Array<AddAddonToSubscriptionRequest> | undefined;
-  billing_cadence: BillingCadence;
   billing_cycle?: BillingCycle | undefined;
   billing_period: BillingPeriod;
   billing_period_count?: number | undefined;
@@ -105,7 +103,6 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   addons: z.array(AddAddonToSubscriptionRequest$zodSchema).optional().describe(
     "Addons represents addons to be added to the subscription during creation",
   ),
-  billing_cadence: BillingCadence$zodSchema,
   billing_cycle: BillingCycle$zodSchema.optional(),
   billing_period: BillingPeriod$zodSchema,
   billing_period_count: z.int().optional(),

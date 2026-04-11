@@ -64,6 +64,7 @@ export type InvoiceResponse = {
   refunded_amount?: string | undefined;
   status?: Status | undefined;
   subscription?: SubscriptionResponse | undefined;
+  subscription_customer_id?: string | undefined;
   subscription_id?: string | undefined;
   subtotal?: string | undefined;
   taxes?: Array<TaxAppliedResponse> | undefined;
@@ -169,6 +170,9 @@ export const InvoiceResponse$zodSchema: z.ZodType<InvoiceResponse> = z.object({
   ),
   status: Status$zodSchema.optional(),
   subscription: z.lazy(() => SubscriptionResponse$zodSchema).optional(),
+  subscription_customer_id: z.string().optional().describe(
+    "subscription_customer_id is the subscription owner's customer ID (Subscription.CustomerID).\nIt may differ from customer_id when the subscription uses an invoicing customer. Set internally; nullable in DB.",
+  ),
   subscription_id: z.string().optional().describe(
     "subscription_id is the ID of the subscription this invoice is associated with (only present for subscription-based invoices)",
   ),

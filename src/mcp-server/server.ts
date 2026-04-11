@@ -41,6 +41,7 @@ import { tool$invoicesGetCustomerInvoiceSummary } from "./tools/invoicesGetCusto
 import { tool$invoicesGetInvoice } from "./tools/invoicesGetInvoice.js";
 import { tool$invoicesGetInvoicePdf } from "./tools/invoicesGetInvoicePdf.js";
 import { tool$invoicesGetInvoicePreview } from "./tools/invoicesGetInvoicePreview.js";
+import { tool$invoicesGetMeterUsagePreviewInvoice } from "./tools/invoicesGetMeterUsagePreviewInvoice.js";
 import { tool$invoicesQueryInvoice } from "./tools/invoicesQueryInvoice.js";
 import { tool$invoicesRecalculateInvoice } from "./tools/invoicesRecalculateInvoice.js";
 import { tool$invoicesRecalculateInvoiceV2 } from "./tools/invoicesRecalculateInvoiceV2.js";
@@ -83,6 +84,7 @@ import { tool$subscriptionsListSubscriptionPauses } from "./tools/subscriptionsL
 import { tool$subscriptionsListSubscriptionSchedules } from "./tools/subscriptionsListSubscriptionSchedules.js";
 import { tool$subscriptionsPauseSubscription } from "./tools/subscriptionsPauseSubscription.js";
 import { tool$subscriptionsPreviewSubscriptionChange } from "./tools/subscriptionsPreviewSubscriptionChange.js";
+import { tool$subscriptionsPreviewSubscriptionModify } from "./tools/subscriptionsPreviewSubscriptionModify.js";
 import { tool$subscriptionsQuerySubscription } from "./tools/subscriptionsQuerySubscription.js";
 import { tool$subscriptionsRemoveSubscriptionAddon } from "./tools/subscriptionsRemoveSubscriptionAddon.js";
 import { tool$subscriptionsResumeSubscription } from "./tools/subscriptionsResumeSubscription.js";
@@ -102,7 +104,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.1",
+    version: "2.1.2",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -158,6 +160,7 @@ export function createMCPServer(deps: {
   tool(tool$customersGetCustomerUpcomingGrants);
   tool(tool$invoicesGetCustomerInvoiceSummary);
   tool(tool$invoicesCreateInvoice);
+  tool(tool$invoicesGetMeterUsagePreviewInvoice);
   tool(tool$invoicesGetInvoicePreview);
   tool(tool$invoicesQueryInvoice);
   tool(tool$invoicesGetInvoice);
@@ -210,6 +213,7 @@ export function createMCPServer(deps: {
   tool(tool$subscriptionsGetSubscriptionUpcomingGrants);
   tool(tool$subscriptionsCreateSubscriptionLineItem);
   tool(tool$subscriptionsExecuteSubscriptionModify);
+  tool(tool$subscriptionsPreviewSubscriptionModify);
   tool(tool$subscriptionsPauseSubscription);
   tool(tool$subscriptionsListSubscriptionPauses);
   tool(tool$subscriptionsResumeSubscription);

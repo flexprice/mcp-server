@@ -4,12 +4,12 @@
 
 import * as z from "zod";
 
-export type ExecuteSubscriptionInheritanceRequest = {
+export type SubModifyInheritanceRequest = {
   external_customer_ids_to_inherit_subscription?: Array<string> | undefined;
 };
 
-export const ExecuteSubscriptionInheritanceRequest$zodSchema: z.ZodType<
-  ExecuteSubscriptionInheritanceRequest
+export const SubModifyInheritanceRequest$zodSchema: z.ZodType<
+  SubModifyInheritanceRequest
 > = z.object({
   external_customer_ids_to_inherit_subscription: z.array(z.string()).optional(),
 });
