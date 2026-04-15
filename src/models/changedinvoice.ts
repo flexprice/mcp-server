@@ -3,15 +3,39 @@
  */
 
 import * as z from "zod";
+import {
+  ChangedInvoiceAction,
+  ChangedInvoiceAction$zodSchema,
+} from "./changedinvoiceaction.js";
+import {
+  ChangedInvoiceStatus,
+  ChangedInvoiceStatus$zodSchema,
+} from "./changedinvoicestatus.js";
+import {
+  InvoiceResponse,
+  InvoiceResponse$zodSchema,
+} from "./invoiceresponse.js";
+import {
+  WalletTransactionResponse,
+  WalletTransactionResponse$zodSchema,
+} from "./wallettransactionresponse.js";
 
 export type ChangedInvoice = {
-  action?: string | undefined;
+  action?: ChangedInvoiceAction | undefined;
   id?: string | undefined;
-  status?: string | undefined;
+  invoice?: InvoiceResponse | undefined;
+  status?: ChangedInvoiceStatus | undefined;
+  wallet_transaction?: WalletTransactionResponse | undefined;
 };
 
 export const ChangedInvoice$zodSchema: z.ZodType<ChangedInvoice> = z.object({
-  action: z.string().optional().describe("\"created\" | \"wallet_credit\""),
+  action: ChangedInvoiceAction$zodSchema.optional().describe(
+    "created (proration invoice) | wallet_credit (downgrade credit)",
+  ),
   id: z.string().optional(),
-  status: z.string().optional(),
+  invoice: InvoiceResponse$zodSchema.optional(),
+  status: ChangedInvoiceStatus$zodSchema.optional().describe(
+    "preview | issued | INITIATED | PENDING | PROCESSING | SUCCEEDED | OVERPAID | FAILED | REFUNDED | PARTIALLY_REFUNDED",
+  ),
+  wallet_transaction: WalletTransactionResponse$zodSchema.optional(),
 });

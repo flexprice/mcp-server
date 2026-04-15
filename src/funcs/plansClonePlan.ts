@@ -9,6 +9,10 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import {
+  ClonePlanRequestRequest,
+  ClonePlanRequestRequest$zodSchema,
+} from "../models/cloneplanop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -18,10 +22,6 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import {
-  PostPlansIdCloneRequest,
-  PostPlansIdCloneRequest$zodSchema,
-} from "../models/postplansidcloneop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -31,9 +31,9 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Clone an existing plan, copying its active prices, published entitlements, and published credit grants
  */
-export function plansPostPlansIdClone(
+export function plansClonePlan(
   client$: FlexpriceCore,
-  request: PostPlansIdCloneRequest,
+  request: ClonePlanRequestRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function plansPostPlansIdClone(
 
 async function $do(
   client$: FlexpriceCore,
-  request: PostPlansIdCloneRequest,
+  request: ClonePlanRequestRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => PostPlansIdCloneRequest$zodSchema.parse(value$),
+    (value$) => ClonePlanRequestRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
@@ -104,7 +104,7 @@ async function $do(
   const context = {
     options: client$._options,
     baseURL: options?.serverURL ?? client$._baseURL ?? "",
-    operationID: "post_/plans/{id}/clone",
+    operationID: "clonePlan",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
     securitySource: client$._options.security,

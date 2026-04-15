@@ -3,9 +3,13 @@
  */
 
 import * as z from "zod";
+import {
+  ChangedLineItemAction,
+  ChangedLineItemAction$zodSchema,
+} from "./changedlineitemaction.js";
 
 export type ChangedLineItem = {
-  change_action?: string | undefined;
+  change_action?: ChangedLineItemAction | undefined;
   end_date?: string | undefined;
   id?: string | undefined;
   price_id?: string | undefined;
@@ -14,8 +18,8 @@ export type ChangedLineItem = {
 };
 
 export const ChangedLineItem$zodSchema: z.ZodType<ChangedLineItem> = z.object({
-  change_action: z.string().optional().describe(
-    "\"created\" | \"updated\" | \"ended\"",
+  change_action: ChangedLineItemAction$zodSchema.optional().describe(
+    "created | updated | ended",
   ),
   end_date: z.iso.datetime({ offset: true }).optional(),
   id: z.string().optional(),

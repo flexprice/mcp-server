@@ -10,20 +10,19 @@ import {
 import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 import { PlanResponse, PlanResponse$zodSchema } from "./planresponse.js";
 
-export type PostPlansIdCloneRequest = { id: string; body: ClonePlanRequest };
+export type ClonePlanRequestRequest = { id: string; body: ClonePlanRequest };
 
-export const PostPlansIdCloneRequest$zodSchema: z.ZodType<
-  PostPlansIdCloneRequest
+export const ClonePlanRequestRequest$zodSchema: z.ZodType<
+  ClonePlanRequestRequest
 > = z.object({
   body: ClonePlanRequest$zodSchema.describe("Clone configuration"),
   id: z.string().describe("Source Plan ID"),
 });
 
-export type PostPlansIdCloneResponse = PlanResponse | ErrorResponse;
+export type ClonePlanResponse = PlanResponse | ErrorResponse;
 
-export const PostPlansIdCloneResponse$zodSchema: z.ZodType<
-  PostPlansIdCloneResponse
-> = z.union([
-  PlanResponse$zodSchema,
-  ErrorResponse$zodSchema,
-]);
+export const ClonePlanResponse$zodSchema: z.ZodType<ClonePlanResponse> = z
+  .union([
+    PlanResponse$zodSchema,
+    ErrorResponse$zodSchema,
+  ]);

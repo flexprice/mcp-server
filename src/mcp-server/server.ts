@@ -49,10 +49,10 @@ import { tool$invoicesTriggerInvoiceCommsWebhook } from "./tools/invoicesTrigger
 import { tool$invoicesUpdateInvoice } from "./tools/invoicesUpdateInvoice.js";
 import { tool$invoicesUpdateInvoicePaymentStatus } from "./tools/invoicesUpdateInvoicePaymentStatus.js";
 import { tool$invoicesVoidInvoice } from "./tools/invoicesVoidInvoice.js";
+import { tool$plansClonePlan } from "./tools/plansClonePlan.js";
 import { tool$plansCreatePlan } from "./tools/plansCreatePlan.js";
 import { tool$plansDeletePlan } from "./tools/plansDeletePlan.js";
 import { tool$plansGetPlan } from "./tools/plansGetPlan.js";
-import { tool$plansPostPlansIdClone } from "./tools/plansPostPlansIdClone.js";
 import { tool$plansQueryPlan } from "./tools/plansQueryPlan.js";
 import { tool$plansSyncPlanPrices } from "./tools/plansSyncPlanPrices.js";
 import { tool$plansUpdatePlan } from "./tools/plansUpdatePlan.js";
@@ -104,7 +104,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.2",
+    version: "2.1.3",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -186,7 +186,7 @@ export function createMCPServer(deps: {
   tool(tool$plansGetPlan);
   tool(tool$plansUpdatePlan);
   tool(tool$plansDeletePlan);
-  tool(tool$plansPostPlansIdClone);
+  tool(tool$plansClonePlan);
   tool(tool$plansSyncPlanPrices);
   tool(tool$pricesCreatePrice);
   tool(tool$pricesCreatePricesBulk);

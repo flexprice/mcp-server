@@ -4,19 +4,25 @@
 
 import * as z from "zod";
 import {
+  ChangedSubscriptionAction,
+  ChangedSubscriptionAction$zodSchema,
+} from "./changedsubscriptionaction.js";
+import {
   SubscriptionStatus,
   SubscriptionStatus$zodSchema,
 } from "./subscriptionstatus.js";
 
 export type ChangedSubscription = {
-  action?: string | undefined;
+  action?: ChangedSubscriptionAction | undefined;
   id?: string | undefined;
   status?: SubscriptionStatus | undefined;
 };
 
 export const ChangedSubscription$zodSchema: z.ZodType<ChangedSubscription> = z
   .object({
-    action: z.string().optional().describe("\"created\" | \"updated\""),
+    action: ChangedSubscriptionAction$zodSchema.optional().describe(
+      "created | updated",
+    ),
     id: z.string().optional(),
     status: SubscriptionStatus$zodSchema.optional(),
   });
