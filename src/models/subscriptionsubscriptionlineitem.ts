@@ -15,6 +15,7 @@ import {
 } from "./subscriptionlineitementitytype.js";
 
 export type SubscriptionSubscriptionLineItem = {
+  addon_association_id?: string | undefined;
   billing_period?: BillingPeriod | undefined;
   billing_period_count?: number | undefined;
   commitment_amount?: string | undefined;
@@ -58,6 +59,7 @@ export type SubscriptionSubscriptionLineItem = {
 export const SubscriptionSubscriptionLineItem$zodSchema: z.ZodType<
   SubscriptionSubscriptionLineItem
 > = z.object({
+  addon_association_id: z.string().optional(),
   billing_period: BillingPeriod$zodSchema.optional(),
   billing_period_count: z.int().optional().describe(
     "from price at create; default 1",

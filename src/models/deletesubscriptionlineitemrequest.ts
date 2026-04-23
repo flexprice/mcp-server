@@ -3,13 +3,19 @@
  */
 
 import * as z from "zod";
+import {
+  ProrationBehavior,
+  ProrationBehavior$zodSchema,
+} from "./prorationbehavior.js";
 
 export type DeleteSubscriptionLineItemRequest = {
   effective_from?: string | undefined;
+  proration_behavior?: ProrationBehavior | undefined;
 };
 
 export const DeleteSubscriptionLineItemRequest$zodSchema: z.ZodType<
   DeleteSubscriptionLineItemRequest
 > = z.object({
   effective_from: z.string().optional(),
+  proration_behavior: ProrationBehavior$zodSchema.optional(),
 });

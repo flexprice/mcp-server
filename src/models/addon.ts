@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { AddonType, AddonType$zodSchema } from "./addontype.js";
 import { Status, Status$zodSchema } from "./status.js";
 
 export type Addon = {
@@ -17,7 +16,6 @@ export type Addon = {
   name?: string | undefined;
   status?: Status | undefined;
   tenant_id?: string | undefined;
-  type?: AddonType | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
 };
@@ -33,7 +31,6 @@ export const Addon$zodSchema: z.ZodType<Addon> = z.object({
   name: z.string().optional(),
   status: Status$zodSchema.optional(),
   tenant_id: z.string().optional(),
-  type: AddonType$zodSchema.optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),
   updated_by: z.string().optional(),
 });

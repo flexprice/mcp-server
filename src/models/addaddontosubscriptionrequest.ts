@@ -3,15 +3,22 @@
  */
 
 import * as z from "zod";
+import { AddonCadence, AddonCadence$zodSchema } from "./addoncadence.js";
 import {
   LineItemCommitmentConfig,
   LineItemCommitmentConfig$zodSchema,
 } from "./lineitemcommitmentconfig.js";
+import {
+  ProrationBehavior,
+  ProrationBehavior$zodSchema,
+} from "./prorationbehavior.js";
 
 export type AddAddonToSubscriptionRequest = {
   addon_id: string;
+  cadence?: AddonCadence | undefined;
   line_item_commitments?: { [k: string]: LineItemCommitmentConfig } | undefined;
   metadata?: { [k: string]: any } | undefined;
+  proration_behavior?: ProrationBehavior | undefined;
   start_date?: string | undefined;
 };
 
@@ -19,6 +26,7 @@ export const AddAddonToSubscriptionRequest$zodSchema: z.ZodType<
   AddAddonToSubscriptionRequest
 > = z.object({
   addon_id: z.string(),
+  cadence: AddonCadence$zodSchema.optional(),
   line_item_commitments: z.record(
     z.string(),
     LineItemCommitmentConfig$zodSchema,
@@ -26,5 +34,6 @@ export const AddAddonToSubscriptionRequest$zodSchema: z.ZodType<
     "LineItemCommitments allows setting commitment configuration per addon line item (keyed by price_id)",
   ),
   metadata: z.record(z.string(), z.any()).optional(),
+  proration_behavior: ProrationBehavior$zodSchema.optional(),
   start_date: z.iso.datetime({ offset: true }).optional(),
 });

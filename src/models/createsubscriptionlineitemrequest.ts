@@ -6,6 +6,10 @@ import * as z from "zod";
 import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
 import { CommitmentType, CommitmentType$zodSchema } from "./commitmenttype.js";
 import {
+  ProrationBehavior,
+  ProrationBehavior$zodSchema,
+} from "./prorationbehavior.js";
+import {
   SubscriptionPriceCreateRequest,
   SubscriptionPriceCreateRequest$zodSchema,
 } from "./subscriptionpricecreaterequest.js";
@@ -23,6 +27,7 @@ export type CreateSubscriptionLineItemRequest = {
   metadata?: { [k: string]: string } | undefined;
   price?: SubscriptionPriceCreateRequest | undefined;
   price_id?: string | undefined;
+  proration_behavior?: ProrationBehavior | undefined;
   quantity?: number | undefined;
   start_date?: string | undefined;
   subscription_phase_id?: string | undefined;
@@ -45,6 +50,7 @@ export const CreateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   price_id: z.string().optional().describe(
     "PriceID references an existing price (plan, addon, or subscription-scoped). Exactly one of price_id or price must be set.",
   ),
+  proration_behavior: ProrationBehavior$zodSchema.optional(),
   quantity: z.number().optional(),
   start_date: z.iso.datetime({ offset: true }).optional(),
   subscription_phase_id: z.string().optional(),

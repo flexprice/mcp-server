@@ -5,13 +5,13 @@
 import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
 
-export const AddonType = {
+export const AddonCadence = {
   Onetime: "onetime",
-  MultipleInstance: "multiple_instance",
+  Recurring: "recurring",
 } as const;
-export type AddonType = ClosedEnum<typeof AddonType>;
+export type AddonCadence = ClosedEnum<typeof AddonCadence>;
 
-export const AddonType$zodSchema = z.enum([
+export const AddonCadence$zodSchema = z.enum([
   "onetime",
-  "multiple_instance",
+  "recurring",
 ]);

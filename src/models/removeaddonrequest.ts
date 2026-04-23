@@ -3,14 +3,24 @@
  */
 
 import * as z from "zod";
+import {
+  ProrationBehavior,
+  ProrationBehavior$zodSchema,
+} from "./prorationbehavior.js";
 
 export type RemoveAddonRequest = {
   addon_association_id: string;
+  effective_date?: string | undefined;
+  proration_behavior?: ProrationBehavior | undefined;
   reason?: string | undefined;
 };
 
 export const RemoveAddonRequest$zodSchema: z.ZodType<RemoveAddonRequest> = z
   .object({
     addon_association_id: z.string(),
+    effective_date: z.iso.datetime({ offset: true }).optional().describe(
+      "EffectiveDate is the date the cancellation takes effect.\nWhen nil the addon is cancelled at the end of the current period.\nWhen provided it must fall within [CurrentPeriodStart, CurrentPeriodEnd]; mid-period\nvalues combined with create_prorations will issue a wallet credit for unused time.",
+    ),
+    proration_behavior: ProrationBehavior$zodSchema.optional(),
     reason: z.string().optional(),
   });

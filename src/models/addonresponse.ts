@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { AddonType, AddonType$zodSchema } from "./addontype.js";
 import {
   EntitlementResponse,
   EntitlementResponse$zodSchema,
@@ -24,7 +23,6 @@ export type AddonResponse = {
   prices?: Array<PriceResponse> | undefined;
   status?: Status | undefined;
   tenant_id?: string | undefined;
-  type?: AddonType | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
 };
@@ -44,7 +42,6 @@ export const AddonResponse$zodSchema: z.ZodType<AddonResponse> = z.object({
   ),
   status: Status$zodSchema.optional(),
   tenant_id: z.string().optional(),
-  type: AddonType$zodSchema.optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),
   updated_by: z.string().optional(),
 });
