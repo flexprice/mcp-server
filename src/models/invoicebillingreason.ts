@@ -9,6 +9,7 @@ export const InvoiceBillingReason = {
   SubscriptionCreate: "SUBSCRIPTION_CREATE",
   SubscriptionCycle: "SUBSCRIPTION_CYCLE",
   SubscriptionUpdate: "SUBSCRIPTION_UPDATE",
+  SubscriptionTrialEnd: "SUBSCRIPTION_TRIAL_END",
   Proration: "PRORATION",
   Manual: "MANUAL",
 } as const;
@@ -18,6 +19,7 @@ export const InvoiceBillingReason$zodSchema = z.enum([
   "SUBSCRIPTION_CREATE",
   "SUBSCRIPTION_CYCLE",
   "SUBSCRIPTION_UPDATE",
+  "SUBSCRIPTION_TRIAL_END",
   "PRORATION",
   "MANUAL",
 ]);

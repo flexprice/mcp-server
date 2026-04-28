@@ -94,8 +94,7 @@ export type CreateSubscriptionRequest = {
   start_date?: string | undefined;
   subscription_status?: SubscriptionStatus | undefined;
   tax_rate_overrides?: Array<TaxRateOverride> | undefined;
-  trial_end?: string | undefined;
-  trial_start?: string | undefined;
+  trial_period_days?: number | undefined;
 };
 
 export const CreateSubscriptionRequest$zodSchema: z.ZodType<
@@ -170,6 +169,7 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   tax_rate_overrides: z.array(TaxRateOverride$zodSchema).optional().describe(
     "tax_rate_overrides is the tax rate overrides\tto be applied to the subscription",
   ),
-  trial_end: z.iso.datetime({ offset: true }).optional(),
-  trial_start: z.iso.datetime({ offset: true }).optional(),
+  trial_period_days: z.int().optional().describe(
+    "TrialPeriodDays: nil = inherit trial length from plan recurring-fixed prices (must be uniform).\n0 = explicitly no trial (overrides catalog). >0 = override duration in days.",
+  ),
 });

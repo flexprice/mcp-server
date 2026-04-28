@@ -57,6 +57,7 @@ export type SubscriptionFilter = {
   subscription_ids?: Array<string> | undefined;
   subscription_status?: Array<SubscriptionStatus> | undefined;
   subscription_type?: Array<SubscriptionType> | undefined;
+  trial_end_due_lte?: string | undefined;
   with_line_items?: boolean | undefined;
 };
 
@@ -104,6 +105,9 @@ export const SubscriptionFilter$zodSchema: z.ZodType<SubscriptionFilter> = z
       .describe("SubscriptionStatus filters by subscription status"),
     subscription_type: z.array(SubscriptionType$zodSchema).optional().describe(
       "SubscriptionType filters by subscription type",
+    ),
+    trial_end_due_lte: z.iso.datetime({ offset: true }).optional().describe(
+      "TrialEndDueLTE, when set, restricts to subscriptions with trial_end not nil and trial_end <= trial_end_due_lte.\nUse with subscription_status trialing for trial-end cron processing.",
     ),
     with_line_items: z.boolean().optional().describe(
       "WithLineItems includes line items in the response",

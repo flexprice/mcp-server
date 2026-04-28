@@ -51,7 +51,6 @@ export type SubscriptionLineItemResponse = {
   subscription_id?: string | undefined;
   subscription_phase_id?: string | undefined;
   tenant_id?: string | undefined;
-  trial_period?: number | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
 };
@@ -97,7 +96,6 @@ export const SubscriptionLineItemResponse$zodSchema: z.ZodType<
   subscription_id: z.string().optional(),
   subscription_phase_id: z.string().optional(),
   tenant_id: z.string().optional(),
-  trial_period: z.int().optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),
   updated_by: z.string().optional(),
 });

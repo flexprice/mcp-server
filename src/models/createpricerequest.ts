@@ -50,7 +50,7 @@ export type CreatePriceRequest = {
   tier_mode?: BillingTier | undefined;
   tiers?: Array<CreatePriceTier> | undefined;
   transform_quantity?: PriceTransformQuantity | undefined;
-  trial_period?: number | undefined;
+  trial_period_days?: number | undefined;
   type: PriceType;
 };
 
@@ -83,6 +83,6 @@ export const CreatePriceRequest$zodSchema: z.ZodType<CreatePriceRequest> = z
     tier_mode: BillingTier$zodSchema.optional(),
     tiers: z.array(CreatePriceTier$zodSchema).optional(),
     transform_quantity: PriceTransformQuantity$zodSchema.optional(),
-    trial_period: z.int().optional(),
+    trial_period_days: z.int().optional(),
     type: PriceType$zodSchema,
   });

@@ -58,7 +58,7 @@ export type PricePrice = {
   tier_mode?: BillingTier | undefined;
   tiers?: Array<PricePriceTier> | undefined;
   transform_quantity?: PriceJSONBTransformQuantity | undefined;
-  trial_period?: number | undefined;
+  trial_period_days?: number | undefined;
   type?: PriceType | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
@@ -141,8 +141,8 @@ export const PricePrice$zodSchema: z.ZodType<PricePrice> = z.object({
   tier_mode: BillingTier$zodSchema.optional(),
   tiers: z.array(PricePriceTier$zodSchema).optional(),
   transform_quantity: PriceJSONBTransformQuantity$zodSchema.optional(),
-  trial_period: z.int().optional().describe(
-    "TrialPeriod is the number of days for the trial period\nNote: This is only applicable for recurring prices (BILLING_CADENCE_RECURRING)",
+  trial_period_days: z.int().optional().describe(
+    "TrialPeriodDays is the number of days for the trial period\nNote: This is only applicable for recurring prices (BILLING_CADENCE_RECURRING)",
   ),
   type: PriceType$zodSchema.optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),
