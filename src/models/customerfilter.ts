@@ -31,6 +31,7 @@ export type CustomerFilter = {
   external_ids?: Array<string> | undefined;
   filters?: Array<FilterCondition> | undefined;
   limit?: number | undefined;
+  metadata?: { [k: string]: string } | undefined;
   offset?: number | undefined;
   order?: CustomerFilterOrder | undefined;
   sort?: Array<SortCondition> | undefined;
@@ -47,6 +48,7 @@ export const CustomerFilter$zodSchema: z.ZodType<CustomerFilter> = z.object({
   external_ids: z.array(z.string()).optional(),
   filters: z.array(FilterCondition$zodSchema).optional(),
   limit: z.int().optional(),
+  metadata: z.record(z.string(), z.string()).optional(),
   offset: z.int().optional(),
   order: CustomerFilterOrder$zodSchema.optional(),
   sort: z.array(SortCondition$zodSchema).optional(),

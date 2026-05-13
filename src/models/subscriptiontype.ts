@@ -7,13 +7,17 @@ import { ClosedEnum } from "../types/enums.js";
 
 export const SubscriptionType = {
   Standalone: "standalone",
+  DelegatedInvoicing: "delegated_invoicing",
   Parent: "parent",
   Inherited: "inherited",
+  GroupedInvoicing: "grouped_invoicing",
 } as const;
 export type SubscriptionType = ClosedEnum<typeof SubscriptionType>;
 
 export const SubscriptionType$zodSchema = z.enum([
   "standalone",
+  "delegated_invoicing",
   "parent",
   "inherited",
+  "grouped_invoicing",
 ]);

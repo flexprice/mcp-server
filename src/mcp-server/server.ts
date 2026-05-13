@@ -84,6 +84,7 @@ import { tool$subscriptionsListSubscriptionSchedules } from "./tools/subscriptio
 import { tool$subscriptionsPreviewSubscriptionChange } from "./tools/subscriptionsPreviewSubscriptionChange.js";
 import { tool$subscriptionsPreviewSubscriptionModify } from "./tools/subscriptionsPreviewSubscriptionModify.js";
 import { tool$subscriptionsQuerySubscription } from "./tools/subscriptionsQuerySubscription.js";
+import { tool$subscriptionsQuerySubscriptionLineItems } from "./tools/subscriptionsQuerySubscriptionLineItems.js";
 import { tool$subscriptionsRemoveSubscriptionAddon } from "./tools/subscriptionsRemoveSubscriptionAddon.js";
 import { tool$subscriptionsUpdateSubscription } from "./tools/subscriptionsUpdateSubscription.js";
 import { tool$subscriptionsUpdateSubscriptionLineItem } from "./tools/subscriptionsUpdateSubscriptionLineItem.js";
@@ -101,7 +102,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.6",
+    version: "2.1.9",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -195,6 +196,7 @@ export function createMCPServer(deps: {
   tool(tool$subscriptionsCreateSubscription);
   tool(tool$subscriptionsAddSubscriptionAddon);
   tool(tool$subscriptionsRemoveSubscriptionAddon);
+  tool(tool$subscriptionsQuerySubscriptionLineItems);
   tool(tool$subscriptionsUpdateSubscriptionLineItem);
   tool(tool$subscriptionsDeleteSubscriptionLineItem);
   tool(tool$subscriptionsQuerySubscription);

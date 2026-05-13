@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import {
+  SubModifyGroupedInvoicingParams,
+  SubModifyGroupedInvoicingParams$zodSchema,
+} from "./submodifygroupedinvoicingparams.js";
+import {
   SubModifyInheritanceRequest,
   SubModifyInheritanceRequest$zodSchema,
 } from "./submodifyinheritancerequest.js";
@@ -17,6 +21,7 @@ import {
 } from "./subscriptionmodifytype.js";
 
 export type ExecuteSubscriptionModifyRequest = {
+  grouped_invoicing_params?: SubModifyGroupedInvoicingParams | undefined;
   inheritance_params?: SubModifyInheritanceRequest | undefined;
   quantity_change_params?: SubModifyQuantityChangeRequest | undefined;
   type: SubscriptionModifyType;
@@ -25,6 +30,8 @@ export type ExecuteSubscriptionModifyRequest = {
 export const ExecuteSubscriptionModifyRequest$zodSchema: z.ZodType<
   ExecuteSubscriptionModifyRequest
 > = z.object({
+  grouped_invoicing_params: SubModifyGroupedInvoicingParams$zodSchema
+    .optional(),
   inheritance_params: SubModifyInheritanceRequest$zodSchema.optional(),
   quantity_change_params: SubModifyQuantityChangeRequest$zodSchema.optional(),
   type: SubscriptionModifyType$zodSchema,

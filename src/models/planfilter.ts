@@ -28,6 +28,7 @@ export type PlanFilter = {
   filters?: Array<FilterCondition> | undefined;
   limit?: number | undefined;
   lookup_key?: string | undefined;
+  metadata?: { [k: string]: string } | undefined;
   offset?: number | undefined;
   order?: PlanFilterOrder | undefined;
   plan_ids?: Array<string> | undefined;
@@ -44,6 +45,7 @@ export const PlanFilter$zodSchema: z.ZodType<PlanFilter> = z.object({
   ),
   limit: z.int().optional(),
   lookup_key: z.string().optional(),
+  metadata: z.record(z.string(), z.string()).optional(),
   offset: z.int().optional(),
   order: PlanFilterOrder$zodSchema.optional(),
   plan_ids: z.array(z.string()).optional(),
