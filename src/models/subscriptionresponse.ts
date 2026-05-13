@@ -53,6 +53,7 @@ import {
 
 export type SubscriptionResponse = {
   active_pause_id?: string | undefined;
+  auto_invoice_threshold?: string | undefined;
   billing_anchor?: string | undefined;
   billing_cadence?: BillingCadence | undefined;
   billing_cycle?: BillingCycle | undefined;
@@ -110,6 +111,9 @@ export const SubscriptionResponse$zodSchema: z.ZodType<SubscriptionResponse> = z
   .object({
     active_pause_id: z.string().optional().describe(
       "ActivePauseID references the current active pause configuration\nThis will be null if no pause is active or scheduled",
+    ),
+    auto_invoice_threshold: z.string().optional().describe(
+      "AutoInvoiceThreshold is the usage amount (in subscription currency) that triggers\nan intermediate invoice. Overrides the plan-level threshold when set.\nNil means: inherit from the plan's threshold (which may also be nil = disabled).",
     ),
     billing_anchor: z.iso.datetime({ offset: true }).optional().describe(
       "BillingAnchor is the reference point that aligns future billing cycle dates.\nIt sets the day of week for week intervals, the day of month for month and year intervals,\nand the month of year for year intervals. The timestamp is in UTC format.",
