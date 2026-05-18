@@ -41,7 +41,6 @@ import { tool$invoicesGetCustomerInvoiceSummary } from "./tools/invoicesGetCusto
 import { tool$invoicesGetInvoice } from "./tools/invoicesGetInvoice.js";
 import { tool$invoicesGetInvoicePdf } from "./tools/invoicesGetInvoicePdf.js";
 import { tool$invoicesGetInvoicePreview } from "./tools/invoicesGetInvoicePreview.js";
-import { tool$invoicesGetMeterUsagePreviewInvoice } from "./tools/invoicesGetMeterUsagePreviewInvoice.js";
 import { tool$invoicesQueryInvoice } from "./tools/invoicesQueryInvoice.js";
 import { tool$invoicesRecalculateInvoice } from "./tools/invoicesRecalculateInvoice.js";
 import { tool$invoicesRecalculateInvoiceV2 } from "./tools/invoicesRecalculateInvoiceV2.js";
@@ -102,7 +101,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.10",
+    version: "2.1.11",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -158,7 +157,6 @@ export function createMCPServer(deps: {
   tool(tool$customersGetCustomerUpcomingGrants);
   tool(tool$invoicesGetCustomerInvoiceSummary);
   tool(tool$invoicesCreateInvoice);
-  tool(tool$invoicesGetMeterUsagePreviewInvoice);
   tool(tool$invoicesGetInvoicePreview);
   tool(tool$invoicesQueryInvoice);
   tool(tool$invoicesGetInvoice);

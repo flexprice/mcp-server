@@ -3,51 +3,16 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
-
-export const Code = {
-  NotFound: "not_found",
-  AlreadyExists: "already_exists",
-  VersionConflict: "version_conflict",
-  ValidationError: "validation_error",
-  InvalidOperation: "invalid_operation",
-  PermissionDenied: "permission_denied",
-  HttpClientError: "http_client_error",
-  DatabaseError: "database_error",
-  SystemError: "system_error",
-  InternalError: "internal_error",
-  ServiceUnavailable: "service_unavailable",
-} as const;
-export type Code = ClosedEnum<typeof Code>;
-
-export const Code$zodSchema = z.enum([
-  "not_found",
-  "already_exists",
-  "version_conflict",
-  "validation_error",
-  "invalid_operation",
-  "permission_denied",
-  "http_client_error",
-  "database_error",
-  "system_error",
-  "internal_error",
-  "service_unavailable",
-]);
-
-export type Details = {};
-
-export const Details$zodSchema: z.ZodType<Details> = z.object({});
+import { ErrorCode, ErrorCode$zodSchema } from "./errorcode.js";
 
 export type ErrorResponse = {
-  code?: Code | undefined;
-  details?: { [k: string]: Details } | undefined;
+  code?: ErrorCode | undefined;
   http_status_code?: number | undefined;
   message?: string | undefined;
 };
 
 export const ErrorResponse$zodSchema: z.ZodType<ErrorResponse> = z.object({
-  code: Code$zodSchema.optional(),
-  details: z.record(z.string(), z.lazy(() => Details$zodSchema)).optional(),
+  code: ErrorCode$zodSchema.optional(),
   http_status_code: z.int().optional(),
   message: z.string().optional(),
 });

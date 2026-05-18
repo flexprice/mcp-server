@@ -52,6 +52,7 @@ export type InvoiceResponse = {
   invoice_pdf_url?: string | undefined;
   invoice_status?: InvoiceStatus | undefined;
   invoice_type?: InvoiceType | undefined;
+  issue_date?: string | undefined;
   last_computed_at?: string | undefined;
   line_items?: Array<InvoiceLineItemResponse> | undefined;
   metadata?: { [k: string]: string } | undefined;
@@ -142,6 +143,9 @@ export const InvoiceResponse$zodSchema: z.ZodType<InvoiceResponse> = z.object({
   ),
   invoice_status: InvoiceStatus$zodSchema.optional(),
   invoice_type: InvoiceType$zodSchema.optional(),
+  issue_date: z.iso.datetime({ offset: true }).optional().describe(
+    "issue_date is the user-facing date of the invoice. Defaults to created_at if not set.",
+  ),
   last_computed_at: z.iso.datetime({ offset: true }).optional().describe(
     "last_computed_at is the timestamp when this invoice was last computed by ComputeInvoice",
   ),

@@ -44,6 +44,7 @@ export type CreateInvoiceRequest = {
   invoice_pdf_url?: string | undefined;
   invoice_status?: InvoiceStatus | undefined;
   invoice_type?: InvoiceType | undefined;
+  issue_date?: string | undefined;
   line_item_coupons?: Array<InvoiceLineItemCoupon> | undefined;
   line_items?: Array<CreateInvoiceLineItemRequest> | undefined;
   metadata?: { [k: string]: string } | undefined;
@@ -98,6 +99,9 @@ export const CreateInvoiceRequest$zodSchema: z.ZodType<CreateInvoiceRequest> = z
     ),
     invoice_status: InvoiceStatus$zodSchema.optional(),
     invoice_type: InvoiceType$zodSchema.optional(),
+    issue_date: z.iso.datetime({ offset: true }).optional().describe(
+      "issue_date overrides the user-facing date of the invoice.\nDefaults to created_at if not provided.",
+    ),
     line_item_coupons: z.array(InvoiceLineItemCoupon$zodSchema).optional()
       .describe("Invoice Line Item Coupons"),
     line_items: z.array(CreateInvoiceLineItemRequest$zodSchema).optional()
