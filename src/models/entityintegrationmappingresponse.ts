@@ -16,6 +16,7 @@ export type EntityIntegrationMappingResponse = {
   entity_type?: IntegrationEntityType | undefined;
   environment_id?: string | undefined;
   id?: string | undefined;
+  metadata?: { [k: string]: any } | undefined;
   provider_entity_id?: string | undefined;
   provider_type?: string | undefined;
   status?: Status | undefined;
@@ -33,6 +34,7 @@ export const EntityIntegrationMappingResponse$zodSchema: z.ZodType<
   entity_type: IntegrationEntityType$zodSchema.optional(),
   environment_id: z.string().optional(),
   id: z.string().optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
   provider_entity_id: z.string().optional(),
   provider_type: z.string().optional(),
   status: Status$zodSchema.optional(),

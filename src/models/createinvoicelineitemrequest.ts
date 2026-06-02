@@ -6,6 +6,7 @@ import * as z from "zod";
 import { CommitmentInfo, CommitmentInfo$zodSchema } from "./commitmentinfo.js";
 
 export type CreateInvoiceLineItemRequest = {
+  adjusted_entitlement_quantity?: string | undefined;
   amount: string;
   commitment_info?: CommitmentInfo | undefined;
   display_name?: string | undefined;
@@ -26,11 +27,16 @@ export type CreateInvoiceLineItemRequest = {
   price_unit?: string | undefined;
   price_unit_amount?: string | undefined;
   quantity: string;
+  subscription_id?: string | undefined;
+  subscription_line_item_id?: string | undefined;
 };
 
 export const CreateInvoiceLineItemRequest$zodSchema: z.ZodType<
   CreateInvoiceLineItemRequest
 > = z.object({
+  adjusted_entitlement_quantity: z.string().optional().describe(
+    "adjusted_entitlement_quantity is the entitlement-covered units deducted from raw usage.",
+  ),
   amount: z.string().describe(
     "amount is the monetary amount for this line item",
   ),
@@ -86,5 +92,11 @@ export const CreateInvoiceLineItemRequest$zodSchema: z.ZodType<
   ),
   quantity: z.string().describe(
     "quantity is the quantity of units for this line item",
+  ),
+  subscription_id: z.string().optional().describe(
+    "subscription_id overrides the invoice's subscription_id for this specific line item.\nUsed for grouped invoicing where child line items belong to child subscriptions.",
+  ),
+  subscription_line_item_id: z.string().optional().describe(
+    "sub_line_item_id links this line item to the subscription_line_item that generated it.",
   ),
 });

@@ -89,11 +89,13 @@ export type SubscriptionResponseV2 = {
   phases?: Array<SubscriptionPhaseResponse> | undefined;
   plan?: PlanResponse | undefined;
   plan_id?: string | undefined;
+  plan_prices_out_of_sync?: boolean | undefined;
   proration_behavior?: ProrationBehavior | undefined;
   start_date?: string | undefined;
   status?: Status | undefined;
   subscription_status?: SubscriptionStatus | undefined;
   subscription_type?: SubscriptionType | undefined;
+  synced_price_sequence?: number | undefined;
   tenant_id?: string | undefined;
   trial_end?: string | undefined;
   trial_start?: string | undefined;
@@ -206,6 +208,9 @@ export const SubscriptionResponseV2$zodSchema: z.ZodType<
   plan_id: z.string().optional().describe(
     "PlanID is the identifier for the plan in our system",
   ),
+  plan_prices_out_of_sync: z.boolean().optional().describe(
+    "PlanPricesOutOfSync is true when the subscription's synced_price_sequence\nis behind the plan's current max prices.sequence — i.e. plan-price\nchanges have not yet been reconciled into this subscription's line items.",
+  ),
   proration_behavior: ProrationBehavior$zodSchema.optional(),
   start_date: z.iso.datetime({ offset: true }).optional().describe(
     "StartDate is the start date of the subscription",
@@ -213,6 +218,9 @@ export const SubscriptionResponseV2$zodSchema: z.ZodType<
   status: Status$zodSchema.optional(),
   subscription_status: SubscriptionStatus$zodSchema.optional(),
   subscription_type: SubscriptionType$zodSchema.optional(),
+  synced_price_sequence: z.int().optional().describe(
+    "SyncedPriceSequence is the plan-price sequence up to which this\nsubscription's line items have been reconciled. Bumped by the\nplan-price sync after a successful pass.",
+  ),
   tenant_id: z.string().optional(),
   trial_end: z.iso.datetime({ offset: true }).optional().describe(
     "TrialEnd is the end date of the trial period",

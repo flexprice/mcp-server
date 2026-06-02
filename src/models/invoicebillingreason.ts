@@ -14,6 +14,7 @@ export const InvoiceBillingReason = {
   Proration: "PRORATION",
   Manual: "MANUAL",
   AutoInvoiceThreshold: "AUTO_INVOICE_THRESHOLD",
+  WalletAutoTopup: "WALLET_AUTO_TOPUP",
 } as const;
 export type InvoiceBillingReason = ClosedEnum<typeof InvoiceBillingReason>;
 
@@ -26,4 +27,5 @@ export const InvoiceBillingReason$zodSchema = z.enum([
   "PRORATION",
   "MANUAL",
   "AUTO_INVOICE_THRESHOLD",
+  "WALLET_AUTO_TOPUP",
 ]);

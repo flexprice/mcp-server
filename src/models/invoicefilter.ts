@@ -8,6 +8,10 @@ import {
   FilterCondition,
   FilterCondition$zodSchema,
 } from "./filtercondition.js";
+import {
+  InvoiceBillingReason,
+  InvoiceBillingReason$zodSchema,
+} from "./invoicebillingreason.js";
 import { InvoiceStatus, InvoiceStatus$zodSchema } from "./invoicestatus.js";
 import { InvoiceType, InvoiceType$zodSchema } from "./invoicetype.js";
 import { PaymentStatus, PaymentStatus$zodSchema } from "./paymentstatus.js";
@@ -28,6 +32,8 @@ export const InvoiceFilterOrder$zodSchema = z.enum([
 export type InvoiceFilter = {
   amount_due_gt?: number | undefined;
   amount_remaining_gt?: number | undefined;
+  billing_reason?: InvoiceBillingReason | undefined;
+  currency?: string | undefined;
   customer_id?: string | undefined;
   end_time?: string | undefined;
   expand?: string | undefined;
@@ -58,6 +64,10 @@ export const InvoiceFilter$zodSchema: z.ZodType<InvoiceFilter> = z.object({
   ),
   amount_remaining_gt: z.number().optional().describe(
     "amount_remaining_gt filters invoices with an outstanding balance greater than the specified value\nUseful for finding invoices that still have significant unpaid amounts",
+  ),
+  billing_reason: InvoiceBillingReason$zodSchema.optional(),
+  currency: z.string().optional().describe(
+    "currency filters invoices by their currency (ISO 4217 code, e.g. \"usd\", \"eur\").\nMatches on the invoices.currency column exactly.",
   ),
   customer_id: z.string().optional().describe(
     "customer_id filters invoices for a specific customer using FlexPrice's internal customer ID\nThis is the ID returned by FlexPrice when creating or retrieving customers",

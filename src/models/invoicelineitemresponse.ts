@@ -15,6 +15,7 @@ import {
 } from "./usagebreakdownitem.js";
 
 export type InvoiceLineItemResponse = {
+  adjusted_entitlement_quantity?: string | undefined;
   amount?: string | undefined;
   commitment_info?: CommitmentInfo | undefined;
   created_at?: string | undefined;
@@ -44,6 +45,7 @@ export type InvoiceLineItemResponse = {
   quantity?: string | undefined;
   status?: Status | undefined;
   subscription_id?: string | undefined;
+  subscription_line_item_id?: string | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
@@ -54,6 +56,9 @@ export type InvoiceLineItemResponse = {
 export const InvoiceLineItemResponse$zodSchema: z.ZodType<
   InvoiceLineItemResponse
 > = z.object({
+  adjusted_entitlement_quantity: z.string().optional().describe(
+    "adjusted_entitlement_quantity is the entitlement-covered portion deducted from raw usage.\nNil when no entitlement was applied. Raw usage = Quantity + AdjustedEntitlementQuantity.",
+  ),
   amount: z.string().optional(),
   commitment_info: CommitmentInfo$zodSchema.optional(),
   created_at: z.iso.datetime({ offset: true }).optional(),
@@ -89,6 +94,9 @@ export const InvoiceLineItemResponse$zodSchema: z.ZodType<
   quantity: z.string().optional(),
   status: Status$zodSchema.optional(),
   subscription_id: z.string().optional(),
+  subscription_line_item_id: z.string().optional().describe(
+    "sub_line_item_id links this invoice line item to the subscription_line_item that generated it.",
+  ),
   tenant_id: z.string().optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),
   updated_by: z.string().optional(),

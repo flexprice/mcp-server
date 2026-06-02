@@ -52,6 +52,7 @@ export type PricePrice = {
   price_unit_id?: string | undefined;
   price_unit_tiers?: Array<PricePriceTier> | undefined;
   price_unit_type?: PriceUnitType | undefined;
+  sequence?: number | undefined;
   start_date?: string | undefined;
   status?: Status | undefined;
   tenant_id?: string | undefined;
@@ -133,6 +134,9 @@ export const PricePrice$zodSchema: z.ZodType<PricePrice> = z.object({
     "PriceUnitTiers are the tiers for the price unit when BillingModel is TIERED",
   ),
   price_unit_type: PriceUnitType$zodSchema.optional(),
+  sequence: z.int().optional().describe(
+    "Sequence is the monotonic stamp bumped on every state change that\nsubscription line items need to react to. Read by the plan-price sync;\nset by the database (DEFAULT nextval) on create and by the price\nrepository on termination / compatibility-affecting edits.",
+  ),
   start_date: z.iso.datetime({ offset: true }).optional().describe(
     "StartDate is the start date of the price",
   ),

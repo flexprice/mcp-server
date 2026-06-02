@@ -9,6 +9,7 @@ import { UserType, UserType$zodSchema } from "./usertype.js";
 export type UserResponse = {
   email?: string | undefined;
   id?: string | undefined;
+  metadata?: { [k: string]: string } | undefined;
   roles?: Array<string> | undefined;
   tenant?: TenantResponse | undefined;
   type?: UserType | undefined;
@@ -17,6 +18,7 @@ export type UserResponse = {
 export const UserResponse$zodSchema: z.ZodType<UserResponse> = z.object({
   email: z.string().optional().describe("Empty for service accounts"),
   id: z.string().optional(),
+  metadata: z.record(z.string(), z.string()).optional(),
   roles: z.array(z.string()).optional(),
   tenant: TenantResponse$zodSchema.optional(),
   type: UserType$zodSchema.optional(),

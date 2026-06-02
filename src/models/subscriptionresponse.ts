@@ -99,6 +99,7 @@ export type SubscriptionResponse = {
   status?: Status | undefined;
   subscription_status?: SubscriptionStatus | undefined;
   subscription_type?: SubscriptionType | undefined;
+  synced_price_sequence?: number | undefined;
   tenant_id?: string | undefined;
   trial_end?: string | undefined;
   trial_start?: string | undefined;
@@ -213,6 +214,9 @@ export const SubscriptionResponse$zodSchema: z.ZodType<SubscriptionResponse> = z
     status: Status$zodSchema.optional(),
     subscription_status: SubscriptionStatus$zodSchema.optional(),
     subscription_type: SubscriptionType$zodSchema.optional(),
+    synced_price_sequence: z.int().optional().describe(
+      "SyncedPriceSequence is the plan-price sequence up to which this\nsubscription's line items have been reconciled. Bumped by the\nplan-price sync after a successful pass.",
+    ),
     tenant_id: z.string().optional(),
     trial_end: z.iso.datetime({ offset: true }).optional().describe(
       "TrialEnd is the end date of the trial period",

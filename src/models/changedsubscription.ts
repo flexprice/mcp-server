@@ -14,8 +14,10 @@ import {
 
 export type ChangedSubscription = {
   action?: ChangedSubscriptionAction | undefined;
+  current_period_end?: string | undefined;
   id?: string | undefined;
   status?: SubscriptionStatus | undefined;
+  trial_end?: string | undefined;
 };
 
 export const ChangedSubscription$zodSchema: z.ZodType<ChangedSubscription> = z
@@ -23,6 +25,8 @@ export const ChangedSubscription$zodSchema: z.ZodType<ChangedSubscription> = z
     action: ChangedSubscriptionAction$zodSchema.optional().describe(
       "created | updated",
     ),
+    current_period_end: z.iso.datetime({ offset: true }).optional(),
     id: z.string().optional(),
     status: SubscriptionStatus$zodSchema.optional(),
+    trial_end: z.iso.datetime({ offset: true }).optional(),
   });
