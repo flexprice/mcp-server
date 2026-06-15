@@ -10,6 +10,8 @@ export const DebugTrackerStatus = {
   NotFound: "not_found",
   Found: "found",
   Error: "error",
+  Processing: "processing",
+  Attributed: "attributed",
 } as const;
 export type DebugTrackerStatus = ClosedEnum<typeof DebugTrackerStatus>;
 
@@ -18,4 +20,6 @@ export const DebugTrackerStatus$zodSchema = z.enum([
   "not_found",
   "found",
   "error",
+  "processing",
+  "attributed",
 ]);

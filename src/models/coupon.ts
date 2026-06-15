@@ -10,6 +10,7 @@ import { Status, Status$zodSchema } from "./status.js";
 export type Coupon = {
   amount_off?: string | undefined;
   cadence?: CouponCadence | undefined;
+  coupon_code?: string | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
   currency?: string | undefined;
@@ -34,6 +35,7 @@ export type Coupon = {
 export const Coupon$zodSchema: z.ZodType<Coupon> = z.object({
   amount_off: z.string().optional(),
   cadence: CouponCadence$zodSchema.optional(),
+  coupon_code: z.string().optional(),
   created_at: z.iso.datetime({ offset: true }).optional(),
   created_by: z.string().optional(),
   currency: z.string().optional(),

@@ -6,6 +6,10 @@ import * as z from "zod";
 import { BillingModel, BillingModel$zodSchema } from "./billingmodel.js";
 import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
 import { BillingTier, BillingTier$zodSchema } from "./billingtier.js";
+import {
+  CommitmentBucketRequest,
+  CommitmentBucketRequest$zodSchema,
+} from "./commitmentbucketrequest.js";
 import { CommitmentType, CommitmentType$zodSchema } from "./commitmenttype.js";
 import {
   CreatePriceTier,
@@ -23,6 +27,7 @@ export type UpdateSubscriptionLineItemRequest = {
   commitment_duration?: BillingPeriod | undefined;
   commitment_overage_factor?: number | undefined;
   commitment_quantity?: number | undefined;
+  commitment_time_buckets?: Array<CommitmentBucketRequest> | undefined;
   commitment_true_up_enabled?: boolean | undefined;
   commitment_type?: CommitmentType | undefined;
   commitment_windowed?: boolean | undefined;
@@ -44,6 +49,10 @@ export const UpdateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   commitment_duration: BillingPeriod$zodSchema.optional(),
   commitment_overage_factor: z.number().optional(),
   commitment_quantity: z.number().optional(),
+  commitment_time_buckets: z.array(CommitmentBucketRequest$zodSchema).optional()
+    .describe(
+      "Pointer so an explicit empty array can clear existing buckets (omission keeps them).",
+    ),
   commitment_true_up_enabled: z.boolean().optional(),
   commitment_type: CommitmentType$zodSchema.optional(),
   commitment_windowed: z.boolean().optional(),

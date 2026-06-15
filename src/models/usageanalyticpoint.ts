@@ -5,6 +5,8 @@
 import * as z from "zod";
 
 export type UsageAnalyticPoint = {
+  bucket_id?: string | undefined;
+  bucket_price_id?: string | undefined;
   computed_commitment_utilized_amount?: string | undefined;
   computed_overage_amount?: string | undefined;
   computed_true_up_amount?: string | undefined;
@@ -16,6 +18,10 @@ export type UsageAnalyticPoint = {
 
 export const UsageAnalyticPoint$zodSchema: z.ZodType<UsageAnalyticPoint> = z
   .object({
+    bucket_id: z.string().optional().describe(
+      "Bucket identity (only populated when BreakdownBucket=true and the line item\nhas CommitmentTimeBuckets). Empty strings indicate out-of-bucket windows.",
+    ),
+    bucket_price_id: z.string().optional(),
     computed_commitment_utilized_amount: z.string().optional().describe(
       "Commitment breakdown (only populated for windowed commitments)",
     ),

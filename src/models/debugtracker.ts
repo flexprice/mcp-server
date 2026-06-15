@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import {
+  AttributedToCustomerResult,
+  AttributedToCustomerResult$zodSchema,
+} from "./attributedtocustomerresult.js";
+import {
   CustomerLookupResult,
   CustomerLookupResult$zodSchema,
 } from "./customerlookupresult.js";
@@ -22,6 +26,7 @@ import {
 } from "./subscriptionlineitemlookupresult.js";
 
 export type DebugTracker = {
+  attributed_to_customer?: AttributedToCustomerResult | undefined;
   customer_lookup?: CustomerLookupResult | undefined;
   failure_point?: FailurePoint | undefined;
   meter_matching?: MeterMatchingResult | undefined;
@@ -30,6 +35,7 @@ export type DebugTracker = {
 };
 
 export const DebugTracker$zodSchema: z.ZodType<DebugTracker> = z.object({
+  attributed_to_customer: AttributedToCustomerResult$zodSchema.optional(),
   customer_lookup: CustomerLookupResult$zodSchema.optional(),
   failure_point: FailurePoint$zodSchema.optional(),
   meter_matching: MeterMatchingResult$zodSchema.optional(),

@@ -43,6 +43,10 @@ import {
   ProrationBehavior$zodSchema,
 } from "./prorationbehavior.js";
 import {
+  SubscriptionCouponInput,
+  SubscriptionCouponInput$zodSchema,
+} from "./subscriptioncouponinput.js";
+import {
   SubscriptionInheritanceConfig,
   SubscriptionInheritanceConfig$zodSchema,
 } from "./subscriptioninheritanceconfig.js";
@@ -93,6 +97,7 @@ export type CreateSubscriptionRequest = {
   plan_id: string;
   proration_behavior?: ProrationBehavior | undefined;
   start_date?: string | undefined;
+  subscription_coupons?: Array<SubscriptionCouponInput> | undefined;
   subscription_status?: SubscriptionStatus | undefined;
   tax_rate_overrides?: Array<TaxRateOverride> | undefined;
   trial_period_days?: number | undefined;
@@ -118,7 +123,9 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
     "CommitmentAmount is the minimum amount a customer commits to paying for a billing period",
   ),
   commitment_duration: BillingPeriod$zodSchema.optional(),
-  coupons: z.array(z.string()).optional(),
+  coupons: z.array(z.string()).optional().describe(
+    "Deprecated: use SubscriptionCoupons instead.",
+  ),
   credit_grants: z.array(CreateCreditGrantRequest$zodSchema).optional()
     .describe("Credit grants to be applied when subscription is created"),
   currency: z.string(),
@@ -143,7 +150,8 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   ).optional().describe(
     "LineItemCommitments allows setting commitment configuration per line item (keyed by price_id)",
   ),
-  line_item_coupons: z.record(z.string(), z.array(z.string())).optional(),
+  line_item_coupons: z.record(z.string(), z.array(z.string())).optional()
+    .describe("Deprecated: use SubscriptionCoupons instead."),
   line_items: z.array(CreateSubscriptionLineItemRequest$zodSchema).optional()
     .describe(
       "LineItems are extra line items to add at creation (each with price_id or price), in addition to plan prices",
@@ -169,6 +177,10 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   plan_id: z.string(),
   proration_behavior: ProrationBehavior$zodSchema.optional(),
   start_date: z.iso.datetime({ offset: true }).optional(),
+  subscription_coupons: z.array(SubscriptionCouponInput$zodSchema).optional()
+    .describe(
+      "SubscriptionCoupons is the preferred way to attach coupons at creation.\nAccepts coupon_code; optionally targets a line item via price_id.",
+    ),
   subscription_status: SubscriptionStatus$zodSchema.optional(),
   tax_rate_overrides: z.array(TaxRateOverride$zodSchema).optional().describe(
     "tax_rate_overrides is the tax rate overrides\tto be applied to the subscription",

@@ -11,6 +11,10 @@ import {
   OverrideLineItemRequest,
   OverrideLineItemRequest$zodSchema,
 } from "./overridelineitemrequest.js";
+import {
+  SubscriptionCouponInput,
+  SubscriptionCouponInput$zodSchema,
+} from "./subscriptioncouponinput.js";
 
 export type SubscriptionPhaseCreateRequest = {
   coupons?: Array<string> | undefined;
@@ -20,19 +24,18 @@ export type SubscriptionPhaseCreateRequest = {
   metadata?: { [k: string]: string } | undefined;
   override_line_items?: Array<OverrideLineItemRequest> | undefined;
   start_date: string;
+  subscription_coupons?: Array<SubscriptionCouponInput> | undefined;
 };
 
 export const SubscriptionPhaseCreateRequest$zodSchema: z.ZodType<
   SubscriptionPhaseCreateRequest
 > = z.object({
   coupons: z.array(z.string()).optional().describe(
-    "Coupons represents subscription-level coupons to be applied to this phase",
+    "Deprecated: use SubscriptionCoupons instead.",
   ),
   end_date: z.iso.datetime({ offset: true }).optional(),
   line_item_coupons: z.record(z.string(), z.array(z.string())).optional()
-    .describe(
-      "LineItemCoupons represents line item-level coupons (map of line_item_id to coupon IDs)",
-    ),
+    .describe("Deprecated: use SubscriptionCoupons instead."),
   line_items: z.array(CreateSubscriptionLineItemRequest$zodSchema).optional()
     .describe(
       "LineItems are extra line items to add during this phase, primarily one-time charges.\nEach item's start_date defaults to the phase's start_date when not provided.",
@@ -43,4 +46,8 @@ export const SubscriptionPhaseCreateRequest$zodSchema: z.ZodType<
       "OverrideLineItems allows customizing specific prices for this phase\nIf not provided, phase will use the same line items as the subscription (plan prices)",
     ),
   start_date: z.iso.datetime({ offset: true }),
+  subscription_coupons: z.array(SubscriptionCouponInput$zodSchema).optional()
+    .describe(
+      "SubscriptionCoupons is the preferred way to attach coupons to this phase.",
+    ),
 });

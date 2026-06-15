@@ -4,6 +4,7 @@
 
 import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
+import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
 import {
   FilterCondition,
   FilterCondition$zodSchema,
@@ -27,6 +28,7 @@ export const PriceFilterOrder$zodSchema = z.enum([
 
 export type PriceFilter = {
   allow_expired_prices?: boolean | undefined;
+  billing_periods?: Array<BillingPeriod> | undefined;
   end_time?: string | undefined;
   entity_ids?: Array<string> | undefined;
   entity_type?: PriceEntityType | undefined;
@@ -48,6 +50,7 @@ export type PriceFilter = {
 
 export const PriceFilter$zodSchema: z.ZodType<PriceFilter> = z.object({
   allow_expired_prices: z.boolean().default(false),
+  billing_periods: z.array(BillingPeriod$zodSchema).optional(),
   end_time: z.iso.datetime({ offset: true }).optional(),
   entity_ids: z.array(z.string()).optional(),
   entity_type: PriceEntityType$zodSchema.optional(),

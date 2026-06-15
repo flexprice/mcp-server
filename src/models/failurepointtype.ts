@@ -10,6 +10,7 @@ export const FailurePointType = {
   MeterLookup: "meter_lookup",
   PriceLookup: "price_lookup",
   SubscriptionLineItemLookup: "subscription_line_item_lookup",
+  AttributedToCustomer: "attributed_to_customer",
 } as const;
 export type FailurePointType = ClosedEnum<typeof FailurePointType>;
 
@@ -18,4 +19,5 @@ export const FailurePointType$zodSchema = z.enum([
   "meter_lookup",
   "price_lookup",
   "subscription_line_item_lookup",
+  "attributed_to_customer",
 ]);

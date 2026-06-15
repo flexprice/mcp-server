@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Preview subscription modification
  *
  * @remarks
- * Preview the impact of a mid-cycle subscription modification without committing changes.
+ * Preview the impact of a mid-cycle subscription modification (inheritance, quantity change, grouped invoicing, trial end, coupon, or tax) without committing changes.
  */
 export function subscriptionsPreviewSubscriptionModify(
   client$: FlexpriceCore,

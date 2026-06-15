@@ -3,13 +3,26 @@
  */
 
 import * as z from "zod";
+import {
+  InheritanceAction,
+  InheritanceAction$zodSchema,
+} from "./inheritanceaction.js";
 
 export type SubModifyInheritanceRequest = {
+  action?: InheritanceAction | undefined;
   external_customer_ids_to_inherit_subscription?: Array<string> | undefined;
+  external_customer_ids_to_remove?: Array<string> | undefined;
 };
 
 export const SubModifyInheritanceRequest$zodSchema: z.ZodType<
   SubModifyInheritanceRequest
 > = z.object({
-  external_customer_ids_to_inherit_subscription: z.array(z.string()).optional(),
+  action: InheritanceAction$zodSchema.optional(),
+  external_customer_ids_to_inherit_subscription: z.array(z.string()).optional()
+    .describe(
+      "ExternalCustomerIDsToInheritSubscription is used for action=\"add\".",
+    ),
+  external_customer_ids_to_remove: z.array(z.string()).optional().describe(
+    "ExternalCustomerIDsToRemove is used for action=\"remove\".",
+  ),
 });

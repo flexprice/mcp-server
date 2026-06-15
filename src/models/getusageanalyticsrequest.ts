@@ -6,6 +6,7 @@ import * as z from "zod";
 import { WindowSize, WindowSize$zodSchema } from "./windowsize.js";
 
 export type GetUsageAnalyticsRequest = {
+  breakdown_bucket?: boolean | undefined;
   end_time?: string | undefined;
   expand?: Array<string> | undefined;
   external_customer_id?: string | undefined;
@@ -21,6 +22,9 @@ export type GetUsageAnalyticsRequest = {
 export const GetUsageAnalyticsRequest$zodSchema: z.ZodType<
   GetUsageAnalyticsRequest
 > = z.object({
+  breakdown_bucket: z.boolean().optional().describe(
+    "BreakdownBucket when true augments each time-series point with BucketID/PriceID\nand appends a BucketSummaries rollup to each item. Requires WindowSize to be set\nand the item to be linked to a subscription line item that has CommitmentTimeBuckets.\nDefault: false (opt-in, backward compatible).",
+  ),
   end_time: z.iso.datetime({ offset: true }).optional(),
   expand: z.array(z.string()).optional().describe(
     "allowed values: \"price\", \"meter\", \"feature\", \"subscription_line_item\",\"plan\",\"addon\"",

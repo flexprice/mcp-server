@@ -4,12 +4,17 @@
 
 import * as z from "zod";
 import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
+import {
+  CommitmentBucketRequest,
+  CommitmentBucketRequest$zodSchema,
+} from "./commitmentbucketrequest.js";
 import { CommitmentType, CommitmentType$zodSchema } from "./commitmenttype.js";
 
 export type LineItemCommitmentConfig = {
   commitment_amount?: number | undefined;
   commitment_duration?: BillingPeriod | undefined;
   commitment_quantity?: number | undefined;
+  commitment_time_buckets?: Array<CommitmentBucketRequest> | undefined;
   commitment_type?: CommitmentType | undefined;
   enable_true_up?: boolean | undefined;
   is_window_commitment?: boolean | undefined;
@@ -26,6 +31,10 @@ export const LineItemCommitmentConfig$zodSchema: z.ZodType<
   commitment_quantity: z.number().optional().describe(
     "CommitmentQuantity is the minimum quantity committed for this line item",
   ),
+  commitment_time_buckets: z.array(CommitmentBucketRequest$zodSchema).optional()
+    .describe(
+      "CommitmentTimeBuckets defines per-bucket commitment + inline price for\nwindows whose start UTC hour falls within each configured bucket. Each\nbucket carries its own price (materialized by the service). Requires\nIsWindowCommitment=true.",
+    ),
   commitment_type: CommitmentType$zodSchema.optional(),
   enable_true_up: z.boolean().optional().describe(
     "EnableTrueUp determines if true-up fee should be applied when usage is below commitment",

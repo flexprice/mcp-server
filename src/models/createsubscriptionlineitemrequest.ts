@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
+import {
+  CommitmentBucketRequest,
+  CommitmentBucketRequest$zodSchema,
+} from "./commitmentbucketrequest.js";
 import { CommitmentType, CommitmentType$zodSchema } from "./commitmenttype.js";
 import {
   ProrationBehavior,
@@ -19,6 +23,7 @@ export type CreateSubscriptionLineItemRequest = {
   commitment_duration?: BillingPeriod | undefined;
   commitment_overage_factor?: number | undefined;
   commitment_quantity?: number | undefined;
+  commitment_time_buckets?: Array<CommitmentBucketRequest> | undefined;
   commitment_true_up_enabled?: boolean | undefined;
   commitment_type?: CommitmentType | undefined;
   commitment_windowed?: boolean | undefined;
@@ -40,6 +45,8 @@ export const CreateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   commitment_duration: BillingPeriod$zodSchema.optional(),
   commitment_overage_factor: z.number().optional(),
   commitment_quantity: z.number().optional(),
+  commitment_time_buckets: z.array(CommitmentBucketRequest$zodSchema)
+    .optional(),
   commitment_true_up_enabled: z.boolean().optional(),
   commitment_type: CommitmentType$zodSchema.optional(),
   commitment_windowed: z.boolean().optional(),

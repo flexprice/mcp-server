@@ -8,6 +8,7 @@ import {
   AggregationType,
   AggregationType$zodSchema,
 } from "./aggregationtype.js";
+import { BucketSummary, BucketSummary$zodSchema } from "./bucketsummary.js";
 import { CommitmentInfo, CommitmentInfo$zodSchema } from "./commitmentinfo.js";
 import { Feature, Feature$zodSchema } from "./feature.js";
 import { GroupGroup, GroupGroup$zodSchema } from "./groupgroup.js";
@@ -29,6 +30,7 @@ export type UsageAnalyticItem = {
   add_on_id?: string | undefined;
   addon?: Addon | undefined;
   aggregation_type?: AggregationType | undefined;
+  bucket_summaries?: Array<BucketSummary> | undefined;
   commitment_info?: CommitmentInfo | undefined;
   currency?: string | undefined;
   event_count?: number | undefined;
@@ -64,6 +66,9 @@ export const UsageAnalyticItem$zodSchema: z.ZodType<UsageAnalyticItem> = z
     add_on_id: z.string().optional(),
     addon: Addon$zodSchema.optional(),
     aggregation_type: AggregationType$zodSchema.optional(),
+    bucket_summaries: z.array(BucketSummary$zodSchema).optional().describe(
+      "BucketSummaries is populated only when BreakdownBucket=true. Contains one\nentry per defined CommitmentTimeBucket plus one for out-of-bucket usage.",
+    ),
     commitment_info: CommitmentInfo$zodSchema.optional(),
     currency: z.string().optional(),
     event_count: z.int().optional().describe(

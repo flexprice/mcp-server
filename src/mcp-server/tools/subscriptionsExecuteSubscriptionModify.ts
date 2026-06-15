@@ -16,7 +16,7 @@ export const tool$subscriptionsExecuteSubscriptionModify: ToolDefinition<
   name: "execute-subscription-modify",
   description: `Execute subscription modification
 
-Execute a mid-cycle subscription modification (inheritance or quantity change).`,
+Execute a mid-cycle subscription modification (inheritance, quantity change, grouped invoicing, trial end, coupon, or tax).`,
   scopes: ["write"],
   annotations: {
     "title": "",

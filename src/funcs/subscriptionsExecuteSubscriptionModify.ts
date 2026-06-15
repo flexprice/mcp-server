@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Execute subscription modification
  *
  * @remarks
- * Execute a mid-cycle subscription modification (inheritance or quantity change).
+ * Execute a mid-cycle subscription modification (inheritance, quantity change, grouped invoicing, trial end, coupon, or tax).
  */
 export function subscriptionsExecuteSubscriptionModify(
   client$: FlexpriceCore,
