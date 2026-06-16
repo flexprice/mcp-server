@@ -12,7 +12,6 @@ export type SubModifyCouponParams = {
   action: SubModifyCouponAction;
   association_id?: string | undefined;
   coupon_code?: string | undefined;
-  effective_date?: string | undefined;
   end_date?: string | undefined;
   start_date?: string | undefined;
   subscription_id?: string | undefined;
@@ -28,14 +27,11 @@ export const SubModifyCouponParams$zodSchema: z.ZodType<SubModifyCouponParams> =
     coupon_code: z.string().optional().describe(
       "Required for action=\"add\". Coupon code of the coupon to attach.",
     ),
-    effective_date: z.iso.datetime({ offset: true }).optional().describe(
-      "Optional. When to apply the change; defaults to now if omitted.",
-    ),
     end_date: z.iso.datetime({ offset: true }).optional().describe(
       "Optional. When the coupon association ends.",
     ),
     start_date: z.iso.datetime({ offset: true }).optional().describe(
-      "Optional. When the coupon association starts; defaults to EffectiveDate.",
+      "Optional. When the coupon association starts; defaults to now.",
     ),
     subscription_id: z.string().optional().describe(
       "Optional. Apply at subscription level. Mutually exclusive with SubscriptionLineItemID.",
