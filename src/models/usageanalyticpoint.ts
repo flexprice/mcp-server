@@ -3,10 +3,10 @@
  */
 
 import * as z from "zod";
+import { PointBucket, PointBucket$zodSchema } from "./pointbucket.js";
 
 export type UsageAnalyticPoint = {
-  bucket_id?: string | undefined;
-  bucket_price_id?: string | undefined;
+  buckets?: Array<PointBucket> | undefined;
   computed_commitment_utilized_amount?: string | undefined;
   computed_overage_amount?: string | undefined;
   computed_true_up_amount?: string | undefined;
@@ -18,10 +18,9 @@ export type UsageAnalyticPoint = {
 
 export const UsageAnalyticPoint$zodSchema: z.ZodType<UsageAnalyticPoint> = z
   .object({
-    bucket_id: z.string().optional().describe(
-      "Bucket identity (only populated when BreakdownBucket=true and the line item\nhas CommitmentTimeBuckets). Empty strings indicate out-of-bucket windows.",
+    buckets: z.array(PointBucket$zodSchema).optional().describe(
+      "Buckets lists every commitment bucket this (possibly rolled-up) window\noverlaps — only populated when BreakdownBucket=true and the line item has\nCommitmentTimeBuckets. A coarse window can overlap more than one bucket, and\nonly partially, so this is a list. Empty when the window touches no bucket.\nIt is an informational HINT only: the point's single cost/computed_* totals\nmix all overlapped buckets and out-of-bucket time and CANNOT be split per\nbucket — read bucket_summaries for exact per-bucket cost.",
     ),
-    bucket_price_id: z.string().optional(),
     computed_commitment_utilized_amount: z.string().optional().describe(
       "Commitment breakdown (only populated for windowed commitments)",
     ),

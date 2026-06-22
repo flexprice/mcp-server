@@ -10,7 +10,7 @@ import {
 
 export type SubModifyCouponParams = {
   action: SubModifyCouponAction;
-  association_id?: string | undefined;
+  coupon_association_id?: string | undefined;
   coupon_code?: string | undefined;
   end_date?: string | undefined;
   start_date?: string | undefined;
@@ -21,7 +21,7 @@ export type SubModifyCouponParams = {
 export const SubModifyCouponParams$zodSchema: z.ZodType<SubModifyCouponParams> =
   z.object({
     action: SubModifyCouponAction$zodSchema,
-    association_id: z.string().optional().describe(
+    coupon_association_id: z.string().optional().describe(
       "Required when action=\"remove\". ID of the CouponAssociation to soft-delete.",
     ),
     coupon_code: z.string().optional().describe(

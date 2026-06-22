@@ -18,6 +18,7 @@ export type GetUsageRequest = {
   event_name: string;
   external_customer_id?: string | undefined;
   filters?: { [k: string]: Array<string> } | undefined;
+  group_by?: Array<string> | undefined;
   group_by_property?: string | undefined;
   multiplier?: string | undefined;
   property_name?: string | undefined;
@@ -36,8 +37,11 @@ export const GetUsageRequest$zodSchema: z.ZodType<GetUsageRequest> = z.object({
   event_name: z.string(),
   external_customer_id: z.string().optional(),
   filters: z.record(z.string(), z.array(z.string())).optional(),
+  group_by: z.array(z.string()).optional().describe(
+    "GroupBy lists the analytics group_by dimensions.\n  - \"source\"        — group by event source column\n  - \"properties.X\"  — group by JSON property X",
+  ),
   group_by_property: z.string().optional().describe(
-    "GroupByProperty is the property name in event.properties to group by before aggregating.\nWhen set, aggregation is applied per unique value of this property within each bucket,\nthen the per-group results are summed to produce the bucket total.",
+    "GroupByProperty is the property name in event.properties to group by before aggregating.\nWhen set, aggregation is applied per unique value of this property within each bucket,\nthen the per-group results are summed to produce the bucket total.\n\nDeprecated: prefer GroupBy []string{\"properties.<X>\"} for parity with\nother analytics endpoints. ToUsageParams translates this field into\nGroupBy when GroupBy is otherwise empty.",
   ),
   multiplier: z.string().optional(),
   property_name: z.string().optional().describe(

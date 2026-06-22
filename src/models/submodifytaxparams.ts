@@ -10,19 +10,19 @@ import {
 
 export type SubModifyTaxParams = {
   action: SubModifyTaxAction;
-  association_id?: string | undefined;
   effective_date?: string | undefined;
+  tax_association_id?: string | undefined;
   tax_rate_id?: string | undefined;
 };
 
 export const SubModifyTaxParams$zodSchema: z.ZodType<SubModifyTaxParams> = z
   .object({
     action: SubModifyTaxAction$zodSchema,
-    association_id: z.string().optional().describe(
-      "Required when action=\"remove\". ID of the TaxAssociation to soft-delete.",
-    ),
     effective_date: z.iso.datetime({ offset: true }).optional().describe(
       "Optional. When to apply the change; defaults to now if omitted.",
+    ),
+    tax_association_id: z.string().optional().describe(
+      "Required when action=\"remove\". ID of the TaxAssociation to soft-delete.",
     ),
     tax_rate_id: z.string().optional().describe(
       "Required when action=\"add\". ID of the active tax rate to attach.",
