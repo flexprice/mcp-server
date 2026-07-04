@@ -9,6 +9,7 @@ export const FeatureType = {
   Metered: "metered",
   Boolean: "boolean",
   Static: "static",
+  Config: "config",
 } as const;
 export type FeatureType = ClosedEnum<typeof FeatureType>;
 
@@ -16,4 +17,5 @@ export const FeatureType$zodSchema = z.enum([
   "metered",
   "boolean",
   "static",
+  "config",
 ]);

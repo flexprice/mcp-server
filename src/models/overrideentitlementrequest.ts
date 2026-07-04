@@ -5,6 +5,7 @@
 import * as z from "zod";
 
 export type OverrideEntitlementRequest = {
+  config_value?: { [k: string]: any } | undefined;
   entitlement_id: string;
   is_enabled?: boolean | undefined;
   static_value?: string | undefined;
@@ -14,6 +15,9 @@ export type OverrideEntitlementRequest = {
 export const OverrideEntitlementRequest$zodSchema: z.ZodType<
   OverrideEntitlementRequest
 > = z.object({
+  config_value: z.record(z.string(), z.any()).optional().describe(
+    "ConfigValue is the config value for config features",
+  ),
   entitlement_id: z.string().describe(
     "EntitlementID references the plan/addon entitlement to override",
   ),

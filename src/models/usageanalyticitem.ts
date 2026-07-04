@@ -53,7 +53,9 @@ export type UsageAnalyticItem = {
   sub_line_item_id?: string | undefined;
   subscription_id?: string | undefined;
   subscription_line_item?: SubscriptionSubscriptionLineItem | undefined;
+  subtotal?: string | undefined;
   total_cost?: string | undefined;
+  total_discount?: string | undefined;
   total_usage?: string | undefined;
   total_usage_display?: string | undefined;
   unit?: string | undefined;
@@ -100,7 +102,11 @@ export const UsageAnalyticItem$zodSchema: z.ZodType<UsageAnalyticItem> = z
     subscription_id: z.string().optional().describe("Subscription ID"),
     subscription_line_item: SubscriptionSubscriptionLineItem$zodSchema
       .optional(),
-    total_cost: z.string().optional(),
+    subtotal: z.string().optional(),
+    total_cost: z.string().optional().describe(
+      "TotalCost is the final cost after discount (Subtotal - TotalDiscount)",
+    ),
+    total_discount: z.string().optional(),
     total_usage: z.string().optional(),
     total_usage_display: z.string().optional().describe(
       "Empty string when feature has no reporting unit; otherwise the value in reporting units",

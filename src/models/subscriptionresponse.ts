@@ -74,7 +74,6 @@ export type SubscriptionResponse = {
   current_period_start?: string | undefined;
   customer?: CustomerResponse | undefined;
   customer_id?: string | undefined;
-  customer_timezone?: string | undefined;
   enable_true_up?: boolean | undefined;
   end_date?: string | undefined;
   environment_id?: string | undefined;
@@ -101,6 +100,7 @@ export type SubscriptionResponse = {
   subscription_type?: SubscriptionType | undefined;
   synced_price_sequence?: number | undefined;
   tenant_id?: string | undefined;
+  timezone?: string | undefined;
   trial_end?: string | undefined;
   trial_start?: string | undefined;
   updated_at?: string | undefined;
@@ -165,7 +165,6 @@ export const SubscriptionResponse$zodSchema: z.ZodType<SubscriptionResponse> = z
     customer_id: z.string().optional().describe(
       "CustomerID is the identifier for the customer in our system",
     ),
-    customer_timezone: z.string().optional(),
     enable_true_up: z.boolean().optional(),
     end_date: z.iso.datetime({ offset: true }).optional().describe(
       "EndDate is the end date of the subscription",
@@ -218,6 +217,7 @@ export const SubscriptionResponse$zodSchema: z.ZodType<SubscriptionResponse> = z
       "SyncedPriceSequence is the plan-price sequence up to which this\nsubscription's line items have been reconciled. Bumped by the\nplan-price sync after a successful pass.",
     ),
     tenant_id: z.string().optional(),
+    timezone: z.string().optional(),
     trial_end: z.iso.datetime({ offset: true }).optional().describe(
       "TrialEnd is the end date of the trial period",
     ),

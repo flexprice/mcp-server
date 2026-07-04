@@ -30,6 +30,7 @@ export type CustomerResponse = {
   name?: string | undefined;
   status?: Status | undefined;
   tenant_id?: string | undefined;
+  timezone?: string | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
 };
@@ -72,6 +73,9 @@ export const CustomerResponse$zodSchema: z.ZodType<CustomerResponse> = z.object(
     name: z.string().optional().describe("Name is the name of the customer"),
     status: Status$zodSchema.optional(),
     tenant_id: z.string().optional(),
+    timezone: z.string().optional().describe(
+      "Timezone is the customer's IANA timezone name (e.g. \"Asia/Kolkata\").\nDefaults to \"UTC\". Inherited by subscriptions at creation time.",
+    ),
     updated_at: z.iso.datetime({ offset: true }).optional(),
     updated_by: z.string().optional(),
   },

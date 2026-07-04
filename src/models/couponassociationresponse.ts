@@ -3,11 +3,15 @@
  */
 
 import * as z from "zod";
-import { Coupon, Coupon$zodSchema } from "./coupon.js";
+import { CouponResponse, CouponResponse$zodSchema } from "./couponresponse.js";
 import { Status, Status$zodSchema } from "./status.js";
+import {
+  SubscriptionLineItemResponse,
+  SubscriptionLineItemResponse$zodSchema,
+} from "./subscriptionlineitemresponse.js";
 
 export type CouponAssociationResponse = {
-  coupon?: Coupon | undefined;
+  coupon?: CouponResponse | undefined;
   coupon_id?: string | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -18,6 +22,7 @@ export type CouponAssociationResponse = {
   start_date?: string | undefined;
   status?: Status | undefined;
   subscription_id?: string | undefined;
+  subscription_line_item?: SubscriptionLineItemResponse | undefined;
   subscription_line_item_id?: string | undefined;
   subscription_phase_id?: string | undefined;
   tenant_id?: string | undefined;
@@ -28,7 +33,7 @@ export type CouponAssociationResponse = {
 export const CouponAssociationResponse$zodSchema: z.ZodType<
   CouponAssociationResponse
 > = z.object({
-  coupon: Coupon$zodSchema.optional(),
+  coupon: CouponResponse$zodSchema.optional(),
   coupon_id: z.string().optional(),
   created_at: z.iso.datetime({ offset: true }).optional(),
   created_by: z.string().optional(),
@@ -39,6 +44,7 @@ export const CouponAssociationResponse$zodSchema: z.ZodType<
   start_date: z.iso.datetime({ offset: true }).optional(),
   status: Status$zodSchema.optional(),
   subscription_id: z.string().optional().describe("Mandatory"),
+  subscription_line_item: SubscriptionLineItemResponse$zodSchema.optional(),
   subscription_line_item_id: z.string().optional().describe("Optional"),
   subscription_phase_id: z.string().optional().describe("Optional"),
   tenant_id: z.string().optional(),

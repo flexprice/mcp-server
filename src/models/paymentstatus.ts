@@ -14,6 +14,7 @@ export const PaymentStatus = {
   Failed: "FAILED",
   Refunded: "REFUNDED",
   PartiallyRefunded: "PARTIALLY_REFUNDED",
+  Voided: "VOIDED",
 } as const;
 export type PaymentStatus = ClosedEnum<typeof PaymentStatus>;
 
@@ -26,4 +27,5 @@ export const PaymentStatus$zodSchema = z.enum([
   "FAILED",
   "REFUNDED",
   "PARTIALLY_REFUNDED",
+  "VOIDED",
 ]);

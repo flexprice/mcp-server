@@ -14,6 +14,7 @@ export type GetUsageByMeterRequest = {
   filters?: { [k: string]: Array<string> } | undefined;
   meter_id: string;
   start_time?: string | undefined;
+  timezone?: string | undefined;
   window_size?: WindowSize | undefined;
 };
 
@@ -30,5 +31,6 @@ export const GetUsageByMeterRequest$zodSchema: z.ZodType<
   filters: z.record(z.string(), z.array(z.string())).optional(),
   meter_id: z.string(),
   start_time: z.iso.datetime({ offset: true }).optional(),
+  timezone: z.string().optional(),
   window_size: WindowSize$zodSchema.optional(),
 });

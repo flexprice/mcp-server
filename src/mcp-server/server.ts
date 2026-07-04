@@ -22,6 +22,7 @@ import { tool$customersDeleteCustomer } from "./tools/customersDeleteCustomer.js
 import { tool$customersGetCustomer } from "./tools/customersGetCustomer.js";
 import { tool$customersGetCustomerByExternalId } from "./tools/customersGetCustomerByExternalId.js";
 import { tool$customersGetCustomerEntitlements } from "./tools/customersGetCustomerEntitlements.js";
+import { tool$customersGetCustomerEntitlementsByExternalID } from "./tools/customersGetCustomerEntitlementsByExternalID.js";
 import { tool$customersGetCustomerUpcomingGrants } from "./tools/customersGetCustomerUpcomingGrants.js";
 import { tool$customersGetCustomerUsageSummary } from "./tools/customersGetCustomerUsageSummary.js";
 import { tool$customersQueryCustomer } from "./tools/customersQueryCustomer.js";
@@ -101,7 +102,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.20",
+    version: "2.0.21",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -149,6 +150,7 @@ export function createMCPServer(deps: {
   tool(tool$customersUpdateCustomer);
   tool(tool$customersCreateCustomer);
   tool(tool$customersGetCustomerByExternalId);
+  tool(tool$customersGetCustomerEntitlementsByExternalID);
   tool(tool$customersQueryCustomer);
   tool(tool$customersGetCustomerUsageSummary);
   tool(tool$customersGetCustomer);

@@ -10,6 +10,7 @@ import {
 } from "./entitlementsourceentitytype.js";
 
 export type EntitlementSource = {
+  config_value?: { [k: string]: any } | undefined;
   entitlement_id?: string | undefined;
   entity_id?: string | undefined;
   entity_name?: string | undefined;
@@ -24,6 +25,7 @@ export type EntitlementSource = {
 
 export const EntitlementSource$zodSchema: z.ZodType<EntitlementSource> = z
   .object({
+    config_value: z.record(z.string(), z.any()).optional(),
     entitlement_id: z.string().optional(),
     entity_id: z.string().optional(),
     entity_name: z.string().optional(),

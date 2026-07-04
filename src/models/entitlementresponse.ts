@@ -22,6 +22,7 @@ import { Status, Status$zodSchema } from "./status.js";
 
 export type EntitlementResponse = {
   addon?: AddonResponse | undefined;
+  config_value?: { [k: string]: any } | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
   display_order?: number | undefined;
@@ -51,6 +52,7 @@ export type EntitlementResponse = {
 export const EntitlementResponse$zodSchema: z.ZodType<EntitlementResponse> = z
   .object({
     addon: z.lazy(() => AddonResponse$zodSchema).optional(),
+    config_value: z.record(z.string(), z.any()).optional(),
     created_at: z.iso.datetime({ offset: true }).optional(),
     created_by: z.string().optional(),
     display_order: z.int().optional(),

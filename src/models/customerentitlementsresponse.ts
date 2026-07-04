@@ -7,10 +7,15 @@ import {
   AggregatedFeature,
   AggregatedFeature$zodSchema,
 } from "./aggregatedfeature.js";
+import {
+  SubscriptionResponse,
+  SubscriptionResponse$zodSchema,
+} from "./subscriptionresponse.js";
 
 export type CustomerEntitlementsResponse = {
   customer_id?: string | undefined;
   features?: Array<AggregatedFeature> | undefined;
+  subscriptions?: Array<SubscriptionResponse> | undefined;
 };
 
 export const CustomerEntitlementsResponse$zodSchema: z.ZodType<
@@ -18,4 +23,5 @@ export const CustomerEntitlementsResponse$zodSchema: z.ZodType<
 > = z.object({
   customer_id: z.string().optional(),
   features: z.array(AggregatedFeature$zodSchema).optional(),
+  subscriptions: z.array(SubscriptionResponse$zodSchema).optional(),
 });

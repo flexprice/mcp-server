@@ -23,6 +23,7 @@ export type GetUsageRequest = {
   multiplier?: string | undefined;
   property_name?: string | undefined;
   start_time?: string | undefined;
+  timezone?: string | undefined;
   window_size?: WindowSize | undefined;
 };
 
@@ -48,5 +49,6 @@ export const GetUsageRequest$zodSchema: z.ZodType<GetUsageRequest> = z.object({
     "will be empty/ignored in case of COUNT",
   ),
   start_time: z.iso.datetime({ offset: true }).optional(),
+  timezone: z.string().optional(),
   window_size: WindowSize$zodSchema.optional(),
 });

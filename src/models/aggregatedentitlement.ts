@@ -8,7 +8,12 @@ import {
   EntitlementUsageResetPeriod$zodSchema,
 } from "./entitlementusageresetperiod.js";
 
+export type ConfigValue = {};
+
+export const ConfigValue$zodSchema: z.ZodType<ConfigValue> = z.object({});
+
 export type AggregatedEntitlement = {
+  config_values?: Array<{ [k: string]: ConfigValue }> | undefined;
   is_enabled?: boolean | undefined;
   is_soft_limit?: boolean | undefined;
   static_values?: Array<string> | undefined;
@@ -18,11 +23,12 @@ export type AggregatedEntitlement = {
 
 export const AggregatedEntitlement$zodSchema: z.ZodType<AggregatedEntitlement> =
   z.object({
+    config_values: z.array(
+      z.record(z.string(), z.lazy(() => ConfigValue$zodSchema)),
+    ).optional(),
     is_enabled: z.boolean().optional(),
     is_soft_limit: z.boolean().optional(),
-    static_values: z.array(z.string()).optional().describe(
-      "For static/SLA features",
-    ),
+    static_values: z.array(z.string()).optional(),
     usage_limit: z.int().optional(),
     usage_reset_period: EntitlementUsageResetPeriod$zodSchema.optional(),
   });

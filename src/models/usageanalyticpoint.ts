@@ -11,7 +11,9 @@ export type UsageAnalyticPoint = {
   computed_overage_amount?: string | undefined;
   computed_true_up_amount?: string | undefined;
   cost?: string | undefined;
+  discount?: string | undefined;
   event_count?: number | undefined;
+  subtotal?: string | undefined;
   timestamp?: string | undefined;
   usage?: string | undefined;
 };
@@ -26,10 +28,14 @@ export const UsageAnalyticPoint$zodSchema: z.ZodType<UsageAnalyticPoint> = z
     ),
     computed_overage_amount: z.string().optional(),
     computed_true_up_amount: z.string().optional(),
-    cost: z.string().optional(),
+    cost: z.string().optional().describe(
+      "Cost is the final cost after discount (Subtotal - Discount)",
+    ),
+    discount: z.string().optional(),
     event_count: z.int().optional().describe(
       "Number of events in this time window",
     ),
+    subtotal: z.string().optional(),
     timestamp: z.string().optional(),
     usage: z.string().optional(),
   });

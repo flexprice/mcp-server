@@ -49,6 +49,7 @@ export type SubscriptionLineItemFilter = {
   start_time?: string | undefined;
   status?: Status | undefined;
   subscription_ids?: Array<string> | undefined;
+  subscription_line_item_ids?: Array<string> | undefined;
 };
 
 export const SubscriptionLineItemFilter$zodSchema: z.ZodType<
@@ -73,5 +74,8 @@ export const SubscriptionLineItemFilter$zodSchema: z.ZodType<
   sort: z.array(SortCondition$zodSchema).optional(),
   start_time: z.iso.datetime({ offset: true }).optional(),
   status: Status$zodSchema.optional(),
-  subscription_ids: z.array(z.string()).optional().describe("Specific filters"),
+  subscription_ids: z.array(z.string()).optional(),
+  subscription_line_item_ids: z.array(z.string()).optional().describe(
+    "Specific filters",
+  ),
 });

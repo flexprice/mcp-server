@@ -31,6 +31,7 @@ export type CreateCustomerRequest = {
   name?: string | undefined;
   skip_onboarding_workflow?: boolean | undefined;
   tax_rate_overrides?: Array<TaxRateOverride> | undefined;
+  timezone?: string | undefined;
 };
 
 export const CreateCustomerRequest$zodSchema: z.ZodType<CreateCustomerRequest> =
@@ -75,5 +76,8 @@ export const CreateCustomerRequest$zodSchema: z.ZodType<CreateCustomerRequest> =
     ),
     tax_rate_overrides: z.array(TaxRateOverride$zodSchema).optional().describe(
       "tax_rate_overrides contains tax rate configurations to be linked to this customer",
+    ),
+    timezone: z.string().optional().describe(
+      "timezone is the customer's IANA timezone name (e.g. \"Asia/Kolkata\", \"America/New_York\")\nDefaults to \"UTC\" if not provided",
     ),
   }).describe("Request object for creating a new customer in the system");

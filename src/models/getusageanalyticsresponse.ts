@@ -16,7 +16,9 @@ export type GetUsageAnalyticsResponse = {
   currency?: string | undefined;
   custom_analytics?: Array<CustomAnalyticItem> | undefined;
   items?: Array<UsageAnalyticItem> | undefined;
+  subtotal?: string | undefined;
   total_cost?: string | undefined;
+  total_discount?: string | undefined;
 };
 
 export const GetUsageAnalyticsResponse$zodSchema: z.ZodType<
@@ -25,5 +27,9 @@ export const GetUsageAnalyticsResponse$zodSchema: z.ZodType<
   currency: z.string().optional(),
   custom_analytics: z.array(CustomAnalyticItem$zodSchema).optional(),
   items: z.array(UsageAnalyticItem$zodSchema).optional(),
-  total_cost: z.string().optional(),
+  subtotal: z.string().optional(),
+  total_cost: z.string().optional().describe(
+    "TotalCost is the final cost after discount (Subtotal - TotalDiscount)",
+  ),
+  total_discount: z.string().optional(),
 });

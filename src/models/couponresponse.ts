@@ -7,7 +7,7 @@ import { CouponCadence, CouponCadence$zodSchema } from "./couponcadence.js";
 import { CouponType, CouponType$zodSchema } from "./coupontype.js";
 import { Status, Status$zodSchema } from "./status.js";
 
-export type Coupon = {
+export type CouponResponse = {
   amount_off?: string | undefined;
   cadence?: CouponCadence | undefined;
   coupon_code?: string | undefined;
@@ -32,7 +32,7 @@ export type Coupon = {
   updated_by?: string | undefined;
 };
 
-export const Coupon$zodSchema: z.ZodType<Coupon> = z.object({
+export const CouponResponse$zodSchema: z.ZodType<CouponResponse> = z.object({
   amount_off: z.string().optional(),
   cadence: CouponCadence$zodSchema.optional(),
   coupon_code: z.string().optional(),

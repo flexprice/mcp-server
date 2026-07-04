@@ -77,7 +77,6 @@ export type CreateSubscriptionRequest = {
   credit_grants?: Array<CreateCreditGrantRequest> | undefined;
   currency: string;
   customer_id?: string | undefined;
-  customer_timezone?: string | undefined;
   enable_true_up?: boolean | undefined;
   end_date?: string | undefined;
   external_customer_id?: string | undefined;
@@ -100,6 +99,7 @@ export type CreateSubscriptionRequest = {
   subscription_coupons?: Array<SubscriptionCouponInput> | undefined;
   subscription_status?: SubscriptionStatus | undefined;
   tax_rate_overrides?: Array<TaxRateOverride> | undefined;
+  timezone?: string | undefined;
   trial_period_days?: number | undefined;
 };
 
@@ -131,9 +131,6 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   currency: z.string(),
   customer_id: z.string().optional().describe(
     "customer_id is the flexprice customer id\nand it is prioritized over external_customer_id in case both are provided.",
-  ),
-  customer_timezone: z.string().optional().describe(
-    "Timezone of the customer.\nIf not set, the default value is UTC.",
   ),
   enable_true_up: z.boolean().optional().describe(
     "Enable Commitment True Up Fee",
@@ -184,6 +181,9 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   subscription_status: SubscriptionStatus$zodSchema.optional(),
   tax_rate_overrides: z.array(TaxRateOverride$zodSchema).optional().describe(
     "tax_rate_overrides is the tax rate overrides\tto be applied to the subscription",
+  ),
+  timezone: z.string().optional().describe(
+    "Timezone of the customer.\nIf not set, the default value is UTC.",
   ),
   trial_period_days: z.int().optional().describe(
     "TrialPeriodDays: nil = inherit trial length from plan recurring-fixed prices (must be uniform).\n0 = explicitly no trial (overrides catalog). >0 = override duration in days.",

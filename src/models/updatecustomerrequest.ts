@@ -25,6 +25,7 @@ export type UpdateCustomerRequest = {
     | undefined;
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
+  timezone?: string | undefined;
 };
 
 export const UpdateCustomerRequest$zodSchema: z.ZodType<UpdateCustomerRequest> =
@@ -63,6 +64,9 @@ export const UpdateCustomerRequest$zodSchema: z.ZodType<UpdateCustomerRequest> =
     ),
     name: z.string().optional().describe(
       "name is the updated name or company name for the customer",
+    ),
+    timezone: z.string().optional().describe(
+      "timezone is the updated IANA timezone name for the customer (e.g. \"Asia/Kolkata\", \"America/New_York\")",
     ),
   }).describe(
     "Request object for updating an existing customer. All fields are optional - only provided fields will be updated",
