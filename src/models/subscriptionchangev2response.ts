@@ -27,7 +27,10 @@ export type SubscriptionChangeV2Response = {
   effective_at?: string | undefined;
   entity_changes?: Array<EntityChangeResult> | undefined;
   from_plan?: PlanSummary | undefined;
+  is_scheduled?: boolean | undefined;
   metadata?: { [k: string]: string } | undefined;
+  schedule_id?: string | undefined;
+  scheduled_at?: string | undefined;
   subscription?: SubscriptionResponse | undefined;
   to_plan?: PlanSummary | undefined;
   warnings?: Array<string> | undefined;
@@ -41,7 +44,12 @@ export const SubscriptionChangeV2Response$zodSchema: z.ZodType<
   effective_at: z.iso.datetime({ offset: true }).optional(),
   entity_changes: z.array(EntityChangeResult$zodSchema).optional(),
   from_plan: PlanSummary$zodSchema.optional(),
+  is_scheduled: z.boolean().optional().describe(
+    "IsScheduled is true when the change was deferred to the period end instead\nof being applied immediately.",
+  ),
   metadata: z.record(z.string(), z.string()).optional(),
+  schedule_id: z.string().optional(),
+  scheduled_at: z.iso.datetime({ offset: true }).optional(),
   subscription: SubscriptionResponse$zodSchema.optional(),
   to_plan: PlanSummary$zodSchema.optional(),
   warnings: z.array(z.string()).optional(),

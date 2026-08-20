@@ -7,12 +7,14 @@ import {
   ProrationBehavior,
   ProrationBehavior$zodSchema,
 } from "./prorationbehavior.js";
+import { ScheduleType, ScheduleType$zodSchema } from "./scheduletype.js";
 import {
   SubscriptionChangeEntityPolicies,
   SubscriptionChangeEntityPolicies$zodSchema,
 } from "./subscriptionchangeentitypolicies.js";
 
 export type SubscriptionChangeV2Request = {
+  change_at?: ScheduleType | undefined;
   entity_policies?: SubscriptionChangeEntityPolicies | undefined;
   idempotency_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
@@ -23,6 +25,7 @@ export type SubscriptionChangeV2Request = {
 export const SubscriptionChangeV2Request$zodSchema: z.ZodType<
   SubscriptionChangeV2Request
 > = z.object({
+  change_at: ScheduleType$zodSchema.optional(),
   entity_policies: SubscriptionChangeEntityPolicies$zodSchema.optional(),
   idempotency_key: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),

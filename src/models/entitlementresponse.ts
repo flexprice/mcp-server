@@ -13,6 +13,10 @@ import {
   EntitlementEntityType$zodSchema,
 } from "./entitlemententitytype.js";
 import {
+  EntitlementGrantAllocationBehavior,
+  EntitlementGrantAllocationBehavior$zodSchema,
+} from "./entitlementgrantallocationbehavior.js";
+import {
   EntitlementGrantDurationUnit,
   EntitlementGrantDurationUnit$zodSchema,
 } from "./entitlementgrantdurationunit.js";
@@ -46,6 +50,7 @@ export type EntitlementResponse = {
   feature?: FeatureResponse | undefined;
   feature_id?: string | undefined;
   feature_type?: FeatureType | undefined;
+  grant_allocation_behavior?: EntitlementGrantAllocationBehavior | undefined;
   grant_duration_unit?: EntitlementGrantDurationUnit | undefined;
   grant_duration_value?: number | undefined;
   grant_measure?: EntitlementGrantMeasure | undefined;
@@ -81,6 +86,8 @@ export const EntitlementResponse$zodSchema: z.ZodType<EntitlementResponse> = z
     feature: FeatureResponse$zodSchema.optional(),
     feature_id: z.string().optional(),
     feature_type: FeatureType$zodSchema.optional(),
+    grant_allocation_behavior: EntitlementGrantAllocationBehavior$zodSchema
+      .optional(),
     grant_duration_unit: EntitlementGrantDurationUnit$zodSchema.optional(),
     grant_duration_value: z.int().optional(),
     grant_measure: EntitlementGrantMeasure$zodSchema.optional(),

@@ -9,6 +9,7 @@ export const EntitlementGrantDurationUnit = {
   Hour: "hour",
   Day: "day",
   Week: "week",
+  SubscriptionPeriod: "subscription_period",
 } as const;
 export type EntitlementGrantDurationUnit = ClosedEnum<
   typeof EntitlementGrantDurationUnit
@@ -18,4 +19,5 @@ export const EntitlementGrantDurationUnit$zodSchema = z.enum([
   "hour",
   "day",
   "week",
+  "subscription_period",
 ]);
