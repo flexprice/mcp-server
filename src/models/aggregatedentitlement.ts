@@ -4,6 +4,14 @@
 
 import * as z from "zod";
 import {
+  AggregatedEntitlementBucket,
+  AggregatedEntitlementBucket$zodSchema,
+} from "./aggregatedentitlementbucket.js";
+import {
+  EntitlementAggregationMode,
+  EntitlementAggregationMode$zodSchema,
+} from "./entitlementaggregationmode.js";
+import {
   EntitlementUsageResetPeriod,
   EntitlementUsageResetPeriod$zodSchema,
 } from "./entitlementusageresetperiod.js";
@@ -13,6 +21,8 @@ export type ConfigValue = {};
 export const ConfigValue$zodSchema: z.ZodType<ConfigValue> = z.object({});
 
 export type AggregatedEntitlement = {
+  aggregation_mode?: EntitlementAggregationMode | undefined;
+  buckets?: Array<AggregatedEntitlementBucket> | undefined;
   config_values?: Array<{ [k: string]: ConfigValue }> | undefined;
   is_enabled?: boolean | undefined;
   is_soft_limit?: boolean | undefined;
@@ -23,6 +33,8 @@ export type AggregatedEntitlement = {
 
 export const AggregatedEntitlement$zodSchema: z.ZodType<AggregatedEntitlement> =
   z.object({
+    aggregation_mode: EntitlementAggregationMode$zodSchema.optional(),
+    buckets: z.array(AggregatedEntitlementBucket$zodSchema).optional(),
     config_values: z.array(
       z.record(z.string(), z.lazy(() => ConfigValue$zodSchema)),
     ).optional(),

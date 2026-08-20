@@ -33,6 +33,8 @@ export type WalletResponse = {
   id?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
+  real_time_balance?: string | undefined;
+  real_time_credit_balance?: string | undefined;
   status?: Status | undefined;
   tenant_id?: string | undefined;
   topup_conversion_rate?: string | undefined;
@@ -62,6 +64,8 @@ export const WalletResponse$zodSchema: z.ZodType<WalletResponse> = z.object({
   id: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   name: z.string().optional(),
+  real_time_balance: z.string().optional(),
+  real_time_credit_balance: z.string().optional(),
   status: Status$zodSchema.optional(),
   tenant_id: z.string().optional(),
   topup_conversion_rate: z.string().optional().describe(

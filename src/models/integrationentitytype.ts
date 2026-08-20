@@ -16,6 +16,7 @@ export const IntegrationEntityType = {
   Item: "item",
   ItemPrice: "item_price",
   Price: "price",
+  InvoiceLineItem: "invoice_line_item",
 } as const;
 export type IntegrationEntityType = ClosedEnum<typeof IntegrationEntityType>;
 
@@ -30,4 +31,5 @@ export const IntegrationEntityType$zodSchema = z.enum([
   "item",
   "item_price",
   "price",
+  "invoice_line_item",
 ]);

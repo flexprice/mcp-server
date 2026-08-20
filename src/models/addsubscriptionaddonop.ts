@@ -4,18 +4,18 @@
 
 import * as z from "zod";
 import {
-  AddonAssociationResponse,
-  AddonAssociationResponse$zodSchema,
-} from "./addonassociationresponse.js";
+  AddAddonToSubscriptionResponse,
+  AddAddonToSubscriptionResponse$zodSchema,
+} from "./addaddontosubscriptionresponse.js";
 import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 
 export type AddSubscriptionAddonResponse =
-  | AddonAssociationResponse
+  | AddAddonToSubscriptionResponse
   | ErrorResponse;
 
 export const AddSubscriptionAddonResponse$zodSchema: z.ZodType<
   AddSubscriptionAddonResponse
 > = z.union([
-  AddonAssociationResponse$zodSchema,
+  AddAddonToSubscriptionResponse$zodSchema,
   ErrorResponse$zodSchema,
 ]);

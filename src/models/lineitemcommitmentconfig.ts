@@ -24,25 +24,21 @@ export type LineItemCommitmentConfig = {
 export const LineItemCommitmentConfig$zodSchema: z.ZodType<
   LineItemCommitmentConfig
 > = z.object({
-  commitment_amount: z.number().optional().describe(
-    "CommitmentAmount is the minimum amount committed for this line item",
-  ),
+  commitment_amount: z.number().optional(),
   commitment_duration: BillingPeriod$zodSchema.optional(),
-  commitment_quantity: z.number().optional().describe(
-    "CommitmentQuantity is the minimum quantity committed for this line item",
-  ),
+  commitment_quantity: z.number().optional(),
   commitment_time_buckets: z.array(CommitmentBucketRequest$zodSchema).optional()
     .describe(
-      "CommitmentTimeBuckets defines per-bucket commitment + inline price for\nwindows whose start UTC hour falls within each configured bucket. Each\nbucket carries its own price (materialized by the service). Requires\nIsWindowCommitment=true.",
+      "CommitmentTimeBuckets scopes commitment to specific UTC-hour windows; requires IsWindowCommitment=true.",
     ),
   commitment_type: CommitmentType$zodSchema.optional(),
   enable_true_up: z.boolean().optional().describe(
-    "EnableTrueUp determines if true-up fee should be applied when usage is below commitment",
+    "EnableTrueUp charges the shortfall when usage is below commitment.",
   ),
   is_window_commitment: z.boolean().optional().describe(
-    "IsWindowCommitment determines if commitment is applied per window (e.g., per day) rather than per billing period",
+    "IsWindowCommitment applies commitment per window (e.g. per day) rather than per billing period.",
   ),
   overage_factor: z.number().optional().describe(
-    "OverageFactor is a multiplier applied to usage beyond the commitment",
+    "OverageFactor is a multiplier on usage beyond commitment; 1.0 = base rate.",
   ),
 });

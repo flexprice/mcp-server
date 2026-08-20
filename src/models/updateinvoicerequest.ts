@@ -5,6 +5,7 @@
 import * as z from "zod";
 
 export type UpdateInvoiceRequest = {
+  apply_discount?: boolean | undefined;
   due_date?: string | undefined;
   invoice_pdf_url?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
@@ -12,6 +13,9 @@ export type UpdateInvoiceRequest = {
 
 export const UpdateInvoiceRequest$zodSchema: z.ZodType<UpdateInvoiceRequest> = z
   .object({
+    apply_discount: z.boolean().optional().describe(
+      "When true, recalculates discount from existing coupon associations (draft invoices only).",
+    ),
     due_date: z.iso.datetime({ offset: true }).optional(),
     invoice_pdf_url: z.string().optional().describe(
       "invoice_pdf_url is the URL where customers can download the PDF version of this invoice",

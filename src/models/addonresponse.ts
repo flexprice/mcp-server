@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import {
+  CreditGrantResponse,
+  CreditGrantResponse$zodSchema,
+} from "./creditgrantresponse.js";
+import {
   EntitlementResponse,
   EntitlementResponse$zodSchema,
 } from "./entitlementresponse.js";
@@ -13,6 +17,7 @@ import { Status, Status$zodSchema } from "./status.js";
 export type AddonResponse = {
   created_at?: string | undefined;
   created_by?: string | undefined;
+  credit_grants?: Array<CreditGrantResponse> | undefined;
   description?: string | undefined;
   entitlements?: Array<EntitlementResponse> | undefined;
   environment_id?: string | undefined;
@@ -30,6 +35,7 @@ export type AddonResponse = {
 export const AddonResponse$zodSchema: z.ZodType<AddonResponse> = z.object({
   created_at: z.iso.datetime({ offset: true }).optional(),
   created_by: z.string().optional(),
+  credit_grants: z.array(CreditGrantResponse$zodSchema).optional(),
   description: z.string().optional(),
   entitlements: z.array(z.lazy(() => EntitlementResponse$zodSchema)).optional(),
   environment_id: z.string().optional(),

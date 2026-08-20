@@ -18,6 +18,7 @@ export const ErrorCode = {
   DatabaseError: "database_error",
   ServiceUnavailable: "service_unavailable",
   TooManyRequests: "too_many_requests",
+  NotImplemented: "not_implemented",
 } as const;
 export type ErrorCode = ClosedEnum<typeof ErrorCode>;
 
@@ -34,4 +35,5 @@ export const ErrorCode$zodSchema = z.enum([
   "database_error",
   "service_unavailable",
   "too_many_requests",
+  "not_implemented",
 ]);

@@ -19,7 +19,7 @@ export const RemoveAddonRequest$zodSchema: z.ZodType<RemoveAddonRequest> = z
   .object({
     addon_association_id: z.string(),
     effective_date: z.iso.datetime({ offset: true }).optional().describe(
-      "EffectiveDate is the date the cancellation takes effect.\nWhen nil the addon is cancelled at the end of the current period.\nWhen provided it must fall within [CurrentPeriodStart, CurrentPeriodEnd]; mid-period\nvalues combined with create_prorations will issue a wallet credit for unused time.",
+      "EffectiveDate defaults to period end when nil; mid-period with create_prorations issues a wallet credit.",
     ),
     proration_behavior: ProrationBehavior$zodSchema.optional(),
     reason: z.string().optional(),

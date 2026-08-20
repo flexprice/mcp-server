@@ -6,6 +6,7 @@ import * as z from "zod";
 import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
 import { CommitmentType, CommitmentType$zodSchema } from "./commitmenttype.js";
 import { InvoiceCadence, InvoiceCadence$zodSchema } from "./invoicecadence.js";
+import { MeterMeter, MeterMeter$zodSchema } from "./metermeter.js";
 import { PriceResponse, PriceResponse$zodSchema } from "./priceresponse.js";
 import { PriceType, PriceType$zodSchema } from "./pricetype.js";
 import { Status, Status$zodSchema } from "./status.js";
@@ -42,6 +43,7 @@ export type SubscriptionLineItemResponse = {
   id?: string | undefined;
   invoice_cadence?: InvoiceCadence | undefined;
   metadata?: { [k: string]: string } | undefined;
+  meter?: MeterMeter | undefined;
   meter_display_name?: string | undefined;
   meter_id?: string | undefined;
   plan_display_name?: string | undefined;
@@ -88,6 +90,7 @@ export const SubscriptionLineItemResponse$zodSchema: z.ZodType<
   id: z.string().optional(),
   invoice_cadence: InvoiceCadence$zodSchema.optional(),
   metadata: z.record(z.string(), z.string()).optional(),
+  meter: MeterMeter$zodSchema.optional(),
   meter_display_name: z.string().optional(),
   meter_id: z.string().optional(),
   plan_display_name: z.string().optional(),

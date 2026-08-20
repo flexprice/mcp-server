@@ -7,7 +7,7 @@ import * as z from "zod";
 export type LineItemQuantityChange = {
   effective_date?: string | undefined;
   id: string;
-  quantity: string;
+  quantity?: string | undefined;
 };
 
 export const LineItemQuantityChange$zodSchema: z.ZodType<
@@ -17,5 +17,5 @@ export const LineItemQuantityChange$zodSchema: z.ZodType<
     "EffectiveDate is when the quantity change takes effect.\nIf omitted, the change is effective immediately (now).",
   ),
   id: z.string(),
-  quantity: z.string(),
+  quantity: z.string().optional(),
 });

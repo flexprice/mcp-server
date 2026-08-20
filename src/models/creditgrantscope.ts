@@ -8,10 +8,12 @@ import { ClosedEnum } from "../types/enums.js";
 export const CreditGrantScope = {
   Plan: "PLAN",
   Subscription: "SUBSCRIPTION",
+  Addon: "ADDON",
 } as const;
 export type CreditGrantScope = ClosedEnum<typeof CreditGrantScope>;
 
 export const CreditGrantScope$zodSchema = z.enum([
   "PLAN",
   "SUBSCRIPTION",
+  "ADDON",
 ]);

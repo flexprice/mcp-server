@@ -25,6 +25,7 @@ import {
 } from "./creditgrantscope.js";
 
 export type CreateCreditGrantRequest = {
+  addon_id?: string | undefined;
   cadence: CreditGrantCadence;
   conversion_rate?: string | undefined;
   credits: string;
@@ -47,6 +48,7 @@ export type CreateCreditGrantRequest = {
 export const CreateCreditGrantRequest$zodSchema: z.ZodType<
   CreateCreditGrantRequest
 > = z.object({
+  addon_id: z.string().optional(),
   cadence: CreditGrantCadence$zodSchema,
   conversion_rate: z.string().optional().describe(
     "amount in the currency =  number of credits * conversion_rate\nex if conversion_rate is 1, then 1 USD = 1 credit\nex if conversion_rate is 2, then 1 USD = 0.5 credits\nex if conversion_rate is 0.5, then 1 USD = 2 credits",

@@ -38,6 +38,7 @@ export type CreateInvoiceRequest = {
   customer_id: string;
   description?: string | undefined;
   due_date?: string | undefined;
+  force_sync_invoice?: boolean | undefined;
   idempotency_key?: string | undefined;
   invoice_coupons?: Array<InvoiceCoupon> | undefined;
   invoice_number?: string | undefined;
@@ -84,6 +85,9 @@ export const CreateInvoiceRequest$zodSchema: z.ZodType<CreateInvoiceRequest> = z
     ),
     due_date: z.iso.datetime({ offset: true }).optional().describe(
       "due_date is the date by which payment is expected",
+    ),
+    force_sync_invoice: z.boolean().optional().describe(
+      "force_sync_invoice, when true, attempts to synchronously sync this invoice to\nMoyasar (if enabled) before returning, instead of relying solely on the async\nKafka + Temporal vendor-sync pipeline. Only honored by CreateOneOffInvoice.\nBest-effort: sync failures do not fail invoice creation.",
     ),
     idempotency_key: z.string().optional().describe(
       "idempotency_key is an optional key used to prevent duplicate invoice creation",

@@ -9,6 +9,7 @@ import {
 } from "./addaddontosubscriptionrequest.js";
 import { BillingCycle, BillingCycle$zodSchema } from "./billingcycle.js";
 import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
+import { CheckoutParams, CheckoutParams$zodSchema } from "./checkoutparams.js";
 import {
   CollectionMethod,
   CollectionMethod$zodSchema,
@@ -70,6 +71,7 @@ export type CreateSubscriptionRequest = {
   billing_cycle?: BillingCycle | undefined;
   billing_period: BillingPeriod;
   billing_period_count?: number | undefined;
+  checkout?: CheckoutParams | undefined;
   collection_method?: CollectionMethod | undefined;
   commitment_amount?: string | undefined;
   commitment_duration?: BillingPeriod | undefined;
@@ -106,71 +108,55 @@ export type CreateSubscriptionRequest = {
 export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   CreateSubscriptionRequest
 > = z.object({
-  addons: z.array(AddAddonToSubscriptionRequest$zodSchema).optional().describe(
-    "Addons represents addons to be added to the subscription during creation",
-  ),
+  addons: z.array(AddAddonToSubscriptionRequest$zodSchema).optional(),
   auto_invoice_threshold: z.string().optional().describe(
-    "AutoInvoiceThreshold is the usage amount (in subscription currency) that triggers\nan intermediate invoice mid-period. Set once at creation; cannot be changed later.\nAllowed only when the subscription resolves to type standalone (no parent hierarchy rows).\nPlan line items must be usage-based only (no fixed or other non-usage plan prices).\nNil means auto invoice threshold billing is disabled for this subscription.",
+    "AutoInvoiceThreshold triggers a mid-period invoice when usage (in subscription currency) exceeds this amount.\nStandalone subscriptions only; all plan prices must be usage-based. Immutable after creation.",
   ),
   billing_anchor: z.iso.datetime({ offset: true }).optional().describe(
-    "BillingAnchor overrides the derived billing anchor when billing_cycle is anniversary.\nFor monthly billing, the day-of-month (and time-of-day) define cycle boundaries: if start_date\nis before that day in the month, the first billing period ends on the next occurrence of that\nday in the same month (a shorter first period); subsequent periods follow the usual interval.",
+    "BillingAnchor overrides the derived anchor for anniversary billing. For monthly billing,\nthe day-of-month defines cycle boundaries (shorter first period if start is before that day).",
   ),
   billing_cycle: BillingCycle$zodSchema.optional(),
   billing_period: BillingPeriod$zodSchema,
   billing_period_count: z.int().optional(),
+  checkout: CheckoutParams$zodSchema.optional(),
   collection_method: CollectionMethod$zodSchema.optional(),
-  commitment_amount: z.string().optional().describe(
-    "CommitmentAmount is the minimum amount a customer commits to paying for a billing period",
-  ),
+  commitment_amount: z.string().optional(),
   commitment_duration: BillingPeriod$zodSchema.optional(),
   coupons: z.array(z.string()).optional().describe(
     "Deprecated: use SubscriptionCoupons instead.",
   ),
-  credit_grants: z.array(CreateCreditGrantRequest$zodSchema).optional()
-    .describe("Credit grants to be applied when subscription is created"),
+  credit_grants: z.array(CreateCreditGrantRequest$zodSchema).optional(),
   currency: z.string(),
   customer_id: z.string().optional().describe(
-    "customer_id is the flexprice customer id\nand it is prioritized over external_customer_id in case both are provided.",
+    "CustomerID takes priority over ExternalCustomerID when both are provided.",
   ),
-  enable_true_up: z.boolean().optional().describe(
-    "Enable Commitment True Up Fee",
-  ),
+  enable_true_up: z.boolean().optional(),
   end_date: z.iso.datetime({ offset: true }).optional(),
-  external_customer_id: z.string().optional().describe(
-    "external_customer_id is the customer id in your DB\nand must be same as what you provided as external_id while creating the customer in flexprice.",
-  ),
+  external_customer_id: z.string().optional(),
   gateway_payment_method_id: z.string().optional(),
   inheritance: SubscriptionInheritanceConfig$zodSchema.optional(),
   line_item_commitments: z.record(
     z.string(),
     LineItemCommitmentConfig$zodSchema,
   ).optional().describe(
-    "LineItemCommitments allows setting commitment configuration per line item (keyed by price_id)",
+    "LineItemCommitments sets per-line-item commitment config, keyed by price_id.",
   ),
   line_item_coupons: z.record(z.string(), z.array(z.string())).optional()
     .describe("Deprecated: use SubscriptionCoupons instead."),
   line_items: z.array(CreateSubscriptionLineItemRequest$zodSchema).optional()
-    .describe(
-      "LineItems are extra line items to add at creation (each with price_id or price), in addition to plan prices",
-    ),
+    .describe("LineItems are extra (non-plan) line items added at creation."),
   lookup_key: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
-  overage_factor: z.string().optional().describe(
-    "OverageFactor is a multiplier applied to usage beyond the commitment amount",
-  ),
+  overage_factor: z.string().optional(),
   override_entitlements: z.array(OverrideEntitlementRequest$zodSchema)
-    .optional().describe(
-      "OverrideEntitlements allows customizing specific entitlements for this subscription",
-    ),
+    .optional(),
   override_line_items: z.array(OverrideLineItemRequest$zodSchema).optional()
     .describe(
-      "OverrideLineItems allows customizing specific prices for this subscription",
+      "OverrideLineItems overrides specific plan prices for this subscription.",
     ),
   payment_behavior: PaymentBehavior$zodSchema.optional(),
   payment_terms: PaymentTerms$zodSchema.optional(),
-  phases: z.array(SubscriptionPhaseCreateRequest$zodSchema).optional().describe(
-    "Phases represents subscription phases to be created with the subscription",
-  ),
+  phases: z.array(SubscriptionPhaseCreateRequest$zodSchema).optional(),
   plan_id: z.string(),
   proration_behavior: ProrationBehavior$zodSchema.optional(),
   start_date: z.iso.datetime({ offset: true }).optional(),
@@ -179,13 +165,9 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
       "SubscriptionCoupons is the preferred way to attach coupons at creation.\nAccepts coupon_code; optionally targets a line item via price_id.",
     ),
   subscription_status: SubscriptionStatus$zodSchema.optional(),
-  tax_rate_overrides: z.array(TaxRateOverride$zodSchema).optional().describe(
-    "tax_rate_overrides is the tax rate overrides\tto be applied to the subscription",
-  ),
-  timezone: z.string().optional().describe(
-    "Timezone of the customer.\nIf not set, the default value is UTC.",
-  ),
+  tax_rate_overrides: z.array(TaxRateOverride$zodSchema).optional(),
+  timezone: z.string().optional(),
   trial_period_days: z.int().optional().describe(
-    "TrialPeriodDays: nil = inherit trial length from plan recurring-fixed prices (must be uniform).\n0 = explicitly no trial (overrides catalog). >0 = override duration in days.",
+    "TrialPeriodDays: nil = inherit from plan prices, 0 = no trial, >0 = override in days.",
   ),
 });

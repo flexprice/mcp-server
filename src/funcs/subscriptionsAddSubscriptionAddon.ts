@@ -29,7 +29,10 @@ import { Result } from "../types/fp.js";
  * Add addon to subscription
  *
  * @remarks
+ * Deprecated: use POST /subscriptions/{id}/modify/execute with type "addon" and action "add", which also supports previewing the proration charge first.
  * Use when adding an optional product or add-on to an existing subscription (e.g. extra storage or support tier).
+ *
+ * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
  */
 export function subscriptionsAddSubscriptionAddon(
   client$: FlexpriceCore,

@@ -16,6 +16,7 @@ export const tool$subscriptionsRemoveSubscriptionAddon: ToolDefinition<
   name: "remove-subscription-addon",
   description: `Remove addon from subscription
 
+Deprecated: use POST /subscriptions/{id}/modify/execute with type "addon" and action "remove", which also supports previewing the proration credit first.
 Use when removing an add-on from a subscription (e.g. downgrade or opt-out).`,
   scopes: ["delete"],
   annotations: {

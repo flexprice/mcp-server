@@ -8,6 +8,7 @@ export type InvoiceLineItemCoupon = {
   coupon_association_id?: string | undefined;
   coupon_id: string;
   line_item_id: string;
+  subscription_line_item_id?: string | undefined;
 };
 
 export const InvoiceLineItemCoupon$zodSchema: z.ZodType<InvoiceLineItemCoupon> =
@@ -15,4 +16,5 @@ export const InvoiceLineItemCoupon$zodSchema: z.ZodType<InvoiceLineItemCoupon> =
     coupon_association_id: z.string().optional(),
     coupon_id: z.string(),
     line_item_id: z.string().describe("price_id used to match the line item"),
+    subscription_line_item_id: z.string().optional(),
   });

@@ -12,6 +12,7 @@ export type Customer = {
   address_line2?: string | undefined;
   address_postal_code?: string | undefined;
   address_state?: string | undefined;
+  contact?: string | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
   email?: string | undefined;
@@ -45,6 +46,9 @@ export const Customer$zodSchema: z.ZodType<Customer> = z.object({
   ),
   address_state: z.string().optional().describe(
     "AddressState is the state of the customer's address",
+  ),
+  contact: z.string().optional().describe(
+    "Contact is an optional contact number for the customer (e.g. phone)",
   ),
   created_at: z.iso.datetime({ offset: true }).optional(),
   created_by: z.string().optional(),

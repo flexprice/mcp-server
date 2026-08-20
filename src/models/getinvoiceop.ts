@@ -13,10 +13,14 @@ export type GetInvoiceRequest = {
   id: string;
   expand_by_source?: boolean | undefined;
   group_by?: Array<string> | undefined;
+  expand?: string | undefined;
 };
 
 export const GetInvoiceRequest$zodSchema: z.ZodType<GetInvoiceRequest> = z
   .object({
+    expand: z.string().describe(
+      "Comma-separated related fields to include. Supports 'tax_applied.tax_rate' to attach rate details to each applied tax.",
+    ).optional(),
     expand_by_source: z.boolean().describe(
       "Include source-level price breakdown for usage line items (legacy)",
     ).optional(),

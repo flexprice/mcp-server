@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Update invoice
  *
  * @remarks
- * Use when updating invoice metadata or due date (e.g. PDF URL, net terms). For paid invoices only safe fields can be updated.
+ * Use when updating invoice metadata or due date (e.g. PDF URL, net terms), or when recalculating this draft invoice's discount from its current standing coupon associations via apply_discount:true (idempotent, does not attach a new coupon). Allowed for invoices in draft or finalized status.
  */
 export function invoicesUpdateInvoice(
   client$: FlexpriceCore,

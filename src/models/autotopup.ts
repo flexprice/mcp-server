@@ -3,9 +3,22 @@
  */
 
 import * as z from "zod";
+import { DurationUnit, DurationUnit$zodSchema } from "./durationunit.js";
+
+export type AutoTopupDuration = {
+  unit?: DurationUnit | undefined;
+  value?: number | undefined;
+};
+
+export const AutoTopupDuration$zodSchema: z.ZodType<AutoTopupDuration> = z
+  .object({
+    unit: DurationUnit$zodSchema.optional(),
+    value: z.int().optional(),
+  });
 
 export type AutoTopup = {
   amount?: number | undefined;
+  cooldown?: AutoTopupDuration | undefined;
   enabled?: boolean | undefined;
   invoicing?: boolean | undefined;
   threshold?: number | undefined;
@@ -13,6 +26,7 @@ export type AutoTopup = {
 
 export const AutoTopup$zodSchema: z.ZodType<AutoTopup> = z.object({
   amount: z.number().optional(),
+  cooldown: z.lazy(() => AutoTopupDuration$zodSchema).optional(),
   enabled: z.boolean().optional(),
   invoicing: z.boolean().optional(),
   threshold: z.number().optional(),

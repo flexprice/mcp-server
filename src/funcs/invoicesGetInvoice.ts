@@ -98,6 +98,7 @@ async function $do(
       "group_by": payload$.group_by,
     }, { explode: false }),
     encodeFormQuery({
+      "expand": payload$.expand,
       "expand_by_source": payload$.expand_by_source,
     }),
   );

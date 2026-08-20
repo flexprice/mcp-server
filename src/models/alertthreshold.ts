@@ -7,10 +7,10 @@ import { AlertCondition, AlertCondition$zodSchema } from "./alertcondition.js";
 
 export type AlertThreshold = {
   condition?: AlertCondition | undefined;
-  threshold?: number | undefined;
+  threshold?: string | undefined;
 };
 
 export const AlertThreshold$zodSchema: z.ZodType<AlertThreshold> = z.object({
   condition: AlertCondition$zodSchema.optional(),
-  threshold: z.number().optional(),
+  threshold: z.string().optional(),
 });

@@ -14,7 +14,7 @@ export const tool$eventsGetEvent: ToolDefinition<typeof args> = {
   name: "get-event",
   description: `Get event
 
-Use when debugging a specific event (e.g. why it failed or how it was aggregated). Includes processing status and debug info.`,
+Use when debugging a specific event (e.g. why it failed or how it was aggregated). Reads the meter-usage pipeline; includes processing status and step-by-step debug tracker when unprocessed. Uses ?id= query param because event IDs can contain "/".`,
   scopes: ["read"],
   annotations: {
     "title": "",

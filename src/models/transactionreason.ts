@@ -17,6 +17,7 @@ export const TransactionReason = {
   ManualBalanceDebit: "MANUAL_BALANCE_DEBIT",
   CreditAdjustment: "CREDIT_ADJUSTMENT",
   InvoiceVoidRefund: "INVOICE_VOID_REFUND",
+  PurchasedCreditBonus: "PURCHASED_CREDIT_BONUS",
 } as const;
 export type TransactionReason = ClosedEnum<typeof TransactionReason>;
 
@@ -32,4 +33,5 @@ export const TransactionReason$zodSchema = z.enum([
   "MANUAL_BALANCE_DEBIT",
   "CREDIT_ADJUSTMENT",
   "INVOICE_VOID_REFUND",
+  "PURCHASED_CREDIT_BONUS",
 ]);

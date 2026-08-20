@@ -25,6 +25,7 @@ import { tool$customersGetCustomerEntitlements } from "./tools/customersGetCusto
 import { tool$customersGetCustomerEntitlementsByExternalID } from "./tools/customersGetCustomerEntitlementsByExternalID.js";
 import { tool$customersGetCustomerUpcomingGrants } from "./tools/customersGetCustomerUpcomingGrants.js";
 import { tool$customersGetCustomerUsageSummary } from "./tools/customersGetCustomerUsageSummary.js";
+import { tool$customersGetSubscriptionsForCustomer } from "./tools/customersGetSubscriptionsForCustomer.js";
 import { tool$customersQueryCustomer } from "./tools/customersQueryCustomer.js";
 import { tool$customersUpdateCustomer } from "./tools/customersUpdateCustomer.js";
 import { tool$eventsGetEvent } from "./tools/eventsGetEvent.js";
@@ -72,6 +73,7 @@ import { tool$subscriptionsCreateSubscriptionLineItem } from "./tools/subscripti
 import { tool$subscriptionsDeleteSubscriptionLineItem } from "./tools/subscriptionsDeleteSubscriptionLineItem.js";
 import { tool$subscriptionsExecuteSubscriptionChange } from "./tools/subscriptionsExecuteSubscriptionChange.js";
 import { tool$subscriptionsExecuteSubscriptionModify } from "./tools/subscriptionsExecuteSubscriptionModify.js";
+import { tool$subscriptionsExecuteSubscriptionPlanChangeV2 } from "./tools/subscriptionsExecuteSubscriptionPlanChangeV2.js";
 import { tool$subscriptionsGetSubscription } from "./tools/subscriptionsGetSubscription.js";
 import { tool$subscriptionsGetSubscriptionAddonAssociations } from "./tools/subscriptionsGetSubscriptionAddonAssociations.js";
 import { tool$subscriptionsGetSubscriptionEntitlements } from "./tools/subscriptionsGetSubscriptionEntitlements.js";
@@ -83,6 +85,7 @@ import { tool$subscriptionsListAllSubscriptionSchedules } from "./tools/subscrip
 import { tool$subscriptionsListSubscriptionSchedules } from "./tools/subscriptionsListSubscriptionSchedules.js";
 import { tool$subscriptionsPreviewSubscriptionChange } from "./tools/subscriptionsPreviewSubscriptionChange.js";
 import { tool$subscriptionsPreviewSubscriptionModify } from "./tools/subscriptionsPreviewSubscriptionModify.js";
+import { tool$subscriptionsPreviewSubscriptionPlanChangeV2 } from "./tools/subscriptionsPreviewSubscriptionPlanChangeV2.js";
 import { tool$subscriptionsQuerySubscription } from "./tools/subscriptionsQuerySubscription.js";
 import { tool$subscriptionsQuerySubscriptionLineItems } from "./tools/subscriptionsQuerySubscriptionLineItems.js";
 import { tool$subscriptionsRemoveSubscriptionAddon } from "./tools/subscriptionsRemoveSubscriptionAddon.js";
@@ -102,7 +105,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.0.21",
+    version: "2.1.24",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -151,6 +154,7 @@ export function createMCPServer(deps: {
   tool(tool$customersCreateCustomer);
   tool(tool$customersGetCustomerByExternalId);
   tool(tool$customersGetCustomerEntitlementsByExternalID);
+  tool(tool$customersGetSubscriptionsForCustomer);
   tool(tool$customersQueryCustomer);
   tool(tool$customersGetCustomerUsageSummary);
   tool(tool$customersGetCustomer);
@@ -175,10 +179,10 @@ export function createMCPServer(deps: {
   tool(tool$eventsGetUsageAnalytics);
   tool(tool$eventsIngestEventsBulk);
   tool(tool$eventsGetHuggingfaceInferenceData);
+  tool(tool$eventsGetEvent);
   tool(tool$eventsListRawEvents);
   tool(tool$eventsGetUsageStatistics);
   tool(tool$eventsGetUsageByMeter);
-  tool(tool$eventsGetEvent);
   tool(tool$plansCreatePlan);
   tool(tool$plansQueryPlan);
   tool(tool$plansGetPlan);
@@ -208,6 +212,8 @@ export function createMCPServer(deps: {
   tool(tool$subscriptionsCancelSubscription);
   tool(tool$subscriptionsExecuteSubscriptionChange);
   tool(tool$subscriptionsPreviewSubscriptionChange);
+  tool(tool$subscriptionsExecuteSubscriptionPlanChangeV2);
+  tool(tool$subscriptionsPreviewSubscriptionPlanChangeV2);
   tool(tool$subscriptionsGetSubscriptionEntitlements);
   tool(tool$subscriptionsGetSubscriptionUpcomingGrants);
   tool(tool$subscriptionsCreateSubscriptionLineItem);

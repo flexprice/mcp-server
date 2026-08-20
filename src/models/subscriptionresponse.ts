@@ -3,9 +3,17 @@
  */
 
 import * as z from "zod";
+import {
+  AggregatedFeature,
+  AggregatedFeature$zodSchema,
+} from "./aggregatedfeature.js";
 import { BillingCadence, BillingCadence$zodSchema } from "./billingcadence.js";
 import { BillingCycle, BillingCycle$zodSchema } from "./billingcycle.js";
 import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
+import {
+  CheckoutSessionResponse,
+  CheckoutSessionResponse$zodSchema,
+} from "./checkoutsessionresponse.js";
 import {
   CouponAssociationResponse,
   CouponAssociationResponse$zodSchema,
@@ -62,6 +70,7 @@ export type SubscriptionResponse = {
   cancel_at?: string | undefined;
   cancel_at_period_end?: boolean | undefined;
   cancelled_at?: string | undefined;
+  checkout_session?: CheckoutSessionResponse | undefined;
   collection_method?: string | undefined;
   commitment_amount?: string | undefined;
   commitment_duration?: BillingPeriod | undefined;
@@ -76,6 +85,7 @@ export type SubscriptionResponse = {
   customer_id?: string | undefined;
   enable_true_up?: boolean | undefined;
   end_date?: string | undefined;
+  entitlements?: Array<AggregatedFeature> | undefined;
   environment_id?: string | undefined;
   gateway_payment_method_id?: string | undefined;
   id?: string | undefined;
@@ -134,6 +144,7 @@ export const SubscriptionResponse$zodSchema: z.ZodType<SubscriptionResponse> = z
     cancelled_at: z.iso.datetime({ offset: true }).optional().describe(
       "CanceledAt is the date the subscription was canceled",
     ),
+    checkout_session: CheckoutSessionResponse$zodSchema.optional(),
     collection_method: z.string().optional().describe(
       "CollectionMethod determines how invoices are collected",
     ),
@@ -168,6 +179,9 @@ export const SubscriptionResponse$zodSchema: z.ZodType<SubscriptionResponse> = z
     enable_true_up: z.boolean().optional(),
     end_date: z.iso.datetime({ offset: true }).optional().describe(
       "EndDate is the end date of the subscription",
+    ),
+    entitlements: z.array(AggregatedFeature$zodSchema).optional().describe(
+      "Entitlements is populated only when the caller adds \"entitlements\" to\nthe search filter's expand string. Each entry is a feature with its\naggregated entitlement info (same shape as CustomerEntitlementsResponse.Features).",
     ),
     environment_id: z.string().optional().describe(
       "EnvironmentID is the environment identifier for the subscription",

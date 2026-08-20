@@ -8,12 +8,17 @@ import {
   ChangedResources$zodSchema,
 } from "./changedresources.js";
 import {
+  CheckoutSessionResponse,
+  CheckoutSessionResponse$zodSchema,
+} from "./checkoutsessionresponse.js";
+import {
   SubscriptionResponse,
   SubscriptionResponse$zodSchema,
 } from "./subscriptionresponse.js";
 
 export type SubscriptionModifyResponse = {
   changed_resources?: ChangedResources | undefined;
+  checkout_session?: CheckoutSessionResponse | undefined;
   subscription?: SubscriptionResponse | undefined;
 };
 
@@ -21,5 +26,6 @@ export const SubscriptionModifyResponse$zodSchema: z.ZodType<
   SubscriptionModifyResponse
 > = z.object({
   changed_resources: ChangedResources$zodSchema.optional(),
+  checkout_session: CheckoutSessionResponse$zodSchema.optional(),
   subscription: SubscriptionResponse$zodSchema.optional(),
 });

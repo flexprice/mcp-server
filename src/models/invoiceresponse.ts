@@ -52,6 +52,7 @@ export type InvoiceResponse = {
   invoice_pdf_url?: string | undefined;
   invoice_status?: InvoiceStatus | undefined;
   invoice_type?: InvoiceType | undefined;
+  is_manually_edited?: boolean | undefined;
   issue_date?: string | undefined;
   last_computed_at?: string | undefined;
   line_items?: Array<InvoiceLineItemResponse> | undefined;
@@ -143,6 +144,9 @@ export const InvoiceResponse$zodSchema: z.ZodType<InvoiceResponse> = z.object({
   ),
   invoice_status: InvoiceStatus$zodSchema.optional(),
   invoice_type: InvoiceType$zodSchema.optional(),
+  is_manually_edited: z.boolean().optional().describe(
+    "is_manually_edited is true once a user has manually added, edited, or removed a line item on this draft invoice.\nOnce set, automated recomputation of this invoice's line items must no-op rather than overwrite the manual edit.",
+  ),
   issue_date: z.iso.datetime({ offset: true }).optional().describe(
     "issue_date is the user-facing date of the invoice. Defaults to created_at if not set.",
   ),

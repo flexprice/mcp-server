@@ -12,6 +12,7 @@ export const SubscriptionModifyType = {
   TrialEnd: "trial_end",
   Coupon: "coupon",
   Tax: "tax",
+  Addon: "addon",
 } as const;
 export type SubscriptionModifyType = ClosedEnum<typeof SubscriptionModifyType>;
 
@@ -22,4 +23,5 @@ export const SubscriptionModifyType$zodSchema = z.enum([
   "trial_end",
   "coupon",
   "tax",
+  "addon",
 ]);

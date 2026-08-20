@@ -22,13 +22,15 @@ export type CreateCustomerRequest = {
   address_line2?: string | undefined;
   address_postal_code?: string | undefined;
   address_state?: string | undefined;
+  contact?: string | undefined;
   email?: string | undefined;
   external_id: string;
   integration_entity_mapping?:
     | Array<CreateEntityIntegrationMappingRequest>
     | undefined;
   metadata?: { [k: string]: string } | undefined;
-  name?: string | undefined;
+  name: string;
+  onboarding_workflow_name?: string | undefined;
   skip_onboarding_workflow?: boolean | undefined;
   tax_rate_overrides?: Array<TaxRateOverride> | undefined;
   timezone?: string | undefined;
@@ -54,6 +56,9 @@ export const CreateCustomerRequest$zodSchema: z.ZodType<CreateCustomerRequest> =
     address_state: z.string().optional().describe(
       "address_state is the state, province, or region name with maximum 100 characters",
     ),
+    contact: z.string().optional().describe(
+      "contact is an optional contact number for the customer (e.g. phone)",
+    ),
     email: z.string().optional().describe(
       "email is the customer's email address and must be a valid email format if provided",
     ),
@@ -68,8 +73,11 @@ export const CreateCustomerRequest$zodSchema: z.ZodType<CreateCustomerRequest> =
     metadata: z.record(z.string(), z.string()).optional().describe(
       "metadata contains additional key-value pairs for storing extra information",
     ),
-    name: z.string().optional().describe(
+    name: z.string().describe(
       "name is the full name or company name of the customer",
+    ),
+    onboarding_workflow_name: z.string().optional().describe(
+      "onboarding_workflow_name is given if a custom onboarding workflow is to be triggered for this customer",
     ),
     skip_onboarding_workflow: z.boolean().optional().describe(
       "skip_onboarding_workflow when true, prevents the customer onboarding workflow from being triggered\nThis is used internally when a customer is created via a workflow to prevent infinite loops\nDefault: false",

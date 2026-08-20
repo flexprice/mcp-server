@@ -18,6 +18,7 @@ export type UpdateCustomerRequest = {
   address_line2?: string | undefined;
   address_postal_code?: string | undefined;
   address_state?: string | undefined;
+  contact?: string | undefined;
   email?: string | undefined;
   external_id?: string | undefined;
   integration_entity_mapping?:
@@ -47,6 +48,9 @@ export const UpdateCustomerRequest$zodSchema: z.ZodType<UpdateCustomerRequest> =
     ),
     address_state: z.string().optional().describe(
       "address_state is the updated state, province, or region name with maximum 100 characters",
+    ),
+    contact: z.string().optional().describe(
+      "contact is the updated contact number for the customer (e.g. phone)",
     ),
     email: z.string().optional().describe(
       "email is the updated email address and must be a valid email format if provided",

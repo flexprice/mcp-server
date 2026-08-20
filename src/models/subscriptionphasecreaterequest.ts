@@ -38,12 +38,12 @@ export const SubscriptionPhaseCreateRequest$zodSchema: z.ZodType<
     .describe("Deprecated: use SubscriptionCoupons instead."),
   line_items: z.array(CreateSubscriptionLineItemRequest$zodSchema).optional()
     .describe(
-      "LineItems are extra line items to add during this phase, primarily one-time charges.\nEach item's start_date defaults to the phase's start_date when not provided.",
+      "LineItems are extra (non-plan) line items for this phase; start_date defaults to phase start.",
     ),
   metadata: z.record(z.string(), z.string()).optional(),
   override_line_items: z.array(OverrideLineItemRequest$zodSchema).optional()
     .describe(
-      "OverrideLineItems allows customizing specific prices for this phase\nIf not provided, phase will use the same line items as the subscription (plan prices)",
+      "OverrideLineItems overrides specific plan prices for this phase.",
     ),
   start_date: z.iso.datetime({ offset: true }),
   subscription_coupons: z.array(SubscriptionCouponInput$zodSchema).optional()

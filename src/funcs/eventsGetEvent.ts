@@ -3,7 +3,7 @@
  */
 
 import { FlexpriceCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Get event
  *
  * @remarks
- * Use when debugging a specific event (e.g. why it failed or how it was aggregated). Includes processing status and debug info.
+ * Use when debugging a specific event (e.g. why it failed or how it was aggregated). Reads the meter-usage pipeline; includes processing status and step-by-step debug tracker when unprocessed. Uses ?id= query param because event IDs can contain "/".
  */
 export function eventsGetEvent(
   client$: FlexpriceCore,
@@ -83,16 +83,10 @@ async function $do(
   }
   const payload$ = parsed$.value;
   const body$ = null;
-
-  const pathParams$ = {
-    id: encodeSimple("id", payload$.id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-  const path$ = pathToFunc("/events/{id}")(
-    pathParams$,
-  );
+  const path$ = pathToFunc("/events/lookup")();
+  const query$ = encodeFormQuery({
+    "id": payload$.id,
+  });
 
   const headers$ = new Headers(compactMap({
     Accept: "application/json",
@@ -125,6 +119,7 @@ async function $do(
     baseURL: options?.serverURL,
     path: path$,
     headers: headers$,
+    query: query$,
     body: body$,
     userAgent: client$._options.userAgent,
     timeoutMs: options?.timeoutMs || client$._options.timeoutMs

@@ -26,6 +26,7 @@ import {
 import { Status, Status$zodSchema } from "./status.js";
 
 export type CreditGrantResponse = {
+  addon_id?: string | undefined;
   cadence?: CreditGrantCadence | undefined;
   conversion_rate?: string | undefined;
   created_at?: string | undefined;
@@ -56,6 +57,7 @@ export type CreditGrantResponse = {
 
 export const CreditGrantResponse$zodSchema: z.ZodType<CreditGrantResponse> = z
   .object({
+    addon_id: z.string().optional(),
     cadence: CreditGrantCadence$zodSchema.optional(),
     conversion_rate: z.string().optional().describe(
       "amount in the currency =  number of credits * conversion_rate\nex if conversion_rate is 1, then 1 USD = 1 credit\nex if conversion_rate is 2, then 1 USD = 0.5 credits\nex if conversion_rate is 0.5, then 1 USD = 2 credits",

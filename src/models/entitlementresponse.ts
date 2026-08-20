@@ -5,9 +5,21 @@
 import * as z from "zod";
 import { AddonResponse, AddonResponse$zodSchema } from "./addonresponse.js";
 import {
+  EntitlementAggregationMode,
+  EntitlementAggregationMode$zodSchema,
+} from "./entitlementaggregationmode.js";
+import {
   EntitlementEntityType,
   EntitlementEntityType$zodSchema,
 } from "./entitlemententitytype.js";
+import {
+  EntitlementGrantDurationUnit,
+  EntitlementGrantDurationUnit$zodSchema,
+} from "./entitlementgrantdurationunit.js";
+import {
+  EntitlementGrantMeasure,
+  EntitlementGrantMeasure$zodSchema,
+} from "./entitlementgrantmeasure.js";
 import {
   EntitlementUsageResetPeriod,
   EntitlementUsageResetPeriod$zodSchema,
@@ -22,6 +34,7 @@ import { Status, Status$zodSchema } from "./status.js";
 
 export type EntitlementResponse = {
   addon?: AddonResponse | undefined;
+  aggregation_mode?: EntitlementAggregationMode | undefined;
   config_value?: { [k: string]: any } | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -33,6 +46,10 @@ export type EntitlementResponse = {
   feature?: FeatureResponse | undefined;
   feature_id?: string | undefined;
   feature_type?: FeatureType | undefined;
+  grant_duration_unit?: EntitlementGrantDurationUnit | undefined;
+  grant_duration_value?: number | undefined;
+  grant_measure?: EntitlementGrantMeasure | undefined;
+  grant_quota?: number | undefined;
   id?: string | undefined;
   is_enabled?: boolean | undefined;
   is_soft_limit?: boolean | undefined;
@@ -52,6 +69,7 @@ export type EntitlementResponse = {
 export const EntitlementResponse$zodSchema: z.ZodType<EntitlementResponse> = z
   .object({
     addon: z.lazy(() => AddonResponse$zodSchema).optional(),
+    aggregation_mode: EntitlementAggregationMode$zodSchema.optional(),
     config_value: z.record(z.string(), z.any()).optional(),
     created_at: z.iso.datetime({ offset: true }).optional(),
     created_by: z.string().optional(),
@@ -63,6 +81,10 @@ export const EntitlementResponse$zodSchema: z.ZodType<EntitlementResponse> = z
     feature: FeatureResponse$zodSchema.optional(),
     feature_id: z.string().optional(),
     feature_type: FeatureType$zodSchema.optional(),
+    grant_duration_unit: EntitlementGrantDurationUnit$zodSchema.optional(),
+    grant_duration_value: z.int().optional(),
+    grant_measure: EntitlementGrantMeasure$zodSchema.optional(),
+    grant_quota: z.number().optional(),
     id: z.string().optional(),
     is_enabled: z.boolean().optional(),
     is_soft_limit: z.boolean().optional(),

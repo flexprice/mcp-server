@@ -3,13 +3,20 @@
  */
 
 import { eventsGetHuggingfaceInferenceData } from "../../funcs/eventsGetHuggingfaceInferenceData.js";
+import { GetHuggingFaceBillingDataRequest$zodSchema } from "../../models/gethuggingfacebillingdatarequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
-export const tool$eventsGetHuggingfaceInferenceData: ToolDefinition = {
+const args = {
+  request: GetHuggingFaceBillingDataRequest$zodSchema.describe(`Request body`),
+};
+
+export const tool$eventsGetHuggingfaceInferenceData: ToolDefinition<
+  typeof args
+> = {
   name: "get-huggingface-inference-data",
   description: `Get Hugging Face inference data
 
-Use when fetching Hugging Face inference usage or billing data (e.g. for HF-specific reporting or reconciliation).`,
+Use when fetching Hugging Face inference usage or billing data (e.g. for HF-specific reporting or reconciliation). Reads the meter-usage pipeline.`,
   scopes: ["write"],
   annotations: {
     "title": "",
@@ -18,9 +25,11 @@ Use when fetching Hugging Face inference usage or billing data (e.g. for HF-spec
     "openWorldHint": false,
     "readOnlyHint": false,
   },
-  tool: async (client, ctx) => {
+  args,
+  tool: async (client, args, ctx) => {
     const [result] = await eventsGetHuggingfaceInferenceData(
       client,
+      args.request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

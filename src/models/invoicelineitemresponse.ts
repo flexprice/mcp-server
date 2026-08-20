@@ -33,6 +33,7 @@ export type InvoiceLineItemResponse = {
   metadata?: { [k: string]: string } | undefined;
   meter_display_name?: string | undefined;
   meter_id?: string | undefined;
+  parent_line_item_id?: string | undefined;
   period_end?: string | undefined;
   period_start?: string | undefined;
   plan_display_name?: string | undefined;
@@ -80,6 +81,9 @@ export const InvoiceLineItemResponse$zodSchema: z.ZodType<
   metadata: z.record(z.string(), z.string()).optional(),
   meter_display_name: z.string().optional(),
   meter_id: z.string().optional(),
+  parent_line_item_id: z.string().optional().describe(
+    "parent_line_item_id links this line item to the line item it replaced, if it was created by editing\nan existing line item. Forms a linked-list chain across edits; nil for line items that were never edited.",
+  ),
   period_end: z.iso.datetime({ offset: true }).optional(),
   period_start: z.iso.datetime({ offset: true }).optional(),
   plan_display_name: z.string().optional(),

@@ -16,6 +16,7 @@ export const tool$subscriptionsAddSubscriptionAddon: ToolDefinition<
   name: "add-subscription-addon",
   description: `Add addon to subscription
 
+Deprecated: use POST /subscriptions/{id}/modify/execute with type "addon" and action "add", which also supports previewing the proration charge first.
 Use when adding an optional product or add-on to an existing subscription (e.g. extra storage or support tier).`,
   scopes: ["write"],
   annotations: {

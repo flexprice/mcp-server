@@ -46,6 +46,7 @@ export type WalletTransactionResponse = {
   id?: string | undefined;
   idempotency_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
+  parent_transaction_id?: string | undefined;
   priority?: number | undefined;
   reference_id?: string | undefined;
   reference_type?: WalletTxReferenceType | undefined;
@@ -86,6 +87,9 @@ export const WalletTransactionResponse$zodSchema: z.ZodType<
   id: z.string().optional(),
   idempotency_key: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
+  parent_transaction_id: z.string().optional().describe(
+    "ParentTransactionID is the ID of the parent wallet_transaction this row was earned from\n(the purchase tx, for a bonus grant). Empty for ordinary transactions.",
+  ),
   priority: z.int().optional(),
   reference_id: z.string().optional(),
   reference_type: WalletTxReferenceType$zodSchema.optional(),

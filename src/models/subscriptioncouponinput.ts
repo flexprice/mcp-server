@@ -14,16 +14,8 @@ export type SubscriptionCouponInput = {
 export const SubscriptionCouponInput$zodSchema: z.ZodType<
   SubscriptionCouponInput
 > = z.object({
-  coupon_code: z.string().describe(
-    "CouponCode is the coupon's human-readable code (case-insensitive). Required.",
-  ),
-  end_date: z.iso.datetime({ offset: true }).optional().describe(
-    "EndDate is when the coupon ends; overrides duration_in_periods calculation.",
-  ),
-  price_id: z.string().optional().describe(
-    "PriceID is the price ID of the line item to target; omit for subscription-level.",
-  ),
-  start_date: z.iso.datetime({ offset: true }).optional().describe(
-    "StartDate is when the coupon starts; defaults to subscription/phase StartDate.",
-  ),
+  coupon_code: z.string(),
+  end_date: z.iso.datetime({ offset: true }).optional(),
+  price_id: z.string().optional(),
+  start_date: z.iso.datetime({ offset: true }).optional(),
 });

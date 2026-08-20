@@ -58,6 +58,7 @@ export type SubscriptionFilter = {
   subscription_status?: Array<SubscriptionStatus> | undefined;
   subscription_type?: Array<SubscriptionType> | undefined;
   trial_end_due_lte?: string | undefined;
+  with_coupon_associations?: boolean | undefined;
   with_line_items?: boolean | undefined;
 };
 
@@ -109,7 +110,10 @@ export const SubscriptionFilter$zodSchema: z.ZodType<SubscriptionFilter> = z
     trial_end_due_lte: z.iso.datetime({ offset: true }).optional().describe(
       "TrialEndDueLTE, when set, restricts to subscriptions with trial_end not nil and trial_end <= trial_end_due_lte.\nUse with subscription_status trialing for trial-end cron processing.",
     ),
+    with_coupon_associations: z.boolean().optional().describe(
+      "WithCouponAssociations eager-loads coupon associations and their coupons.\n\nKept separate from WithLineItems because the coupon_associations table has no\nindex leading with subscription_id, so Ent's edge load degrades to a full table\nscan. Only set it when the response actually surfaces the associations; the\nservice layer back-fills it from expand=\"coupon_associations\".",
+    ),
     with_line_items: z.boolean().optional().describe(
-      "WithLineItems includes line items in the response",
+      "WithLineItems includes line items in the response.\n\nDeprecated: use expand=\"subscription_line_items\" instead. Retained for\nbackwards compatibility and for internal callers that need to force-disable\nline item loading (set to false). The service layer ORs this with the\nexpand check before invoking the repository.",
     ),
   });
