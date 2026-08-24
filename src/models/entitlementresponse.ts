@@ -54,7 +54,7 @@ export type EntitlementResponse = {
   grant_duration_unit?: EntitlementGrantDurationUnit | undefined;
   grant_duration_value?: number | undefined;
   grant_measure?: EntitlementGrantMeasure | undefined;
-  grant_quota?: number | undefined;
+  grant_quota?: string | undefined;
   id?: string | undefined;
   is_enabled?: boolean | undefined;
   is_soft_limit?: boolean | undefined;
@@ -91,7 +91,7 @@ export const EntitlementResponse$zodSchema: z.ZodType<EntitlementResponse> = z
     grant_duration_unit: EntitlementGrantDurationUnit$zodSchema.optional(),
     grant_duration_value: z.int().optional(),
     grant_measure: EntitlementGrantMeasure$zodSchema.optional(),
-    grant_quota: z.number().optional(),
+    grant_quota: z.string().optional(),
     id: z.string().optional(),
     is_enabled: z.boolean().optional(),
     is_soft_limit: z.boolean().optional(),

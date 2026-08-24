@@ -11,6 +11,10 @@ import {
   EntitlementResponse,
   EntitlementResponse$zodSchema,
 } from "./entitlementresponse.js";
+import {
+  PlanPriceSyncStatusResponse,
+  PlanPriceSyncStatusResponse$zodSchema,
+} from "./planpricesyncstatusresponse.js";
 import { PriceResponse, PriceResponse$zodSchema } from "./priceresponse.js";
 import { Status, Status$zodSchema } from "./status.js";
 
@@ -26,6 +30,7 @@ export type PlanResponse = {
   lookup_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
+  price_sync_status?: PlanPriceSyncStatusResponse | undefined;
   prices?: Array<PriceResponse> | undefined;
   status?: Status | undefined;
   tenant_id?: string | undefined;
@@ -45,6 +50,7 @@ export const PlanResponse$zodSchema: z.ZodType<PlanResponse> = z.object({
   lookup_key: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   name: z.string().optional(),
+  price_sync_status: PlanPriceSyncStatusResponse$zodSchema.optional(),
   prices: z.array(z.lazy(() => PriceResponse$zodSchema)).optional().describe(
     "TODO: Add inline addons",
   ),

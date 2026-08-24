@@ -4,20 +4,35 @@
 
 import * as z from "zod";
 import {
+  BillingPeriodBehaviour,
+  BillingPeriodBehaviour$zodSchema,
+} from "./billingperiodbehaviour.js";
+import {
+  BillingPeriodConfig,
+  BillingPeriodConfig$zodSchema,
+} from "./billingperiodconfig.js";
+import {
   ProrationBehavior,
   ProrationBehavior$zodSchema,
 } from "./prorationbehavior.js";
 import { ScheduleType, ScheduleType$zodSchema } from "./scheduletype.js";
+import {
+  SubscriptionChangeConflictPolicies,
+  SubscriptionChangeConflictPolicies$zodSchema,
+} from "./subscriptionchangeconflictpolicies.js";
 import {
   SubscriptionChangeEntityPolicies,
   SubscriptionChangeEntityPolicies$zodSchema,
 } from "./subscriptionchangeentitypolicies.js";
 
 export type SubscriptionChangeV2Request = {
+  billing_period_behaviour?: BillingPeriodBehaviour | undefined;
+  billing_period_config?: BillingPeriodConfig | undefined;
   change_at?: ScheduleType | undefined;
   entity_policies?: SubscriptionChangeEntityPolicies | undefined;
   idempotency_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
+  on_conflict_policies?: SubscriptionChangeConflictPolicies | undefined;
   proration_behavior: ProrationBehavior;
   target_plan_id: string;
 };
@@ -25,10 +40,13 @@ export type SubscriptionChangeV2Request = {
 export const SubscriptionChangeV2Request$zodSchema: z.ZodType<
   SubscriptionChangeV2Request
 > = z.object({
+  billing_period_behaviour: BillingPeriodBehaviour$zodSchema.optional(),
+  billing_period_config: BillingPeriodConfig$zodSchema.optional(),
   change_at: ScheduleType$zodSchema.optional(),
   entity_policies: SubscriptionChangeEntityPolicies$zodSchema.optional(),
   idempotency_key: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
+  on_conflict_policies: SubscriptionChangeConflictPolicies$zodSchema.optional(),
   proration_behavior: ProrationBehavior$zodSchema,
   target_plan_id: z.string(),
 });

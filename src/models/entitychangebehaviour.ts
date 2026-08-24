@@ -8,10 +8,12 @@ import { ClosedEnum } from "../types/enums.js";
 export const EntityChangeBehaviour = {
   Carry: "carry",
   Drop: "drop",
+  Add: "add",
 } as const;
 export type EntityChangeBehaviour = ClosedEnum<typeof EntityChangeBehaviour>;
 
 export const EntityChangeBehaviour$zodSchema = z.enum([
   "carry",
   "drop",
+  "add",
 ]);

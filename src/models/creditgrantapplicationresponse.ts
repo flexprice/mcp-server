@@ -24,7 +24,7 @@ export type CreditGrantApplicationResponse = {
   created_at?: string | undefined;
   created_by?: string | undefined;
   credit_grant_id?: string | undefined;
-  credits?: number | undefined;
+  credits?: string | undefined;
   environment_id?: string | undefined;
   failure_reason?: string | undefined;
   id?: string | undefined;
@@ -51,7 +51,7 @@ export const CreditGrantApplicationResponse$zodSchema: z.ZodType<
   created_at: z.iso.datetime({ offset: true }).optional(),
   created_by: z.string().optional(),
   credit_grant_id: z.string().optional(),
-  credits: z.number().optional(),
+  credits: z.string().optional(),
   environment_id: z.string().optional(),
   failure_reason: z.string().optional(),
   id: z.string().optional(),

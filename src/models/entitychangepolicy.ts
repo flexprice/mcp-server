@@ -18,6 +18,6 @@ export const EntityChangePolicy$zodSchema: z.ZodType<EntityChangePolicy> = z
     default_behaviour: EntityChangeBehaviour$zodSchema.optional(),
     overrides: z.record(z.string(), EntityChangeBehaviour$zodSchema).optional()
       .describe(
-        "Overrides is keyed by addon_associations.id (instance), not catalogue addon_id.",
+        "Overrides is keyed by addon_associations.id (instance), not catalogue addon_id.\nThat is the id an EntityChangeResult reports as EntityID.",
       ),
   });

@@ -13,6 +13,10 @@ import {
 } from "./entitychangeresult.js";
 import { PlanSummary, PlanSummary$zodSchema } from "./plansummary.js";
 import {
+  SubscriptionChangeBillingPeriodResult,
+  SubscriptionChangeBillingPeriodResult$zodSchema,
+} from "./subscriptionchangebillingperiodresult.js";
+import {
   SubscriptionChangeType,
   SubscriptionChangeType$zodSchema,
 } from "./subscriptionchangetype.js";
@@ -22,6 +26,7 @@ import {
 } from "./subscriptionresponse.js";
 
 export type SubscriptionChangeV2Response = {
+  billing_period?: SubscriptionChangeBillingPeriodResult | undefined;
   change_type?: SubscriptionChangeType | undefined;
   changed_resources?: ChangedResources | undefined;
   effective_at?: string | undefined;
@@ -32,6 +37,7 @@ export type SubscriptionChangeV2Response = {
   schedule_id?: string | undefined;
   scheduled_at?: string | undefined;
   subscription?: SubscriptionResponse | undefined;
+  superseded_schedules?: Array<string> | undefined;
   to_plan?: PlanSummary | undefined;
   warnings?: Array<string> | undefined;
 };
@@ -39,6 +45,7 @@ export type SubscriptionChangeV2Response = {
 export const SubscriptionChangeV2Response$zodSchema: z.ZodType<
   SubscriptionChangeV2Response
 > = z.object({
+  billing_period: SubscriptionChangeBillingPeriodResult$zodSchema.optional(),
   change_type: SubscriptionChangeType$zodSchema.optional(),
   changed_resources: ChangedResources$zodSchema.optional(),
   effective_at: z.iso.datetime({ offset: true }).optional(),
@@ -51,6 +58,9 @@ export const SubscriptionChangeV2Response$zodSchema: z.ZodType<
   schedule_id: z.string().optional(),
   scheduled_at: z.iso.datetime({ offset: true }).optional(),
   subscription: SubscriptionResponse$zodSchema.optional(),
+  superseded_schedules: z.array(z.string()).optional().describe(
+    "SupersededSchedules lists the plan-change schedules this request cancelled under\non_conflict_policies.on_pending_schedule. Preview reports what execute would cancel.",
+  ),
   to_plan: PlanSummary$zodSchema.optional(),
   warnings: z.array(z.string()).optional(),
 });

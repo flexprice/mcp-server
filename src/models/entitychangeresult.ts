@@ -8,14 +8,14 @@ import {
   EntityChangeBehaviour$zodSchema,
 } from "./entitychangebehaviour.js";
 import {
-  SubscriptionLineItemEntityType,
-  SubscriptionLineItemEntityType$zodSchema,
-} from "./subscriptionlineitementitytype.js";
+  SubscriptionChangeEntityType,
+  SubscriptionChangeEntityType$zodSchema,
+} from "./subscriptionchangeentitytype.js";
 
 export type EntityChangeResult = {
   behaviour?: EntityChangeBehaviour | undefined;
   entity_id?: string | undefined;
-  entity_type?: SubscriptionLineItemEntityType | undefined;
+  entity_type?: SubscriptionChangeEntityType | undefined;
   reference_id?: string | undefined;
 };
 
@@ -23,6 +23,6 @@ export const EntityChangeResult$zodSchema: z.ZodType<EntityChangeResult> = z
   .object({
     behaviour: EntityChangeBehaviour$zodSchema.optional(),
     entity_id: z.string().optional(),
-    entity_type: SubscriptionLineItemEntityType$zodSchema.optional(),
+    entity_type: SubscriptionChangeEntityType$zodSchema.optional(),
     reference_id: z.string().optional(),
   });

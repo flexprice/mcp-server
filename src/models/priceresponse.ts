@@ -17,6 +17,10 @@ import {
   PriceEntityType$zodSchema,
 } from "./priceentitytype.js";
 import {
+  PriceFeatureResponse,
+  PriceFeatureResponse$zodSchema,
+} from "./pricefeatureresponse.js";
+import {
   PriceJSONBTransformQuantity,
   PriceJSONBTransformQuantity$zodSchema,
 } from "./pricejsonbtransformquantity.js";
@@ -48,6 +52,7 @@ export type PriceResponse = {
   entity_id?: string | undefined;
   entity_type?: PriceEntityType | undefined;
   environment_id?: string | undefined;
+  feature?: PriceFeatureResponse | undefined;
   group?: GroupResponse | undefined;
   group_id?: string | undefined;
   id?: string | undefined;
@@ -117,6 +122,7 @@ export const PriceResponse$zodSchema: z.ZodType<PriceResponse> = z.object({
   environment_id: z.string().optional().describe(
     "EnvironmentID is the environment identifier for the price",
   ),
+  feature: PriceFeatureResponse$zodSchema.optional(),
   group: GroupResponse$zodSchema.optional(),
   group_id: z.string().optional().describe(
     "GroupID references the group this price belongs to",
