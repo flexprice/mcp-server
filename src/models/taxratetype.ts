@@ -7,11 +7,9 @@ import { ClosedEnum } from "../types/enums.js";
 
 export const TaxRateType = {
   Percentage: "percentage",
-  Fixed: "fixed",
 } as const;
 export type TaxRateType = ClosedEnum<typeof TaxRateType>;
 
 export const TaxRateType$zodSchema = z.enum([
   "percentage",
-  "fixed",
 ]);

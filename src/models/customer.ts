@@ -4,6 +4,7 @@
 
 import * as z from "zod";
 import { Status, Status$zodSchema } from "./status.js";
+import { TaxTreatment, TaxTreatment$zodSchema } from "./taxtreatment.js";
 
 export type Customer = {
   address_city?: string | undefined;
@@ -22,6 +23,7 @@ export type Customer = {
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
   status?: Status | undefined;
+  tax_treatment?: TaxTreatment | undefined;
   tenant_id?: string | undefined;
   timezone?: string | undefined;
   updated_at?: string | undefined;
@@ -65,6 +67,7 @@ export const Customer$zodSchema: z.ZodType<Customer> = z.object({
   metadata: z.record(z.string(), z.string()).optional().describe("Metadata"),
   name: z.string().optional().describe("Name is the name of the customer"),
   status: Status$zodSchema.optional(),
+  tax_treatment: TaxTreatment$zodSchema.optional(),
   tenant_id: z.string().optional(),
   timezone: z.string().optional().describe(
     "Timezone is the customer's IANA timezone name (e.g. \"Asia/Kolkata\").\nDefaults to \"UTC\". Inherited by subscriptions at creation time.",

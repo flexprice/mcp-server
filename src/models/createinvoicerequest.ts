@@ -23,10 +23,6 @@ import {
   TaxRateOverride,
   TaxRateOverride$zodSchema,
 } from "./taxrateoverride.js";
-import {
-  TaxRateResponse,
-  TaxRateResponse$zodSchema,
-} from "./taxrateresponse.js";
 
 export type CreateInvoiceRequest = {
   amount_due: string;
@@ -52,7 +48,6 @@ export type CreateInvoiceRequest = {
   payment_status?: PaymentStatus | undefined;
   period_end?: string | undefined;
   period_start?: string | undefined;
-  prepared_tax_rates?: Array<TaxRateResponse> | undefined;
   subscription_id?: string | undefined;
   subtotal: string;
   tax_rate_overrides?: Array<TaxRateOverride> | undefined;
@@ -119,9 +114,6 @@ export const CreateInvoiceRequest$zodSchema: z.ZodType<CreateInvoiceRequest> = z
     ),
     period_start: z.iso.datetime({ offset: true }).optional().describe(
       "period_start is the start date of the billing period",
-    ),
-    prepared_tax_rates: z.array(TaxRateResponse$zodSchema).optional().describe(
-      "prepared_tax_rates contains the tax rates pre-resolved by the caller (e.g., billing service)",
     ),
     subscription_id: z.string().optional().describe(
       "subscription_id is the optional unique identifier of the subscription associated with this invoice",

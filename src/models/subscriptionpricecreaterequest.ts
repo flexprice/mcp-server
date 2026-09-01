@@ -21,12 +21,14 @@ import {
   PriceUnitConfig$zodSchema,
 } from "./priceunitconfig.js";
 import { PriceUnitType, PriceUnitType$zodSchema } from "./priceunittype.js";
+import { WindowSize, WindowSize$zodSchema } from "./windowsize.js";
 
 export type SubscriptionPriceCreateRequest = {
   amount?: string | undefined;
   billing_model: BillingModel;
   billing_period: BillingPeriod;
   billing_period_count?: number | undefined;
+  bucket_size?: WindowSize | undefined;
   description?: string | undefined;
   display_name?: string | undefined;
   end_date?: string | undefined;
@@ -53,6 +55,7 @@ export const SubscriptionPriceCreateRequest$zodSchema: z.ZodType<
   billing_model: BillingModel$zodSchema,
   billing_period: BillingPeriod$zodSchema,
   billing_period_count: z.int().optional(),
+  bucket_size: WindowSize$zodSchema.optional(),
   description: z.string().optional(),
   display_name: z.string().optional(),
   end_date: z.iso.datetime({ offset: true }).optional(),

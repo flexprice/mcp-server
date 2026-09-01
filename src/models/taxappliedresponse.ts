@@ -4,6 +4,7 @@
 
 import * as z from "zod";
 import { Status, Status$zodSchema } from "./status.js";
+import { TaxBehavior, TaxBehavior$zodSchema } from "./taxbehavior.js";
 import {
   TaxRateEntityType,
   TaxRateEntityType$zodSchema,
@@ -27,6 +28,7 @@ export type TaxAppliedResponse = {
   status?: Status | undefined;
   tax_amount?: string | undefined;
   tax_association_id?: string | undefined;
+  tax_behavior?: TaxBehavior | undefined;
   tax_rate?: TaxRateResponse | undefined;
   tax_rate_id?: string | undefined;
   taxable_amount?: string | undefined;
@@ -50,6 +52,7 @@ export const TaxAppliedResponse$zodSchema: z.ZodType<TaxAppliedResponse> = z
     status: Status$zodSchema.optional(),
     tax_amount: z.string().optional(),
     tax_association_id: z.string().optional(),
+    tax_behavior: TaxBehavior$zodSchema.optional(),
     tax_rate: TaxRateResponse$zodSchema.optional(),
     tax_rate_id: z.string().optional(),
     taxable_amount: z.string().optional(),

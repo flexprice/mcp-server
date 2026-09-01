@@ -19,10 +19,12 @@ import {
   PriceTransformQuantity,
   PriceTransformQuantity$zodSchema,
 } from "./pricetransformquantity.js";
+import { WindowSize, WindowSize$zodSchema } from "./windowsize.js";
 
 export type UpdateSubscriptionLineItemRequest = {
   amount?: string | undefined;
   billing_model?: BillingModel | undefined;
+  bucket_size?: WindowSize | undefined;
   commitment_amount?: number | undefined;
   commitment_duration?: BillingPeriod | undefined;
   commitment_overage_factor?: number | undefined;
@@ -45,6 +47,7 @@ export const UpdateSubscriptionLineItemRequest$zodSchema: z.ZodType<
     "Amount is the new price amount that overrides the original price",
   ),
   billing_model: BillingModel$zodSchema.optional(),
+  bucket_size: WindowSize$zodSchema.optional(),
   commitment_amount: z.number().optional().describe("Commitment fields"),
   commitment_duration: BillingPeriod$zodSchema.optional(),
   commitment_overage_factor: z.number().optional(),

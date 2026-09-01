@@ -7,6 +7,7 @@ import {
   CreateEntityIntegrationMappingRequest,
   CreateEntityIntegrationMappingRequest$zodSchema,
 } from "./createentityintegrationmappingrequest.js";
+import { TaxTreatment, TaxTreatment$zodSchema } from "./taxtreatment.js";
 
 /**
  * Request object for updating an existing customer. All fields are optional - only provided fields will be updated
@@ -26,6 +27,7 @@ export type UpdateCustomerRequest = {
     | undefined;
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
+  tax_treatment?: TaxTreatment | undefined;
   timezone?: string | undefined;
 };
 
@@ -69,6 +71,7 @@ export const UpdateCustomerRequest$zodSchema: z.ZodType<UpdateCustomerRequest> =
     name: z.string().optional().describe(
       "name is the updated name or company name for the customer",
     ),
+    tax_treatment: TaxTreatment$zodSchema.optional(),
     timezone: z.string().optional().describe(
       "timezone is the updated IANA timezone name for the customer (e.g. \"Asia/Kolkata\", \"America/New_York\")",
     ),

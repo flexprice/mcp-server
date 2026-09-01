@@ -25,12 +25,14 @@ import {
   PriceUnitConfig$zodSchema,
 } from "./priceunitconfig.js";
 import { PriceUnitType, PriceUnitType$zodSchema } from "./priceunittype.js";
+import { WindowSize, WindowSize$zodSchema } from "./windowsize.js";
 
 export type CreatePriceRequest = {
   amount?: string | undefined;
   billing_model: BillingModel;
   billing_period: BillingPeriod;
   billing_period_count?: number | undefined;
+  bucket_size?: WindowSize | undefined;
   currency: string;
   description?: string | undefined;
   display_name?: string | undefined;
@@ -60,6 +62,7 @@ export const CreatePriceRequest$zodSchema: z.ZodType<CreatePriceRequest> = z
     billing_model: BillingModel$zodSchema,
     billing_period: BillingPeriod$zodSchema,
     billing_period_count: z.int().optional(),
+    bucket_size: WindowSize$zodSchema.optional(),
     currency: z.string(),
     description: z.string().optional(),
     display_name: z.string().optional(),

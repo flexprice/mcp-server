@@ -13,10 +13,12 @@ import {
   PriceTransformQuantity,
   PriceTransformQuantity$zodSchema,
 } from "./pricetransformquantity.js";
+import { WindowSize, WindowSize$zodSchema } from "./windowsize.js";
 
 export type UpdatePriceRequest = {
   amount?: string | undefined;
   billing_model?: BillingModel | undefined;
+  bucket_size?: WindowSize | undefined;
   description?: string | undefined;
   display_name?: string | undefined;
   effective_from?: string | undefined;
@@ -36,6 +38,7 @@ export const UpdatePriceRequest$zodSchema: z.ZodType<UpdatePriceRequest> = z
       "Amount is the new price amount that overrides the original price (optional)",
     ),
     billing_model: BillingModel$zodSchema.optional(),
+    bucket_size: WindowSize$zodSchema.optional(),
     description: z.string().optional(),
     display_name: z.string().optional(),
     effective_from: z.string().optional(),

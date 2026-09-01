@@ -3,12 +3,14 @@
  */
 
 import * as z from "zod";
+import { TaxBehavior, TaxBehavior$zodSchema } from "./taxbehavior.js";
 
 export type TaxRateOverride = {
   auto_apply?: boolean | undefined;
   currency: string;
   metadata?: { [k: string]: string } | undefined;
   priority?: number | undefined;
+  tax_behavior?: TaxBehavior | undefined;
   tax_rate_code: string;
 };
 
@@ -17,5 +19,6 @@ export const TaxRateOverride$zodSchema: z.ZodType<TaxRateOverride> = z.object({
   currency: z.string(),
   metadata: z.record(z.string(), z.string()).optional(),
   priority: z.int().optional(),
+  tax_behavior: TaxBehavior$zodSchema.optional(),
   tax_rate_code: z.string(),
 });

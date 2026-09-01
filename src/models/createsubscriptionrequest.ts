@@ -83,6 +83,7 @@ export type CreateSubscriptionRequest = {
   end_date?: string | undefined;
   external_customer_id?: string | undefined;
   gateway_payment_method_id?: string | undefined;
+  include_price_ids?: Array<string> | undefined;
   inheritance?: SubscriptionInheritanceConfig | undefined;
   line_item_commitments?: { [k: string]: LineItemCommitmentConfig } | undefined;
   line_item_coupons?: { [k: string]: Array<string> } | undefined;
@@ -134,6 +135,9 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   end_date: z.iso.datetime({ offset: true }).optional(),
   external_customer_id: z.string().optional(),
   gateway_payment_method_id: z.string().optional(),
+  include_price_ids: z.array(z.string()).optional().describe(
+    "IncludePriceIDs selects which plan prices to attach. Nil/omitted attaches matching-cadence\nprices plus ONETIME; [] attaches none (LineItems extras still apply); a non-empty list\nattaches only those IDs. Each listed ID must belong to the plan, match the subscription\ncurrency, and have a cadence that equals or strictly divides the subscription cadence.\nPointer-slice distinguishes nil from [].\nNOTE: no `dive,required` on this tag — swaggo misinterprets `required`\ninside `dive` as marking the whole field required, which then shows up\nin the OpenAPI schema and breaks callers that omit the field. Per-element\nnon-emptiness is enforced explicitly in Validate() below.",
+  ),
   inheritance: SubscriptionInheritanceConfig$zodSchema.optional(),
   line_item_commitments: z.record(
     z.string(),

@@ -27,6 +27,11 @@ import {
   TaxAppliedResponse,
   TaxAppliedResponse$zodSchema,
 } from "./taxappliedresponse.js";
+import {
+  TaxExemptionReasonCode,
+  TaxExemptionReasonCode$zodSchema,
+} from "./taxexemptionreasoncode.js";
+import { TaxSummary, TaxSummary$zodSchema } from "./taxsummary.js";
 
 export type InvoiceResponse = {
   adjustment_amount?: string | undefined;
@@ -69,6 +74,8 @@ export type InvoiceResponse = {
   subscription_customer_id?: string | undefined;
   subscription_id?: string | undefined;
   subtotal?: string | undefined;
+  tax_exemption_reason_code?: TaxExemptionReasonCode | undefined;
+  tax_summary?: TaxSummary | undefined;
   taxes?: Array<TaxAppliedResponse> | undefined;
   tenant_id?: string | undefined;
   total?: string | undefined;
@@ -187,6 +194,8 @@ export const InvoiceResponse$zodSchema: z.ZodType<InvoiceResponse> = z.object({
   subtotal: z.string().optional().describe(
     "subtotal is the sum of all line items before any taxes, discounts, or additional fees",
   ),
+  tax_exemption_reason_code: TaxExemptionReasonCode$zodSchema.optional(),
+  tax_summary: TaxSummary$zodSchema.optional(),
   taxes: z.array(TaxAppliedResponse$zodSchema).optional().describe(
     "tax_applied_records contains the tax applied records associated with this invoice",
   ),

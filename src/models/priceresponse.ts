@@ -32,6 +32,7 @@ import {
 } from "./priceunitresponse.js";
 import { PriceUnitType, PriceUnitType$zodSchema } from "./priceunittype.js";
 import { Status, Status$zodSchema } from "./status.js";
+import { WindowSize, WindowSize$zodSchema } from "./windowsize.js";
 
 export type PriceResponse = {
   addon?: AddonResponse | undefined;
@@ -40,6 +41,7 @@ export type PriceResponse = {
   billing_model?: BillingModel | undefined;
   billing_period?: BillingPeriod | undefined;
   billing_period_count?: number | undefined;
+  bucket_size?: WindowSize | undefined;
   conversion_rate?: string | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -94,6 +96,7 @@ export const PriceResponse$zodSchema: z.ZodType<PriceResponse> = z.object({
   billing_period_count: z.int().optional().describe(
     "BillingPeriodCount is the count of the billing period ex 1, 3, 6, 12",
   ),
+  bucket_size: WindowSize$zodSchema.optional(),
   conversion_rate: z.string().optional().describe(
     "ConversionRate is the conversion rate of the price unit to the fiat currency",
   ),

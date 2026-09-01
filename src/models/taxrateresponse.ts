@@ -14,7 +14,6 @@ export type TaxRateResponse = {
   created_by?: string | undefined;
   description?: string | undefined;
   environment_id?: string | undefined;
-  fixed_value?: string | undefined;
   id?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
@@ -34,7 +33,6 @@ export const TaxRateResponse$zodSchema: z.ZodType<TaxRateResponse> = z.object({
   created_by: z.string().optional(),
   description: z.string().optional(),
   environment_id: z.string().optional(),
-  fixed_value: z.string().optional(),
   id: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
   name: z.string().optional(),

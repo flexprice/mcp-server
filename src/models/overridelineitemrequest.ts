@@ -13,10 +13,12 @@ import {
   PriceTransformQuantity,
   PriceTransformQuantity$zodSchema,
 } from "./pricetransformquantity.js";
+import { WindowSize, WindowSize$zodSchema } from "./windowsize.js";
 
 export type OverrideLineItemRequest = {
   amount?: string | undefined;
   billing_model?: BillingModel | undefined;
+  bucket_size?: WindowSize | undefined;
   price_id: string;
   price_unit_amount?: string | undefined;
   price_unit_tiers?: Array<CreatePriceTier> | undefined;
@@ -33,6 +35,7 @@ export const OverrideLineItemRequest$zodSchema: z.ZodType<
     "Amount is the new price amount that overrides the original price (optional)",
   ),
   billing_model: BillingModel$zodSchema.optional(),
+  bucket_size: WindowSize$zodSchema.optional(),
   price_id: z.string().describe(
     "PriceID references the plan price to override",
   ),

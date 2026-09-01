@@ -28,7 +28,7 @@ export const MeterAggregation$zodSchema: z.ZodType<MeterAggregation> = z.object(
       "Field is the key in $event.properties on which the aggregation is to be applied\nFor ex if the aggregation type is sum for API usage, the field could be \"duration_ms\"\nIgnored when Expression is set.",
     ),
     group_by: z.string().optional().describe(
-      "GroupBy is the property name in event.properties to group by before aggregating.\nCurrently only supported for MAX aggregation with bucket_size.\nWhen set, aggregation is applied per unique value of this property within each bucket,\nthen the per-group results are summed to produce the bucket total.",
+      "GroupBy is the property name in event.properties to group by before aggregating.\nRequires MAX aggregation. Windowing comes from the price, so this no longer\nimplies a meter-level bucket_size.\nWhen set, aggregation is applied per unique value of this property within each bucket,\nthen the per-group results are summed to produce the bucket total.",
     ),
     multiplier: z.string().optional().describe(
       "Multiplier is the multiplier for the aggregation\nFor ex if the aggregation type is sum_with_multiplier for API usage, the multiplier could be 1000\nto scale up by a factor of 1000. If not provided, it will be null.",
