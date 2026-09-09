@@ -38,6 +38,7 @@ import { tool$eventsIngestEventsBulk } from "./tools/eventsIngestEventsBulk.js";
 import { tool$eventsListRawEvents } from "./tools/eventsListRawEvents.js";
 import { tool$invoicesAttemptInvoicePayment } from "./tools/invoicesAttemptInvoicePayment.js";
 import { tool$invoicesCreateInvoice } from "./tools/invoicesCreateInvoice.js";
+import { tool$invoicesExecuteInvoiceModify } from "./tools/invoicesExecuteInvoiceModify.js";
 import { tool$invoicesFinalizeInvoice } from "./tools/invoicesFinalizeInvoice.js";
 import { tool$invoicesGetCustomerInvoiceSummary } from "./tools/invoicesGetCustomerInvoiceSummary.js";
 import { tool$invoicesGetInvoice } from "./tools/invoicesGetInvoice.js";
@@ -105,7 +106,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.29",
+    version: "2.1.30",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -169,6 +170,7 @@ export function createMCPServer(deps: {
   tool(tool$invoicesUpdateInvoice);
   tool(tool$invoicesTriggerInvoiceCommsWebhook);
   tool(tool$invoicesFinalizeInvoice);
+  tool(tool$invoicesExecuteInvoiceModify);
   tool(tool$invoicesUpdateInvoicePaymentStatus);
   tool(tool$invoicesAttemptInvoicePayment);
   tool(tool$invoicesGetInvoicePdf);
@@ -203,6 +205,9 @@ export function createMCPServer(deps: {
   tool(tool$subscriptionsQuerySubscriptionLineItems);
   tool(tool$subscriptionsUpdateSubscriptionLineItem);
   tool(tool$subscriptionsDeleteSubscriptionLineItem);
+  tool(tool$subscriptionsListAllSubscriptionSchedules);
+  tool(tool$subscriptionsGetSubscriptionSchedule);
+  tool(tool$subscriptionsCancelSubscriptionSchedule);
   tool(tool$subscriptionsQuerySubscription);
   tool(tool$subscriptionsGetSubscriptionUsage);
   tool(tool$subscriptionsGetSubscription);
@@ -219,11 +224,8 @@ export function createMCPServer(deps: {
   tool(tool$subscriptionsCreateSubscriptionLineItem);
   tool(tool$subscriptionsExecuteSubscriptionModify);
   tool(tool$subscriptionsPreviewSubscriptionModify);
-  tool(tool$subscriptionsGetSubscriptionV2);
-  tool(tool$subscriptionsListAllSubscriptionSchedules);
-  tool(tool$subscriptionsGetSubscriptionSchedule);
-  tool(tool$subscriptionsCancelSubscriptionSchedule);
   tool(tool$subscriptionsListSubscriptionSchedules);
+  tool(tool$subscriptionsGetSubscriptionV2);
 
   if (deps.dynamic) {
     registerDynamicTools(deps.logger, server, getClient, toolMap, scopes);

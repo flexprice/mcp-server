@@ -5,21 +5,13 @@
 import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
 
-/**
- * preview | issued | INITIATED | PENDING | PROCESSING | SUCCEEDED | OVERPAID | FAILED | REFUNDED | PARTIALLY_REFUNDED
- */
 export const ChangedInvoiceStatus = {
   Preview: "preview",
   Issued: "issued",
 } as const;
-/**
- * preview | issued | INITIATED | PENDING | PROCESSING | SUCCEEDED | OVERPAID | FAILED | REFUNDED | PARTIALLY_REFUNDED
- */
 export type ChangedInvoiceStatus = ClosedEnum<typeof ChangedInvoiceStatus>;
 
 export const ChangedInvoiceStatus$zodSchema = z.enum([
   "preview",
   "issued",
-]).describe(
-  "preview | issued | INITIATED | PENDING | PROCESSING | SUCCEEDED | OVERPAID | FAILED | REFUNDED | PARTIALLY_REFUNDED",
-);
+]);

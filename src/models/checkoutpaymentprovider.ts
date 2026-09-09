@@ -7,6 +7,7 @@ import { ClosedEnum } from "../types/enums.js";
 
 export const CheckoutPaymentProvider = {
   Razorpay: "razorpay",
+  Chargebee: "chargebee",
 } as const;
 export type CheckoutPaymentProvider = ClosedEnum<
   typeof CheckoutPaymentProvider
@@ -14,4 +15,5 @@ export type CheckoutPaymentProvider = ClosedEnum<
 
 export const CheckoutPaymentProvider$zodSchema = z.enum([
   "razorpay",
+  "chargebee",
 ]);

@@ -4,10 +4,10 @@
 
 import * as z from "zod";
 
-export type ListSubscriptionSchedulesRequest = { subscription_id: string };
+export type ListSubscriptionSchedulesRequest = { id: string };
 
 export const ListSubscriptionSchedulesRequest$zodSchema: z.ZodType<
   ListSubscriptionSchedulesRequest
 > = z.object({
-  subscription_id: z.string().describe("Subscription ID"),
+  id: z.string().describe("Subscription ID"),
 });

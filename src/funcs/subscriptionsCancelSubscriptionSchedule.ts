@@ -90,7 +90,7 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/v1/subscriptions/schedules/{schedule_id}/cancel")(
+  const path$ = pathToFunc("/subscriptions/schedules/{schedule_id}/cancel")(
     pathParams$,
   );
 

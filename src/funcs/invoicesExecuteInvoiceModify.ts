@@ -3,7 +3,7 @@
  */
 
 import { FlexpriceCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -19,21 +19,21 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  ListSubscriptionSchedulesRequest,
-  ListSubscriptionSchedulesRequest$zodSchema,
-} from "../models/listsubscriptionschedulesop.js";
+  ExecuteInvoiceModifyRequestRequest,
+  ExecuteInvoiceModifyRequestRequest$zodSchema,
+} from "../models/executeinvoicemodifyop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * List subscription schedules
+ * Execute invoice modification
  *
  * @remarks
- * Use when listing scheduled changes for a subscription (e.g. upcoming plan change or renewal). Returns all schedules for that subscription.
+ * Execute a modification on a draft or finalized invoice. Supports line item changes: add (bulk), update (one line item per call; the edit is versioned, so the line item id changes), and remove (bulk, soft delete). Totals are recalculated from the remaining line items; a manual edit marks the invoice as manually edited, which disables recompute. Modifying a FINALIZED invoice voids it and recreates it as a draft copy carrying all current data (description, billing period, due date, metadata, line items); the modification lands on the copy and the response returns the new draft — chain subsequent calls to the returned invoice id; a call that still targets the voided original is rejected with an error naming the replacement.
  */
-export function subscriptionsListSubscriptionSchedules(
+export function invoicesExecuteInvoiceModify(
   client$: FlexpriceCore,
-  request: ListSubscriptionSchedulesRequest,
+  request: ExecuteInvoiceModifyRequestRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function subscriptionsListSubscriptionSchedules(
 
 async function $do(
   client$: FlexpriceCore,
-  request: ListSubscriptionSchedulesRequest,
+  request: ExecuteInvoiceModifyRequestRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,14 +75,14 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => ListSubscriptionSchedulesRequest$zodSchema.parse(value$),
+    (value$) => ExecuteInvoiceModifyRequestRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = null;
+  const body$ = encodeJSON("body", payload$.body, { explode: true });
 
   const pathParams$ = {
     id: encodeSimple("id", payload$.id, {
@@ -90,11 +90,12 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/subscriptions/{id}/schedules")(
+  const path$ = pathToFunc("/invoices/{id}/modify/execute")(
     pathParams$,
   );
 
   const headers$ = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
   const securityInput = await extractSecurity(client$._options.security);
@@ -103,7 +104,7 @@ async function $do(
   const context = {
     options: client$._options,
     baseURL: options?.serverURL ?? client$._baseURL ?? "",
-    operationID: "listSubscriptionSchedules",
+    operationID: "executeInvoiceModify",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
     securitySource: client$._options.security,
@@ -121,7 +122,7 @@ async function $do(
 
   const requestRes = client$._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "POST",
     baseURL: options?.serverURL,
     path: path$,
     headers: headers$,

@@ -5,6 +5,10 @@
 import * as z from "zod";
 import { CommitmentInfo, CommitmentInfo$zodSchema } from "./commitmentinfo.js";
 import {
+  CustomCurrencyLineItem,
+  CustomCurrencyLineItem$zodSchema,
+} from "./customcurrencylineitem.js";
+import {
   SourceUsageItem,
   SourceUsageItem$zodSchema,
 } from "./sourceusageitem.js";
@@ -21,6 +25,7 @@ export type InvoiceLineItemResponse = {
   created_at?: string | undefined;
   created_by?: string | undefined;
   currency?: string | undefined;
+  custom_currency?: CustomCurrencyLineItem | undefined;
   customer_id?: string | undefined;
   display_name?: string | undefined;
   entity_id?: string | undefined;
@@ -65,6 +70,7 @@ export const InvoiceLineItemResponse$zodSchema: z.ZodType<
   created_at: z.iso.datetime({ offset: true }).optional(),
   created_by: z.string().optional(),
   currency: z.string().optional(),
+  custom_currency: CustomCurrencyLineItem$zodSchema.optional(),
   customer_id: z.string().optional(),
   display_name: z.string().optional(),
   entity_id: z.string().optional(),

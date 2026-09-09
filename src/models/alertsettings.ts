@@ -4,9 +4,14 @@
 
 import * as z from "zod";
 import { AlertThreshold, AlertThreshold$zodSchema } from "./alertthreshold.js";
+import {
+  AlertThresholdType,
+  AlertThresholdType$zodSchema,
+} from "./alertthresholdtype.js";
 
 export type AlertSettings = {
   alert_enabled?: boolean | undefined;
+  alert_threshold_type?: AlertThresholdType | undefined;
   critical?: AlertThreshold | undefined;
   info?: AlertThreshold | undefined;
   warning?: AlertThreshold | undefined;
@@ -14,6 +19,7 @@ export type AlertSettings = {
 
 export const AlertSettings$zodSchema: z.ZodType<AlertSettings> = z.object({
   alert_enabled: z.boolean().optional(),
+  alert_threshold_type: AlertThresholdType$zodSchema.optional(),
   critical: AlertThreshold$zodSchema.optional(),
   info: AlertThreshold$zodSchema.optional(),
   warning: AlertThreshold$zodSchema.optional(),

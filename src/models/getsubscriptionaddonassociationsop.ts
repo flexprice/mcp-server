@@ -3,11 +3,11 @@
  */
 
 import * as z from "zod";
-import {
-  AddonAssociationResponse,
-  AddonAssociationResponse$zodSchema,
-} from "./addonassociationresponse.js";
 import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
+import {
+  ListAddonAssociationsResponse,
+  ListAddonAssociationsResponse$zodSchema,
+} from "./listaddonassociationsresponse.js";
 
 export type GetSubscriptionAddonAssociationsRequest = { id: string };
 
@@ -18,12 +18,12 @@ export const GetSubscriptionAddonAssociationsRequest$zodSchema: z.ZodType<
 });
 
 export type GetSubscriptionAddonAssociationsResponse =
-  | Array<AddonAssociationResponse>
+  | ListAddonAssociationsResponse
   | ErrorResponse;
 
 export const GetSubscriptionAddonAssociationsResponse$zodSchema: z.ZodType<
   GetSubscriptionAddonAssociationsResponse
 > = z.union([
-  z.array(AddonAssociationResponse$zodSchema).describe("OK"),
+  ListAddonAssociationsResponse$zodSchema,
   ErrorResponse$zodSchema,
 ]);

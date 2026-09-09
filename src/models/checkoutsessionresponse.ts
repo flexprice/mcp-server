@@ -5,28 +5,15 @@
 import * as z from "zod";
 import { CheckoutAction, CheckoutAction$zodSchema } from "./checkoutaction.js";
 import {
-  CheckoutJSONBCheckoutConfiguration,
-  CheckoutJSONBCheckoutConfiguration$zodSchema,
-} from "./checkoutjsonbcheckoutconfiguration.js";
-import {
-  CheckoutJSONBCheckoutPaymentProviderConfig,
-  CheckoutJSONBCheckoutPaymentProviderConfig$zodSchema,
-} from "./checkoutjsonbcheckoutpaymentproviderconfig.js";
-import {
-  CheckoutJSONBCheckoutProviderResult,
-  CheckoutJSONBCheckoutProviderResult$zodSchema,
-} from "./checkoutjsonbcheckoutproviderresult.js";
-import {
-  CheckoutJSONBCheckoutResult,
-  CheckoutJSONBCheckoutResult$zodSchema,
-} from "./checkoutjsonbcheckoutresult.js";
+  CheckoutPaymentBlock,
+  CheckoutPaymentBlock$zodSchema,
+} from "./checkoutpaymentblock.js";
 import {
   CheckoutPaymentProvider,
   CheckoutPaymentProvider$zodSchema,
 } from "./checkoutpaymentprovider.js";
 import { CheckoutStatus, CheckoutStatus$zodSchema } from "./checkoutstatus.js";
 import { PaymentAction, PaymentAction$zodSchema } from "./paymentaction.js";
-import { Status, Status$zodSchema } from "./status.js";
 
 export type CheckoutSessionResponse = {
   action?: CheckoutAction | undefined;
@@ -36,29 +23,22 @@ export type CheckoutSessionResponse = {
   checkout_payment_id?: string | undefined;
   checkout_status?: CheckoutStatus | undefined;
   completed_at?: string | undefined;
-  configuration?: CheckoutJSONBCheckoutConfiguration | undefined;
   created_at?: string | undefined;
-  created_by?: string | undefined;
   customer_id?: string | undefined;
-  environment_id?: string | undefined;
   expires_at?: string | undefined;
   failure_reason?: string | undefined;
   failure_url?: string | undefined;
   id?: string | undefined;
   idempotency_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
+  next_poll_after_ms?: number | undefined;
+  payment?: CheckoutPaymentBlock | undefined;
   payment_action?: PaymentAction | undefined;
   payment_provider?: CheckoutPaymentProvider | undefined;
-  payment_provider_config?:
-    | CheckoutJSONBCheckoutPaymentProviderConfig
-    | undefined;
-  provider_result?: CheckoutJSONBCheckoutProviderResult | undefined;
-  result?: CheckoutJSONBCheckoutResult | undefined;
-  status?: Status | undefined;
+  stale?: boolean | undefined;
   success_url?: string | undefined;
-  tenant_id?: string | undefined;
+  terminal?: boolean | undefined;
   updated_at?: string | undefined;
-  updated_by?: string | undefined;
 };
 
 export const CheckoutSessionResponse$zodSchema: z.ZodType<
@@ -67,40 +47,30 @@ export const CheckoutSessionResponse$zodSchema: z.ZodType<
   action: CheckoutAction$zodSchema.optional(),
   cancel_url: z.string().optional(),
   cancelled_at: z.iso.datetime({ offset: true }).optional(),
-  checkout_invoice_id: z.string().optional().describe(
-    "CheckoutInvoiceID and CheckoutPaymentID are set once the apply step\ncreates the corresponding Flexprice entities (completed sessions only).",
-  ),
+  checkout_invoice_id: z.string().optional(),
   checkout_payment_id: z.string().optional(),
   checkout_status: CheckoutStatus$zodSchema.optional(),
   completed_at: z.iso.datetime({ offset: true }).optional(),
-  configuration: CheckoutJSONBCheckoutConfiguration$zodSchema.optional(),
   created_at: z.iso.datetime({ offset: true }).optional(),
-  created_by: z.string().optional(),
   customer_id: z.string().optional(),
-  environment_id: z.string().optional(),
-  expires_at: z.iso.datetime({ offset: true }).optional().describe(
-    "ExpiresAt is required. A Temporal timer fires at this time for any\nsession still in initiated|pending, marking it expired. The caller\nmust create a new session after expiry (expire-and-restart model).",
-  ),
-  failure_reason: z.string().optional().describe(
-    "FailureReason is a human-readable string set on failed sessions.",
-  ),
+  expires_at: z.iso.datetime({ offset: true }).optional(),
+  failure_reason: z.string().optional(),
   failure_url: z.string().optional(),
   id: z.string().optional(),
-  idempotency_key: z.string().optional().describe(
-    "IdempotencyKey is caller-supplied. It is unique only while the session\nis active (initiated|pending). The same key may be reused once the\nsession reaches a terminal state (completed|failed|expired).",
-  ),
+  idempotency_key: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
+  next_poll_after_ms: z.int().optional().describe(
+    "NextPollAfterMs is how long a client should wait before reading again.\nZero means stop — either the session is terminal, or this response did not\ncome from a polling read.",
+  ),
+  payment: CheckoutPaymentBlock$zodSchema.optional(),
   payment_action: PaymentAction$zodSchema.optional(),
   payment_provider: CheckoutPaymentProvider$zodSchema.optional(),
-  payment_provider_config: CheckoutJSONBCheckoutPaymentProviderConfig$zodSchema
-    .optional(),
-  provider_result: CheckoutJSONBCheckoutProviderResult$zodSchema.optional(),
-  result: CheckoutJSONBCheckoutResult$zodSchema.optional(),
-  status: Status$zodSchema.optional(),
-  success_url: z.string().optional().describe(
-    "Redirect URLs sent to the payment provider. The provider redirects the\nuser browser to the appropriate URL after the payment flow completes.",
+  stale: z.boolean().optional().describe(
+    "Stale reports that this response is stored state that was not checked against\nthe payment provider on this request — the read was debounced, or the gateway\ndid not answer. A UI should say \"still checking\" rather than presenting a\nstale answer as fact.",
   ),
-  tenant_id: z.string().optional(),
+  success_url: z.string().optional(),
+  terminal: z.boolean().optional().describe(
+    "Terminal reports whether the session has finished. Clients poll until this is\ntrue rather than hardcoding the status set, which would go stale if a status\nis ever added.",
+  ),
   updated_at: z.iso.datetime({ offset: true }).optional(),
-  updated_by: z.string().optional(),
 });

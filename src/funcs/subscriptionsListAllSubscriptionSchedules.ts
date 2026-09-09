@@ -84,7 +84,7 @@ async function $do(
   }
   const payload$ = parsed$.value;
   const body$ = null;
-  const path$ = pathToFunc("/v1/subscription-schedules")();
+  const path$ = pathToFunc("/subscriptions/schedules")();
   const query$ = encodeFormQuery({
     "limit": payload$?.limit,
     "offset": payload$?.offset,

@@ -85,12 +85,12 @@ async function $do(
   const body$ = null;
 
   const pathParams$ = {
-    id: encodeSimple("id", payload$.id, {
+    schedule_id: encodeSimple("schedule_id", payload$.schedule_id, {
       explode: false,
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/v1/subscription-schedules/{id}")(
+  const path$ = pathToFunc("/subscriptions/schedules/{schedule_id}")(
     pathParams$,
   );
 

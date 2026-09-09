@@ -7,6 +7,7 @@ import {
   CouponApplicationResponse,
   CouponApplicationResponse$zodSchema,
 } from "./couponapplicationresponse.js";
+import { CustomCurrency, CustomCurrency$zodSchema } from "./customcurrency.js";
 import {
   CustomerResponse,
   CustomerResponse$zodSchema,
@@ -45,6 +46,7 @@ export type InvoiceResponse = {
   created_at?: string | undefined;
   created_by?: string | undefined;
   currency?: string | undefined;
+  custom_currency?: CustomCurrency | undefined;
   customer?: CustomerResponse | undefined;
   customer_id?: string | undefined;
   description?: string | undefined;
@@ -119,6 +121,7 @@ export const InvoiceResponse$zodSchema: z.ZodType<InvoiceResponse> = z.object({
   currency: z.string().optional().describe(
     "currency is the three-letter ISO currency code (e.g., USD, EUR, GBP) that applies to all monetary amounts on this invoice",
   ),
+  custom_currency: CustomCurrency$zodSchema.optional(),
   customer: CustomerResponse$zodSchema.optional().describe(
     "Customer response object containing all customer information",
   ),

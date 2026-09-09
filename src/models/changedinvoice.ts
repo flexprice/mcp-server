@@ -34,8 +34,6 @@ export const ChangedInvoice$zodSchema: z.ZodType<ChangedInvoice> = z.object({
   ),
   id: z.string().optional(),
   invoice: InvoiceResponse$zodSchema.optional(),
-  status: ChangedInvoiceStatus$zodSchema.optional().describe(
-    "preview | issued | INITIATED | PENDING | PROCESSING | SUCCEEDED | OVERPAID | FAILED | REFUNDED | PARTIALLY_REFUNDED",
-  ),
+  status: ChangedInvoiceStatus$zodSchema.optional(),
   wallet_transaction: WalletTransactionResponse$zodSchema.optional(),
 });
