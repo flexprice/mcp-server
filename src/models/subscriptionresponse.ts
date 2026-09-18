@@ -30,6 +30,10 @@ import {
   InvoiceResponse,
   InvoiceResponse$zodSchema,
 } from "./invoiceresponse.js";
+import {
+  LineItemGrouping,
+  LineItemGrouping$zodSchema,
+} from "./lineitemgrouping.js";
 import { PauseStatus, PauseStatus$zodSchema } from "./pausestatus.js";
 import { PaymentTerms, PaymentTerms$zodSchema } from "./paymentterms.js";
 import { PlanResponse, PlanResponse$zodSchema } from "./planresponse.js";
@@ -91,6 +95,7 @@ export type SubscriptionResponse = {
   id?: string | undefined;
   invoicing_customer_id?: string | undefined;
   latest_invoice?: InvoiceResponse | undefined;
+  line_item_grouping?: LineItemGrouping | undefined;
   line_items?: Array<SubscriptionSubscriptionLineItem> | undefined;
   lookup_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
@@ -196,6 +201,7 @@ export const SubscriptionResponse$zodSchema: z.ZodType<SubscriptionResponse> = z
       "InvoicingCustomerID is the customer ID to use for invoicing\nThis can differ from the subscription customer (e.g., parent company invoicing for child company)",
     ),
     latest_invoice: z.lazy(() => InvoiceResponse$zodSchema).optional(),
+    line_item_grouping: LineItemGrouping$zodSchema.optional(),
     line_items: z.array(SubscriptionSubscriptionLineItem$zodSchema).optional(),
     lookup_key: z.string().optional().describe(
       "LookupKey is the key used to lookup the subscription in our system",

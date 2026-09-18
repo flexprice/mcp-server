@@ -10,36 +10,17 @@ import {
 } from "./subscriptionschedulechangetype.js";
 
 /**
- * configuration contains type-specific configuration (e.g., target_plan_id for plan changes)
- */
-export type Configuration = {};
-
-export const Configuration$zodSchema: z.ZodType<Configuration> = z.object({})
-  .describe(
-    "configuration contains type-specific configuration (e.g., target_plan_id for plan changes)",
-  );
-
-/**
- * execution_result contains type-specific execution result
- */
-export type ExecutionResult = {};
-
-export const ExecutionResult$zodSchema: z.ZodType<ExecutionResult> = z.object(
-  {},
-).describe("execution_result contains type-specific execution result");
-
-/**
  * Full details of a subscription schedule
  */
 export type SubscriptionScheduleResponse = {
   can_be_cancelled?: boolean | undefined;
   cancelled_at?: string | undefined;
-  configuration?: Configuration | undefined;
+  configuration?: { [k: string]: any } | undefined;
   created_at?: string | undefined;
   days_until_execution?: number | undefined;
   error_message?: string | undefined;
   executed_at?: string | undefined;
-  execution_result?: ExecutionResult | undefined;
+  execution_result?: { [k: string]: any } | undefined;
   id?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   schedule_type?: SubscriptionScheduleChangeType | undefined;
@@ -58,7 +39,7 @@ export const SubscriptionScheduleResponse$zodSchema: z.ZodType<
   cancelled_at: z.iso.datetime({ offset: true }).optional().describe(
     "cancelled_at is when the schedule was cancelled",
   ),
-  configuration: z.lazy(() => Configuration$zodSchema).optional().describe(
+  configuration: z.record(z.string(), z.any()).optional().describe(
     "configuration contains type-specific configuration (e.g., target_plan_id for plan changes)",
   ),
   created_at: z.iso.datetime({ offset: true }).optional().describe(
@@ -73,7 +54,7 @@ export const SubscriptionScheduleResponse$zodSchema: z.ZodType<
   executed_at: z.iso.datetime({ offset: true }).optional().describe(
     "executed_at is when the schedule was executed",
   ),
-  execution_result: z.lazy(() => ExecutionResult$zodSchema).optional().describe(
+  execution_result: z.record(z.string(), z.any()).optional().describe(
     "execution_result contains type-specific execution result",
   ),
   id: z.string().optional().describe("id of the schedule"),

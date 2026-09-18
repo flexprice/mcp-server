@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import {
+  CheckoutSessionResponse,
+  CheckoutSessionResponse$zodSchema,
+} from "./checkoutsessionresponse.js";
+import {
   CouponApplicationResponse,
   CouponApplicationResponse$zodSchema,
 } from "./couponapplicationresponse.js";
@@ -16,6 +20,10 @@ import {
   InvoiceLineItemResponse,
   InvoiceLineItemResponse$zodSchema,
 } from "./invoicelineitemresponse.js";
+import {
+  InvoiceSourceType,
+  InvoiceSourceType$zodSchema,
+} from "./invoicesourcetype.js";
 import { InvoiceStatus, InvoiceStatus$zodSchema } from "./invoicestatus.js";
 import { InvoiceType, InvoiceType$zodSchema } from "./invoicetype.js";
 import { PaymentStatus, PaymentStatus$zodSchema } from "./paymentstatus.js";
@@ -42,6 +50,7 @@ export type InvoiceResponse = {
   billing_period?: string | undefined;
   billing_reason?: string | undefined;
   billing_sequence?: number | undefined;
+  checkout_session?: CheckoutSessionResponse | undefined;
   coupon_applications?: Array<CouponApplicationResponse> | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -71,6 +80,7 @@ export type InvoiceResponse = {
   period_start?: string | undefined;
   recalculated_invoice_id?: string | undefined;
   refunded_amount?: string | undefined;
+  source_type?: InvoiceSourceType | undefined;
   status?: Status | undefined;
   subscription?: SubscriptionResponse | undefined;
   subscription_customer_id?: string | undefined;
@@ -112,6 +122,7 @@ export const InvoiceResponse$zodSchema: z.ZodType<InvoiceResponse> = z.object({
   billing_sequence: z.int().optional().describe(
     "billing_sequence is the sequential number indicating the billing cycle for subscription invoices",
   ),
+  checkout_session: CheckoutSessionResponse$zodSchema.optional(),
   coupon_applications: z.array(CouponApplicationResponse$zodSchema).optional()
     .describe(
       "coupon_applications contains the coupon applications associated with this invoice (overrides embedded field)",
@@ -186,6 +197,7 @@ export const InvoiceResponse$zodSchema: z.ZodType<InvoiceResponse> = z.object({
   refunded_amount: z.string().optional().describe(
     "refunded_amount is the total sum of credit notes of type \"refund\".\nThese are actual refunds issued to the customer.",
   ),
+  source_type: InvoiceSourceType$zodSchema.optional(),
   status: Status$zodSchema.optional(),
   subscription: z.lazy(() => SubscriptionResponse$zodSchema).optional(),
   subscription_customer_id: z.string().optional().describe(

@@ -10,6 +10,7 @@ export type Event = {
   event_name?: string | undefined;
   external_customer_id?: string | undefined;
   id?: string | undefined;
+  ingested_at?: string | undefined;
   properties?: { [k: string]: any } | undefined;
   source?: string | undefined;
   timestamp?: string | undefined;
@@ -21,6 +22,7 @@ export const Event$zodSchema: z.ZodType<Event> = z.object({
   event_name: z.string().optional(),
   external_customer_id: z.string().optional(),
   id: z.string().optional(),
+  ingested_at: z.iso.datetime({ offset: true }).optional(),
   properties: z.record(z.string(), z.any()).optional(),
   source: z.string().optional(),
   timestamp: z.string().optional(),

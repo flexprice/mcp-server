@@ -17,6 +17,7 @@ import {
 export type GetEventByIDResponse = {
   debug_tracker?: DebugTracker | undefined;
   event?: Event | undefined;
+  events?: Array<Event> | undefined;
   processed_events?: Array<FeatureUsageInfo> | undefined;
   status?: EventProcessingStatusType | undefined;
 };
@@ -25,6 +26,7 @@ export const GetEventByIDResponse$zodSchema: z.ZodType<GetEventByIDResponse> = z
   .object({
     debug_tracker: DebugTracker$zodSchema.optional(),
     event: Event$zodSchema.optional(),
+    events: z.array(Event$zodSchema).optional(),
     processed_events: z.array(FeatureUsageInfo$zodSchema).optional(),
     status: EventProcessingStatusType$zodSchema.optional(),
   });

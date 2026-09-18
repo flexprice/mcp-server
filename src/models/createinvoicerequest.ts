@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { CheckoutParams, CheckoutParams$zodSchema } from "./checkoutparams.js";
 import {
   CreateInvoiceLineItemRequest,
   CreateInvoiceLineItemRequest$zodSchema,
@@ -29,6 +30,7 @@ export type CreateInvoiceRequest = {
   amount_paid?: string | undefined;
   billing_period?: string | undefined;
   billing_reason?: InvoiceBillingReason | undefined;
+  checkout?: CheckoutParams | undefined;
   coupons?: Array<string> | undefined;
   currency: string;
   customer_id: string;
@@ -68,6 +70,7 @@ export const CreateInvoiceRequest$zodSchema: z.ZodType<CreateInvoiceRequest> = z
       "billing_period is the period this invoice covers (e.g., \"monthly\", \"yearly\")",
     ),
     billing_reason: InvoiceBillingReason$zodSchema.optional(),
+    checkout: CheckoutParams$zodSchema.optional(),
     coupons: z.array(z.string()).optional().describe("coupons"),
     currency: z.string().describe(
       "currency is the three-letter ISO currency code (e.g., USD, EUR) for the invoice",

@@ -27,6 +27,10 @@ import {
   LineItemCommitmentConfig$zodSchema,
 } from "./lineitemcommitmentconfig.js";
 import {
+  LineItemGrouping,
+  LineItemGrouping$zodSchema,
+} from "./lineitemgrouping.js";
+import {
   OverrideEntitlementRequest,
   OverrideEntitlementRequest$zodSchema,
 } from "./overrideentitlementrequest.js";
@@ -87,6 +91,7 @@ export type CreateSubscriptionRequest = {
   inheritance?: SubscriptionInheritanceConfig | undefined;
   line_item_commitments?: { [k: string]: LineItemCommitmentConfig } | undefined;
   line_item_coupons?: { [k: string]: Array<string> } | undefined;
+  line_item_grouping?: LineItemGrouping | undefined;
   line_items?: Array<CreateSubscriptionLineItemRequest> | undefined;
   lookup_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
@@ -147,6 +152,7 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   ),
   line_item_coupons: z.record(z.string(), z.array(z.string())).optional()
     .describe("Deprecated: use SubscriptionCoupons instead."),
+  line_item_grouping: LineItemGrouping$zodSchema.optional(),
   line_items: z.array(CreateSubscriptionLineItemRequest$zodSchema).optional()
     .describe("LineItems are extra (non-plan) line items added at creation."),
   lookup_key: z.string().optional(),

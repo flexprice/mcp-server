@@ -14,7 +14,8 @@ export const tool$invoicesCreateInvoice: ToolDefinition<typeof args> = {
   name: "create-invoice",
   description: `Create one-off invoice
 
-Use when creating a manual or one-off invoice (e.g. custom charge or non-recurring billing). Invoice is created in draft; finalize when ready.`,
+Use when creating a manual or one-off invoice (e.g. custom charge or non-recurring billing). Invoice is created in draft; finalize when ready.
+Pass a \`checkout\` object to gate the invoice behind a hosted payment session: the invoice stays DRAFT with no invoice number, and the response carries \`checkout_session.payment_action.url\` for the customer to pay. It finalizes only when the payment webhook lands; if the session expires the invoice is voided and archived. Poll \`GET /checkout/sessions/{id}\` until \`terminal\` is true. One-off invoices only.`,
   scopes: ["write"],
   annotations: {
     "title": "",

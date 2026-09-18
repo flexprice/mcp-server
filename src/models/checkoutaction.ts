@@ -10,6 +10,7 @@ export const CheckoutAction = {
   ModifySubscription: "modify_subscription",
   WalletTopup: "wallet_topup",
   AddAddon: "add_addon",
+  PayInvoice: "pay_invoice",
 } as const;
 export type CheckoutAction = ClosedEnum<typeof CheckoutAction>;
 
@@ -18,4 +19,5 @@ export const CheckoutAction$zodSchema = z.enum([
   "modify_subscription",
   "wallet_topup",
   "add_addon",
+  "pay_invoice",
 ]);

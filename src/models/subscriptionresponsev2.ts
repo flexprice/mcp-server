@@ -18,6 +18,10 @@ import {
   CustomerResponse,
   CustomerResponse$zodSchema,
 } from "./customerresponse.js";
+import {
+  LineItemGrouping,
+  LineItemGrouping$zodSchema,
+} from "./lineitemgrouping.js";
 import { PauseStatus, PauseStatus$zodSchema } from "./pausestatus.js";
 import { PaymentTerms, PaymentTerms$zodSchema } from "./paymentterms.js";
 import { PlanResponse, PlanResponse$zodSchema } from "./planresponse.js";
@@ -76,6 +80,7 @@ export type SubscriptionResponseV2 = {
   gateway_payment_method_id?: string | undefined;
   id?: string | undefined;
   invoicing_customer_id?: string | undefined;
+  line_item_grouping?: LineItemGrouping | undefined;
   line_items?: Array<SubscriptionLineItemResponse> | undefined;
   lookup_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
@@ -178,6 +183,7 @@ export const SubscriptionResponseV2$zodSchema: z.ZodType<
   invoicing_customer_id: z.string().optional().describe(
     "InvoicingCustomerID is the customer ID to use for invoicing\nThis can differ from the subscription customer (e.g., parent company invoicing for child company)",
   ),
+  line_item_grouping: LineItemGrouping$zodSchema.optional(),
   line_items: z.array(SubscriptionLineItemResponse$zodSchema).optional()
     .describe(
       "LineItems is expanded only if \"subscription_line_items\" is in expand parameter\nEach line item can optionally include expanded price data",
