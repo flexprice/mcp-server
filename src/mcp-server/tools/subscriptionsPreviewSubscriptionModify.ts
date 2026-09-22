@@ -16,7 +16,7 @@ export const tool$subscriptionsPreviewSubscriptionModify: ToolDefinition<
   name: "preview-subscription-modify",
   description: `Preview subscription modification
 
-Preview the impact of a mid-cycle subscription modification (inheritance, quantity change, grouped invoicing, trial end, coupon, tax, or addon add/remove) without committing changes.`,
+Preview the impact of a mid-cycle subscription modification (inheritance, quantity change, grouped invoicing, trial end, coupon, tax, a single addon add/remove, or a batch of addon adds and removes) without committing changes.`,
   scopes: ["read"],
   annotations: {
     "title": "",

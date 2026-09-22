@@ -16,10 +16,12 @@ import {
   ProrationBehavior,
   ProrationBehavior$zodSchema,
 } from "./prorationbehavior.js";
+import { ScheduleType, ScheduleType$zodSchema } from "./scheduletype.js";
 
 export type AddAddonToSubscriptionRequest = {
   addon_id: string;
   cadence?: AddonCadence | undefined;
+  change_at?: ScheduleType | undefined;
   line_item_commitments?: { [k: string]: LineItemCommitmentConfig } | undefined;
   metadata?: { [k: string]: any } | undefined;
   override_line_items?: Array<OverrideLineItemRequest> | undefined;
@@ -32,6 +34,7 @@ export const AddAddonToSubscriptionRequest$zodSchema: z.ZodType<
 > = z.object({
   addon_id: z.string(),
   cadence: AddonCadence$zodSchema.optional(),
+  change_at: ScheduleType$zodSchema.optional(),
   line_item_commitments: z.record(
     z.string(),
     LineItemCommitmentConfig$zodSchema,

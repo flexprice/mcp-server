@@ -9,6 +9,10 @@ import {
   SubModifyAddonParams$zodSchema,
 } from "./submodifyaddonparams.js";
 import {
+  SubModifyBulkAddonParams,
+  SubModifyBulkAddonParams$zodSchema,
+} from "./submodifybulkaddonparams.js";
+import {
   SubModifyCouponParams,
   SubModifyCouponParams$zodSchema,
 } from "./submodifycouponparams.js";
@@ -38,6 +42,7 @@ import {
 } from "./subscriptionmodifytype.js";
 
 export type ExecuteSubscriptionModifyRequest = {
+  addon_bulk_params?: SubModifyBulkAddonParams | undefined;
   addon_params?: SubModifyAddonParams | undefined;
   checkout?: CheckoutParams | undefined;
   coupon_params?: SubModifyCouponParams | undefined;
@@ -52,6 +57,7 @@ export type ExecuteSubscriptionModifyRequest = {
 export const ExecuteSubscriptionModifyRequest$zodSchema: z.ZodType<
   ExecuteSubscriptionModifyRequest
 > = z.object({
+  addon_bulk_params: SubModifyBulkAddonParams$zodSchema.optional(),
   addon_params: SubModifyAddonParams$zodSchema.optional(),
   checkout: CheckoutParams$zodSchema.optional(),
   coupon_params: SubModifyCouponParams$zodSchema.optional(),

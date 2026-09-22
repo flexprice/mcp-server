@@ -35,6 +35,7 @@ export type UsageAnalyticItem = {
   currency?: string | undefined;
   event_count?: number | undefined;
   event_name?: string | undefined;
+  external_customer_id?: string | undefined;
   feature?: Feature | undefined;
   feature_id?: string | undefined;
   group?: GroupGroup | undefined;
@@ -77,6 +78,9 @@ export const UsageAnalyticItem$zodSchema: z.ZodType<UsageAnalyticItem> = z
       "Number of events that contributed to this aggregation",
     ),
     event_name: z.string().optional(),
+    external_customer_id: z.string().optional().describe(
+      "Populated only when \"external_customer_id\" is a group_by dimension",
+    ),
     feature: Feature$zodSchema.optional(),
     feature_id: z.string().optional(),
     group: GroupGroup$zodSchema.optional(),

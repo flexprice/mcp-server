@@ -13,6 +13,10 @@ import {
   CheckoutPaymentProvider$zodSchema,
 } from "./checkoutpaymentprovider.js";
 import { CheckoutStatus, CheckoutStatus$zodSchema } from "./checkoutstatus.js";
+import {
+  EntityCreationResult,
+  EntityCreationResult$zodSchema,
+} from "./entitycreationresult.js";
 import { PaymentAction, PaymentAction$zodSchema } from "./paymentaction.js";
 
 export type CheckoutSessionResponse = {
@@ -25,6 +29,7 @@ export type CheckoutSessionResponse = {
   completed_at?: string | undefined;
   created_at?: string | undefined;
   customer_id?: string | undefined;
+  entity_creation_result?: EntityCreationResult | undefined;
   expires_at?: string | undefined;
   failure_reason?: string | undefined;
   failure_url?: string | undefined;
@@ -53,6 +58,7 @@ export const CheckoutSessionResponse$zodSchema: z.ZodType<
   completed_at: z.iso.datetime({ offset: true }).optional(),
   created_at: z.iso.datetime({ offset: true }).optional(),
   customer_id: z.string().optional(),
+  entity_creation_result: EntityCreationResult$zodSchema.optional(),
   expires_at: z.iso.datetime({ offset: true }).optional(),
   failure_reason: z.string().optional(),
   failure_url: z.string().optional(),

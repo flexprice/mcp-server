@@ -11,9 +11,14 @@ import {
   CheckoutPaymentProviderConfig,
   CheckoutPaymentProviderConfig$zodSchema,
 } from "./checkoutpaymentproviderconfig.js";
+import {
+  EntityCreationOptions,
+  EntityCreationOptions$zodSchema,
+} from "./entitycreationoptions.js";
 
 export type CheckoutParams = {
   cancel_url?: string | undefined;
+  entity_creation_options?: EntityCreationOptions | undefined;
   failure_url?: string | undefined;
   idempotency_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
@@ -24,6 +29,7 @@ export type CheckoutParams = {
 
 export const CheckoutParams$zodSchema: z.ZodType<CheckoutParams> = z.object({
   cancel_url: z.string().optional(),
+  entity_creation_options: EntityCreationOptions$zodSchema.optional(),
   failure_url: z.string().optional(),
   idempotency_key: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),

@@ -7,9 +7,11 @@ import {
   ProrationBehavior,
   ProrationBehavior$zodSchema,
 } from "./prorationbehavior.js";
+import { ScheduleType, ScheduleType$zodSchema } from "./scheduletype.js";
 
 export type RemoveAddonRequest = {
   addon_association_id: string;
+  change_at?: ScheduleType | undefined;
   effective_date?: string | undefined;
   proration_behavior?: ProrationBehavior | undefined;
   reason?: string | undefined;
@@ -18,6 +20,7 @@ export type RemoveAddonRequest = {
 export const RemoveAddonRequest$zodSchema: z.ZodType<RemoveAddonRequest> = z
   .object({
     addon_association_id: z.string(),
+    change_at: ScheduleType$zodSchema.optional(),
     effective_date: z.iso.datetime({ offset: true }).optional().describe(
       "EffectiveDate defaults to period end when nil; mid-period with create_prorations issues a wallet credit.",
     ),

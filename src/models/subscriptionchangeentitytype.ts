@@ -7,7 +7,7 @@ import { ClosedEnum } from "../types/enums.js";
 
 export const SubscriptionChangeEntityType = {
   Plan: "plan",
-  Addon: "addon",
+  AddonAssociation: "addon_association",
   CreditGrant: "credit_grant",
   Entitlement: "entitlement",
   EntitlementGrant: "entitlement_grant",
@@ -18,7 +18,7 @@ export type SubscriptionChangeEntityType = ClosedEnum<
 
 export const SubscriptionChangeEntityType$zodSchema = z.enum([
   "plan",
-  "addon",
+  "addon_association",
   "credit_grant",
   "entitlement",
   "entitlement_grant",
