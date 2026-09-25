@@ -29,7 +29,8 @@ import { Result } from "../types/fp.js";
  * Preview subscription modification
  *
  * @remarks
- * Preview the impact of a mid-cycle subscription modification (inheritance, quantity change, grouped invoicing, trial end, coupon, tax, a single addon add/remove, or a batch of addon adds and removes) without committing changes.
+ * Preview the impact of a mid-cycle subscription modification (inheritance, line item change, grouped invoicing, trial end, coupon, tax, a single addon add/remove, or a batch of addon adds and removes) without committing changes.
+ * Type "quantity_change" is deprecated: use "line_item_change".
  */
 export function subscriptionsPreviewSubscriptionModify(
   client$: FlexpriceCore,

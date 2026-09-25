@@ -3,10 +3,33 @@
  */
 
 import * as z from "zod";
+import {
+  EntitlementAggregationMode,
+  EntitlementAggregationMode$zodSchema,
+} from "./entitlementaggregationmode.js";
+import {
+  EntitlementGrantAllocationBehavior,
+  EntitlementGrantAllocationBehavior$zodSchema,
+} from "./entitlementgrantallocationbehavior.js";
+import {
+  EntitlementGrantDurationUnit,
+  EntitlementGrantDurationUnit$zodSchema,
+} from "./entitlementgrantdurationunit.js";
+import {
+  EntitlementGrantMeasure,
+  EntitlementGrantMeasure$zodSchema,
+} from "./entitlementgrantmeasure.js";
 
 export type OverrideEntitlementRequest = {
+  aggregation_mode?: EntitlementAggregationMode | undefined;
   config_value?: { [k: string]: any } | undefined;
   entitlement_id: string;
+  grant_allocation_behavior?: EntitlementGrantAllocationBehavior | undefined;
+  grant_duration_unit?: EntitlementGrantDurationUnit | undefined;
+  grant_duration_value?: number | undefined;
+  grant_measure?: EntitlementGrantMeasure | undefined;
+  grant_quota?: string | undefined;
+  grant_unlimited?: boolean | undefined;
   is_enabled?: boolean | undefined;
   static_value?: string | undefined;
   usage_limit?: number | undefined;
@@ -15,12 +38,20 @@ export type OverrideEntitlementRequest = {
 export const OverrideEntitlementRequest$zodSchema: z.ZodType<
   OverrideEntitlementRequest
 > = z.object({
+  aggregation_mode: EntitlementAggregationMode$zodSchema.optional(),
   config_value: z.record(z.string(), z.any()).optional().describe(
     "ConfigValue is the config value for config features",
   ),
   entitlement_id: z.string().describe(
     "EntitlementID references the plan/addon entitlement to override",
   ),
+  grant_allocation_behavior: EntitlementGrantAllocationBehavior$zodSchema
+    .optional(),
+  grant_duration_unit: EntitlementGrantDurationUnit$zodSchema.optional(),
+  grant_duration_value: z.int().optional(),
+  grant_measure: EntitlementGrantMeasure$zodSchema.optional(),
+  grant_quota: z.string().optional(),
+  grant_unlimited: z.boolean().optional(),
   is_enabled: z.boolean().optional().describe(
     "IsEnabled determines if the entitlement is enabled or disabled",
   ),

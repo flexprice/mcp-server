@@ -4,6 +4,18 @@
 
 import * as z from "zod";
 import {
+  AggregatedEntitlementBucket,
+  AggregatedEntitlementBucket$zodSchema,
+} from "./aggregatedentitlementbucket.js";
+import {
+  EntitlementGrantDurationUnit,
+  EntitlementGrantDurationUnit$zodSchema,
+} from "./entitlementgrantdurationunit.js";
+import {
+  EntitlementGrantMeasure,
+  EntitlementGrantMeasure$zodSchema,
+} from "./entitlementgrantmeasure.js";
+import {
   EntitlementSource,
   EntitlementSource$zodSchema,
 } from "./entitlementsource.js";
@@ -11,10 +23,18 @@ import {
   FeatureResponse,
   FeatureResponse$zodSchema,
 } from "./featureresponse.js";
+import { GrantState, GrantState$zodSchema } from "./grantstate.js";
 
 export type FeatureUsageSummary = {
+  buckets?: Array<AggregatedEntitlementBucket> | undefined;
   current_usage?: string | undefined;
   feature?: FeatureResponse | undefined;
+  grant_duration_unit?: EntitlementGrantDurationUnit | undefined;
+  grant_duration_value?: number | undefined;
+  grant_measure?: EntitlementGrantMeasure | undefined;
+  grant_quota?: string | undefined;
+  grant_state?: GrantState | undefined;
+  grant_unlimited?: boolean | undefined;
   is_enabled?: boolean | undefined;
   is_soft_limit?: boolean | undefined;
   is_unlimited?: boolean | undefined;
@@ -26,8 +46,17 @@ export type FeatureUsageSummary = {
 
 export const FeatureUsageSummary$zodSchema: z.ZodType<FeatureUsageSummary> = z
   .object({
+    buckets: z.array(AggregatedEntitlementBucket$zodSchema).optional().describe(
+      "Buckets is one entry per independent budget on a parallel feature. The scalar\nfigures above cannot describe several budgets at once — a sum is not spendable\nfrom any one of them — so a client showing a parallel feature reads these instead.\nEmpty for additive features, where the scalars are the whole truth.",
+    ),
     current_usage: z.string().optional(),
     feature: FeatureResponse$zodSchema.optional(),
+    grant_duration_unit: EntitlementGrantDurationUnit$zodSchema.optional(),
+    grant_duration_value: z.int().optional(),
+    grant_measure: EntitlementGrantMeasure$zodSchema.optional(),
+    grant_quota: z.string().optional(),
+    grant_state: GrantState$zodSchema.optional(),
+    grant_unlimited: z.boolean().optional(),
     is_enabled: z.boolean().optional(),
     is_soft_limit: z.boolean().optional(),
     is_unlimited: z.boolean().optional(),

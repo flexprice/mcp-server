@@ -39,6 +39,7 @@ export type InvoiceFilter = {
   expand?: string | undefined;
   external_customer_id?: string | undefined;
   filters?: Array<FilterCondition> | undefined;
+  finalized_at_gte?: string | undefined;
   invoice_ids?: Array<string> | undefined;
   invoice_status?: Array<InvoiceStatus> | undefined;
   invoice_type?: InvoiceType | undefined;
@@ -56,6 +57,7 @@ export type InvoiceFilter = {
   status?: Status | undefined;
   subscription_customer_id?: Array<string> | undefined;
   subscription_id?: string | undefined;
+  voided_at_gte?: string | undefined;
 };
 
 export const InvoiceFilter$zodSchema: z.ZodType<InvoiceFilter> = z.object({
@@ -78,6 +80,9 @@ export const InvoiceFilter$zodSchema: z.ZodType<InvoiceFilter> = z.object({
     "external_customer_id filters invoices for a customer using your system's customer identifier\nThis is the ID you provided when creating the customer in FlexPrice",
   ),
   filters: z.array(FilterCondition$zodSchema).optional(),
+  finalized_at_gte: z.iso.datetime({ offset: true }).optional().describe(
+    "finalized_at_gte filters invoices finalized at or after the given instant",
+  ),
   invoice_ids: z.array(z.string()).optional().describe(
     "invoice_ids restricts results to invoices with the specified IDs\nUse this to retrieve specific invoices when you know their exact identifiers",
   ),
@@ -114,5 +119,8 @@ export const InvoiceFilter$zodSchema: z.ZodType<InvoiceFilter> = z.object({
   ),
   subscription_id: z.string().optional().describe(
     "subscription_id filters invoices generated for a specific subscription\nOnly returns invoices that were created as part of the specified subscription's billing",
+  ),
+  voided_at_gte: z.iso.datetime({ offset: true }).optional().describe(
+    "voided_at_gte filters invoices voided at or after the given instant",
   ),
 });

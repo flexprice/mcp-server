@@ -16,7 +16,8 @@ export const tool$subscriptionsExecuteSubscriptionModify: ToolDefinition<
   name: "execute-subscription-modify",
   description: `Execute subscription modification
 
-Execute a mid-cycle subscription modification (inheritance, quantity change, grouped invoicing, trial end, coupon, tax, a single addon add/remove, or a batch of addon adds and removes settled as one netted document).`,
+Execute a mid-cycle subscription modification (inheritance, line item change, grouped invoicing, trial end, coupon, tax, a single addon add/remove, or a batch of addon adds and removes settled as one netted document).
+Type "quantity_change" is deprecated: use "line_item_change", which changes a fixed charge's quantity, price, or both, with the same proration and checkout behaviour.`,
   scopes: ["write"],
   annotations: {
     "title": "",

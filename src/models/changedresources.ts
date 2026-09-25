@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod";
+import {
+  ChangedAddonAssociation,
+  ChangedAddonAssociation$zodSchema,
+} from "./changedaddonassociation.js";
 import { ChangedInvoice, ChangedInvoice$zodSchema } from "./changedinvoice.js";
 import {
   ChangedLineItem,
@@ -14,6 +18,7 @@ import {
 } from "./changedsubscription.js";
 
 export type ChangedResources = {
+  addon_associations?: Array<ChangedAddonAssociation> | undefined;
   invoices?: Array<ChangedInvoice> | undefined;
   line_items?: Array<ChangedLineItem> | undefined;
   subscriptions?: Array<ChangedSubscription> | undefined;
@@ -21,6 +26,7 @@ export type ChangedResources = {
 
 export const ChangedResources$zodSchema: z.ZodType<ChangedResources> = z.object(
   {
+    addon_associations: z.array(ChangedAddonAssociation$zodSchema).optional(),
     invoices: z.array(ChangedInvoice$zodSchema).optional(),
     line_items: z.array(ChangedLineItem$zodSchema).optional(),
     subscriptions: z.array(ChangedSubscription$zodSchema).optional(),

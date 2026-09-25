@@ -12,9 +12,18 @@ import {
   EntitlementAggregationMode$zodSchema,
 } from "./entitlementaggregationmode.js";
 import {
+  EntitlementGrantDurationUnit,
+  EntitlementGrantDurationUnit$zodSchema,
+} from "./entitlementgrantdurationunit.js";
+import {
+  EntitlementGrantMeasure,
+  EntitlementGrantMeasure$zodSchema,
+} from "./entitlementgrantmeasure.js";
+import {
   EntitlementUsageResetPeriod,
   EntitlementUsageResetPeriod$zodSchema,
 } from "./entitlementusageresetperiod.js";
+import { GrantState, GrantState$zodSchema } from "./grantstate.js";
 
 export type ConfigValue = {};
 
@@ -24,6 +33,12 @@ export type AggregatedEntitlement = {
   aggregation_mode?: EntitlementAggregationMode | undefined;
   buckets?: Array<AggregatedEntitlementBucket> | undefined;
   config_values?: Array<{ [k: string]: ConfigValue }> | undefined;
+  grant_duration_unit?: EntitlementGrantDurationUnit | undefined;
+  grant_duration_value?: number | undefined;
+  grant_measure?: EntitlementGrantMeasure | undefined;
+  grant_quota?: string | undefined;
+  grant_state?: GrantState | undefined;
+  grant_unlimited?: boolean | undefined;
   is_enabled?: boolean | undefined;
   is_soft_limit?: boolean | undefined;
   static_values?: Array<string> | undefined;
@@ -38,6 +53,12 @@ export const AggregatedEntitlement$zodSchema: z.ZodType<AggregatedEntitlement> =
     config_values: z.array(
       z.record(z.string(), z.lazy(() => ConfigValue$zodSchema)),
     ).optional(),
+    grant_duration_unit: EntitlementGrantDurationUnit$zodSchema.optional(),
+    grant_duration_value: z.int().optional(),
+    grant_measure: EntitlementGrantMeasure$zodSchema.optional(),
+    grant_quota: z.string().optional(),
+    grant_state: GrantState$zodSchema.optional(),
+    grant_unlimited: z.boolean().optional(),
     is_enabled: z.boolean().optional(),
     is_soft_limit: z.boolean().optional(),
     static_values: z.array(z.string()).optional(),

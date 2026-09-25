@@ -25,6 +25,10 @@ import {
   SubModifyInheritanceRequest$zodSchema,
 } from "./submodifyinheritancerequest.js";
 import {
+  SubModifyLineItemChangeRequest,
+  SubModifyLineItemChangeRequest$zodSchema,
+} from "./submodifylineitemchangerequest.js";
+import {
   SubModifyQuantityChangeRequest,
   SubModifyQuantityChangeRequest$zodSchema,
 } from "./submodifyquantitychangerequest.js";
@@ -48,6 +52,7 @@ export type ExecuteSubscriptionModifyRequest = {
   coupon_params?: SubModifyCouponParams | undefined;
   grouped_invoicing_params?: SubModifyGroupedInvoicingParams | undefined;
   inheritance_params?: SubModifyInheritanceRequest | undefined;
+  line_item_change_params?: SubModifyLineItemChangeRequest | undefined;
   quantity_change_params?: SubModifyQuantityChangeRequest | undefined;
   tax_params?: SubModifyTaxParams | undefined;
   trial_end_params?: SubModifyTrialEndRequest | undefined;
@@ -64,6 +69,7 @@ export const ExecuteSubscriptionModifyRequest$zodSchema: z.ZodType<
   grouped_invoicing_params: SubModifyGroupedInvoicingParams$zodSchema
     .optional(),
   inheritance_params: SubModifyInheritanceRequest$zodSchema.optional(),
+  line_item_change_params: SubModifyLineItemChangeRequest$zodSchema.optional(),
   quantity_change_params: SubModifyQuantityChangeRequest$zodSchema.optional(),
   tax_params: SubModifyTaxParams$zodSchema.optional(),
   trial_end_params: SubModifyTrialEndRequest$zodSchema.optional(),

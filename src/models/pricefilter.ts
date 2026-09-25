@@ -46,6 +46,7 @@ export type PriceFilter = {
   start_time?: string | undefined;
   status?: Status | undefined;
   subscription_id?: string | undefined;
+  updated_after?: string | undefined;
 };
 
 export const PriceFilter$zodSchema: z.ZodType<PriceFilter> = z.object({
@@ -72,4 +73,7 @@ export const PriceFilter$zodSchema: z.ZodType<PriceFilter> = z.object({
   start_time: z.iso.datetime({ offset: true }).optional(),
   status: Status$zodSchema.optional(),
   subscription_id: z.string().optional(),
+  updated_after: z.string().optional().describe(
+    "UpdatedAfter matches prices edited since the given time. TimeRangeFilter\nabove filters on created_at, so it cannot see an edit to an existing\nprice.",
+  ),
 });
