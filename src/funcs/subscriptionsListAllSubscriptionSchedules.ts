@@ -89,7 +89,10 @@ async function $do(
     "limit": payload$?.limit,
     "offset": payload$?.offset,
     "pending_only": payload$?.pending_only,
+    "schedule_status": payload$?.schedule_status,
+    "schedule_type": payload$?.schedule_type,
     "subscription_id": payload$?.subscription_id,
+    "subscription_ids": payload$?.subscription_ids,
   });
 
   const headers$ = new Headers(compactMap({

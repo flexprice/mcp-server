@@ -11,7 +11,7 @@ import { MeterFilter, MeterFilter$zodSchema } from "./meterfilter.js";
 import { ResetUsage, ResetUsage$zodSchema } from "./resetusage.js";
 import { Status, Status$zodSchema } from "./status.js";
 
-export type MeterMeter = {
+export type Meter = {
   aggregation?: MeterAggregation | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -27,7 +27,7 @@ export type MeterMeter = {
   updated_by?: string | undefined;
 };
 
-export const MeterMeter$zodSchema: z.ZodType<MeterMeter> = z.object({
+export const Meter$zodSchema: z.ZodType<Meter> = z.object({
   aggregation: MeterAggregation$zodSchema.optional(),
   created_at: z.iso.datetime({ offset: true }).optional(),
   created_by: z.string().optional(),

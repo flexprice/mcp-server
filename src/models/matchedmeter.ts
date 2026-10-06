@@ -3,16 +3,16 @@
  */
 
 import * as z from "zod";
-import { MeterMeter, MeterMeter$zodSchema } from "./metermeter.js";
+import { Meter, Meter$zodSchema } from "./meter.js";
 
 export type MatchedMeter = {
   event_name?: string | undefined;
-  meter?: MeterMeter | undefined;
+  meter?: Meter | undefined;
   meter_id?: string | undefined;
 };
 
 export const MatchedMeter$zodSchema: z.ZodType<MatchedMeter> = z.object({
   event_name: z.string().optional(),
-  meter: MeterMeter$zodSchema.optional(),
+  meter: Meter$zodSchema.optional(),
   meter_id: z.string().optional(),
 });

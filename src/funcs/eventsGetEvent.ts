@@ -85,7 +85,10 @@ async function $do(
   const body$ = null;
   const path$ = pathToFunc("/events/lookup")();
   const query$ = encodeFormQuery({
+    "end_time": payload$.end_time,
+    "external_customer_id": payload$.external_customer_id,
     "id": payload$.id,
+    "start_time": payload$.start_time,
   });
 
   const headers$ = new Headers(compactMap({

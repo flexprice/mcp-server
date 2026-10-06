@@ -3,7 +3,7 @@
  */
 
 import { FlexpriceCore } from "../core.js";
-import { encodeJSON } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -19,21 +19,21 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  GetHuggingFaceBillingDataRequest,
-  GetHuggingFaceBillingDataRequest$zodSchema,
-} from "../models/gethuggingfacebillingdatarequest.js";
+  ListCustomerPaymentMethodsRequest,
+  ListCustomerPaymentMethodsRequest$zodSchema,
+} from "../models/listcustomerpaymentmethodsop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get Hugging Face inference data
+ * List customer payment methods
  *
  * @remarks
- * Use when fetching Hugging Face inference usage or billing data (e.g. for HF-specific reporting or reconciliation). Reads the meter-usage pipeline.
+ * Use when you need a customer's saved payment methods across every connected gateway, including whether each can be auto-charged. Only gateways that can list saved methods are included.
  */
-export function eventsGetHuggingfaceInferenceData(
+export function customersListCustomerPaymentMethods(
   client$: FlexpriceCore,
-  request: GetHuggingFaceBillingDataRequest,
+  request: ListCustomerPaymentMethodsRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function eventsGetHuggingfaceInferenceData(
 
 async function $do(
   client$: FlexpriceCore,
-  request: GetHuggingFaceBillingDataRequest,
+  request: ListCustomerPaymentMethodsRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,18 +75,29 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => GetHuggingFaceBillingDataRequest$zodSchema.parse(value$),
+    (value$) => ListCustomerPaymentMethodsRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$, { explode: true });
-  const path$ = pathToFunc("/events/huggingface-inference")();
+  const body$ = null;
+
+  const pathParams$ = {
+    id: encodeSimple("id", payload$.id, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+  };
+  const path$ = pathToFunc("/customers/{id}/payment-methods")(
+    pathParams$,
+  );
+  const query$ = encodeFormQuery({
+    "providers": payload$.providers,
+  });
 
   const headers$ = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
   const securityInput = await extractSecurity(client$._options.security);
@@ -95,7 +106,7 @@ async function $do(
   const context = {
     options: client$._options,
     baseURL: options?.serverURL ?? client$._baseURL ?? "",
-    operationID: "getHuggingfaceInferenceData",
+    operationID: "listCustomerPaymentMethods",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
     securitySource: client$._options.security,
@@ -113,10 +124,11 @@ async function $do(
 
   const requestRes = client$._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path$,
     headers: headers$,
+    query: query$,
     body: body$,
     userAgent: client$._options.userAgent,
     timeoutMs: options?.timeoutMs || client$._options.timeoutMs

@@ -12,7 +12,7 @@ import { BucketSummary, BucketSummary$zodSchema } from "./bucketsummary.js";
 import { CommitmentInfo, CommitmentInfo$zodSchema } from "./commitmentinfo.js";
 import { Feature, Feature$zodSchema } from "./feature.js";
 import { GroupGroup, GroupGroup$zodSchema } from "./groupgroup.js";
-import { MeterMeter, MeterMeter$zodSchema } from "./metermeter.js";
+import { Meter, Meter$zodSchema } from "./meter.js";
 import { Plan, Plan$zodSchema } from "./plan.js";
 import { PriceResponse, PriceResponse$zodSchema } from "./priceresponse.js";
 import { ReportingUnit, ReportingUnit$zodSchema } from "./reportingunit.js";
@@ -39,7 +39,7 @@ export type UsageAnalyticItem = {
   feature?: Feature | undefined;
   feature_id?: string | undefined;
   group?: GroupGroup | undefined;
-  meter?: MeterMeter | undefined;
+  meter?: Meter | undefined;
   meter_id?: string | undefined;
   name?: string | undefined;
   plan?: Plan | undefined;
@@ -84,7 +84,7 @@ export const UsageAnalyticItem$zodSchema: z.ZodType<UsageAnalyticItem> = z
     feature: Feature$zodSchema.optional(),
     feature_id: z.string().optional(),
     group: GroupGroup$zodSchema.optional(),
-    meter: MeterMeter$zodSchema.optional(),
+    meter: Meter$zodSchema.optional(),
     meter_id: z.string().optional().describe("Meter ID"),
     name: z.string().optional(),
     plan: Plan$zodSchema.optional(),

@@ -9,10 +9,24 @@ import {
   GetEventByIDResponse$zodSchema,
 } from "./geteventbyidresponse.js";
 
-export type GetEventRequest = { id: string };
+export type GetEventRequest = {
+  id: string;
+  external_customer_id: string;
+  start_time?: string | undefined;
+  end_time?: string | undefined;
+};
 
 export const GetEventRequest$zodSchema: z.ZodType<GetEventRequest> = z.object({
+  end_time: z.string().describe(
+    "End of the event timestamp window (RFC3339); defaults to now",
+  ).optional(),
+  external_customer_id: z.string().describe(
+    "External customer ID the event was ingested with",
+  ),
   id: z.string().describe("Event ID"),
+  start_time: z.string().describe(
+    "Start of the event timestamp window (RFC3339); defaults to 14 days before end_time",
+  ).optional(),
 });
 
 export type GetEventResponse = GetEventByIDResponse | ErrorResponse;

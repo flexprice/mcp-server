@@ -3,10 +3,48 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
+
+export const ListAllSubscriptionSchedulesScheduleType = {
+  PlanChange: "plan_change",
+  Cancellation: "cancellation",
+} as const;
+export type ListAllSubscriptionSchedulesScheduleType = ClosedEnum<
+  typeof ListAllSubscriptionSchedulesScheduleType
+>;
+
+export const ListAllSubscriptionSchedulesScheduleType$zodSchema = z.enum([
+  "plan_change",
+  "cancellation",
+]);
+
+export const ListAllSubscriptionSchedulesScheduleStatus = {
+  Pending: "pending",
+  Executing: "executing",
+  Executed: "executed",
+  Cancelled: "cancelled",
+  Failed: "failed",
+} as const;
+export type ListAllSubscriptionSchedulesScheduleStatus = ClosedEnum<
+  typeof ListAllSubscriptionSchedulesScheduleStatus
+>;
+
+export const ListAllSubscriptionSchedulesScheduleStatus$zodSchema = z.enum([
+  "pending",
+  "executing",
+  "executed",
+  "cancelled",
+  "failed",
+]);
 
 export type ListAllSubscriptionSchedulesRequest = {
   pending_only?: boolean | undefined;
   subscription_id?: string | undefined;
+  subscription_ids?: Array<string> | undefined;
+  schedule_type?: Array<ListAllSubscriptionSchedulesScheduleType> | undefined;
+  schedule_status?:
+    | Array<ListAllSubscriptionSchedulesScheduleStatus>
+    | undefined;
   limit?: number | undefined;
   offset?: number | undefined;
 };
@@ -18,5 +56,11 @@ export const ListAllSubscriptionSchedulesRequest$zodSchema: z.ZodType<
   offset: z.int().describe("Offset for pagination").optional(),
   pending_only: z.boolean().describe("Filter to pending schedules only")
     .optional(),
+  schedule_status: z.array(ListAllSubscriptionSchedulesScheduleStatus$zodSchema)
+    .describe("Filter by schedule status").optional(),
+  schedule_type: z.array(ListAllSubscriptionSchedulesScheduleType$zodSchema)
+    .describe("Filter by schedule type").optional(),
   subscription_id: z.string().describe("Filter by subscription ID").optional(),
+  subscription_ids: z.array(z.string()).describe("Filter by subscription IDs")
+    .optional(),
 });

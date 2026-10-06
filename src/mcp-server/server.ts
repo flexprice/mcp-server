@@ -26,10 +26,10 @@ import { tool$customersGetCustomerEntitlementsByExternalID } from "./tools/custo
 import { tool$customersGetCustomerUpcomingGrants } from "./tools/customersGetCustomerUpcomingGrants.js";
 import { tool$customersGetCustomerUsageSummary } from "./tools/customersGetCustomerUsageSummary.js";
 import { tool$customersGetSubscriptionsForCustomer } from "./tools/customersGetSubscriptionsForCustomer.js";
+import { tool$customersListCustomerPaymentMethods } from "./tools/customersListCustomerPaymentMethods.js";
 import { tool$customersQueryCustomer } from "./tools/customersQueryCustomer.js";
 import { tool$customersUpdateCustomer } from "./tools/customersUpdateCustomer.js";
 import { tool$eventsGetEvent } from "./tools/eventsGetEvent.js";
-import { tool$eventsGetHuggingfaceInferenceData } from "./tools/eventsGetHuggingfaceInferenceData.js";
 import { tool$eventsGetUsageAnalytics } from "./tools/eventsGetUsageAnalytics.js";
 import { tool$eventsGetUsageByMeter } from "./tools/eventsGetUsageByMeter.js";
 import { tool$eventsGetUsageStatistics } from "./tools/eventsGetUsageStatistics.js";
@@ -106,7 +106,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.33",
+    version: "2.1.34",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -162,6 +162,7 @@ export function createMCPServer(deps: {
   tool(tool$customersDeleteCustomer);
   tool(tool$customersGetCustomerEntitlements);
   tool(tool$customersGetCustomerUpcomingGrants);
+  tool(tool$customersListCustomerPaymentMethods);
   tool(tool$invoicesGetCustomerInvoiceSummary);
   tool(tool$invoicesCreateInvoice);
   tool(tool$invoicesGetInvoicePreview);
@@ -180,7 +181,6 @@ export function createMCPServer(deps: {
   tool(tool$eventsIngestEvent);
   tool(tool$eventsGetUsageAnalytics);
   tool(tool$eventsIngestEventsBulk);
-  tool(tool$eventsGetHuggingfaceInferenceData);
   tool(tool$eventsGetEvent);
   tool(tool$eventsListRawEvents);
   tool(tool$eventsGetUsageStatistics);

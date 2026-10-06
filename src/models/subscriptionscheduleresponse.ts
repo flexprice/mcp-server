@@ -3,6 +3,14 @@
  */
 
 import * as z from "zod";
+import {
+  ConfigurationDetails,
+  ConfigurationDetails$zodSchema,
+} from "./configurationdetails.js";
+import {
+  ExecutionDetails,
+  ExecutionDetails$zodSchema,
+} from "./executiondetails.js";
 import { ScheduleStatus, ScheduleStatus$zodSchema } from "./schedulestatus.js";
 import {
   SubscriptionScheduleChangeType,
@@ -16,10 +24,12 @@ export type SubscriptionScheduleResponse = {
   can_be_cancelled?: boolean | undefined;
   cancelled_at?: string | undefined;
   configuration?: { [k: string]: any } | undefined;
+  configuration_details?: ConfigurationDetails | undefined;
   created_at?: string | undefined;
   days_until_execution?: number | undefined;
   error_message?: string | undefined;
   executed_at?: string | undefined;
+  execution_details?: ExecutionDetails | undefined;
   execution_result?: { [k: string]: any } | undefined;
   id?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
@@ -40,8 +50,9 @@ export const SubscriptionScheduleResponse$zodSchema: z.ZodType<
     "cancelled_at is when the schedule was cancelled",
   ),
   configuration: z.record(z.string(), z.any()).optional().describe(
-    "configuration contains type-specific configuration (e.g., target_plan_id for plan changes)",
+    "configuration is the raw type-specific configuration. Deprecated: use configuration_details.",
   ),
+  configuration_details: ConfigurationDetails$zodSchema.optional(),
   created_at: z.iso.datetime({ offset: true }).optional().describe(
     "created_at timestamp",
   ),
@@ -54,8 +65,9 @@ export const SubscriptionScheduleResponse$zodSchema: z.ZodType<
   executed_at: z.iso.datetime({ offset: true }).optional().describe(
     "executed_at is when the schedule was executed",
   ),
+  execution_details: ExecutionDetails$zodSchema.optional(),
   execution_result: z.record(z.string(), z.any()).optional().describe(
-    "execution_result contains type-specific execution result",
+    "execution_result is the raw type-specific execution result. Deprecated: use execution_details.",
   ),
   id: z.string().optional().describe("id of the schedule"),
   metadata: z.record(z.string(), z.string()).optional().describe(

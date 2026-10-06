@@ -13,7 +13,7 @@ import {
 import { MCPServerFlags } from "../../flags.js";
 import { createMCPServer } from "../../server.js";
 import { buildAnnotationFilter } from "../../tools.js";
-import { buildSDK } from "../../tools.js";
+import { mountBrowserLogin, registerEnvironmentTool, sdkForRequest } from "../../browser-login.js";
 
 import { landingPageExpress } from "../../../landing-page.js";
 
@@ -40,7 +40,8 @@ async function startStreamableHTTP(cliFlags: ServeCommandFlags) {
   app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "*");
+    res.header("Access-Control-Allow-Headers", "*, Authorization");
+    res.header("Access-Control-Expose-Headers", "WWW-Authenticate");
     if (req.method === "OPTIONS") {
       res.sendStatus(204);
       return;
@@ -48,6 +49,7 @@ async function startStreamableHTTP(cliFlags: ServeCommandFlags) {
     next();
   });
 
+  mountBrowserLogin(app);
   app.use(express.json());
 
   app.post("/mcp", async (req, res) => {
@@ -70,7 +72,7 @@ async function startStreamableHTTP(cliFlags: ServeCommandFlags) {
       scopes: cliFlags.scope,
       serverURL: cliFlags["server-url"],
       getSDK: () =>
-        buildSDK(headers, cliFlags, cliFlags["disable-static-auth"], logger),
+        sdkForRequest(headers, cliFlags, cliFlags["disable-static-auth"], logger),
       serverIdx: cliFlags["server-index"],
     });
 
@@ -81,6 +83,7 @@ async function startStreamableHTTP(cliFlags: ServeCommandFlags) {
       });
     };
 
+    registerEnvironmentTool(mcpServer, headers, cliFlags, logger);
     await mcpServer.connect(transport as Transport);
     await transport.handleRequest(req, res, req.body);
   });
