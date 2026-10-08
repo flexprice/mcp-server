@@ -23,6 +23,7 @@ export type CreateCustomerRequest = {
   address_line2?: string | undefined;
   address_postal_code?: string | undefined;
   address_state?: string | undefined;
+  billing_currency?: string | undefined;
   contact?: string | undefined;
   email?: string | undefined;
   external_id: string;
@@ -57,6 +58,9 @@ export const CreateCustomerRequest$zodSchema: z.ZodType<CreateCustomerRequest> =
     ),
     address_state: z.string().optional().describe(
       "address_state is the state, province, or region name with maximum 100 characters",
+    ),
+    billing_currency: z.string().optional().describe(
+      "billing_currency is the fiat currency invoices are issued in; empty means the charge currency is used as-is",
     ),
     contact: z.string().optional().describe(
       "contact is an optional contact number for the customer (e.g. phone)",

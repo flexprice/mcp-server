@@ -22,6 +22,7 @@ import {
   CreateSubscriptionLineItemRequest,
   CreateSubscriptionLineItemRequest$zodSchema,
 } from "./createsubscriptionlineitemrequest.js";
+import { InlineFXRate, InlineFXRate$zodSchema } from "./inlinefxrate.js";
 import {
   LineItemCommitmentConfig,
   LineItemCommitmentConfig$zodSchema,
@@ -86,6 +87,7 @@ export type CreateSubscriptionRequest = {
   enable_true_up?: boolean | undefined;
   end_date?: string | undefined;
   external_customer_id?: string | undefined;
+  fx_rates?: Array<InlineFXRate> | undefined;
   gateway_payment_method_id?: string | undefined;
   include_price_ids?: Array<string> | undefined;
   inheritance?: SubscriptionInheritanceConfig | undefined;
@@ -139,6 +141,9 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   enable_true_up: z.boolean().optional(),
   end_date: z.iso.datetime({ offset: true }).optional(),
   external_customer_id: z.string().optional(),
+  fx_rates: z.array(InlineFXRate$zodSchema).optional().describe(
+    "FxRates sets subscription-scope rates to the invoicing customer's billing currency, one per\nnon-overlapping window. Rejected when nothing needs converting or the pair has no tenant rate.",
+  ),
   gateway_payment_method_id: z.string().optional(),
   include_price_ids: z.array(z.string()).optional().describe(
     "IncludePriceIDs selects which plan prices to attach. Nil/omitted attaches matching-cadence\nprices plus ONETIME; [] attaches none (LineItems extras still apply); a non-empty list\nattaches only those IDs. Each listed ID must belong to the plan, match the subscription\ncurrency, and have a cadence that equals or strictly divides the subscription cadence.\nPointer-slice distinguishes nil from [].\nNOTE: no `dive,required` on this tag — swaggo misinterprets `required`\ninside `dive` as marking the whole field required, which then shows up\nin the OpenAPI schema and breaks callers that omit the field. Per-element\nnon-emptiness is enforced explicitly in Validate() below.",

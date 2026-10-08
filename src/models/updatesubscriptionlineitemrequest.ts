@@ -35,6 +35,8 @@ export type UpdateSubscriptionLineItemRequest = {
   commitment_windowed?: boolean | undefined;
   effective_from?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
+  price_unit_amount?: string | undefined;
+  price_unit_tiers?: Array<CreatePriceTier> | undefined;
   tier_mode?: BillingTier | undefined;
   tiers?: Array<CreatePriceTier> | undefined;
   transform_quantity?: PriceTransformQuantity | undefined;
@@ -64,6 +66,12 @@ export const UpdateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   ),
   metadata: z.record(z.string(), z.string()).optional().describe(
     "Metadata for the new line item",
+  ),
+  price_unit_amount: z.string().optional().describe(
+    "PriceUnitAmount is the amount for a CUSTOM price unit price (FLAT_FEE/PACKAGE billing models)",
+  ),
+  price_unit_tiers: z.array(CreatePriceTier$zodSchema).optional().describe(
+    "PriceUnitTiers are the tiers for a CUSTOM price unit price (TIERED billing model)",
   ),
   tier_mode: BillingTier$zodSchema.optional(),
   tiers: z.array(CreatePriceTier$zodSchema).optional().describe(

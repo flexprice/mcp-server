@@ -19,6 +19,7 @@ export type UpdateCustomerRequest = {
   address_line2?: string | undefined;
   address_postal_code?: string | undefined;
   address_state?: string | undefined;
+  billing_currency?: string | undefined;
   contact?: string | undefined;
   email?: string | undefined;
   external_id?: string | undefined;
@@ -50,6 +51,9 @@ export const UpdateCustomerRequest$zodSchema: z.ZodType<UpdateCustomerRequest> =
     ),
     address_state: z.string().optional().describe(
       "address_state is the updated state, province, or region name with maximum 100 characters",
+    ),
+    billing_currency: z.string().optional().describe(
+      "billing_currency updates the invoicing currency; send \"\" to clear it back to the charge currency",
     ),
     contact: z.string().optional().describe(
       "contact is the updated contact number for the customer (e.g. phone)",

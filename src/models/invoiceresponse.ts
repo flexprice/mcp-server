@@ -16,6 +16,7 @@ import {
   CustomerResponse,
   CustomerResponse$zodSchema,
 } from "./customerresponse.js";
+import { FxConversion, FxConversion$zodSchema } from "./fxconversion.js";
 import {
   InvoiceLineItemResponse,
   InvoiceLineItemResponse$zodSchema,
@@ -62,6 +63,7 @@ export type InvoiceResponse = {
   due_date?: string | undefined;
   environment_id?: string | undefined;
   finalized_at?: string | undefined;
+  fx_conversion?: FxConversion | undefined;
   id?: string | undefined;
   idempotency_key?: string | undefined;
   invoice_number?: string | undefined;
@@ -151,6 +153,7 @@ export const InvoiceResponse$zodSchema: z.ZodType<InvoiceResponse> = z.object({
   finalized_at: z.iso.datetime({ offset: true }).optional().describe(
     "finalized_at is the timestamp when this invoice was finalized and made ready for payment",
   ),
+  fx_conversion: FxConversion$zodSchema.optional(),
   id: z.string().optional().describe(
     "id is the unique identifier for this invoice",
   ),

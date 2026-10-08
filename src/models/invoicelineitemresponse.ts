@@ -8,6 +8,7 @@ import {
   CustomCurrencyLineItem,
   CustomCurrencyLineItem$zodSchema,
 } from "./customcurrencylineitem.js";
+import { FxConversion, FxConversion$zodSchema } from "./fxconversion.js";
 import {
   SourceUsageItem,
   SourceUsageItem$zodSchema,
@@ -31,6 +32,7 @@ export type InvoiceLineItemResponse = {
   entity_id?: string | undefined;
   entity_type?: string | undefined;
   environment_id?: string | undefined;
+  fx_conversion?: FxConversion | undefined;
   id?: string | undefined;
   invoice_id?: string | undefined;
   invoice_level_discount?: string | undefined;
@@ -76,6 +78,7 @@ export const InvoiceLineItemResponse$zodSchema: z.ZodType<
   entity_id: z.string().optional(),
   entity_type: z.string().optional(),
   environment_id: z.string().optional(),
+  fx_conversion: FxConversion$zodSchema.optional(),
   id: z.string().optional(),
   invoice_id: z.string().optional(),
   invoice_level_discount: z.string().optional().describe(
