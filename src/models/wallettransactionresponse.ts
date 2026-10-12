@@ -23,12 +23,21 @@ import {
 import { UserResponse, UserResponse$zodSchema } from "./userresponse.js";
 import { WalletResponse, WalletResponse$zodSchema } from "./walletresponse.js";
 import {
+  WalletTxConsumption,
+  WalletTxConsumption$zodSchema,
+} from "./wallettxconsumption.js";
+import {
   WalletTxReferenceType,
   WalletTxReferenceType$zodSchema,
 } from "./wallettxreferencetype.js";
+import {
+  WalletTxSourceType,
+  WalletTxSourceType$zodSchema,
+} from "./wallettxsourcetype.js";
 
 export type WalletTransactionResponse = {
   amount?: string | undefined;
+  consumption_breakdown?: Array<WalletTxConsumption> | undefined;
   conversion_rate?: string | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -50,6 +59,8 @@ export type WalletTransactionResponse = {
   priority?: number | undefined;
   reference_id?: string | undefined;
   reference_type?: WalletTxReferenceType | undefined;
+  source_id?: string | undefined;
+  source_type?: WalletTxSourceType | undefined;
   status?: Status | undefined;
   tenant_id?: string | undefined;
   topup_conversion_rate?: string | undefined;
@@ -66,6 +77,10 @@ export const WalletTransactionResponse$zodSchema: z.ZodType<
   WalletTransactionResponse
 > = z.object({
   amount: z.string().optional(),
+  consumption_breakdown: z.array(WalletTxConsumption$zodSchema).optional()
+    .describe(
+      "ConsumptionBreakdown is set on debits: the credits drawn from each credit batch.",
+    ),
   conversion_rate: z.string().optional().describe(
     "conversion_rate is the conversion rate for the transaction to the currency",
   ),
@@ -93,6 +108,8 @@ export const WalletTransactionResponse$zodSchema: z.ZodType<
   priority: z.int().optional(),
   reference_id: z.string().optional(),
   reference_type: WalletTxReferenceType$zodSchema.optional(),
+  source_id: z.string().optional(),
+  source_type: WalletTxSourceType$zodSchema.optional(),
   status: Status$zodSchema.optional(),
   tenant_id: z.string().optional(),
   topup_conversion_rate: z.string().optional().describe(

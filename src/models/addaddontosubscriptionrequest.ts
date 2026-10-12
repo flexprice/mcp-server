@@ -17,11 +17,16 @@ import {
   ProrationBehavior$zodSchema,
 } from "./prorationbehavior.js";
 import { ScheduleType, ScheduleType$zodSchema } from "./scheduletype.js";
+import {
+  SubscriptionCouponInput,
+  SubscriptionCouponInput$zodSchema,
+} from "./subscriptioncouponinput.js";
 
 export type AddAddonToSubscriptionRequest = {
   addon_id: string;
   cadence?: AddonCadence | undefined;
   change_at?: ScheduleType | undefined;
+  coupons?: Array<SubscriptionCouponInput> | undefined;
   line_item_commitments?: { [k: string]: LineItemCommitmentConfig } | undefined;
   metadata?: { [k: string]: any } | undefined;
   override_line_items?: Array<OverrideLineItemRequest> | undefined;
@@ -35,6 +40,9 @@ export const AddAddonToSubscriptionRequest$zodSchema: z.ZodType<
   addon_id: z.string(),
   cadence: AddonCadence$zodSchema.optional(),
   change_at: ScheduleType$zodSchema.optional(),
+  coupons: z.array(SubscriptionCouponInput$zodSchema).optional().describe(
+    "Coupons apply to this addon's line items; price_id targets one price, omitted targets all.",
+  ),
   line_item_commitments: z.record(
     z.string(),
     LineItemCommitmentConfig$zodSchema,

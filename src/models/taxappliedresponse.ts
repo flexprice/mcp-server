@@ -3,8 +3,13 @@
  */
 
 import * as z from "zod";
+import {
+  ExternalTaxDetails,
+  ExternalTaxDetails$zodSchema,
+} from "./externaltaxdetails.js";
 import { Status, Status$zodSchema } from "./status.js";
 import { TaxBehavior, TaxBehavior$zodSchema } from "./taxbehavior.js";
+import { TaxProvider, TaxProvider$zodSchema } from "./taxprovider.js";
 import {
   TaxRateEntityType,
   TaxRateEntityType$zodSchema,
@@ -13,6 +18,10 @@ import {
   TaxRateResponse,
   TaxRateResponse$zodSchema,
 } from "./taxrateresponse.js";
+import {
+  TaxTransactionType,
+  TaxTransactionType$zodSchema,
+} from "./taxtransactiontype.js";
 
 export type TaxAppliedResponse = {
   applied_at?: string | undefined;
@@ -22,15 +31,19 @@ export type TaxAppliedResponse = {
   entity_id?: string | undefined;
   entity_type?: TaxRateEntityType | undefined;
   environment_id?: string | undefined;
+  external_tax_details?: ExternalTaxDetails | undefined;
   id?: string | undefined;
   idempotency_key?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
+  provider?: TaxProvider | undefined;
   status?: Status | undefined;
   tax_amount?: string | undefined;
   tax_association_id?: string | undefined;
   tax_behavior?: TaxBehavior | undefined;
   tax_rate?: TaxRateResponse | undefined;
   tax_rate_id?: string | undefined;
+  tax_transaction_id?: string | undefined;
+  tax_transaction_type?: TaxTransactionType | undefined;
   taxable_amount?: string | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
@@ -46,15 +59,23 @@ export const TaxAppliedResponse$zodSchema: z.ZodType<TaxAppliedResponse> = z
     entity_id: z.string().optional(),
     entity_type: TaxRateEntityType$zodSchema.optional(),
     environment_id: z.string().optional(),
+    external_tax_details: ExternalTaxDetails$zodSchema.optional(),
     id: z.string().optional(),
     idempotency_key: z.string().optional(),
     metadata: z.record(z.string(), z.string()).optional(),
+    provider: TaxProvider$zodSchema.optional(),
     status: Status$zodSchema.optional(),
     tax_amount: z.string().optional(),
     tax_association_id: z.string().optional(),
     tax_behavior: TaxBehavior$zodSchema.optional(),
     tax_rate: TaxRateResponse$zodSchema.optional(),
-    tax_rate_id: z.string().optional(),
+    tax_rate_id: z.string().optional().describe(
+      "Null when an external engine calculated the tax: there is no Flexprice rate to point at.",
+    ),
+    tax_transaction_id: z.string().optional().describe(
+      "TaxTransactionID is the provider transaction recording the filed tax, stamped at commit.",
+    ),
+    tax_transaction_type: TaxTransactionType$zodSchema.optional(),
     taxable_amount: z.string().optional(),
     tenant_id: z.string().optional(),
     updated_at: z.iso.datetime({ offset: true }).optional(),

@@ -3,9 +3,14 @@
  */
 
 import * as z from "zod";
+import {
+  SubscriptionCouponInput,
+  SubscriptionCouponInput$zodSchema,
+} from "./subscriptioncouponinput.js";
 
 export type LineItemChange = {
   amount?: string | undefined;
+  coupons?: Array<SubscriptionCouponInput> | undefined;
   effective_date?: string | undefined;
   id: string;
   quantity?: string | undefined;
@@ -14,6 +19,9 @@ export type LineItemChange = {
 export const LineItemChange$zodSchema: z.ZodType<LineItemChange> = z.object({
   amount: z.string().optional().describe(
     "Amount reprices the charge. Flat fee only for now.",
+  ),
+  coupons: z.array(SubscriptionCouponInput$zodSchema).optional().describe(
+    "Coupons apply to the new line item created by this change.",
   ),
   effective_date: z.iso.datetime({ offset: true }).optional(),
   id: z.string(),

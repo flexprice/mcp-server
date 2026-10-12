@@ -23,6 +23,10 @@ import {
   CreditGrantScope,
   CreditGrantScope$zodSchema,
 } from "./creditgrantscope.js";
+import {
+  ProrationBehavior,
+  ProrationBehavior$zodSchema,
+} from "./prorationbehavior.js";
 
 export type CreateCreditGrantRequest = {
   addon_id?: string | undefined;
@@ -39,6 +43,7 @@ export type CreateCreditGrantRequest = {
   period_count?: number | undefined;
   plan_id?: string | undefined;
   priority?: number | undefined;
+  proration_behavior?: ProrationBehavior | undefined;
   scope: CreditGrantScope;
   start_date?: string | undefined;
   subscription_id?: string | undefined;
@@ -64,6 +69,7 @@ export const CreateCreditGrantRequest$zodSchema: z.ZodType<
   period_count: z.int().optional(),
   plan_id: z.string().optional(),
   priority: z.int().optional(),
+  proration_behavior: ProrationBehavior$zodSchema.optional(),
   scope: CreditGrantScope$zodSchema,
   start_date: z.iso.datetime({ offset: true }).optional(),
   subscription_id: z.string().optional(),

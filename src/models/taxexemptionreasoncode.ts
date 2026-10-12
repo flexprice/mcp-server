@@ -8,10 +8,18 @@ import { ClosedEnum } from "../types/enums.js";
 export const TaxExemptionReasonCode = {
   CustomerExempt: "customer_exempt",
   NoTaxConfigured: "no_tax_configured",
+  ReverseCharge: "reverse_charge",
+  NotCollecting: "not_collecting",
+  NotSubjectToTax: "not_subject_to_tax",
+  NotSupported: "not_supported",
 } as const;
 export type TaxExemptionReasonCode = ClosedEnum<typeof TaxExemptionReasonCode>;
 
 export const TaxExemptionReasonCode$zodSchema = z.enum([
   "customer_exempt",
   "no_tax_configured",
+  "reverse_charge",
+  "not_collecting",
+  "not_subject_to_tax",
+  "not_supported",
 ]);

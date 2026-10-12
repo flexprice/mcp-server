@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import {
+  CustomerContactPerson,
+  CustomerContactPerson$zodSchema,
+} from "./customercontactperson.js";
+import {
   EntityIntegrationMappingResponse,
   EntityIntegrationMappingResponse$zodSchema,
 } from "./entityintegrationmappingresponse.js";
@@ -22,6 +26,7 @@ export type CustomerResponse = {
   address_state?: string | undefined;
   billing_currency?: string | undefined;
   contact?: string | undefined;
+  contact_persons?: Array<CustomerContactPerson> | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
   email?: string | undefined;
@@ -65,6 +70,7 @@ export const CustomerResponse$zodSchema: z.ZodType<CustomerResponse> = z.object(
     contact: z.string().optional().describe(
       "Contact is an optional contact number for the customer (e.g. phone)",
     ),
+    contact_persons: z.array(CustomerContactPerson$zodSchema).optional(),
     created_at: z.iso.datetime({ offset: true }).optional(),
     created_by: z.string().optional(),
     email: z.string().optional().describe("Email is the email of the customer"),

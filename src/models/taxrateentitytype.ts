@@ -10,6 +10,7 @@ export const TaxRateEntityType = {
   Subscription: "subscription",
   Invoice: "invoice",
   Tenant: "tenant",
+  CreditNote: "credit_note",
 } as const;
 export type TaxRateEntityType = ClosedEnum<typeof TaxRateEntityType>;
 
@@ -18,4 +19,5 @@ export const TaxRateEntityType$zodSchema = z.enum([
   "subscription",
   "invoice",
   "tenant",
+  "credit_note",
 ]);

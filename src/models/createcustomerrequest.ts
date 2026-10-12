@@ -8,6 +8,10 @@ import {
   CreateEntityIntegrationMappingRequest$zodSchema,
 } from "./createentityintegrationmappingrequest.js";
 import {
+  CustomerContactPerson,
+  CustomerContactPerson$zodSchema,
+} from "./customercontactperson.js";
+import {
   TaxRateOverride,
   TaxRateOverride$zodSchema,
 } from "./taxrateoverride.js";
@@ -25,6 +29,7 @@ export type CreateCustomerRequest = {
   address_state?: string | undefined;
   billing_currency?: string | undefined;
   contact?: string | undefined;
+  contact_persons: Array<CustomerContactPerson>;
   email?: string | undefined;
   external_id: string;
   integration_entity_mapping?:
@@ -64,6 +69,9 @@ export const CreateCustomerRequest$zodSchema: z.ZodType<CreateCustomerRequest> =
     ),
     contact: z.string().optional().describe(
       "contact is an optional contact number for the customer (e.g. phone)",
+    ),
+    contact_persons: z.array(CustomerContactPerson$zodSchema).describe(
+      "contact_persons are people at the customer; at most one may be primary",
     ),
     email: z.string().optional().describe(
       "email is the customer's email address and must be a valid email format if provided",
