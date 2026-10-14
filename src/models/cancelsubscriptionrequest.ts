@@ -18,7 +18,7 @@ import {
 
 export type CancelSubscriptionRequest = {
   cancel_at?: string | undefined;
-  cancel_immediately_inovice_policy?:
+  cancel_immediately_invoice_policy?:
     | CancelImmediatelyInvoicePolicy
     | undefined;
   cancellation_type: CancellationType;
@@ -32,7 +32,7 @@ export const CancelSubscriptionRequest$zodSchema: z.ZodType<
   cancel_at: z.iso.datetime({ offset: true }).optional().describe(
     "CancelAt is the exact date/time when the subscription should be cancelled.\nRequired for cancellation_type \"scheduled_date\"; optional for \"immediate\" (past dates only — backdated cancellation).\nFor \"scheduled_date\", accepts both future dates (deferred cancellation) and past dates (backdated cancellation).\nFor \"immediate\", accepts past/current dates only; use \"scheduled_date\" for future dates.",
   ),
-  cancel_immediately_inovice_policy: CancelImmediatelyInvoicePolicy$zodSchema
+  cancel_immediately_invoice_policy: CancelImmediatelyInvoicePolicy$zodSchema
     .optional(),
   cancellation_type: CancellationType$zodSchema,
   proration_behavior: ProrationBehavior$zodSchema.optional(),

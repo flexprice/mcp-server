@@ -7,9 +7,14 @@ import {
   GroupedInvoicingAction,
   GroupedInvoicingAction$zodSchema,
 } from "./groupedinvoicingaction.js";
+import {
+  GroupedInvoicingChange,
+  GroupedInvoicingChange$zodSchema,
+} from "./groupedinvoicingchange.js";
 
 export type SubModifyGroupedInvoicingParams = {
   action: GroupedInvoicingAction;
+  changes?: Array<GroupedInvoicingChange> | undefined;
   child_subscription_ids?: Array<string> | undefined;
   parent_subscription_id?: string | undefined;
 };
@@ -18,6 +23,9 @@ export const SubModifyGroupedInvoicingParams$zodSchema: z.ZodType<
   SubModifyGroupedInvoicingParams
 > = z.object({
   action: GroupedInvoicingAction$zodSchema,
+  changes: z.array(GroupedInvoicingChange$zodSchema).optional().describe(
+    "Changes is required for action 'modify'; the path subscription is the parent.",
+  ),
   child_subscription_ids: z.array(z.string()).optional(),
   parent_subscription_id: z.string().optional().describe(
     "ParentSubscriptionID is required for action 'add'.",

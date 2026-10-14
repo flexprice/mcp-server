@@ -15,6 +15,7 @@ export type ChangedLineItem = {
   price_id?: string | undefined;
   quantity?: string | undefined;
   start_date?: string | undefined;
+  subscription_id?: string | undefined;
 };
 
 export const ChangedLineItem$zodSchema: z.ZodType<ChangedLineItem> = z.object({
@@ -26,4 +27,5 @@ export const ChangedLineItem$zodSchema: z.ZodType<ChangedLineItem> = z.object({
   price_id: z.string().optional(),
   quantity: z.string().optional(),
   start_date: z.iso.datetime({ offset: true }).optional(),
+  subscription_id: z.string().optional(),
 });

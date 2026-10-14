@@ -16,6 +16,7 @@ export type ChangedAddonAssociation = {
   end_date?: string | undefined;
   id?: string | undefined;
   start_date?: string | undefined;
+  subscription_id?: string | undefined;
 };
 
 export const ChangedAddonAssociation$zodSchema: z.ZodType<
@@ -29,4 +30,5 @@ export const ChangedAddonAssociation$zodSchema: z.ZodType<
   end_date: z.iso.datetime({ offset: true }).optional(),
   id: z.string().optional(),
   start_date: z.iso.datetime({ offset: true }).optional(),
+  subscription_id: z.string().optional(),
 });

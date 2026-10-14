@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import {
+  AddonPriceSyncStatusResponse,
+  AddonPriceSyncStatusResponse$zodSchema,
+} from "./addonpricesyncstatusresponse.js";
+import {
   CreditGrantResponse,
   CreditGrantResponse$zodSchema,
 } from "./creditgrantresponse.js";
@@ -25,6 +29,7 @@ export type AddonResponse = {
   lookup_key?: string | undefined;
   metadata?: { [k: string]: any } | undefined;
   name?: string | undefined;
+  price_sync_status?: AddonPriceSyncStatusResponse | undefined;
   prices?: Array<PriceResponse> | undefined;
   status?: Status | undefined;
   tenant_id?: string | undefined;
@@ -43,6 +48,7 @@ export const AddonResponse$zodSchema: z.ZodType<AddonResponse> = z.object({
   lookup_key: z.string().optional(),
   metadata: z.record(z.string(), z.any()).optional(),
   name: z.string().optional(),
+  price_sync_status: AddonPriceSyncStatusResponse$zodSchema.optional(),
   prices: z.array(z.lazy(() => PriceResponse$zodSchema)).optional().describe(
     "Optional expanded fields",
   ),

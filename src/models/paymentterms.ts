@@ -12,6 +12,8 @@ export const PaymentTerms = {
   SixtyNET: "60 NET",
   SeventyFiveNET: "75 NET",
   NinetyNET: "90 NET",
+  EndOfMonth: "END_OF_MONTH",
+  EndOfNextMonth: "END_OF_NEXT_MONTH",
 } as const;
 export type PaymentTerms = ClosedEnum<typeof PaymentTerms>;
 
@@ -22,4 +24,6 @@ export const PaymentTerms$zodSchema = z.enum([
   "60 NET",
   "75 NET",
   "90 NET",
+  "END_OF_MONTH",
+  "END_OF_NEXT_MONTH",
 ]);

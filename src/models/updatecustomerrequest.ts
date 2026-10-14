@@ -25,7 +25,7 @@ export type UpdateCustomerRequest = {
   address_state?: string | undefined;
   billing_currency?: string | undefined;
   contact?: string | undefined;
-  contact_persons: Array<CustomerContactPerson>;
+  contact_persons?: Array<CustomerContactPerson> | undefined;
   email?: string | undefined;
   external_id?: string | undefined;
   integration_entity_mapping?:
@@ -63,9 +63,10 @@ export const UpdateCustomerRequest$zodSchema: z.ZodType<UpdateCustomerRequest> =
     contact: z.string().optional().describe(
       "contact is the updated contact number for the customer (e.g. phone)",
     ),
-    contact_persons: z.array(CustomerContactPerson$zodSchema).describe(
-      "contact_persons replaces the customer's contact persons when provided; at most one may be primary",
-    ),
+    contact_persons: z.array(CustomerContactPerson$zodSchema).optional()
+      .describe(
+        "contact_persons replaces the customer's contact persons when provided; at most one may be primary",
+      ),
     email: z.string().optional().describe(
       "email is the updated email address and must be a valid email format if provided",
     ),

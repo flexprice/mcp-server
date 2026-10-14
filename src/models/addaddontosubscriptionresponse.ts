@@ -35,6 +35,7 @@ export type AddAddonToSubscriptionResponse = {
   metadata?: { [k: string]: any } | undefined;
   start_date?: string | undefined;
   status?: Status | undefined;
+  synced_price_sequence?: number | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
@@ -59,6 +60,9 @@ export const AddAddonToSubscriptionResponse$zodSchema: z.ZodType<
   metadata: z.record(z.string(), z.any()).optional(),
   start_date: z.iso.datetime({ offset: true }).optional(),
   status: Status$zodSchema.optional(),
+  synced_price_sequence: z.int().optional().describe(
+    "SyncedPriceSequence is the addon price sequence this association's line items\nhave been reconciled up to. Written only by the addon usage-price sync.",
+  ),
   tenant_id: z.string().optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),
   updated_by: z.string().optional(),
