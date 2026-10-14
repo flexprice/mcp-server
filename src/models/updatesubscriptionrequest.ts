@@ -19,7 +19,9 @@ export const UpdateSubscriptionRequest$zodSchema: z.ZodType<
   UpdateSubscriptionRequest
 > = z.object({
   cancel_at: z.iso.datetime({ offset: true }).optional(),
-  cancel_at_period_end: z.boolean().optional(),
+  cancel_at_period_end: z.boolean().optional().describe(
+    "Pointer so omitting the field leaves the stored value unchanged; sending it sets the flag.",
+  ),
   parent_subscription_id: z.string().optional().describe(
     "ParentSubscriptionID sets or clears the parent subscription. Omit to leave unchanged; send \"\" to clear.",
   ),
