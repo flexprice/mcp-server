@@ -84,12 +84,14 @@ import { tool$subscriptionsGetSubscriptionUsage } from "./tools/subscriptionsGet
 import { tool$subscriptionsGetSubscriptionV2 } from "./tools/subscriptionsGetSubscriptionV2.js";
 import { tool$subscriptionsListAllSubscriptionSchedules } from "./tools/subscriptionsListAllSubscriptionSchedules.js";
 import { tool$subscriptionsListSubscriptionSchedules } from "./tools/subscriptionsListSubscriptionSchedules.js";
+import { tool$subscriptionsPauseSubscription } from "./tools/subscriptionsPauseSubscription.js";
 import { tool$subscriptionsPreviewSubscriptionChange } from "./tools/subscriptionsPreviewSubscriptionChange.js";
 import { tool$subscriptionsPreviewSubscriptionModify } from "./tools/subscriptionsPreviewSubscriptionModify.js";
 import { tool$subscriptionsPreviewSubscriptionPlanChangeV2 } from "./tools/subscriptionsPreviewSubscriptionPlanChangeV2.js";
 import { tool$subscriptionsQuerySubscription } from "./tools/subscriptionsQuerySubscription.js";
 import { tool$subscriptionsQuerySubscriptionLineItems } from "./tools/subscriptionsQuerySubscriptionLineItems.js";
 import { tool$subscriptionsRemoveSubscriptionAddon } from "./tools/subscriptionsRemoveSubscriptionAddon.js";
+import { tool$subscriptionsResumeSubscription } from "./tools/subscriptionsResumeSubscription.js";
 import { tool$subscriptionsUpdateSubscription } from "./tools/subscriptionsUpdateSubscription.js";
 import { tool$subscriptionsUpdateSubscriptionLineItem } from "./tools/subscriptionsUpdateSubscriptionLineItem.js";
 
@@ -106,7 +108,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.38",
+    version: "2.1.39",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -224,6 +226,8 @@ export function createMCPServer(deps: {
   tool(tool$subscriptionsCreateSubscriptionLineItem);
   tool(tool$subscriptionsExecuteSubscriptionModify);
   tool(tool$subscriptionsPreviewSubscriptionModify);
+  tool(tool$subscriptionsPauseSubscription);
+  tool(tool$subscriptionsResumeSubscription);
   tool(tool$subscriptionsListSubscriptionSchedules);
   tool(tool$subscriptionsGetSubscriptionV2);
 

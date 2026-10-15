@@ -15,6 +15,8 @@ export const InvoiceBillingReason = {
   Manual: "MANUAL",
   AutoInvoiceThreshold: "AUTO_INVOICE_THRESHOLD",
   WalletAutoTopup: "WALLET_AUTO_TOPUP",
+  SubscriptionPaused: "SUBSCRIPTION_PAUSED",
+  SubscriptionResume: "SUBSCRIPTION_RESUME",
 } as const;
 export type InvoiceBillingReason = ClosedEnum<typeof InvoiceBillingReason>;
 
@@ -28,4 +30,6 @@ export const InvoiceBillingReason$zodSchema = z.enum([
   "MANUAL",
   "AUTO_INVOICE_THRESHOLD",
   "WALLET_AUTO_TOPUP",
+  "SUBSCRIPTION_PAUSED",
+  "SUBSCRIPTION_RESUME",
 ]);
