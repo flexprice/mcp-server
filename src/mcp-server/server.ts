@@ -18,6 +18,7 @@ import {
   registerDynamicTools,
 } from "./tools.js";
 import { tool$customersCreateCustomer } from "./tools/customersCreateCustomer.js";
+import { tool$customersCreateCustomerPortalSession } from "./tools/customersCreateCustomerPortalSession.js";
 import { tool$customersDeleteCustomer } from "./tools/customersDeleteCustomer.js";
 import { tool$customersGetCustomer } from "./tools/customersGetCustomer.js";
 import { tool$customersGetCustomerByExternalId } from "./tools/customersGetCustomerByExternalId.js";
@@ -108,7 +109,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.39",
+    version: "2.1.40",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -158,6 +159,7 @@ export function createMCPServer(deps: {
   tool(tool$customersGetCustomerByExternalId);
   tool(tool$customersGetCustomerEntitlementsByExternalID);
   tool(tool$customersGetSubscriptionsForCustomer);
+  tool(tool$customersCreateCustomerPortalSession);
   tool(tool$customersQueryCustomer);
   tool(tool$customersGetCustomerUsageSummary);
   tool(tool$customersGetCustomer);
