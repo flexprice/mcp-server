@@ -64,6 +64,7 @@ export type InvoiceResponse = {
   environment_id?: string | undefined;
   finalized_at?: string | undefined;
   fx_conversion?: FxConversion | undefined;
+  hosted_invoice_url?: string | undefined;
   id?: string | undefined;
   idempotency_key?: string | undefined;
   invoice_number?: string | undefined;
@@ -154,6 +155,9 @@ export const InvoiceResponse$zodSchema: z.ZodType<InvoiceResponse> = z.object({
     "finalized_at is the timestamp when this invoice was finalized and made ready for payment",
   ),
   fx_conversion: FxConversion$zodSchema.optional(),
+  hosted_invoice_url: z.string().optional().describe(
+    "hosted_invoice_url is the page where the customer can view, download and pay this invoice",
+  ),
   id: z.string().optional().describe(
     "id is the unique identifier for this invoice",
   ),
