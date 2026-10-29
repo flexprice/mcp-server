@@ -22,6 +22,7 @@ import {
 export type InvoiceLineItemResponse = {
   adjusted_entitlement_quantity?: string | undefined;
   amount?: string | undefined;
+  commitment_id?: string | undefined;
   commitment_info?: CommitmentInfo | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -68,6 +69,9 @@ export const InvoiceLineItemResponse$zodSchema: z.ZodType<
     "adjusted_entitlement_quantity is the entitlement-covered portion deducted from raw usage.\nNil when no entitlement was applied. Raw usage = Quantity + AdjustedEntitlementQuantity.",
   ),
   amount: z.string().optional(),
+  commitment_id: z.string().optional().describe(
+    "commitment_id links this line item to the commitment it bills.",
+  ),
   commitment_info: CommitmentInfo$zodSchema.optional(),
   created_at: z.iso.datetime({ offset: true }).optional(),
   created_by: z.string().optional(),

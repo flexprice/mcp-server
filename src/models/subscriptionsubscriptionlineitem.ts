@@ -47,6 +47,7 @@ export type SubscriptionSubscriptionLineItem = {
   meter_display_name?: string | undefined;
   meter_id?: string | undefined;
   plan_display_name?: string | undefined;
+  predecessor_line_item_id?: string | undefined;
   price?: PricePrice | undefined;
   price_id?: string | undefined;
   price_type?: PriceType | undefined;
@@ -57,6 +58,7 @@ export type SubscriptionSubscriptionLineItem = {
   status?: Status | undefined;
   subscription_id?: string | undefined;
   subscription_phase_id?: string | undefined;
+  successor_line_item_id?: string | undefined;
   tenant_id?: string | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
@@ -94,6 +96,9 @@ export const SubscriptionSubscriptionLineItem$zodSchema: z.ZodType<
   meter_display_name: z.string().optional(),
   meter_id: z.string().optional(),
   plan_display_name: z.string().optional(),
+  predecessor_line_item_id: z.string().optional().describe(
+    "Version lineage, set by the service when a line item is replaced by a new version",
+  ),
   price: PricePrice$zodSchema.optional(),
   price_id: z.string().optional(),
   price_type: PriceType$zodSchema.optional(),
@@ -104,6 +109,7 @@ export const SubscriptionSubscriptionLineItem$zodSchema: z.ZodType<
   status: Status$zodSchema.optional(),
   subscription_id: z.string().optional(),
   subscription_phase_id: z.string().optional(),
+  successor_line_item_id: z.string().optional(),
   tenant_id: z.string().optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),
   updated_by: z.string().optional(),

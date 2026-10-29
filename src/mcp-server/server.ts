@@ -30,6 +30,7 @@ import { tool$customersGetSubscriptionsForCustomer } from "./tools/customersGetS
 import { tool$customersListCustomerPaymentMethods } from "./tools/customersListCustomerPaymentMethods.js";
 import { tool$customersQueryCustomer } from "./tools/customersQueryCustomer.js";
 import { tool$customersUpdateCustomer } from "./tools/customersUpdateCustomer.js";
+import { tool$eventsDeleteEvents } from "./tools/eventsDeleteEvents.js";
 import { tool$eventsGetEvent } from "./tools/eventsGetEvent.js";
 import { tool$eventsGetUsageAnalytics } from "./tools/eventsGetUsageAnalytics.js";
 import { tool$eventsGetUsageByMeter } from "./tools/eventsGetUsageByMeter.js";
@@ -109,7 +110,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.43",
+    version: "2.1.44",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -185,6 +186,7 @@ export function createMCPServer(deps: {
   tool(tool$eventsIngestEvent);
   tool(tool$eventsGetUsageAnalytics);
   tool(tool$eventsIngestEventsBulk);
+  tool(tool$eventsDeleteEvents);
   tool(tool$eventsGetEvent);
   tool(tool$eventsListRawEvents);
   tool(tool$eventsGetUsageStatistics);

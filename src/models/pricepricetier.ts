@@ -3,9 +3,14 @@
  */
 
 import * as z from "zod";
+import {
+  PriceTransformQuantity,
+  PriceTransformQuantity$zodSchema,
+} from "./pricetransformquantity.js";
 
 export type PricePriceTier = {
   flat_amount?: string | undefined;
+  transform_quantity?: PriceTransformQuantity | undefined;
   unit_amount?: string | undefined;
   up_to?: number | undefined;
 };
@@ -14,6 +19,7 @@ export const PricePriceTier$zodSchema: z.ZodType<PricePriceTier> = z.object({
   flat_amount: z.string().optional().describe(
     "flat_amount is the flat amount for the given tier (optional)\nApplied on top of unit_amount*quantity. Useful for cases like \"2.7$ + 5c\"",
   ),
+  transform_quantity: PriceTransformQuantity$zodSchema.optional(),
   unit_amount: z.string().optional().describe(
     "unit_amount is the amount per unit for the given tier",
   ),

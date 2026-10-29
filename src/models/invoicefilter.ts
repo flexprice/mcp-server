@@ -47,9 +47,11 @@ export type InvoiceFilter = {
   offset?: number | undefined;
   order?: InvoiceFilterOrder | undefined;
   payment_status?: Array<PaymentStatus> | undefined;
+  period_end_gt?: string | undefined;
   period_end_gte?: string | undefined;
   period_end_lte?: string | undefined;
   period_start_gte?: string | undefined;
+  period_start_lt?: string | undefined;
   period_start_lte?: string | undefined;
   skip_line_items?: boolean | undefined;
   sort?: Array<SortCondition> | undefined;
@@ -96,6 +98,9 @@ export const InvoiceFilter$zodSchema: z.ZodType<InvoiceFilter> = z.object({
   payment_status: z.array(PaymentStatus$zodSchema).optional().describe(
     "payment_status filters by the payment state of invoices\nMultiple statuses can be specified to include invoices with any of the listed payment states",
   ),
+  period_end_gt: z.string().optional().describe(
+    "period_end_gt filters invoices with period_end > value",
+  ),
   period_end_gte: z.string().optional().describe(
     "period_end_gte filters invoices with period_end >= value",
   ),
@@ -104,6 +109,9 @@ export const InvoiceFilter$zodSchema: z.ZodType<InvoiceFilter> = z.object({
   ),
   period_start_gte: z.string().optional().describe(
     "period_start_gte filters invoices with period_start >= value",
+  ),
+  period_start_lt: z.string().optional().describe(
+    "period_start_lt filters invoices with period_start < value",
   ),
   period_start_lte: z.string().optional().describe(
     "period_start_lte filters invoices with period_start <= value",

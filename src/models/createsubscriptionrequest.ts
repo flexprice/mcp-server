@@ -15,6 +15,10 @@ import {
   CollectionMethod$zodSchema,
 } from "./collectionmethod.js";
 import {
+  CreateCommitmentRequest,
+  CreateCommitmentRequest$zodSchema,
+} from "./createcommitmentrequest.js";
+import {
   CreateCreditGrantRequest,
   CreateCreditGrantRequest$zodSchema,
 } from "./createcreditgrantrequest.js";
@@ -80,6 +84,7 @@ export type CreateSubscriptionRequest = {
   collection_method?: CollectionMethod | undefined;
   commitment_amount?: string | undefined;
   commitment_duration?: BillingPeriod | undefined;
+  commitments?: Array<CreateCommitmentRequest> | undefined;
   coupons?: Array<string> | undefined;
   credit_grants?: Array<CreateCreditGrantRequest> | undefined;
   currency: string;
@@ -130,6 +135,9 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   collection_method: CollectionMethod$zodSchema.optional(),
   commitment_amount: z.string().optional(),
   commitment_duration: BillingPeriod$zodSchema.optional(),
+  commitments: z.array(CreateCommitmentRequest$zodSchema).optional().describe(
+    "Commitments are created with the subscription. subscription_id, and entity_id on a subscription scope,\nare set server-side.",
+  ),
   coupons: z.array(z.string()).optional().describe(
     "Deprecated: use SubscriptionCoupons instead.",
   ),

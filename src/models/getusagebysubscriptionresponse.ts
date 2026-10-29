@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import {
+  CommitmentUsageBreakdown,
+  CommitmentUsageBreakdown$zodSchema,
+} from "./commitmentusagebreakdown.js";
+import {
   SubscriptionUsageByMetersResponse,
   SubscriptionUsageByMetersResponse$zodSchema,
 } from "./subscriptionusagebymetersresponse.js";
@@ -13,6 +17,7 @@ export type GetUsageBySubscriptionResponse = {
   charges?: Array<SubscriptionUsageByMetersResponse> | undefined;
   commitment_amount?: number | undefined;
   commitment_utilized?: number | undefined;
+  commitments?: Array<CommitmentUsageBreakdown> | undefined;
   currency?: string | undefined;
   display_amount?: string | undefined;
   end_time?: string | undefined;
@@ -30,6 +35,9 @@ export const GetUsageBySubscriptionResponse$zodSchema: z.ZodType<
   commitment_amount: z.number().optional(),
   commitment_utilized: z.number().optional().describe(
     "Amount of commitment used",
+  ),
+  commitments: z.array(CommitmentUsageBreakdown$zodSchema).optional().describe(
+    "Commitments is the per-commitment usage breakdown for the window; nil when commitments v2 is off or none apply.",
   ),
   currency: z.string().optional(),
   display_amount: z.string().optional(),
