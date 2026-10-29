@@ -23,6 +23,10 @@ import {
   CreateCreditGrantRequest$zodSchema,
 } from "./createcreditgrantrequest.js";
 import {
+  CreateSubscriptionEntitlementGrantRequest,
+  CreateSubscriptionEntitlementGrantRequest$zodSchema,
+} from "./createsubscriptionentitlementgrantrequest.js";
+import {
   CreateSubscriptionLineItemRequest,
   CreateSubscriptionLineItemRequest$zodSchema,
 } from "./createsubscriptionlineitemrequest.js";
@@ -112,6 +116,9 @@ export type CreateSubscriptionRequest = {
   proration_behavior?: ProrationBehavior | undefined;
   start_date?: string | undefined;
   subscription_coupons?: Array<SubscriptionCouponInput> | undefined;
+  subscription_entitlement_grants?:
+    | Array<CreateSubscriptionEntitlementGrantRequest>
+    | undefined;
   subscription_status?: SubscriptionStatus | undefined;
   tax_rate_overrides?: Array<TaxRateOverride> | undefined;
   timezone?: string | undefined;
@@ -187,6 +194,11 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
     .describe(
       "SubscriptionCoupons is the preferred way to attach coupons at creation.\nAccepts coupon_code; optionally targets a line item via price_id.",
     ),
+  subscription_entitlement_grants: z.array(
+    CreateSubscriptionEntitlementGrantRequest$zodSchema,
+  ).optional().describe(
+    "SubscriptionEntitlementGrants are dollar entitlement grants shared by every usage line, created with the subscription.",
+  ),
   subscription_status: SubscriptionStatus$zodSchema.optional(),
   tax_rate_overrides: z.array(TaxRateOverride$zodSchema).optional(),
   timezone: z.string().optional(),

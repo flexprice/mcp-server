@@ -13,6 +13,10 @@ import {
   CreateCreditGrantRequest$zodSchema,
 } from "./createcreditgrantrequest.js";
 import {
+  CreateSubscriptionEntitlementGrantRequest,
+  CreateSubscriptionEntitlementGrantRequest$zodSchema,
+} from "./createsubscriptionentitlementgrantrequest.js";
+import {
   CreateSubscriptionLineItemRequest,
   CreateSubscriptionLineItemRequest$zodSchema,
 } from "./createsubscriptionlineitemrequest.js";
@@ -58,6 +62,9 @@ export type GroupedInvoicingChildRequest = {
   phases?: Array<SubscriptionPhaseCreateRequest> | undefined;
   plan_id: string;
   subscription_coupons?: Array<SubscriptionCouponInput> | undefined;
+  subscription_entitlement_grants?:
+    | Array<CreateSubscriptionEntitlementGrantRequest>
+    | undefined;
   tax_rate_overrides?: Array<TaxRateOverride> | undefined;
   trial_period_days?: number | undefined;
 };
@@ -97,6 +104,11 @@ export const GroupedInvoicingChildRequest$zodSchema: z.ZodType<
     .describe(
       "SubscriptionCoupons is the preferred way to attach coupons at creation.\nAccepts coupon_code; optionally targets a line item via price_id.",
     ),
+  subscription_entitlement_grants: z.array(
+    CreateSubscriptionEntitlementGrantRequest$zodSchema,
+  ).optional().describe(
+    "SubscriptionEntitlementGrants are dollar entitlement grants shared by every usage line, created with the subscription.",
+  ),
   tax_rate_overrides: z.array(TaxRateOverride$zodSchema).optional(),
   trial_period_days: z.int().optional().describe(
     "TrialPeriodDays: nil = inherit from plan prices, 0 = no trial, >0 = override in days.",

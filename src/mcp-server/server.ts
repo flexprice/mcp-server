@@ -67,6 +67,12 @@ import { tool$pricesGetPrice } from "./tools/pricesGetPrice.js";
 import { tool$pricesGetPriceByLookupKey } from "./tools/pricesGetPriceByLookupKey.js";
 import { tool$pricesQueryPrice } from "./tools/pricesQueryPrice.js";
 import { tool$pricesUpdatePrice } from "./tools/pricesUpdatePrice.js";
+import { tool$productsCreateProduct } from "./tools/productsCreateProduct.js";
+import { tool$productsDeleteProduct } from "./tools/productsDeleteProduct.js";
+import { tool$productsGetProduct } from "./tools/productsGetProduct.js";
+import { tool$productsListProducts } from "./tools/productsListProducts.js";
+import { tool$productsQueryProduct } from "./tools/productsQueryProduct.js";
+import { tool$productsUpdateProduct } from "./tools/productsUpdateProduct.js";
 import { tool$subscriptionsActivateSubscription } from "./tools/subscriptionsActivateSubscription.js";
 import { tool$subscriptionsAddSubscriptionAddon } from "./tools/subscriptionsAddSubscriptionAddon.js";
 import { tool$subscriptionsCancelSubscription } from "./tools/subscriptionsCancelSubscription.js";
@@ -110,7 +116,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.44",
+    version: "2.1.45",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -205,6 +211,12 @@ export function createMCPServer(deps: {
   tool(tool$pricesGetPrice);
   tool(tool$pricesUpdatePrice);
   tool(tool$pricesDeletePrice);
+  tool(tool$productsListProducts);
+  tool(tool$productsCreateProduct);
+  tool(tool$productsQueryProduct);
+  tool(tool$productsGetProduct);
+  tool(tool$productsUpdateProduct);
+  tool(tool$productsDeleteProduct);
   tool(tool$subscriptionsCreateSubscription);
   tool(tool$subscriptionsAddSubscriptionAddon);
   tool(tool$subscriptionsRemoveSubscriptionAddon);

@@ -48,6 +48,7 @@ export type CreatePriceRequest = {
   min_quantity?: number | undefined;
   price_unit_config?: PriceUnitConfig | undefined;
   price_unit_type: PriceUnitType;
+  product_id?: string | undefined;
   start_date?: string | undefined;
   tier_mode?: BillingTier | undefined;
   tiers?: Array<CreatePriceTier> | undefined;
@@ -82,6 +83,7 @@ export const CreatePriceRequest$zodSchema: z.ZodType<CreatePriceRequest> = z
     ),
     price_unit_config: PriceUnitConfig$zodSchema.optional(),
     price_unit_type: PriceUnitType$zodSchema,
+    product_id: z.string().optional(),
     start_date: z.iso.datetime({ offset: true }).optional(),
     tier_mode: BillingTier$zodSchema.optional(),
     tiers: z.array(CreatePriceTier$zodSchema).optional(),

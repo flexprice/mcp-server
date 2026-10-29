@@ -41,6 +41,7 @@ export type PriceFilter = {
   parent_price_id?: string | undefined;
   plan_ids?: Array<string> | undefined;
   price_ids?: Array<string> | undefined;
+  product_ids?: Array<string> | undefined;
   sort?: string | undefined;
   start_date_lt?: string | undefined;
   start_time?: string | undefined;
@@ -68,6 +69,7 @@ export const PriceFilter$zodSchema: z.ZodType<PriceFilter> = z.object({
     "Price override filtering fields",
   ),
   price_ids: z.array(z.string()).optional(),
+  product_ids: z.array(z.string()).optional(),
   sort: z.string().optional(),
   start_date_lt: z.string().optional(),
   start_time: z.iso.datetime({ offset: true }).optional(),

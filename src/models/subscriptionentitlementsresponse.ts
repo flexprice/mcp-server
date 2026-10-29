@@ -7,10 +7,17 @@ import {
   AggregatedFeature,
   AggregatedFeature$zodSchema,
 } from "./aggregatedfeature.js";
+import {
+  SubscriptionEntitlementGrantsResponse,
+  SubscriptionEntitlementGrantsResponse$zodSchema,
+} from "./subscriptionentitlementgrantsresponse.js";
 
 export type SubscriptionEntitlementsResponse = {
   features?: Array<AggregatedFeature> | undefined;
   plan_id?: string | undefined;
+  subscription_entitlement_grants?:
+    | SubscriptionEntitlementGrantsResponse
+    | undefined;
   subscription_id?: string | undefined;
 };
 
@@ -19,5 +26,7 @@ export const SubscriptionEntitlementsResponse$zodSchema: z.ZodType<
 > = z.object({
   features: z.array(AggregatedFeature$zodSchema).optional(),
   plan_id: z.string().optional(),
+  subscription_entitlement_grants:
+    SubscriptionEntitlementGrantsResponse$zodSchema.optional(),
   subscription_id: z.string().optional(),
 });

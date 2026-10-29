@@ -27,6 +27,7 @@ export type UpdatePriceRequest = {
   metadata?: { [k: string]: string } | undefined;
   price_unit_amount?: string | undefined;
   price_unit_tiers?: Array<CreatePriceTier> | undefined;
+  product_id?: string | undefined;
   tier_mode?: BillingTier | undefined;
   tiers?: Array<CreatePriceTier> | undefined;
   transform_quantity?: PriceTransformQuantity | undefined;
@@ -54,6 +55,9 @@ export const UpdatePriceRequest$zodSchema: z.ZodType<UpdatePriceRequest> = z
     ),
     price_unit_tiers: z.array(CreatePriceTier$zodSchema).optional().describe(
       "PriceUnitTiers are the price unit tiers (for CUSTOM price unit type, TIERED billing model)",
+    ),
+    product_id: z.string().optional().describe(
+      "ProductID sets the price's product while it has none; once set it never changes.",
     ),
     tier_mode: BillingTier$zodSchema.optional(),
     tiers: z.array(CreatePriceTier$zodSchema).optional().describe(

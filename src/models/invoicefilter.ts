@@ -59,6 +59,7 @@ export type InvoiceFilter = {
   status?: Status | undefined;
   subscription_customer_id?: Array<string> | undefined;
   subscription_id?: string | undefined;
+  updated_at_gte?: string | undefined;
   voided_at_gte?: string | undefined;
 };
 
@@ -127,6 +128,9 @@ export const InvoiceFilter$zodSchema: z.ZodType<InvoiceFilter> = z.object({
   ),
   subscription_id: z.string().optional().describe(
     "subscription_id filters invoices generated for a specific subscription\nOnly returns invoices that were created as part of the specified subscription's billing",
+  ),
+  updated_at_gte: z.iso.datetime({ offset: true }).optional().describe(
+    "updated_at_gte filters invoices updated at or after the given instant",
   ),
   voided_at_gte: z.iso.datetime({ offset: true }).optional().describe(
     "voided_at_gte filters invoices voided at or after the given instant",
