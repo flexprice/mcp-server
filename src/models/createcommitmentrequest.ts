@@ -27,7 +27,7 @@ export type CreateCommitmentRequest = {
   binding?: boolean | undefined;
   collection_method?: CommitmentCollectionMethod | undefined;
   committed_price?: CommitmentPriceInput | undefined;
-  end_date: string;
+  end_date?: string | undefined;
   idempotency_key?: string | undefined;
   invoice_description?: string | undefined;
   invoice_label?: string | undefined;
@@ -51,7 +51,9 @@ export const CreateCommitmentRequest$zodSchema: z.ZodType<
   binding: z.boolean().optional().describe("default false"),
   collection_method: CommitmentCollectionMethod$zodSchema.optional(),
   committed_price: CommitmentPriceInput$zodSchema.optional(),
-  end_date: z.iso.datetime({ offset: true }),
+  end_date: z.iso.datetime({ offset: true }).optional().describe(
+    "EndDate is exclusive; omit it for an open-ended commitment, which bills every period until terminated.",
+  ),
   idempotency_key: z.string().optional(),
   invoice_description: z.string().optional(),
   invoice_label: z.string().optional(),
