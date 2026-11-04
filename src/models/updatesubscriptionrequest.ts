@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import {
+  ProrationBehavior,
+  ProrationBehavior$zodSchema,
+} from "./prorationbehavior.js";
+import {
   SubscriptionStatus,
   SubscriptionStatus$zodSchema,
 } from "./subscriptionstatus.js";
@@ -12,6 +16,7 @@ export type UpdateSubscriptionRequest = {
   cancel_at?: string | undefined;
   cancel_at_period_end?: boolean | undefined;
   parent_subscription_id?: string | undefined;
+  proration_behavior?: ProrationBehavior | undefined;
   status?: SubscriptionStatus | undefined;
 };
 
@@ -25,5 +30,6 @@ export const UpdateSubscriptionRequest$zodSchema: z.ZodType<
   parent_subscription_id: z.string().optional().describe(
     "ParentSubscriptionID sets or clears the parent subscription. Omit to leave unchanged; send \"\" to clear.",
   ),
+  proration_behavior: ProrationBehavior$zodSchema.optional(),
   status: SubscriptionStatus$zodSchema.optional(),
 });

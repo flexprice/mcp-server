@@ -20,6 +20,14 @@ export const ServerList = [
    * India Region
    */
   "https://api.cloud.flexprice.io/v1",
+  /**
+   * Canada Region
+   */
+  "https://canada.api.flexprice.io/v1",
+  /**
+   * EU Region
+   */
+  "https://eu.api.flexprice.io/v1",
 ] as const;
 
 export type SDKOptions = {
@@ -69,8 +77,8 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0",
-  sdkVersion: "2.1.46",
+  sdkVersion: "2.1.47",
   genVersion: "2.948.4",
   userAgent:
-    "speakeasy-sdk/mcp-typescript 2.1.46 2.948.4 1.0 @flexprice/mcp-server",
+    "speakeasy-sdk/mcp-typescript 2.1.47 2.948.4 1.0 @flexprice/mcp-server",
 } as const;

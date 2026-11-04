@@ -33,6 +33,10 @@ import {
   OverrideLineItemRequest$zodSchema,
 } from "./overridelineitemrequest.js";
 import {
+  ProrationBehavior,
+  ProrationBehavior$zodSchema,
+} from "./prorationbehavior.js";
+import {
   SubscriptionCouponInput,
   SubscriptionCouponInput$zodSchema,
 } from "./subscriptioncouponinput.js";
@@ -61,6 +65,7 @@ export type GroupedInvoicingChildRequest = {
   override_line_items?: Array<OverrideLineItemRequest> | undefined;
   phases?: Array<SubscriptionPhaseCreateRequest> | undefined;
   plan_id: string;
+  proration_behavior?: ProrationBehavior | undefined;
   subscription_coupons?: Array<SubscriptionCouponInput> | undefined;
   subscription_entitlement_grants?:
     | Array<CreateSubscriptionEntitlementGrantRequest>
@@ -100,6 +105,7 @@ export const GroupedInvoicingChildRequest$zodSchema: z.ZodType<
     ),
   phases: z.array(SubscriptionPhaseCreateRequest$zodSchema).optional(),
   plan_id: z.string(),
+  proration_behavior: ProrationBehavior$zodSchema.optional(),
   subscription_coupons: z.array(SubscriptionCouponInput$zodSchema).optional()
     .describe(
       "SubscriptionCoupons is the preferred way to attach coupons at creation.\nAccepts coupon_code; optionally targets a line item via price_id.",

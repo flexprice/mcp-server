@@ -14,7 +14,12 @@ export const tool$eventsGetUsageAnalytics: ToolDefinition<typeof args> = {
   name: "get-usage-analytics",
   description: `Get usage analytics
 
-Use when building analytics views (e.g. usage by feature or customer over time). Supports filtering, grouping, and time-series breakdown.`,
+Use when building analytics views (e.g. usage by feature or customer over time). Supports filtering, grouping, and time-series breakdown.
+Groups and regular-meter time-series points contain usage-proportional cost allocations, not independently priced charges.
+Source/property filters return the unfiltered usage charge for the same time range multiplied by filtered quantity / full quantity; groups split that filtered share. Filtered costs exclude commitments and true-up.
+When full quantity is zero, no proportional rate is defined; costs retain direct per-group/per-bucket pricing.
+Analytics are eventually consistent: concurrent ingestion or late events can make filtered allocations approximate across separate reads. These allocations are not an invoice preview.
+For non-additive meters such as MAX, quantities use the meter's aggregation, so individual group shares can change when filtering or grouping changes.`,
   scopes: ["write"],
   annotations: {
     "title": "",

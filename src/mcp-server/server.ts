@@ -65,6 +65,7 @@ import { tool$pricesCreatePricesBulk } from "./tools/pricesCreatePricesBulk.js";
 import { tool$pricesDeletePrice } from "./tools/pricesDeletePrice.js";
 import { tool$pricesGetPrice } from "./tools/pricesGetPrice.js";
 import { tool$pricesGetPriceByLookupKey } from "./tools/pricesGetPriceByLookupKey.js";
+import { tool$pricesGetPriceHistory } from "./tools/pricesGetPriceHistory.js";
 import { tool$pricesQueryPrice } from "./tools/pricesQueryPrice.js";
 import { tool$pricesUpdatePrice } from "./tools/pricesUpdatePrice.js";
 import { tool$productsCreateProduct } from "./tools/productsCreateProduct.js";
@@ -86,6 +87,7 @@ import { tool$subscriptionsExecuteSubscriptionPlanChangeV2 } from "./tools/subsc
 import { tool$subscriptionsGetSubscription } from "./tools/subscriptionsGetSubscription.js";
 import { tool$subscriptionsGetSubscriptionAddonAssociations } from "./tools/subscriptionsGetSubscriptionAddonAssociations.js";
 import { tool$subscriptionsGetSubscriptionEntitlements } from "./tools/subscriptionsGetSubscriptionEntitlements.js";
+import { tool$subscriptionsGetSubscriptionLineItemHistory } from "./tools/subscriptionsGetSubscriptionLineItemHistory.js";
 import { tool$subscriptionsGetSubscriptionSchedule } from "./tools/subscriptionsGetSubscriptionSchedule.js";
 import { tool$subscriptionsGetSubscriptionUpcomingGrants } from "./tools/subscriptionsGetSubscriptionUpcomingGrants.js";
 import { tool$subscriptionsGetSubscriptionUsage } from "./tools/subscriptionsGetSubscriptionUsage.js";
@@ -116,7 +118,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.46",
+    version: "2.1.47",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -211,6 +213,7 @@ export function createMCPServer(deps: {
   tool(tool$pricesGetPrice);
   tool(tool$pricesUpdatePrice);
   tool(tool$pricesDeletePrice);
+  tool(tool$pricesGetPriceHistory);
   tool(tool$productsListProducts);
   tool(tool$productsCreateProduct);
   tool(tool$productsQueryProduct);
@@ -223,6 +226,7 @@ export function createMCPServer(deps: {
   tool(tool$subscriptionsQuerySubscriptionLineItems);
   tool(tool$subscriptionsUpdateSubscriptionLineItem);
   tool(tool$subscriptionsDeleteSubscriptionLineItem);
+  tool(tool$subscriptionsGetSubscriptionLineItemHistory);
   tool(tool$subscriptionsListAllSubscriptionSchedules);
   tool(tool$subscriptionsGetSubscriptionSchedule);
   tool(tool$subscriptionsCancelSubscriptionSchedule);

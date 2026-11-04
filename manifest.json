@@ -35,10 +35,10 @@
       "server_index": {
         "type": "number",
         "title": "Server Index",
-        "description": "Available servers: [https://us.api.flexprice.io/v1, https://api.cloud.flexprice.io/v1]",
+        "description": "Available servers: [https://us.api.flexprice.io/v1, https://api.cloud.flexprice.io/v1, https://canada.api.flexprice.io/v1, https://eu.api.flexprice.io/v1]",
         "required": false,
         "default": "0",
-        "max": 1
+        "max": 3
       },
       "api_key_auth": {
         "type": "string",
@@ -48,5 +48,5 @@
         "sensitive": true
       }
     },
-  "version": "2.1.46"
+  "version": "2.1.47"
 }
