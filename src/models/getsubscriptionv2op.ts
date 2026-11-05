@@ -18,7 +18,7 @@ export const GetSubscriptionV2Request$zodSchema: z.ZodType<
   GetSubscriptionV2Request
 > = z.object({
   expand: z.string().describe(
-    "Comma-separated list of fields to expand (e.g., 'subscription_line_items,prices,plan')",
+    "Comma-separated list of fields to expand (e.g., 'subscription_line_items,prices,plan,commitments')",
   ).optional(),
   id: z.string().describe("Subscription ID"),
 });

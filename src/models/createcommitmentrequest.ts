@@ -5,6 +5,10 @@
 import * as z from "zod";
 import { ActiveWindow, ActiveWindow$zodSchema } from "./activewindow.js";
 import {
+  BillingTermInput,
+  BillingTermInput$zodSchema,
+} from "./billingterminput.js";
+import {
   CommitmentCollectionMethod,
   CommitmentCollectionMethod$zodSchema,
 } from "./commitmentcollectionmethod.js";
@@ -21,14 +25,20 @@ import {
   CommitmentScopeInput$zodSchema,
 } from "./commitmentscopeinput.js";
 import { CommitmentType, CommitmentType$zodSchema } from "./commitmenttype.js";
+import {
+  InstalmentDelivery,
+  InstalmentDelivery$zodSchema,
+} from "./instalmentdelivery.js";
 
 export type CreateCommitmentRequest = {
   active_windows?: Array<ActiveWindow> | undefined;
+  billing_terms?: Array<BillingTermInput> | undefined;
   binding?: boolean | undefined;
   collection_method?: CommitmentCollectionMethod | undefined;
   committed_price?: CommitmentPriceInput | undefined;
   end_date?: string | undefined;
   idempotency_key?: string | undefined;
+  instalment_invoicing?: InstalmentDelivery | undefined;
   invoice_description?: string | undefined;
   invoice_label?: string | undefined;
   measurement: CommitmentMeasurement;
@@ -48,6 +58,9 @@ export const CreateCommitmentRequest$zodSchema: z.ZodType<
   CreateCommitmentRequest
 > = z.object({
   active_windows: z.array(ActiveWindow$zodSchema).optional(),
+  billing_terms: z.array(BillingTermInput$zodSchema).optional().describe(
+    "BillingTerms apply only to collection_method billing_terms, which requires at least one.",
+  ),
   binding: z.boolean().optional().describe("default false"),
   collection_method: CommitmentCollectionMethod$zodSchema.optional(),
   committed_price: CommitmentPriceInput$zodSchema.optional(),
@@ -55,6 +68,7 @@ export const CreateCommitmentRequest$zodSchema: z.ZodType<
     "EndDate is exclusive; omit it for an open-ended commitment, which bills every period until terminated.",
   ),
   idempotency_key: z.string().optional(),
+  instalment_invoicing: InstalmentDelivery$zodSchema.optional(),
   invoice_description: z.string().optional(),
   invoice_label: z.string().optional(),
   measurement: CommitmentMeasurement$zodSchema,
@@ -63,7 +77,9 @@ export const CreateCommitmentRequest$zodSchema: z.ZodType<
   overage_price: CommitmentPriceInput$zodSchema.optional(),
   priority: z.int().optional(),
   scope: CommitmentScopeInput$zodSchema,
-  start_date: z.iso.datetime({ offset: true }),
+  start_date: z.iso.datetime({ offset: true }).describe(
+    "StartDate and EndDate within a second after a billing period edge are taken as that edge.",
+  ),
   subscription_id: z.string().optional().describe(
     "SubscriptionID is required on POST /commitments and set server-side on inline commitments.",
   ),

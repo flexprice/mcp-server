@@ -7,6 +7,10 @@ import { BillingCadence, BillingCadence$zodSchema } from "./billingcadence.js";
 import { BillingCycle, BillingCycle$zodSchema } from "./billingcycle.js";
 import { BillingPeriod, BillingPeriod$zodSchema } from "./billingperiod.js";
 import {
+  CommitmentResponse,
+  CommitmentResponse$zodSchema,
+} from "./commitmentresponse.js";
+import {
   CouponAssociationResponse,
   CouponAssociationResponse$zodSchema,
 } from "./couponassociationresponse.js";
@@ -65,6 +69,7 @@ export type SubscriptionResponseV2 = {
   collection_method?: string | undefined;
   commitment_amount?: string | undefined;
   commitment_duration?: BillingPeriod | undefined;
+  commitments?: Array<CommitmentResponse> | undefined;
   coupon_associations?: Array<CouponAssociationResponse> | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -143,6 +148,9 @@ export const SubscriptionResponseV2$zodSchema: z.ZodType<
     "CommitmentAmount is the minimum amount a customer commits to paying for a billing period",
   ),
   commitment_duration: BillingPeriod$zodSchema.optional(),
+  commitments: z.array(CommitmentResponse$zodSchema).optional().describe(
+    "Commitments are included when \"commitments\" is in expand parameter",
+  ),
   coupon_associations: z.array(CouponAssociationResponse$zodSchema).optional()
     .describe(
       "CouponAssociations are included when \"coupon_associations\" is in expand parameter",

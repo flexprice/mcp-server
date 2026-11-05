@@ -15,6 +15,10 @@ import {
   CheckoutSessionResponse$zodSchema,
 } from "./checkoutsessionresponse.js";
 import {
+  CommitmentResponse,
+  CommitmentResponse$zodSchema,
+} from "./commitmentresponse.js";
+import {
   CouponAssociationResponse,
   CouponAssociationResponse$zodSchema,
 } from "./couponassociationresponse.js";
@@ -78,6 +82,7 @@ export type SubscriptionResponse = {
   collection_method?: string | undefined;
   commitment_amount?: string | undefined;
   commitment_duration?: BillingPeriod | undefined;
+  commitments?: Array<CommitmentResponse> | undefined;
   coupon_associations?: Array<CouponAssociationResponse> | undefined;
   created_at?: string | undefined;
   created_by?: string | undefined;
@@ -157,6 +162,9 @@ export const SubscriptionResponse$zodSchema: z.ZodType<SubscriptionResponse> = z
       "CommitmentAmount is the minimum amount a customer commits to paying for a billing period",
     ),
     commitment_duration: BillingPeriod$zodSchema.optional(),
+    commitments: z.array(CommitmentResponse$zodSchema).optional().describe(
+      "Commitments are the commitments created with the subscription; set on create only.",
+    ),
     coupon_associations: z.array(CouponAssociationResponse$zodSchema).optional()
       .describe(
         "CouponAssociations are the coupon associations for this subscription",
