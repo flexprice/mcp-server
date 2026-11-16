@@ -7,6 +7,10 @@ import {
   CustomerContactPerson,
   CustomerContactPerson$zodSchema,
 } from "./customercontactperson.js";
+import {
+  SettingsOverride,
+  SettingsOverride$zodSchema,
+} from "./settingsoverride.js";
 import { Status, Status$zodSchema } from "./status.js";
 import { TaxTreatment, TaxTreatment$zodSchema } from "./taxtreatment.js";
 
@@ -18,6 +22,7 @@ export type Customer = {
   address_postal_code?: string | undefined;
   address_state?: string | undefined;
   billing_currency?: string | undefined;
+  billing_entity_id?: string | undefined;
   contact?: string | undefined;
   contact_persons?: Array<CustomerContactPerson> | undefined;
   created_at?: string | undefined;
@@ -28,6 +33,7 @@ export type Customer = {
   id?: string | undefined;
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
+  settings?: SettingsOverride | undefined;
   status?: Status | undefined;
   tax_treatment?: TaxTreatment | undefined;
   tenant_id?: string | undefined;
@@ -58,6 +64,9 @@ export const Customer$zodSchema: z.ZodType<Customer> = z.object({
   billing_currency: z.string().optional().describe(
     "BillingCurrency is the fiat currency invoices are issued in; nil means charge currency is used as-is.",
   ),
+  billing_entity_id: z.string().optional().describe(
+    "BillingEntityID is the entity that bills the customer; nil while the environment has no billing entities. Never changes once set.",
+  ),
   contact: z.string().optional().describe(
     "Contact is an optional contact number for the customer (e.g. phone)",
   ),
@@ -76,6 +85,7 @@ export const Customer$zodSchema: z.ZodType<Customer> = z.object({
   ),
   metadata: z.record(z.string(), z.string()).optional().describe("Metadata"),
   name: z.string().optional().describe("Name is the name of the customer"),
+  settings: SettingsOverride$zodSchema.optional(),
   status: Status$zodSchema.optional(),
   tax_treatment: TaxTreatment$zodSchema.optional(),
   tenant_id: z.string().optional(),

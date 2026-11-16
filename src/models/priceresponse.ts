@@ -84,6 +84,7 @@ export type PriceResponse = {
   type?: PriceType | undefined;
   updated_at?: string | undefined;
   updated_by?: string | undefined;
+  warnings?: Array<string> | undefined;
 };
 
 export const PriceResponse$zodSchema: z.ZodType<PriceResponse> = z.object({
@@ -180,4 +181,7 @@ export const PriceResponse$zodSchema: z.ZodType<PriceResponse> = z.object({
   type: PriceType$zodSchema.optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),
   updated_by: z.string().optional(),
+  warnings: z.array(z.string()).optional().describe(
+    "Warnings lists defaults applied on create that the caller may want to set explicitly.",
+  ),
 });

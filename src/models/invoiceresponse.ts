@@ -18,6 +18,10 @@ import {
 } from "./customerresponse.js";
 import { FxConversion, FxConversion$zodSchema } from "./fxconversion.js";
 import {
+  InvoiceBillingEntity,
+  InvoiceBillingEntity$zodSchema,
+} from "./invoicebillingentity.js";
+import {
   InvoiceLineItemResponse,
   InvoiceLineItemResponse$zodSchema,
 } from "./invoicelineitemresponse.js";
@@ -48,6 +52,8 @@ export type InvoiceResponse = {
   amount_due?: string | undefined;
   amount_paid?: string | undefined;
   amount_remaining?: string | undefined;
+  billing_entity?: InvoiceBillingEntity | undefined;
+  billing_entity_id?: string | undefined;
   billing_period?: string | undefined;
   billing_reason?: string | undefined;
   billing_sequence?: number | undefined;
@@ -115,6 +121,10 @@ export const InvoiceResponse$zodSchema: z.ZodType<InvoiceResponse> = z.object({
   ),
   amount_remaining: z.string().optional().describe(
     "amount_remaining is the outstanding amount still owed on this invoice (calculated as amount_due minus amount_paid)",
+  ),
+  billing_entity: InvoiceBillingEntity$zodSchema.optional(),
+  billing_entity_id: z.string().optional().describe(
+    "BillingEntityID is the entity that bills the invoice; nil while the environment has no billing entities. Never changes once set.",
   ),
   billing_period: z.string().optional().describe(
     "billing_period describes the billing period this invoice covers (e.g., \"January 2024\", \"Q1 2024\")",

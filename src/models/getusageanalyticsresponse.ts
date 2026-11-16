@@ -8,6 +8,10 @@ import {
   CustomAnalyticItem$zodSchema,
 } from "./customanalyticitem.js";
 import {
+  UsageAnalyticInstalment,
+  UsageAnalyticInstalment$zodSchema,
+} from "./usageanalyticinstalment.js";
+import {
   UsageAnalyticItem,
   UsageAnalyticItem$zodSchema,
 } from "./usageanalyticitem.js";
@@ -15,9 +19,11 @@ import {
 export type GetUsageAnalyticsResponse = {
   currency?: string | undefined;
   custom_analytics?: Array<CustomAnalyticItem> | undefined;
+  instalments?: Array<UsageAnalyticInstalment> | undefined;
   items?: Array<UsageAnalyticItem> | undefined;
   subtotal?: string | undefined;
   total_cost?: string | undefined;
+  total_cost_with_instalments?: string | undefined;
   total_discount?: string | undefined;
 };
 
@@ -26,10 +32,16 @@ export const GetUsageAnalyticsResponse$zodSchema: z.ZodType<
 > = z.object({
   currency: z.string().optional(),
   custom_analytics: z.array(CustomAnalyticItem$zodSchema).optional(),
+  instalments: z.array(UsageAnalyticInstalment$zodSchema).optional().describe(
+    "Instalments lists, with expand \"instalments\", the instalments invoiced in the range for the v2 commitments covering\na queried meter; it is empty with property or source filters, or when no usage line runs in the range.",
+  ),
   items: z.array(UsageAnalyticItem$zodSchema).optional(),
   subtotal: z.string().optional(),
   total_cost: z.string().optional().describe(
     "TotalCost is the final cost after discount (Subtotal - TotalDiscount)",
+  ),
+  total_cost_with_instalments: z.string().optional().describe(
+    "TotalCostWithInstalments is TotalCost plus the amounts of Instalments, set when expand includes \"instalments\".",
   ),
   total_discount: z.string().optional(),
 });

@@ -33,6 +33,10 @@ import {
   ProrationBehavior,
   ProrationBehavior$zodSchema,
 } from "./prorationbehavior.js";
+import {
+  SettingsOverride,
+  SettingsOverride$zodSchema,
+} from "./settingsoverride.js";
 import { Status, Status$zodSchema } from "./status.js";
 import {
   SubscriptionLineItemResponse,
@@ -100,6 +104,7 @@ export type SubscriptionResponseV2 = {
   plan_id?: string | undefined;
   plan_prices_out_of_sync?: boolean | undefined;
   proration_behavior?: ProrationBehavior | undefined;
+  settings?: SettingsOverride | undefined;
   start_date?: string | undefined;
   status?: Status | undefined;
   subscription_status?: SubscriptionStatus | undefined;
@@ -225,6 +230,7 @@ export const SubscriptionResponseV2$zodSchema: z.ZodType<
     "PlanPricesOutOfSync is true when the subscription's synced_price_sequence\nis behind the plan's current max prices.sequence — i.e. plan-price\nchanges have not yet been reconciled into this subscription's line items.",
   ),
   proration_behavior: ProrationBehavior$zodSchema.optional(),
+  settings: SettingsOverride$zodSchema.optional(),
   start_date: z.iso.datetime({ offset: true }).optional().describe(
     "StartDate is the start date of the subscription",
   ),

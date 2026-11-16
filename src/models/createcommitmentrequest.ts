@@ -49,7 +49,6 @@ export type CreateCommitmentRequest = {
   scope: CommitmentScopeInput;
   start_date: string;
   subscription_id?: string | undefined;
-  timezone?: string | undefined;
   type: CommitmentType;
   value?: string | undefined;
 };
@@ -83,7 +82,6 @@ export const CreateCommitmentRequest$zodSchema: z.ZodType<
   subscription_id: z.string().optional().describe(
     "SubscriptionID is required on POST /commitments and set server-side on inline commitments.",
   ),
-  timezone: z.string().optional(),
   type: CommitmentType$zodSchema,
   value: z.string().optional(),
 });

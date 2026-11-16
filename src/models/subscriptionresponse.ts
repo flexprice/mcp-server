@@ -45,6 +45,10 @@ import {
   ProrationBehavior,
   ProrationBehavior$zodSchema,
 } from "./prorationbehavior.js";
+import {
+  SettingsOverride,
+  SettingsOverride$zodSchema,
+} from "./settingsoverride.js";
 import { Status, Status$zodSchema } from "./status.js";
 import {
   SubscriptionPhaseResponse,
@@ -114,6 +118,7 @@ export type SubscriptionResponse = {
   plan?: PlanResponse | undefined;
   plan_id?: string | undefined;
   proration_behavior?: ProrationBehavior | undefined;
+  settings?: SettingsOverride | undefined;
   start_date?: string | undefined;
   status?: Status | undefined;
   subscription_status?: SubscriptionStatus | undefined;
@@ -235,6 +240,7 @@ export const SubscriptionResponse$zodSchema: z.ZodType<SubscriptionResponse> = z
       "PlanID is the identifier for the plan in our system",
     ),
     proration_behavior: ProrationBehavior$zodSchema.optional(),
+    settings: SettingsOverride$zodSchema.optional(),
     start_date: z.iso.datetime({ offset: true }).optional().describe(
       "StartDate is the start date of the subscription",
     ),

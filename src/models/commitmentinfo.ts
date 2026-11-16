@@ -9,8 +9,11 @@ import { CommitmentType, CommitmentType$zodSchema } from "./commitmenttype.js";
 export type CommitmentInfo = {
   amount?: string | undefined;
   computed_commitment_utilized_amount?: string | undefined;
+  computed_commitment_utilized_quantity?: string | undefined;
   computed_overage_amount?: string | undefined;
+  computed_overage_quantity?: string | undefined;
   computed_true_up_amount?: string | undefined;
+  computed_true_up_quantity?: string | undefined;
   duration?: BillingPeriod | undefined;
   is_windowed?: boolean | undefined;
   overage_factor?: string | undefined;
@@ -20,12 +23,19 @@ export type CommitmentInfo = {
 };
 
 export const CommitmentInfo$zodSchema: z.ZodType<CommitmentInfo> = z.object({
-  amount: z.string().optional(),
+  amount: z.string().optional().describe(
+    "Amount is the commitment amount (v1), or computed_commitment_utilized_amount + computed_true_up_amount (v2).",
+  ),
   computed_commitment_utilized_amount: z.string().optional(),
+  computed_commitment_utilized_quantity: z.string().optional().describe(
+    "Usage units behind the computed amounts: usage a billing-terms commitment covers counts as utilized at no\ncharge, and a quantity commitment's true-up counts its unused units.",
+  ),
   computed_overage_amount: z.string().optional(),
+  computed_overage_quantity: z.string().optional(),
   computed_true_up_amount: z.string().optional().describe(
     "total_cost = computed_commitment_utilized_amount + computed_overage_amount + computed_true_up_amount",
   ),
+  computed_true_up_quantity: z.string().optional(),
   duration: BillingPeriod$zodSchema.optional(),
   is_windowed: z.boolean().optional(),
   overage_factor: z.string().optional(),

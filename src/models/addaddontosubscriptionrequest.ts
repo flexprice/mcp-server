@@ -46,9 +46,7 @@ export const AddAddonToSubscriptionRequest$zodSchema: z.ZodType<
   line_item_commitments: z.record(
     z.string(),
     LineItemCommitmentConfig$zodSchema,
-  ).optional().describe(
-    "LineItemCommitments allows setting commitment configuration per addon line item (keyed by price_id)",
-  ),
+  ).optional().describe("Deprecated: use POST /commitments instead."),
   metadata: z.record(z.string(), z.any()).optional(),
   override_line_items: z.array(OverrideLineItemRequest$zodSchema).optional()
     .describe(

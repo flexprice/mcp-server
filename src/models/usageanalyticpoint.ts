@@ -8,8 +8,11 @@ import { PointBucket, PointBucket$zodSchema } from "./pointbucket.js";
 export type UsageAnalyticPoint = {
   buckets?: Array<PointBucket> | undefined;
   computed_commitment_utilized_amount?: string | undefined;
+  computed_commitment_utilized_quantity?: string | undefined;
   computed_overage_amount?: string | undefined;
+  computed_overage_quantity?: string | undefined;
   computed_true_up_amount?: string | undefined;
+  computed_true_up_quantity?: string | undefined;
   cost?: string | undefined;
   discount?: string | undefined;
   event_count?: number | undefined;
@@ -26,8 +29,13 @@ export const UsageAnalyticPoint$zodSchema: z.ZodType<UsageAnalyticPoint> = z
     computed_commitment_utilized_amount: z.string().optional().describe(
       "Commitment breakdown (only populated for windowed commitments)",
     ),
+    computed_commitment_utilized_quantity: z.string().optional().describe(
+      "Usage units behind the commitment breakdown, for v2 commitments",
+    ),
     computed_overage_amount: z.string().optional(),
+    computed_overage_quantity: z.string().optional(),
     computed_true_up_amount: z.string().optional(),
+    computed_true_up_quantity: z.string().optional(),
     cost: z.string().optional().describe(
       "Cost is the final cost after discount (Subtotal - Discount)",
     ),

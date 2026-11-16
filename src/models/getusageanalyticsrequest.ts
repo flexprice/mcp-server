@@ -27,7 +27,7 @@ export const GetUsageAnalyticsRequest$zodSchema: z.ZodType<
   ),
   end_time: z.iso.datetime({ offset: true }).optional(),
   expand: z.array(z.string()).optional().describe(
-    "allowed values: \"price\", \"meter\", \"feature\", \"subscription_line_item\",\"plan\",\"addon\"",
+    "allowed values: \"price\", \"meter\", \"feature\", \"subscription_line_item\",\"plan\",\"addon\",\"source\",\"instalments\"",
   ),
   external_customer_id: z.string().optional().describe(
     "ExternalCustomerID is the single external customer ID.\nOptional when ExternalCustomerIDs is provided; required otherwise.",

@@ -32,6 +32,7 @@ export const InvoiceFilterOrder$zodSchema = z.enum([
 export type InvoiceFilter = {
   amount_due_gt?: number | undefined;
   amount_remaining_gt?: number | undefined;
+  billing_entity_id?: string | undefined;
   billing_reason?: InvoiceBillingReason | undefined;
   currency?: string | undefined;
   customer_id?: string | undefined;
@@ -69,6 +70,9 @@ export const InvoiceFilter$zodSchema: z.ZodType<InvoiceFilter> = z.object({
   ),
   amount_remaining_gt: z.number().optional().describe(
     "amount_remaining_gt filters invoices with an outstanding balance greater than the specified value\nUseful for finding invoices that still have significant unpaid amounts",
+  ),
+  billing_entity_id: z.string().optional().describe(
+    "billing_entity_id filters by the customer's billing entity",
   ),
   billing_reason: InvoiceBillingReason$zodSchema.optional(),
   currency: z.string().optional().describe(

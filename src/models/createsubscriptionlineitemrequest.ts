@@ -41,15 +41,25 @@ export type CreateSubscriptionLineItemRequest = {
 export const CreateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   CreateSubscriptionLineItemRequest
 > = z.object({
-  commitment_amount: z.number().optional().describe("Commitment fields"),
+  commitment_amount: z.number().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   commitment_duration: BillingPeriod$zodSchema.optional(),
-  commitment_overage_factor: z.number().optional(),
-  commitment_quantity: z.number().optional(),
-  commitment_time_buckets: z.array(CommitmentBucketRequest$zodSchema)
-    .optional(),
-  commitment_true_up_enabled: z.boolean().optional(),
+  commitment_overage_factor: z.number().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
+  commitment_quantity: z.number().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
+  commitment_time_buckets: z.array(CommitmentBucketRequest$zodSchema).optional()
+    .describe("Deprecated: use POST /commitments instead."),
+  commitment_true_up_enabled: z.boolean().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   commitment_type: CommitmentType$zodSchema.optional(),
-  commitment_windowed: z.boolean().optional(),
+  commitment_windowed: z.boolean().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   display_name: z.string().optional(),
   end_date: z.iso.datetime({ offset: true }).optional(),
   metadata: z.record(z.string(), z.string()).optional(),

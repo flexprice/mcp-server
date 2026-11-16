@@ -12,6 +12,10 @@ import {
   CustomerContactPerson$zodSchema,
 } from "./customercontactperson.js";
 import {
+  SettingsOverride,
+  SettingsOverride$zodSchema,
+} from "./settingsoverride.js";
+import {
   TaxRateOverride,
   TaxRateOverride$zodSchema,
 } from "./taxrateoverride.js";
@@ -28,6 +32,7 @@ export type CreateCustomerRequest = {
   address_postal_code?: string | undefined;
   address_state?: string | undefined;
   billing_currency?: string | undefined;
+  billing_entity_id?: string | undefined;
   contact?: string | undefined;
   contact_persons?: Array<CustomerContactPerson> | undefined;
   email?: string | undefined;
@@ -38,6 +43,7 @@ export type CreateCustomerRequest = {
   metadata?: { [k: string]: string } | undefined;
   name: string;
   onboarding_workflow_name?: string | undefined;
+  settings?: SettingsOverride | undefined;
   skip_onboarding_workflow?: boolean | undefined;
   tax_rate_overrides?: Array<TaxRateOverride> | undefined;
   tax_treatment?: TaxTreatment | undefined;
@@ -67,6 +73,9 @@ export const CreateCustomerRequest$zodSchema: z.ZodType<CreateCustomerRequest> =
     billing_currency: z.string().optional().describe(
       "billing_currency is the fiat currency invoices are issued in; empty means the charge currency is used as-is",
     ),
+    billing_entity_id: z.string().optional().describe(
+      "billing_entity_id is the billing entity that bills this customer; defaults to the environment's\ndefault entity. Accepted only once billing entities are enabled, and never changes afterwards.",
+    ),
     contact: z.string().optional().describe(
       "contact is an optional contact number for the customer (e.g. phone)",
     ),
@@ -94,6 +103,7 @@ export const CreateCustomerRequest$zodSchema: z.ZodType<CreateCustomerRequest> =
     onboarding_workflow_name: z.string().optional().describe(
       "onboarding_workflow_name is given if a custom onboarding workflow is to be triggered for this customer",
     ),
+    settings: SettingsOverride$zodSchema.optional(),
     skip_onboarding_workflow: z.boolean().optional().describe(
       "skip_onboarding_workflow when true, prevents the customer onboarding workflow from being triggered\nThis is used internally when a customer is created via a workflow to prevent infinite loops\nDefault: false",
     ),

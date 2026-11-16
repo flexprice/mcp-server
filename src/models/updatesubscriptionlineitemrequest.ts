@@ -50,17 +50,27 @@ export const UpdateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   ),
   billing_model: BillingModel$zodSchema.optional(),
   bucket_size: WindowSize$zodSchema.optional(),
-  commitment_amount: z.number().optional().describe("Commitment fields"),
+  commitment_amount: z.number().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   commitment_duration: BillingPeriod$zodSchema.optional(),
-  commitment_overage_factor: z.number().optional(),
-  commitment_quantity: z.number().optional(),
+  commitment_overage_factor: z.number().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
+  commitment_quantity: z.number().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   commitment_time_buckets: z.array(CommitmentBucketRequest$zodSchema).optional()
     .describe(
-      "Pointer so an explicit empty array can clear existing buckets (omission keeps them).",
+      "Pointer so an explicit empty array can clear existing buckets (omission keeps them).\n\nDeprecated: use POST /commitments instead.",
     ),
-  commitment_true_up_enabled: z.boolean().optional(),
+  commitment_true_up_enabled: z.boolean().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   commitment_type: CommitmentType$zodSchema.optional(),
-  commitment_windowed: z.boolean().optional(),
+  commitment_windowed: z.boolean().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   effective_from: z.string().optional().describe(
     "EffectiveFrom for the existing line item (if not provided, defaults to now)",
   ),

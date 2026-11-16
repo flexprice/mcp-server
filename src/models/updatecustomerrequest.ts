@@ -11,6 +11,10 @@ import {
   CustomerContactPerson,
   CustomerContactPerson$zodSchema,
 } from "./customercontactperson.js";
+import {
+  SettingsOverride,
+  SettingsOverride$zodSchema,
+} from "./settingsoverride.js";
 import { TaxTreatment, TaxTreatment$zodSchema } from "./taxtreatment.js";
 
 /**
@@ -24,6 +28,7 @@ export type UpdateCustomerRequest = {
   address_postal_code?: string | undefined;
   address_state?: string | undefined;
   billing_currency?: string | undefined;
+  billing_entity_id?: string | undefined;
   contact?: string | undefined;
   contact_persons?: Array<CustomerContactPerson> | undefined;
   email?: string | undefined;
@@ -33,6 +38,7 @@ export type UpdateCustomerRequest = {
     | undefined;
   metadata?: { [k: string]: string } | undefined;
   name?: string | undefined;
+  settings?: SettingsOverride | undefined;
   tax_treatment?: TaxTreatment | undefined;
   timezone?: string | undefined;
 };
@@ -60,6 +66,9 @@ export const UpdateCustomerRequest$zodSchema: z.ZodType<UpdateCustomerRequest> =
     billing_currency: z.string().optional().describe(
       "billing_currency updates the invoicing currency; send \"\" to clear it back to the charge currency",
     ),
+    billing_entity_id: z.string().optional().describe(
+      "billing_entity_id cannot be changed; sending it is rejected",
+    ),
     contact: z.string().optional().describe(
       "contact is the updated contact number for the customer (e.g. phone)",
     ),
@@ -84,6 +93,7 @@ export const UpdateCustomerRequest$zodSchema: z.ZodType<UpdateCustomerRequest> =
     name: z.string().optional().describe(
       "name is the updated name or company name for the customer",
     ),
+    settings: SettingsOverride$zodSchema.optional(),
     tax_treatment: TaxTreatment$zodSchema.optional(),
     timezone: z.string().optional().describe(
       "timezone is the updated IANA timezone name for the customer (e.g. \"Asia/Kolkata\", \"America/New_York\")",

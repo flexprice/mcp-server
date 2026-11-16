@@ -37,6 +37,7 @@ export type BillingtermInstalment = {
   instalment_status?: InstalmentStatus | undefined;
   invoice_id?: string | undefined;
   invoice_label?: string | undefined;
+  invoiced_at?: string | undefined;
   kind?: InstalmentKind | undefined;
   metadata?: { [k: string]: string } | undefined;
   owner_id?: string | undefined;
@@ -67,6 +68,9 @@ export const BillingtermInstalment$zodSchema: z.ZodType<BillingtermInstalment> =
     instalment_status: InstalmentStatus$zodSchema.optional(),
     invoice_id: z.string().optional(),
     invoice_label: z.string().optional(),
+    invoiced_at: z.iso.datetime({ offset: true }).optional().describe(
+      "InvoicedAt is when the invoice billing the instalment was finalized.",
+    ),
     kind: InstalmentKind$zodSchema.optional(),
     metadata: z.record(z.string(), z.string()).optional(),
     owner_id: z.string().optional(),

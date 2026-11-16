@@ -73,7 +73,6 @@ export type CommitmentResponse = {
   tenant_id?: string | undefined;
   terminated_at?: string | undefined;
   termination_invoice_id?: string | undefined;
-  timezone?: string | undefined;
   total_amount?: string | undefined;
   type?: CommitmentType | undefined;
   updated_at?: string | undefined;
@@ -120,7 +119,6 @@ export const CommitmentResponse$zodSchema: z.ZodType<CommitmentResponse> = z
     tenant_id: z.string().optional(),
     terminated_at: z.iso.datetime({ offset: true }).optional(),
     termination_invoice_id: z.string().optional(),
-    timezone: z.string().optional(),
     total_amount: z.string().optional(),
     type: CommitmentType$zodSchema.optional(),
     updated_at: z.iso.datetime({ offset: true }).optional(),

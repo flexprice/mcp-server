@@ -23,6 +23,7 @@ export const CustomerFilterOrder$zodSchema = z.enum([
 ]);
 
 export type CustomerFilter = {
+  billing_entity_id?: string | undefined;
   customer_ids?: Array<string> | undefined;
   email?: string | undefined;
   end_time?: string | undefined;
@@ -40,6 +41,9 @@ export type CustomerFilter = {
 };
 
 export const CustomerFilter$zodSchema: z.ZodType<CustomerFilter> = z.object({
+  billing_entity_id: z.string().optional().describe(
+    "billing_entity_id filters by the customer's billing entity",
+  ),
   customer_ids: z.array(z.string()).optional(),
   email: z.string().optional(),
   end_time: z.iso.datetime({ offset: true }).optional(),

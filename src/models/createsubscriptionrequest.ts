@@ -57,6 +57,10 @@ import {
   ProrationBehavior$zodSchema,
 } from "./prorationbehavior.js";
 import {
+  SettingsOverride,
+  SettingsOverride$zodSchema,
+} from "./settingsoverride.js";
+import {
   SubscriptionCouponInput,
   SubscriptionCouponInput$zodSchema,
 } from "./subscriptioncouponinput.js";
@@ -114,6 +118,7 @@ export type CreateSubscriptionRequest = {
   phases?: Array<SubscriptionPhaseCreateRequest> | undefined;
   plan_id: string;
   proration_behavior?: ProrationBehavior | undefined;
+  settings?: SettingsOverride | undefined;
   start_date?: string | undefined;
   subscription_coupons?: Array<SubscriptionCouponInput> | undefined;
   subscription_entitlement_grants?:
@@ -140,7 +145,9 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   billing_period_count: z.int().optional(),
   checkout: CheckoutParams$zodSchema.optional(),
   collection_method: CollectionMethod$zodSchema.optional(),
-  commitment_amount: z.string().optional(),
+  commitment_amount: z.string().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   commitment_duration: BillingPeriod$zodSchema.optional(),
   commitments: z.array(CreateCommitmentRequest$zodSchema).optional().describe(
     "Commitments are created with the subscription. subscription_id, and entity_id on a subscription scope,\nare set server-side.",
@@ -153,7 +160,9 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   customer_id: z.string().optional().describe(
     "CustomerID takes priority over ExternalCustomerID when both are provided.",
   ),
-  enable_true_up: z.boolean().optional(),
+  enable_true_up: z.boolean().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   end_date: z.iso.datetime({ offset: true }).optional(),
   external_customer_id: z.string().optional(),
   fx_rates: z.array(InlineFXRate$zodSchema).optional().describe(
@@ -167,9 +176,7 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   line_item_commitments: z.record(
     z.string(),
     LineItemCommitmentConfig$zodSchema,
-  ).optional().describe(
-    "LineItemCommitments sets per-line-item commitment config, keyed by price_id.",
-  ),
+  ).optional().describe("Deprecated: use POST /commitments instead."),
   line_item_coupons: z.record(z.string(), z.array(z.string())).optional()
     .describe("Deprecated: use SubscriptionCoupons instead."),
   line_item_grouping: LineItemGrouping$zodSchema.optional(),
@@ -177,7 +184,9 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
     .describe("LineItems are extra (non-plan) line items added at creation."),
   lookup_key: z.string().optional(),
   metadata: z.record(z.string(), z.string()).optional(),
-  overage_factor: z.string().optional(),
+  overage_factor: z.string().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   override_entitlements: z.array(OverrideEntitlementRequest$zodSchema)
     .optional(),
   override_line_items: z.array(OverrideLineItemRequest$zodSchema).optional()
@@ -189,6 +198,7 @@ export const CreateSubscriptionRequest$zodSchema: z.ZodType<
   phases: z.array(SubscriptionPhaseCreateRequest$zodSchema).optional(),
   plan_id: z.string(),
   proration_behavior: ProrationBehavior$zodSchema.optional(),
+  settings: SettingsOverride$zodSchema.optional(),
   start_date: z.iso.datetime({ offset: true }).optional(),
   subscription_coupons: z.array(SubscriptionCouponInput$zodSchema).optional()
     .describe(

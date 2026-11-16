@@ -78,25 +78,29 @@ export const GroupedInvoicingChildRequest$zodSchema: z.ZodType<
   GroupedInvoicingChildRequest
 > = z.object({
   addons: z.array(AddAddonToSubscriptionRequest$zodSchema).optional(),
-  commitment_amount: z.string().optional(),
+  commitment_amount: z.string().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   commitment_duration: BillingPeriod$zodSchema.optional(),
   coupons: z.array(z.string()).optional().describe(
     "Deprecated: use SubscriptionCoupons instead.",
   ),
   credit_grants: z.array(CreateCreditGrantRequest$zodSchema).optional(),
-  enable_true_up: z.boolean().optional(),
+  enable_true_up: z.boolean().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   external_customer_id: z.string(),
   line_item_commitments: z.record(
     z.string(),
     LineItemCommitmentConfig$zodSchema,
-  ).optional().describe(
-    "LineItemCommitments sets per-line-item commitment config, keyed by price_id.",
-  ),
+  ).optional().describe("Deprecated: use POST /commitments instead."),
   line_item_coupons: z.record(z.string(), z.array(z.string())).optional()
     .describe("Deprecated: use SubscriptionCoupons instead."),
   line_items: z.array(CreateSubscriptionLineItemRequest$zodSchema).optional()
     .describe("LineItems are extra (non-plan) line items added at creation."),
-  overage_factor: z.string().optional(),
+  overage_factor: z.string().optional().describe(
+    "Deprecated: use POST /commitments instead.",
+  ),
   override_entitlements: z.array(OverrideEntitlementRequest$zodSchema)
     .optional(),
   override_line_items: z.array(OverrideLineItemRequest$zodSchema).optional()

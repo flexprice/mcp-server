@@ -8,6 +8,10 @@ import {
   ProrationBehavior$zodSchema,
 } from "./prorationbehavior.js";
 import {
+  SettingsOverride,
+  SettingsOverride$zodSchema,
+} from "./settingsoverride.js";
+import {
   SubscriptionStatus,
   SubscriptionStatus$zodSchema,
 } from "./subscriptionstatus.js";
@@ -17,6 +21,7 @@ export type UpdateSubscriptionRequest = {
   cancel_at_period_end?: boolean | undefined;
   parent_subscription_id?: string | undefined;
   proration_behavior?: ProrationBehavior | undefined;
+  settings?: SettingsOverride | undefined;
   status?: SubscriptionStatus | undefined;
 };
 
@@ -31,5 +36,6 @@ export const UpdateSubscriptionRequest$zodSchema: z.ZodType<
     "ParentSubscriptionID sets or clears the parent subscription. Omit to leave unchanged; send \"\" to clear.",
   ),
   proration_behavior: ProrationBehavior$zodSchema.optional(),
+  settings: SettingsOverride$zodSchema.optional(),
   status: SubscriptionStatus$zodSchema.optional(),
 });
