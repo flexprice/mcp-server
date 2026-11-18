@@ -27,6 +27,7 @@ import { tool$customersGetCustomerEntitlementsByExternalID } from "./tools/custo
 import { tool$customersGetCustomerUpcomingGrants } from "./tools/customersGetCustomerUpcomingGrants.js";
 import { tool$customersGetCustomerUsageSummary } from "./tools/customersGetCustomerUsageSummary.js";
 import { tool$customersGetSubscriptionsForCustomer } from "./tools/customersGetSubscriptionsForCustomer.js";
+import { tool$customersListCustomerPaymentIntegrations } from "./tools/customersListCustomerPaymentIntegrations.js";
 import { tool$customersListCustomerPaymentMethods } from "./tools/customersListCustomerPaymentMethods.js";
 import { tool$customersQueryCustomer } from "./tools/customersQueryCustomer.js";
 import { tool$customersUpdateCustomer } from "./tools/customersUpdateCustomer.js";
@@ -46,9 +47,12 @@ import { tool$invoicesGetCustomerInvoiceSummary } from "./tools/invoicesGetCusto
 import { tool$invoicesGetInvoice } from "./tools/invoicesGetInvoice.js";
 import { tool$invoicesGetInvoicePdf } from "./tools/invoicesGetInvoicePdf.js";
 import { tool$invoicesGetInvoicePreview } from "./tools/invoicesGetInvoicePreview.js";
+import { tool$invoicesListInvoiceEmails } from "./tools/invoicesListInvoiceEmails.js";
+import { tool$invoicesQueryEmail } from "./tools/invoicesQueryEmail.js";
 import { tool$invoicesQueryInvoice } from "./tools/invoicesQueryInvoice.js";
 import { tool$invoicesRecalculateInvoice } from "./tools/invoicesRecalculateInvoice.js";
 import { tool$invoicesRecalculateInvoiceV2 } from "./tools/invoicesRecalculateInvoiceV2.js";
+import { tool$invoicesSendInvoiceEmail } from "./tools/invoicesSendInvoiceEmail.js";
 import { tool$invoicesTriggerInvoiceCommsWebhook } from "./tools/invoicesTriggerInvoiceCommsWebhook.js";
 import { tool$invoicesUpdateInvoice } from "./tools/invoicesUpdateInvoice.js";
 import { tool$invoicesUpdateInvoicePaymentStatus } from "./tools/invoicesUpdateInvoicePaymentStatus.js";
@@ -118,7 +122,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Flexprice",
-    version: "2.1.49",
+    version: "2.1.50",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -175,22 +179,8 @@ export function createMCPServer(deps: {
   tool(tool$customersDeleteCustomer);
   tool(tool$customersGetCustomerEntitlements);
   tool(tool$customersGetCustomerUpcomingGrants);
+  tool(tool$customersListCustomerPaymentIntegrations);
   tool(tool$customersListCustomerPaymentMethods);
-  tool(tool$invoicesGetCustomerInvoiceSummary);
-  tool(tool$invoicesCreateInvoice);
-  tool(tool$invoicesGetInvoicePreview);
-  tool(tool$invoicesQueryInvoice);
-  tool(tool$invoicesGetInvoice);
-  tool(tool$invoicesUpdateInvoice);
-  tool(tool$invoicesTriggerInvoiceCommsWebhook);
-  tool(tool$invoicesFinalizeInvoice);
-  tool(tool$invoicesExecuteInvoiceModify);
-  tool(tool$invoicesUpdateInvoicePaymentStatus);
-  tool(tool$invoicesAttemptInvoicePayment);
-  tool(tool$invoicesGetInvoicePdf);
-  tool(tool$invoicesRecalculateInvoice);
-  tool(tool$invoicesRecalculateInvoiceV2);
-  tool(tool$invoicesVoidInvoice);
   tool(tool$eventsIngestEvent);
   tool(tool$eventsGetUsageAnalytics);
   tool(tool$eventsIngestEventsBulk);
@@ -199,6 +189,24 @@ export function createMCPServer(deps: {
   tool(tool$eventsListRawEvents);
   tool(tool$eventsGetUsageStatistics);
   tool(tool$eventsGetUsageByMeter);
+  tool(tool$invoicesGetCustomerInvoiceSummary);
+  tool(tool$invoicesQueryEmail);
+  tool(tool$invoicesCreateInvoice);
+  tool(tool$invoicesGetInvoicePreview);
+  tool(tool$invoicesQueryInvoice);
+  tool(tool$invoicesGetInvoice);
+  tool(tool$invoicesUpdateInvoice);
+  tool(tool$invoicesTriggerInvoiceCommsWebhook);
+  tool(tool$invoicesSendInvoiceEmail);
+  tool(tool$invoicesListInvoiceEmails);
+  tool(tool$invoicesFinalizeInvoice);
+  tool(tool$invoicesExecuteInvoiceModify);
+  tool(tool$invoicesUpdateInvoicePaymentStatus);
+  tool(tool$invoicesAttemptInvoicePayment);
+  tool(tool$invoicesGetInvoicePdf);
+  tool(tool$invoicesRecalculateInvoice);
+  tool(tool$invoicesRecalculateInvoiceV2);
+  tool(tool$invoicesVoidInvoice);
   tool(tool$plansCreatePlan);
   tool(tool$plansQueryPlan);
   tool(tool$plansGetPlan);

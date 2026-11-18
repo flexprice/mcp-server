@@ -17,6 +17,7 @@ import {
   CustomerResponse$zodSchema,
 } from "./customerresponse.js";
 import { FxConversion, FxConversion$zodSchema } from "./fxconversion.js";
+import { InFlightCharge, InFlightCharge$zodSchema } from "./inflightcharge.js";
 import {
   InvoiceBillingEntity,
   InvoiceBillingEntity$zodSchema,
@@ -73,6 +74,7 @@ export type InvoiceResponse = {
   hosted_invoice_url?: string | undefined;
   id?: string | undefined;
   idempotency_key?: string | undefined;
+  in_flight_charge?: InFlightCharge | undefined;
   invoice_number?: string | undefined;
   invoice_pdf_url?: string | undefined;
   invoice_status?: InvoiceStatus | undefined;
@@ -174,6 +176,7 @@ export const InvoiceResponse$zodSchema: z.ZodType<InvoiceResponse> = z.object({
   idempotency_key: z.string().optional().describe(
     "idempotency_key is a unique key used to prevent duplicate invoice creation when retrying API calls",
   ),
+  in_flight_charge: InFlightCharge$zodSchema.optional(),
   invoice_number: z.string().optional().describe(
     "invoice_number is the human-readable invoice number displayed to customers (e.g., INV-2024-001)",
   ),

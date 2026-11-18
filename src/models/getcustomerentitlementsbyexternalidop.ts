@@ -11,12 +11,16 @@ import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 
 export type GetCustomerEntitlementsByExternalIDRequest = {
   external_id: string;
+  refresh_grants?: boolean | undefined;
 };
 
 export const GetCustomerEntitlementsByExternalIDRequest$zodSchema: z.ZodType<
   GetCustomerEntitlementsByExternalIDRequest
 > = z.object({
   external_id: z.string().describe("Customer External ID"),
+  refresh_grants: z.boolean().describe(
+    "Evaluate entitlement grants before returning their usage (slower)",
+  ).optional(),
 });
 
 export type GetCustomerEntitlementsByExternalIDResponse =

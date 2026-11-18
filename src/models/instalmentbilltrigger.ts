@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const InstalmentBillTrigger = {
   Date: "date",
   Manual: "manual",
 } as const;
-export type InstalmentBillTrigger = ClosedEnum<typeof InstalmentBillTrigger>;
+export type InstalmentBillTrigger = OpenEnum<typeof InstalmentBillTrigger>;
 
-export const InstalmentBillTrigger$zodSchema = z.enum([
-  "date",
-  "manual",
+export const InstalmentBillTrigger$zodSchema = z.union([
+  z.enum([
+    "date",
+    "manual",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

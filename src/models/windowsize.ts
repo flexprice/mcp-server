@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const WindowSize = {
   Minute: "MINUTE",
@@ -17,17 +17,20 @@ export const WindowSize = {
   Week: "WEEK",
   Month: "MONTH",
 } as const;
-export type WindowSize = ClosedEnum<typeof WindowSize>;
+export type WindowSize = OpenEnum<typeof WindowSize>;
 
-export const WindowSize$zodSchema = z.enum([
-  "MINUTE",
-  "15MIN",
-  "30MIN",
-  "HOUR",
-  "3HOUR",
-  "6HOUR",
-  "12HOUR",
-  "DAY",
-  "WEEK",
-  "MONTH",
+export const WindowSize$zodSchema = z.union([
+  z.enum([
+    "MINUTE",
+    "15MIN",
+    "30MIN",
+    "HOUR",
+    "3HOUR",
+    "6HOUR",
+    "12HOUR",
+    "DAY",
+    "WEEK",
+    "MONTH",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

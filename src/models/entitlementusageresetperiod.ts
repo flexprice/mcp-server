@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const EntitlementUsageResetPeriod = {
   Monthly: "MONTHLY",
@@ -14,16 +14,19 @@ export const EntitlementUsageResetPeriod = {
   HalfYearly: "HALF_YEARLY",
   Never: "NEVER",
 } as const;
-export type EntitlementUsageResetPeriod = ClosedEnum<
+export type EntitlementUsageResetPeriod = OpenEnum<
   typeof EntitlementUsageResetPeriod
 >;
 
-export const EntitlementUsageResetPeriod$zodSchema = z.enum([
-  "MONTHLY",
-  "ANNUAL",
-  "WEEKLY",
-  "DAILY",
-  "QUARTERLY",
-  "HALF_YEARLY",
-  "NEVER",
+export const EntitlementUsageResetPeriod$zodSchema = z.union([
+  z.enum([
+    "MONTHLY",
+    "ANNUAL",
+    "WEEKLY",
+    "DAILY",
+    "QUARTERLY",
+    "HALF_YEARLY",
+    "NEVER",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

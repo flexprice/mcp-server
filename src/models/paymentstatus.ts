@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const PaymentStatus = {
   Initiated: "INITIATED",
@@ -16,16 +16,19 @@ export const PaymentStatus = {
   PartiallyRefunded: "PARTIALLY_REFUNDED",
   Voided: "VOIDED",
 } as const;
-export type PaymentStatus = ClosedEnum<typeof PaymentStatus>;
+export type PaymentStatus = OpenEnum<typeof PaymentStatus>;
 
-export const PaymentStatus$zodSchema = z.enum([
-  "INITIATED",
-  "PENDING",
-  "PROCESSING",
-  "SUCCEEDED",
-  "OVERPAID",
-  "FAILED",
-  "REFUNDED",
-  "PARTIALLY_REFUNDED",
-  "VOIDED",
+export const PaymentStatus$zodSchema = z.union([
+  z.enum([
+    "INITIATED",
+    "PENDING",
+    "PROCESSING",
+    "SUCCEEDED",
+    "OVERPAID",
+    "FAILED",
+    "REFUNDED",
+    "PARTIALLY_REFUNDED",
+    "VOIDED",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

@@ -3,19 +3,22 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const CommitmentEarlyTermination = {
   Forfeit: "forfeit",
   CreditNote: "credit_note",
   BillRemaining: "bill_remaining",
 } as const;
-export type CommitmentEarlyTermination = ClosedEnum<
+export type CommitmentEarlyTermination = OpenEnum<
   typeof CommitmentEarlyTermination
 >;
 
-export const CommitmentEarlyTermination$zodSchema = z.enum([
-  "forfeit",
-  "credit_note",
-  "bill_remaining",
+export const CommitmentEarlyTermination$zodSchema = z.union([
+  z.enum([
+    "forfeit",
+    "credit_note",
+    "bill_remaining",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const FeatureType = {
   Metered: "metered",
@@ -11,11 +11,14 @@ export const FeatureType = {
   Static: "static",
   Config: "config",
 } as const;
-export type FeatureType = ClosedEnum<typeof FeatureType>;
+export type FeatureType = OpenEnum<typeof FeatureType>;
 
-export const FeatureType$zodSchema = z.enum([
-  "metered",
-  "boolean",
-  "static",
-  "config",
+export const FeatureType$zodSchema = z.union([
+  z.enum([
+    "metered",
+    "boolean",
+    "static",
+    "config",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

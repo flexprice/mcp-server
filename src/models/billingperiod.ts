@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const BillingPeriod = {
   Monthly: "MONTHLY",
@@ -14,14 +14,17 @@ export const BillingPeriod = {
   HalfYearly: "HALF_YEARLY",
   Onetime: "ONETIME",
 } as const;
-export type BillingPeriod = ClosedEnum<typeof BillingPeriod>;
+export type BillingPeriod = OpenEnum<typeof BillingPeriod>;
 
-export const BillingPeriod$zodSchema = z.enum([
-  "MONTHLY",
-  "ANNUAL",
-  "WEEKLY",
-  "DAILY",
-  "QUARTERLY",
-  "HALF_YEARLY",
-  "ONETIME",
+export const BillingPeriod$zodSchema = z.union([
+  z.enum([
+    "MONTHLY",
+    "ANNUAL",
+    "WEEKLY",
+    "DAILY",
+    "QUARTERLY",
+    "HALF_YEARLY",
+    "ONETIME",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

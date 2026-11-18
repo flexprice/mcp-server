@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const AlertThresholdType = {
   Absolute: "absolute",
   Percentage: "percentage",
 } as const;
-export type AlertThresholdType = ClosedEnum<typeof AlertThresholdType>;
+export type AlertThresholdType = OpenEnum<typeof AlertThresholdType>;
 
-export const AlertThresholdType$zodSchema = z.enum([
-  "absolute",
-  "percentage",
+export const AlertThresholdType$zodSchema = z.union([
+  z.enum([
+    "absolute",
+    "percentage",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const CheckoutStatus = {
   Initiated: "initiated",
@@ -12,12 +12,15 @@ export const CheckoutStatus = {
   Failed: "failed",
   Expired: "expired",
 } as const;
-export type CheckoutStatus = ClosedEnum<typeof CheckoutStatus>;
+export type CheckoutStatus = OpenEnum<typeof CheckoutStatus>;
 
-export const CheckoutStatus$zodSchema = z.enum([
-  "initiated",
-  "pending",
-  "completed",
-  "failed",
-  "expired",
+export const CheckoutStatus$zodSchema = z.union([
+  z.enum([
+    "initiated",
+    "pending",
+    "completed",
+    "failed",
+    "expired",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

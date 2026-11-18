@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const ResetUsage = {
   BillingPeriod: "BILLING_PERIOD",
   Never: "NEVER",
 } as const;
-export type ResetUsage = ClosedEnum<typeof ResetUsage>;
+export type ResetUsage = OpenEnum<typeof ResetUsage>;
 
-export const ResetUsage$zodSchema = z.enum([
-  "BILLING_PERIOD",
-  "NEVER",
+export const ResetUsage$zodSchema = z.union([
+  z.enum([
+    "BILLING_PERIOD",
+    "NEVER",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

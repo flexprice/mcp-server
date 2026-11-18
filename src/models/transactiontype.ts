@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const TransactionType = {
   Credit: "credit",
   Debit: "debit",
 } as const;
-export type TransactionType = ClosedEnum<typeof TransactionType>;
+export type TransactionType = OpenEnum<typeof TransactionType>;
 
-export const TransactionType$zodSchema = z.enum([
-  "credit",
-  "debit",
+export const TransactionType$zodSchema = z.union([
+  z.enum([
+    "credit",
+    "debit",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

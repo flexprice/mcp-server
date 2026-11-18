@@ -16,6 +16,10 @@ import {
   PaymentMethodType$zodSchema,
 } from "./paymentmethodtype.js";
 import {
+  SavedBankAccountDetails,
+  SavedBankAccountDetails$zodSchema,
+} from "./savedbankaccountdetails.js";
+import {
   SavedCardDetails,
   SavedCardDetails$zodSchema,
 } from "./savedcarddetails.js";
@@ -29,6 +33,7 @@ import {
 } from "./savedupidetails.js";
 
 export type SavedPaymentMethod = {
+  bank_account?: SavedBankAccountDetails | undefined;
   can_auto_charge?: boolean | undefined;
   card?: SavedCardDetails | undefined;
   id?: string | undefined;
@@ -43,6 +48,7 @@ export type SavedPaymentMethod = {
 
 export const SavedPaymentMethod$zodSchema: z.ZodType<SavedPaymentMethod> = z
   .object({
+    bank_account: SavedBankAccountDetails$zodSchema.optional(),
     can_auto_charge: z.boolean().optional().describe(
       "Capability, not permission: could this be charged with nobody present.\nTrue for any active Chargebee or Stripe card (both vault off-session by\nconstruction); false for a Razorpay token without a mandate.",
     ),

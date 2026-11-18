@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const BillingTier = {
   Volume: "VOLUME",
   Slab: "SLAB",
 } as const;
-export type BillingTier = ClosedEnum<typeof BillingTier>;
+export type BillingTier = OpenEnum<typeof BillingTier>;
 
-export const BillingTier$zodSchema = z.enum([
-  "VOLUME",
-  "SLAB",
+export const BillingTier$zodSchema = z.union([
+  z.enum([
+    "VOLUME",
+    "SLAB",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

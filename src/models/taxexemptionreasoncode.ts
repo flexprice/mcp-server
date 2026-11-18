@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const TaxExemptionReasonCode = {
   CustomerExempt: "customer_exempt",
@@ -13,13 +13,16 @@ export const TaxExemptionReasonCode = {
   NotSubjectToTax: "not_subject_to_tax",
   NotSupported: "not_supported",
 } as const;
-export type TaxExemptionReasonCode = ClosedEnum<typeof TaxExemptionReasonCode>;
+export type TaxExemptionReasonCode = OpenEnum<typeof TaxExemptionReasonCode>;
 
-export const TaxExemptionReasonCode$zodSchema = z.enum([
-  "customer_exempt",
-  "no_tax_configured",
-  "reverse_charge",
-  "not_collecting",
-  "not_subject_to_tax",
-  "not_supported",
+export const TaxExemptionReasonCode$zodSchema = z.union([
+  z.enum([
+    "customer_exempt",
+    "no_tax_configured",
+    "reverse_charge",
+    "not_collecting",
+    "not_subject_to_tax",
+    "not_supported",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

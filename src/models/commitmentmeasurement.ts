@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const CommitmentMeasurement = {
   BillingPeriod: "billing_period",
   Window: "window",
 } as const;
-export type CommitmentMeasurement = ClosedEnum<typeof CommitmentMeasurement>;
+export type CommitmentMeasurement = OpenEnum<typeof CommitmentMeasurement>;
 
-export const CommitmentMeasurement$zodSchema = z.enum([
-  "billing_period",
-  "window",
+export const CommitmentMeasurement$zodSchema = z.union([
+  z.enum([
+    "billing_period",
+    "window",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

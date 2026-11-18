@@ -9,12 +9,18 @@ import {
 } from "./customerentitlementsresponse.js";
 import { ErrorResponse, ErrorResponse$zodSchema } from "./errorresponse.js";
 
-export type GetCustomerEntitlementsRequest = { id: string };
+export type GetCustomerEntitlementsRequest = {
+  id: string;
+  refresh_grants?: boolean | undefined;
+};
 
 export const GetCustomerEntitlementsRequest$zodSchema: z.ZodType<
   GetCustomerEntitlementsRequest
 > = z.object({
   id: z.string().describe("Customer ID"),
+  refresh_grants: z.boolean().describe(
+    "Evaluate entitlement grants before returning their usage (slower)",
+  ).optional(),
 });
 
 export type GetCustomerEntitlementsResponse =

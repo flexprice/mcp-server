@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const SubscriptionType = {
   Standalone: "standalone",
@@ -12,12 +12,15 @@ export const SubscriptionType = {
   Inherited: "inherited",
   GroupedInvoicing: "grouped_invoicing",
 } as const;
-export type SubscriptionType = ClosedEnum<typeof SubscriptionType>;
+export type SubscriptionType = OpenEnum<typeof SubscriptionType>;
 
-export const SubscriptionType$zodSchema = z.enum([
-  "standalone",
-  "delegated_invoicing",
-  "parent",
-  "inherited",
-  "grouped_invoicing",
+export const SubscriptionType$zodSchema = z.union([
+  z.enum([
+    "standalone",
+    "delegated_invoicing",
+    "parent",
+    "inherited",
+    "grouped_invoicing",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const RoundType = {
   Up: "up",
   Down: "down",
 } as const;
-export type RoundType = ClosedEnum<typeof RoundType>;
+export type RoundType = OpenEnum<typeof RoundType>;
 
-export const RoundType$zodSchema = z.enum([
-  "up",
-  "down",
+export const RoundType$zodSchema = z.union([
+  z.enum([
+    "up",
+    "down",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

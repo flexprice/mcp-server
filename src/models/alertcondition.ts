@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const AlertCondition = {
   Above: "above",
   Below: "below",
 } as const;
-export type AlertCondition = ClosedEnum<typeof AlertCondition>;
+export type AlertCondition = OpenEnum<typeof AlertCondition>;
 
-export const AlertCondition$zodSchema = z.enum([
-  "above",
-  "below",
+export const AlertCondition$zodSchema = z.union([
+  z.enum([
+    "above",
+    "below",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

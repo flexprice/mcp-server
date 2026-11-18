@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const AggregationType = {
   Count: "COUNT",
@@ -15,15 +15,18 @@ export const AggregationType = {
   Max: "MAX",
   WeightedSum: "WEIGHTED_SUM",
 } as const;
-export type AggregationType = ClosedEnum<typeof AggregationType>;
+export type AggregationType = OpenEnum<typeof AggregationType>;
 
-export const AggregationType$zodSchema = z.enum([
-  "COUNT",
-  "SUM",
-  "AVG",
-  "COUNT_UNIQUE",
-  "LATEST",
-  "SUM_WITH_MULTIPLIER",
-  "MAX",
-  "WEIGHTED_SUM",
+export const AggregationType$zodSchema = z.union([
+  z.enum([
+    "COUNT",
+    "SUM",
+    "AVG",
+    "COUNT_UNIQUE",
+    "LATEST",
+    "SUM_WITH_MULTIPLIER",
+    "MAX",
+    "WEIGHTED_SUM",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

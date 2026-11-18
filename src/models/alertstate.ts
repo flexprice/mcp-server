@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const AlertState = {
   Ok: "ok",
@@ -11,11 +11,14 @@ export const AlertState = {
   Warning: "warning",
   InAlarm: "in_alarm",
 } as const;
-export type AlertState = ClosedEnum<typeof AlertState>;
+export type AlertState = OpenEnum<typeof AlertState>;
 
-export const AlertState$zodSchema = z.enum([
-  "ok",
-  "info",
-  "warning",
-  "in_alarm",
+export const AlertState$zodSchema = z.union([
+  z.enum([
+    "ok",
+    "info",
+    "warning",
+    "in_alarm",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

@@ -1,6 +1,6 @@
 {
   "name": "@flexprice/mcp-server",
-  "version": "2.1.49",
+  "version": "2.1.50",
   "author": "flexprice",
   "type": "module",
   "sideEffects": false,

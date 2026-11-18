@@ -3,17 +3,20 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const Status = {
   Published: "published",
   Deleted: "deleted",
   Archived: "archived",
 } as const;
-export type Status = ClosedEnum<typeof Status>;
+export type Status = OpenEnum<typeof Status>;
 
-export const Status$zodSchema = z.enum([
-  "published",
-  "deleted",
-  "archived",
+export const Status$zodSchema = z.union([
+  z.enum([
+    "published",
+    "deleted",
+    "archived",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

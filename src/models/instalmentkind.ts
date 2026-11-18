@@ -3,15 +3,20 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const InstalmentKind = {
   Instalment: "instalment",
   Settlement: "settlement",
+  CancellationFee: "cancellation_fee",
 } as const;
-export type InstalmentKind = ClosedEnum<typeof InstalmentKind>;
+export type InstalmentKind = OpenEnum<typeof InstalmentKind>;
 
-export const InstalmentKind$zodSchema = z.enum([
-  "instalment",
-  "settlement",
+export const InstalmentKind$zodSchema = z.union([
+  z.enum([
+    "instalment",
+    "settlement",
+    "cancellation_fee",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

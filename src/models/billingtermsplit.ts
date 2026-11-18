@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const BillingTermSplit = {
   Even: "even",
   Proportional: "proportional",
 } as const;
-export type BillingTermSplit = ClosedEnum<typeof BillingTermSplit>;
+export type BillingTermSplit = OpenEnum<typeof BillingTermSplit>;
 
-export const BillingTermSplit$zodSchema = z.enum([
-  "even",
-  "proportional",
+export const BillingTermSplit$zodSchema = z.union([
+  z.enum([
+    "even",
+    "proportional",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

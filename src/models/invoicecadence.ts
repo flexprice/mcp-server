@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const InvoiceCadence = {
   Arrear: "ARREAR",
   Advance: "ADVANCE",
 } as const;
-export type InvoiceCadence = ClosedEnum<typeof InvoiceCadence>;
+export type InvoiceCadence = OpenEnum<typeof InvoiceCadence>;
 
-export const InvoiceCadence$zodSchema = z.enum([
-  "ARREAR",
-  "ADVANCE",
+export const InvoiceCadence$zodSchema = z.union([
+  z.enum([
+    "ARREAR",
+    "ADVANCE",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const WalletTxReferenceType = {
   Payment: "PAYMENT",
@@ -11,11 +11,14 @@ export const WalletTxReferenceType = {
   Request: "REQUEST",
   Invoice: "INVOICE",
 } as const;
-export type WalletTxReferenceType = ClosedEnum<typeof WalletTxReferenceType>;
+export type WalletTxReferenceType = OpenEnum<typeof WalletTxReferenceType>;
 
-export const WalletTxReferenceType$zodSchema = z.enum([
-  "PAYMENT",
-  "EXTERNAL",
-  "REQUEST",
-  "INVOICE",
+export const WalletTxReferenceType$zodSchema = z.union([
+  z.enum([
+    "PAYMENT",
+    "EXTERNAL",
+    "REQUEST",
+    "INVOICE",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

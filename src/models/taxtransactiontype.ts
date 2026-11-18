@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const TaxTransactionType = {
   Filing: "filing",
   Reversal: "reversal",
 } as const;
-export type TaxTransactionType = ClosedEnum<typeof TaxTransactionType>;
+export type TaxTransactionType = OpenEnum<typeof TaxTransactionType>;
 
-export const TaxTransactionType$zodSchema = z.enum([
-  "filing",
-  "reversal",
+export const TaxTransactionType$zodSchema = z.union([
+  z.enum([
+    "filing",
+    "reversal",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

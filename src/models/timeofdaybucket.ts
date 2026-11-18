@@ -11,7 +11,7 @@ export type TimeOfDayBucket = {
   commitment_value?: string | undefined;
   end?: Bucket | undefined;
   id?: string | undefined;
-  overage_factor?: number | undefined;
+  overage_factor?: string | undefined;
   price_id?: string | undefined;
   start?: Bucket | undefined;
   true_up_enabled?: boolean | undefined;
@@ -24,7 +24,7 @@ export const TimeOfDayBucket$zodSchema: z.ZodType<TimeOfDayBucket> = z.object({
   id: z.string().optional().describe(
     "ID is server-assigned. Stable for the lifetime of the line item;\ninvoice breakdown and analytics responses reference this ID.",
   ),
-  overage_factor: z.number().optional(),
+  overage_factor: z.string().optional(),
   price_id: z.string().optional().describe(
     "PriceID is the SUBSCRIPTION-scoped price created at bucket-creation time.\nImmutable post-create; changing pricing requires a successor line item.",
   ),

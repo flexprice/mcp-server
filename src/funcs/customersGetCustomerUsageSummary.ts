@@ -94,6 +94,7 @@ async function $do(
     encodeFormQuery({
       "customer_id": payload$?.customer_id,
       "customer_lookup_key": payload$?.customer_lookup_key,
+      "refresh_grants": payload$?.refresh_grants,
     }),
   );
 

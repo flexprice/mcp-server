@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const WalletType = {
   PrePaid: "PRE_PAID",
   PostPaid: "POST_PAID",
 } as const;
-export type WalletType = ClosedEnum<typeof WalletType>;
+export type WalletType = OpenEnum<typeof WalletType>;
 
-export const WalletType$zodSchema = z.enum([
-  "PRE_PAID",
-  "POST_PAID",
+export const WalletType$zodSchema = z.union([
+  z.enum([
+    "PRE_PAID",
+    "POST_PAID",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

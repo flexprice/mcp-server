@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const TransactionReason = {
   InvoicePayment: "INVOICE_PAYMENT",
@@ -19,19 +19,22 @@ export const TransactionReason = {
   InvoiceVoidRefund: "INVOICE_VOID_REFUND",
   PurchasedCreditBonus: "PURCHASED_CREDIT_BONUS",
 } as const;
-export type TransactionReason = ClosedEnum<typeof TransactionReason>;
+export type TransactionReason = OpenEnum<typeof TransactionReason>;
 
-export const TransactionReason$zodSchema = z.enum([
-  "INVOICE_PAYMENT",
-  "FREE_CREDIT_GRANT",
-  "SUBSCRIPTION_CREDIT_GRANT",
-  "PURCHASED_CREDIT_INVOICED",
-  "PURCHASED_CREDIT_DIRECT",
-  "CREDIT_NOTE",
-  "CREDIT_EXPIRED",
-  "WALLET_TERMINATION",
-  "MANUAL_BALANCE_DEBIT",
-  "CREDIT_ADJUSTMENT",
-  "INVOICE_VOID_REFUND",
-  "PURCHASED_CREDIT_BONUS",
+export const TransactionReason$zodSchema = z.union([
+  z.enum([
+    "INVOICE_PAYMENT",
+    "FREE_CREDIT_GRANT",
+    "SUBSCRIPTION_CREDIT_GRANT",
+    "PURCHASED_CREDIT_INVOICED",
+    "PURCHASED_CREDIT_DIRECT",
+    "CREDIT_NOTE",
+    "CREDIT_EXPIRED",
+    "WALLET_TERMINATION",
+    "MANUAL_BALANCE_DEBIT",
+    "CREDIT_ADJUSTMENT",
+    "INVOICE_VOID_REFUND",
+    "PURCHASED_CREDIT_BONUS",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const CommitmentScopeType = {
   Subscription: "subscription",
@@ -11,11 +11,14 @@ export const CommitmentScopeType = {
   Meter: "meter",
   Price: "price",
 } as const;
-export type CommitmentScopeType = ClosedEnum<typeof CommitmentScopeType>;
+export type CommitmentScopeType = OpenEnum<typeof CommitmentScopeType>;
 
-export const CommitmentScopeType$zodSchema = z.enum([
-  "subscription",
-  "group",
-  "meter",
-  "price",
+export const CommitmentScopeType$zodSchema = z.union([
+  z.enum([
+    "subscription",
+    "group",
+    "meter",
+    "price",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

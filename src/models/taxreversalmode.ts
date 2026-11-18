@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const TaxReversalMode = {
   Full: "full",
   Partial: "partial",
 } as const;
-export type TaxReversalMode = ClosedEnum<typeof TaxReversalMode>;
+export type TaxReversalMode = OpenEnum<typeof TaxReversalMode>;
 
-export const TaxReversalMode$zodSchema = z.enum([
-  "full",
-  "partial",
+export const TaxReversalMode$zodSchema = z.union([
+  z.enum([
+    "full",
+    "partial",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 /**
  * fixed or remainder; percentage is reserved and rejected as not supported yet
@@ -16,12 +16,15 @@ export const BillingTermValueType = {
 /**
  * fixed or remainder; percentage is reserved and rejected as not supported yet
  */
-export type BillingTermValueType = ClosedEnum<typeof BillingTermValueType>;
+export type BillingTermValueType = OpenEnum<typeof BillingTermValueType>;
 
-export const BillingTermValueType$zodSchema = z.enum([
-  "fixed",
-  "percentage",
-  "remainder",
+export const BillingTermValueType$zodSchema = z.union([
+  z.enum([
+    "fixed",
+    "percentage",
+    "remainder",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]).describe(
   "fixed or remainder; percentage is reserved and rejected as not supported yet",
 );

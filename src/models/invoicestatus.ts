@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const InvoiceStatus = {
   Draft: "DRAFT",
@@ -11,11 +11,14 @@ export const InvoiceStatus = {
   Voided: "VOIDED",
   Skipped: "SKIPPED",
 } as const;
-export type InvoiceStatus = ClosedEnum<typeof InvoiceStatus>;
+export type InvoiceStatus = OpenEnum<typeof InvoiceStatus>;
 
-export const InvoiceStatus$zodSchema = z.enum([
-  "DRAFT",
-  "FINALIZED",
-  "VOIDED",
-  "SKIPPED",
+export const InvoiceStatus$zodSchema = z.union([
+  z.enum([
+    "DRAFT",
+    "FINALIZED",
+    "VOIDED",
+    "SKIPPED",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

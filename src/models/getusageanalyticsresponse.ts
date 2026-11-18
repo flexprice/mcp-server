@@ -33,7 +33,7 @@ export const GetUsageAnalyticsResponse$zodSchema: z.ZodType<
   currency: z.string().optional(),
   custom_analytics: z.array(CustomAnalyticItem$zodSchema).optional(),
   instalments: z.array(UsageAnalyticInstalment$zodSchema).optional().describe(
-    "Instalments lists, with expand \"instalments\", the instalments invoiced in the range for the v2 commitments covering\na queried meter; it is empty with property or source filters, or when no usage line runs in the range.",
+    "Instalments lists, with expand \"instalments\", the instalments of the v2 commitments covering a queried meter that\nwere invoiced in the range, or are still scheduled with a bill_on in it; it is empty with property or source\nfilters, or when no usage line runs in the range.",
   ),
   items: z.array(UsageAnalyticItem$zodSchema).optional(),
   subtotal: z.string().optional(),
@@ -41,7 +41,7 @@ export const GetUsageAnalyticsResponse$zodSchema: z.ZodType<
     "TotalCost is the final cost after discount (Subtotal - TotalDiscount)",
   ),
   total_cost_with_instalments: z.string().optional().describe(
-    "TotalCostWithInstalments is TotalCost plus the amounts of Instalments, set when expand includes \"instalments\".",
+    "TotalCostWithInstalments is TotalCost plus the amounts of the invoiced Instalments, set when expand includes\n\"instalments\". Scheduled instalments are not billed yet, so they are left out.",
   ),
   total_discount: z.string().optional(),
 });

@@ -14,6 +14,7 @@ export type GetCustomerUsageSummaryRequest = {
   customer_lookup_key?: string | undefined;
   feature_ids?: Array<string> | undefined;
   feature_lookup_keys?: Array<string> | undefined;
+  refresh_grants?: boolean | undefined;
   subscription_ids?: Array<string> | undefined;
 };
 
@@ -24,6 +25,9 @@ export const GetCustomerUsageSummaryRequest$zodSchema: z.ZodType<
   customer_lookup_key: z.string().optional(),
   feature_ids: z.array(z.string()).optional(),
   feature_lookup_keys: z.array(z.string()).optional(),
+  refresh_grants: z.boolean().describe(
+    "RefreshGrants evaluates entitlement grants before returning their usage, so the read is slower.",
+  ).optional(),
   subscription_ids: z.array(z.string()).optional(),
 });
 

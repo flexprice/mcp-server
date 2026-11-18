@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const PaymentGatewayType = {
   Stripe: "stripe",
@@ -14,14 +14,17 @@ export const PaymentGatewayType = {
   Whop: "whop",
   Chargebee: "chargebee",
 } as const;
-export type PaymentGatewayType = ClosedEnum<typeof PaymentGatewayType>;
+export type PaymentGatewayType = OpenEnum<typeof PaymentGatewayType>;
 
-export const PaymentGatewayType$zodSchema = z.enum([
-  "stripe",
-  "razorpay",
-  "nomod",
-  "moyasar",
-  "paddle",
-  "whop",
-  "chargebee",
+export const PaymentGatewayType$zodSchema = z.union([
+  z.enum([
+    "stripe",
+    "razorpay",
+    "nomod",
+    "moyasar",
+    "paddle",
+    "whop",
+    "chargebee",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

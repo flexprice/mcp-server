@@ -3,17 +3,20 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const EntitlementEntityType = {
   Plan: "PLAN",
   Subscription: "SUBSCRIPTION",
   Addon: "ADDON",
 } as const;
-export type EntitlementEntityType = ClosedEnum<typeof EntitlementEntityType>;
+export type EntitlementEntityType = OpenEnum<typeof EntitlementEntityType>;
 
-export const EntitlementEntityType$zodSchema = z.enum([
-  "PLAN",
-  "SUBSCRIPTION",
-  "ADDON",
+export const EntitlementEntityType$zodSchema = z.union([
+  z.enum([
+    "PLAN",
+    "SUBSCRIPTION",
+    "ADDON",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

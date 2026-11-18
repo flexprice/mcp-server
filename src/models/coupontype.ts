@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const CouponType = {
   Fixed: "fixed",
   Percentage: "percentage",
 } as const;
-export type CouponType = ClosedEnum<typeof CouponType>;
+export type CouponType = OpenEnum<typeof CouponType>;
 
-export const CouponType$zodSchema = z.enum([
-  "fixed",
-  "percentage",
+export const CouponType$zodSchema = z.union([
+  z.enum([
+    "fixed",
+    "percentage",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

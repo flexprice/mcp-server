@@ -3,17 +3,20 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const FXRateScope = {
   Tenant: "tenant",
   Customer: "customer",
   Subscription: "subscription",
 } as const;
-export type FXRateScope = ClosedEnum<typeof FXRateScope>;
+export type FXRateScope = OpenEnum<typeof FXRateScope>;
 
-export const FXRateScope$zodSchema = z.enum([
-  "tenant",
-  "customer",
-  "subscription",
+export const FXRateScope$zodSchema = z.union([
+  z.enum([
+    "tenant",
+    "customer",
+    "subscription",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

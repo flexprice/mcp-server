@@ -3,7 +3,7 @@
  */
 
 import { FlexpriceCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple, queryJoin } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -93,9 +93,14 @@ async function $do(
   const path$ = pathToFunc("/subscriptions/{id}/entitlements")(
     pathParams$,
   );
-  const query$ = encodeFormQuery({
-    "feature_ids": payload$.feature_ids,
-  }, { explode: false });
+  const query$ = queryJoin(
+    encodeFormQuery({
+      "feature_ids": payload$.feature_ids,
+    }, { explode: false }),
+    encodeFormQuery({
+      "refresh_grants": payload$.refresh_grants,
+    }),
+  );
 
   const headers$ = new Headers(compactMap({
     Accept: "application/json",

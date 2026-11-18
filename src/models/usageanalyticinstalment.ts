@@ -3,15 +3,23 @@
  */
 
 import * as z from "zod";
+import { InstalmentKind, InstalmentKind$zodSchema } from "./instalmentkind.js";
+import {
+  InstalmentStatus,
+  InstalmentStatus$zodSchema,
+} from "./instalmentstatus.js";
 
 export type UsageAnalyticInstalment = {
   amount?: string | undefined;
+  bill_on?: string | undefined;
   commitment_id?: string | undefined;
   currency?: string | undefined;
   id?: string | undefined;
+  instalment_status?: InstalmentStatus | undefined;
   invoice_id?: string | undefined;
   invoice_label?: string | undefined;
   invoiced_at?: string | undefined;
+  kind?: InstalmentKind | undefined;
   service_period_end?: string | undefined;
   service_period_start?: string | undefined;
   subscription_id?: string | undefined;
@@ -21,14 +29,17 @@ export const UsageAnalyticInstalment$zodSchema: z.ZodType<
   UsageAnalyticInstalment
 > = z.object({
   amount: z.string().optional(),
+  bill_on: z.string().optional().describe("when it becomes billable"),
   commitment_id: z.string().optional(),
   currency: z.string().optional(),
   id: z.string().optional(),
+  instalment_status: InstalmentStatus$zodSchema.optional(),
   invoice_id: z.string().optional(),
   invoice_label: z.string().optional(),
   invoiced_at: z.iso.datetime({ offset: true }).optional().describe(
     "when the invoice billing it was finalized",
   ),
+  kind: InstalmentKind$zodSchema.optional(),
   service_period_end: z.iso.datetime({ offset: true }).optional(),
   service_period_start: z.iso.datetime({ offset: true }).optional(),
   subscription_id: z.string().optional(),

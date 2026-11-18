@@ -72,7 +72,7 @@ export const UpdateSubscriptionLineItemRequest$zodSchema: z.ZodType<
     "Deprecated: use POST /commitments instead.",
   ),
   effective_from: z.string().optional().describe(
-    "EffectiveFrom for the existing line item (if not provided, defaults to now)",
+    "EffectiveFrom is when the new version starts and the current one ends (defaults to now). A date before\nthe current version's start_date replaces it from that date instead, and price fields become optional.",
   ),
   metadata: z.record(z.string(), z.string()).optional().describe(
     "Metadata for the new line item",

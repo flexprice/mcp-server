@@ -12,6 +12,7 @@ import {
 export type GetSubscriptionEntitlementsRequest = {
   id: string;
   feature_ids?: Array<string> | undefined;
+  refresh_grants?: boolean | undefined;
 };
 
 export const GetSubscriptionEntitlementsRequest$zodSchema: z.ZodType<
@@ -20,6 +21,9 @@ export const GetSubscriptionEntitlementsRequest$zodSchema: z.ZodType<
   feature_ids: z.array(z.string()).describe("Feature IDs to filter by")
     .optional(),
   id: z.string().describe("Subscription ID"),
+  refresh_grants: z.boolean().describe(
+    "Evaluate entitlement grants before returning their usage (slower)",
+  ).optional(),
 });
 
 export type GetSubscriptionEntitlementsResponse =

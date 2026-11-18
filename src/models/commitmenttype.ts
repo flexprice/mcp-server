@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const CommitmentType = {
   Amount: "amount",
   Quantity: "quantity",
 } as const;
-export type CommitmentType = ClosedEnum<typeof CommitmentType>;
+export type CommitmentType = OpenEnum<typeof CommitmentType>;
 
-export const CommitmentType$zodSchema = z.enum([
-  "amount",
-  "quantity",
+export const CommitmentType$zodSchema = z.union([
+  z.enum([
+    "amount",
+    "quantity",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);

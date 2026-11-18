@@ -3,15 +3,18 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const BillingTermKind = {
   Once: "once",
   Recurring: "recurring",
 } as const;
-export type BillingTermKind = ClosedEnum<typeof BillingTermKind>;
+export type BillingTermKind = OpenEnum<typeof BillingTermKind>;
 
-export const BillingTermKind$zodSchema = z.enum([
-  "once",
-  "recurring",
+export const BillingTermKind$zodSchema = z.union([
+  z.enum([
+    "once",
+    "recurring",
+  ]),
+  z.string().transform(catchUnrecognizedEnum),
 ]);
