@@ -17,17 +17,17 @@ export const AutoTopupDuration$zodSchema: z.ZodType<AutoTopupDuration> = z
   });
 
 export type AutoTopup = {
-  amount?: number | undefined;
+  amount?: string | undefined;
   cooldown?: AutoTopupDuration | undefined;
   enabled?: boolean | undefined;
   invoicing?: boolean | undefined;
-  threshold?: number | undefined;
+  threshold?: string | undefined;
 };
 
 export const AutoTopup$zodSchema: z.ZodType<AutoTopup> = z.object({
-  amount: z.number().optional(),
+  amount: z.string().optional(),
   cooldown: z.lazy(() => AutoTopupDuration$zodSchema).optional(),
   enabled: z.boolean().optional(),
   invoicing: z.boolean().optional(),
-  threshold: z.number().optional(),
+  threshold: z.string().optional(),
 });

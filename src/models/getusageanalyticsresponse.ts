@@ -33,7 +33,7 @@ export const GetUsageAnalyticsResponse$zodSchema: z.ZodType<
   currency: z.string().optional(),
   custom_analytics: z.array(CustomAnalyticItem$zodSchema).optional(),
   instalments: z.array(UsageAnalyticInstalment$zodSchema).optional().describe(
-    "Instalments lists, with expand \"instalments\", the instalments of the v2 commitments covering a queried meter that\nwere invoiced in the range, or are still scheduled with a bill_on in it; it is empty with property or source\nfilters, or when no usage line runs in the range.",
+    "Instalments lists the commitment instalments in the range with expand \"instalments\": start <= bill_on < end,\nor start < bill_on <= end for an ARREAR one.",
   ),
   items: z.array(UsageAnalyticItem$zodSchema).optional(),
   subtotal: z.string().optional(),

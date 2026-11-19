@@ -25,10 +25,10 @@ export type UpdateSubscriptionLineItemRequest = {
   amount?: string | undefined;
   billing_model?: BillingModel | undefined;
   bucket_size?: WindowSize | undefined;
-  commitment_amount?: number | undefined;
+  commitment_amount?: string | undefined;
   commitment_duration?: BillingPeriod | undefined;
-  commitment_overage_factor?: number | undefined;
-  commitment_quantity?: number | undefined;
+  commitment_overage_factor?: string | undefined;
+  commitment_quantity?: string | undefined;
   commitment_time_buckets?: Array<CommitmentBucketRequest> | undefined;
   commitment_true_up_enabled?: boolean | undefined;
   commitment_type?: CommitmentType | undefined;
@@ -50,14 +50,14 @@ export const UpdateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   ),
   billing_model: BillingModel$zodSchema.optional(),
   bucket_size: WindowSize$zodSchema.optional(),
-  commitment_amount: z.number().optional().describe(
+  commitment_amount: z.string().optional().describe(
     "Deprecated: use POST /commitments instead.",
   ),
   commitment_duration: BillingPeriod$zodSchema.optional(),
-  commitment_overage_factor: z.number().optional().describe(
+  commitment_overage_factor: z.string().optional().describe(
     "Deprecated: use POST /commitments instead.",
   ),
-  commitment_quantity: z.number().optional().describe(
+  commitment_quantity: z.string().optional().describe(
     "Deprecated: use POST /commitments instead.",
   ),
   commitment_time_buckets: z.array(CommitmentBucketRequest$zodSchema).optional()

@@ -8,8 +8,8 @@ import { AlertSettings, AlertSettings$zodSchema } from "./alertsettings.js";
 export type WebhookDtoWalletAlertInfo = {
   alert_settings?: AlertSettings | undefined;
   alert_type?: string | undefined;
-  credit_balance?: number | undefined;
-  current_balance?: number | undefined;
+  credit_balance?: string | undefined;
+  current_balance?: string | undefined;
   state?: string | undefined;
 };
 
@@ -18,7 +18,7 @@ export const WebhookDtoWalletAlertInfo$zodSchema: z.ZodType<
 > = z.object({
   alert_settings: AlertSettings$zodSchema.optional(),
   alert_type: z.string().optional(),
-  credit_balance: z.number().optional(),
-  current_balance: z.number().optional(),
+  credit_balance: z.string().optional(),
+  current_balance: z.string().optional(),
   state: z.string().optional(),
 });

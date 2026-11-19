@@ -19,10 +19,10 @@ import {
 } from "./subscriptionpricecreaterequest.js";
 
 export type CreateSubscriptionLineItemRequest = {
-  commitment_amount?: number | undefined;
+  commitment_amount?: string | undefined;
   commitment_duration?: BillingPeriod | undefined;
-  commitment_overage_factor?: number | undefined;
-  commitment_quantity?: number | undefined;
+  commitment_overage_factor?: string | undefined;
+  commitment_quantity?: string | undefined;
   commitment_time_buckets?: Array<CommitmentBucketRequest> | undefined;
   commitment_true_up_enabled?: boolean | undefined;
   commitment_type?: CommitmentType | undefined;
@@ -33,7 +33,7 @@ export type CreateSubscriptionLineItemRequest = {
   price?: SubscriptionPriceCreateRequest | undefined;
   price_id?: string | undefined;
   proration_behavior?: ProrationBehavior | undefined;
-  quantity?: number | undefined;
+  quantity?: string | undefined;
   start_date?: string | undefined;
   subscription_phase_id?: string | undefined;
 };
@@ -41,14 +41,14 @@ export type CreateSubscriptionLineItemRequest = {
 export const CreateSubscriptionLineItemRequest$zodSchema: z.ZodType<
   CreateSubscriptionLineItemRequest
 > = z.object({
-  commitment_amount: z.number().optional().describe(
+  commitment_amount: z.string().optional().describe(
     "Deprecated: use POST /commitments instead.",
   ),
   commitment_duration: BillingPeriod$zodSchema.optional(),
-  commitment_overage_factor: z.number().optional().describe(
+  commitment_overage_factor: z.string().optional().describe(
     "Deprecated: use POST /commitments instead.",
   ),
-  commitment_quantity: z.number().optional().describe(
+  commitment_quantity: z.string().optional().describe(
     "Deprecated: use POST /commitments instead.",
   ),
   commitment_time_buckets: z.array(CommitmentBucketRequest$zodSchema).optional()
@@ -68,7 +68,7 @@ export const CreateSubscriptionLineItemRequest$zodSchema: z.ZodType<
     "PriceID references an existing price (plan, addon, or subscription-scoped). Exactly one of price_id or price must be set.",
   ),
   proration_behavior: ProrationBehavior$zodSchema.optional(),
-  quantity: z.number().optional(),
+  quantity: z.string().optional(),
   start_date: z.iso.datetime({ offset: true }).optional(),
   subscription_phase_id: z.string().optional(),
 });

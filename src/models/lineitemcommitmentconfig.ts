@@ -11,22 +11,22 @@ import {
 import { CommitmentType, CommitmentType$zodSchema } from "./commitmenttype.js";
 
 export type LineItemCommitmentConfig = {
-  commitment_amount?: number | undefined;
+  commitment_amount?: string | undefined;
   commitment_duration?: BillingPeriod | undefined;
-  commitment_quantity?: number | undefined;
+  commitment_quantity?: string | undefined;
   commitment_time_buckets?: Array<CommitmentBucketRequest> | undefined;
   commitment_type?: CommitmentType | undefined;
   enable_true_up?: boolean | undefined;
   is_window_commitment?: boolean | undefined;
-  overage_factor?: number | undefined;
+  overage_factor?: string | undefined;
 };
 
 export const LineItemCommitmentConfig$zodSchema: z.ZodType<
   LineItemCommitmentConfig
 > = z.object({
-  commitment_amount: z.number().optional(),
+  commitment_amount: z.string().optional(),
   commitment_duration: BillingPeriod$zodSchema.optional(),
-  commitment_quantity: z.number().optional(),
+  commitment_quantity: z.string().optional(),
   commitment_time_buckets: z.array(CommitmentBucketRequest$zodSchema).optional()
     .describe(
       "CommitmentTimeBuckets scopes commitment to specific UTC-hour windows; requires IsWindowCommitment=true.",
@@ -38,7 +38,7 @@ export const LineItemCommitmentConfig$zodSchema: z.ZodType<
   is_window_commitment: z.boolean().optional().describe(
     "IsWindowCommitment applies commitment per window (e.g. per day) rather than per billing period.",
   ),
-  overage_factor: z.number().optional().describe(
+  overage_factor: z.string().optional().describe(
     "OverageFactor is a multiplier on usage beyond commitment; 1.0 = base rate.",
   ),
 });

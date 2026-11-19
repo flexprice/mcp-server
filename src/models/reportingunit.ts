@@ -5,13 +5,13 @@
 import * as z from "zod";
 
 export type ReportingUnit = {
-  conversion_rate?: number | undefined;
+  conversion_rate?: string | undefined;
   unit_plural?: string | undefined;
   unit_singular?: string | undefined;
 };
 
 export const ReportingUnit$zodSchema: z.ZodType<ReportingUnit> = z.object({
-  conversion_rate: z.number().optional().describe(
+  conversion_rate: z.string().optional().describe(
     "Multiplier: reporting_unit_value = unit_value * conversion_rate; must be > 0",
   ),
   unit_plural: z.string().optional().describe(

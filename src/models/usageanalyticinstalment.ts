@@ -8,6 +8,7 @@ import {
   InstalmentStatus,
   InstalmentStatus$zodSchema,
 } from "./instalmentstatus.js";
+import { InvoiceCadence, InvoiceCadence$zodSchema } from "./invoicecadence.js";
 
 export type UsageAnalyticInstalment = {
   amount?: string | undefined;
@@ -16,6 +17,7 @@ export type UsageAnalyticInstalment = {
   currency?: string | undefined;
   id?: string | undefined;
   instalment_status?: InstalmentStatus | undefined;
+  invoice_cadence?: InvoiceCadence | undefined;
   invoice_id?: string | undefined;
   invoice_label?: string | undefined;
   invoiced_at?: string | undefined;
@@ -34,6 +36,7 @@ export const UsageAnalyticInstalment$zodSchema: z.ZodType<
   currency: z.string().optional(),
   id: z.string().optional(),
   instalment_status: InstalmentStatus$zodSchema.optional(),
+  invoice_cadence: InvoiceCadence$zodSchema.optional(),
   invoice_id: z.string().optional(),
   invoice_label: z.string().optional(),
   invoiced_at: z.iso.datetime({ offset: true }).optional().describe(
